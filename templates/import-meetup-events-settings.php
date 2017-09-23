@@ -37,6 +37,19 @@ $meetup_options = get_option( IME_OPTIONS );
                             </span>
                         </td>
                     </tr>
+
+                    <tr>
+                        <th scope="row">
+                            <?php _e( 'Advanced Synchronization', 'import-meetup-events' ); ?> : 
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" />
+                            <span>
+                                <?php _e( 'Check to enable advanced synchronization, this will delete events which are removed from Meetup. Also, it deletes passed events.', 'import-meetup-events' ); ?>
+                            </span>
+                            <?php do_action( 'ime_render_pro_notice' ); ?>
+                        </td>
+                    </tr>
                 
                 </tbody>
             </table>
