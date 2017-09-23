@@ -648,6 +648,7 @@ class Import_Meetup_Events_Cpt {
 			?>
 		</div>
 		<?php
+		do_action( 'ime_after_event_list', $meetup_events );
 		$wp_list_events = ob_get_contents();
 		ob_end_clean();
 		wp_reset_postdata();

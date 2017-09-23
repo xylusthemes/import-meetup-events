@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Import Meetup Events Pro
+ * Plugin Name:       Import Meetup Events
  * Plugin URI:        https://xylusthemes.com/plugins/import-meetup-events/
- * Description:       Import Meetup Events allows you to automatically import Meetup (meetup.com) events into your WordPress site( The Events Calendar and Events Manager ).
+ * Description:       Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly.
  * Version:           1.1.1
  * Author:            xylus
  * Author URI:        http://xylusthemes.com/
