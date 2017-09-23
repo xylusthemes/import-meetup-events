@@ -19,7 +19,7 @@ $meetup_options = get_option( IME_OPTIONS );
                         <td>
                             <input class="meetup_api_key" name="meetup[meetup_api_key]" type="text" value="<?php if ( isset( $meetup_options['meetup_api_key'] ) ) { echo $meetup_options['meetup_api_key']; } ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="http://www.eventbrite.com/myaccount/apps/" target="_blank">%s</a>', __( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://secure.meetup.com/meetup_api/key/" target="_blank">%s</a>', __( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>       
