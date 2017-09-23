@@ -809,3 +809,10 @@ body {
 .archive-event .wepa_event{
   height: 210px;
 }
+
+@media (max-width: 768px){
+  .ime_event_meta .details,.ime_event_meta .organizer, .organizermain .venue, .organizermain .map{
+    float: none !important;
+    width:100% !important;
+  }
+}
