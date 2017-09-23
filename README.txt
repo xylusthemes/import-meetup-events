@@ -1,10 +1,11 @@
 === Import Meetup Events ===
-Contributors: xylus
+Contributors: xylus,dharm1025
 Donate link: http://xylusthemes.com/
 Tags: events, calendar, event, meetup, meetup event, meetup events, import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
 Requires at least: 4.0
+Requires PHP: 5.3
 Tested up to: 4.8
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +38,9 @@ Here are some features of this plugins.
 *   Setup time interval for "Automatic" event import.
 *   Assign events to particular categories.
 *   Set status(publish, pending, draft) for imported events.
+*   Shortcode for display events on anywhere you want
+*   Upcoming Events widget - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
+*   Advanced Synchronization with Meetups - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
 
 ><strong>New All in one Event Import Tool!</strong><br>
 >We’ve developed bulk event imports tool. This add-on service for The Events Calendar allows you import events from your favorite sources like Facebook, Meetup, Eventbrite, iCalendar, and ICS.
@@ -88,6 +92,16 @@ It can also be installed manually.
 
 
 == Changelog ==
+= 1.2.0 =
+* ADDED: Upcoming Facebook Events Widget (Pro)
+* ADDED: Advanced sync option in Import Meetup Events. (Pro)
+* ADDED: option in shortcode for eventlist “category,col”
+* IMPROVEMENTS: make date multilingual
+* IMPROVEMENTS: in event archive and single event details page.
+* FIXED: some bug fixes in ai1ec events import.
+* FIXED: jQuery UI css conflict with DIVI theme
+* FIXED: some bug fixes.
+
 = 1.1.1 =
 * FIXED: some bug fixes in events manage.
 
