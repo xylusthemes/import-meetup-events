@@ -176,7 +176,7 @@ class Import_Meetup_Events{
 		load_plugin_textdomain(
 			'import-meetup-events',
 			false,
-			IME_PLUGIN_DIR . '/languages/'
+			basename( dirname( __FILE__ ) ) . '/languages'
 		);
 	
 	}
