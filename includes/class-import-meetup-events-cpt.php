@@ -568,7 +568,7 @@ class Import_Meetup_Events_Cpt {
 	function meetup_events_meta_before_content( $content ) { 
 	    if ( is_singular( $this->event_posttype ) ) {
 			$event_details = $this->meetup_events_get_event_meta( get_the_ID() );
-			$content = $event_details . $content;
+			$content = $content . $event_details ;
 		}
 	    return $content;
 	}
