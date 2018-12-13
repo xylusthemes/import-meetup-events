@@ -84,7 +84,10 @@ class Import_Meetup_Events_EM {
 			$options = ime_get_import_options( $centralize_array['origin'] );
 			$update_events = isset( $options['update_events'] ) ? $options['update_events'] : 'no';
 			if ( 'yes' != $update_events ) {
-				return array( 'status'=> 'skipped' );
+				return array(
+					'status' => 'skipped',
+					'id' 	 => $is_exitsing_event
+				);
 			}
 		}
 
@@ -190,7 +193,7 @@ class Import_Meetup_Events_EM {
 			if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
 				$status_changed = $wpdb->update( $wpdb->posts, array( 'post_status' => sanitize_text_field( $event_args['event_status'] ) ), array( 'ID' => $inserted_event_id ) );
 			}
-			
+
 			if ( $is_exitsing_event ) {
 				do_action( 'ime_after_update_em_'.$centralize_array["origin"].'_event', $inserted_event_id, $centralize_array );
 				return array(

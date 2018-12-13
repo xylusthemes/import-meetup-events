@@ -2,10 +2,13 @@
 	'use strict';
 
 	jQuery(document).ready(function(){
-		jQuery('.xt_datepicker').datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd'
+		jQuery(".ime_datepicker").live("click", function(){
+		    jQuery(this).datepicker({
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: 'yy-mm-dd',
+				showOn:'focus'
+			}).focus();
 		});
 	});
 	

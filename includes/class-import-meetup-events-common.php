@@ -208,6 +208,29 @@ class Import_Meetup_Events_Common {
 				return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
 			}
 
+			$args = array(
+				'post_type'   => 'attachment',
+				'post_status' => 'any',
+				'fields'      => 'ids',
+				'meta_query'  => array( // @codingStandardsIgnoreLine.
+					array(
+						'value' => $image_url,
+						'key'   => '_ime_attachment_source',
+					),
+				),
+			);
+
+			$id = 0;
+			$ids = get_posts( $args ); // @codingStandardsIgnoreLine.
+			if ( $ids ) {
+				$id = current( $ids );
+			}
+
+			if( $id && $id > 0 ){
+				set_post_thumbnail( $event_id, $id );
+				return $id;
+			}
+
 			$file_array = array();
 			$file_array['name'] = $event->ID . '_image_'.basename( $matches[0] );
 			
@@ -215,7 +238,7 @@ class Import_Meetup_Events_Common {
 				$attachment_id = get_post_thumbnail_id( $event_id );
 				$attach_filename = basename( get_attached_file( $attachment_id ) );
 				if( $attach_filename == $file_array['name'] ){
-					return false;
+					return $attachment_id;
 				}
 			}
 
@@ -239,6 +262,9 @@ class Import_Meetup_Events_Common {
 			if ($att_id) {
 				set_post_thumbnail($event_id, $att_id);
 			}
+
+			// Save attachment source for future reference.
+			update_post_meta( $att_id, '_ime_attachment_source', $image_url );
 
 			return $att_id;
 		}
@@ -369,7 +395,7 @@ class Import_Meetup_Events_Common {
 	 */
 	function render_import_frequency(){
 		?>
-		<select name="import_frequency" class="import_frequency" disabled="disabled">
+		<select name="import_frequency" class="import_frequency" <?php if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?>>
 	        <option value='hourly'>
 	            <?php esc_html_e( 'Once Hourly','import-meetup-events' ); ?>
 	        </option>
@@ -397,9 +423,9 @@ class Import_Meetup_Events_Common {
 	 */
 	function render_import_type(){
 		?>
-		<select name="import_type" id="import_type" disabled="disabled">
-	    	<option value="onetime" disabled="disabled" ><?php esc_attr_e( 'One-time Import','import-meetup-events' ); ?></option>
-	    	<option value="scheduled" disabled="disabled" selected="selected" ><?php esc_attr_e( 'Scheduled Import','import-meetup-events' ); ?></option>
+		<select name="import_type" id="import_type" <?php if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?>>
+			<option value="onetime" <?php if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?> ><?php esc_attr_e( 'One-time Import','import-meetup-events' ); ?></option>
+			<option value="scheduled" <?php if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?>><?php esc_attr_e( 'Scheduled Import','import-meetup-events' ); ?></option>
 	    </select>
 	    <span class="hide_frequency">
 	    	<?php $this->render_import_frequency(); ?>
@@ -546,11 +572,13 @@ class Import_Meetup_Events_Common {
 	 * @since 1.0.0
 	 */
 	public function render_pro_notice(){
-		?>
-		<span class="ime_small">
-	        <?php printf( '<span style="color: red">%s</span> <a href="' . IME_PLUGIN_BUY_NOW_URL. '" target="_blank" >%s</a>', __( 'Available in Pro version.', 'import-facebook-events' ), __( 'Upgrade to PRO', 'import-facebook-events' ) ); ?>
-	    </span>
-		<?php
+		if( !ime_is_pro() ){
+			?>
+			<span class="ime_small">
+		        <?php printf( '<span style="color: red">%s</span> <a href="' . IME_PLUGIN_BUY_NOW_URL. '" target="_blank" >%s</a>', __( 'Available in Pro version.', 'import-facebook-events' ), __( 'Upgrade to PRO', 'import-facebook-events' ) ); ?>
+		    </span>
+			<?php
+		}
 	}
 
 	/**
@@ -813,4 +841,23 @@ class Import_Meetup_Events_Common {
 		}
 		return $country;
 	}
+}
+
+/**
+ * Check is pro active or not.
+ *
+ * @since  1.4.0
+ * @return boolean
+ */
+function ime_is_pro(){
+	if( !function_exists( 'is_plugin_active' ) ){
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	}
+	if ( is_plugin_active( 'import-meetup-events-pro/import-meetup-events-pro.php' ) ) {
+		return true;
+	}
+	if( class_exists('Import_Meetup_Events_Pro', false) ){
+		return true;
+	}
+	return false;
 }

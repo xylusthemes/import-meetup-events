@@ -62,7 +62,10 @@ class Import_Meetup_Events_My_Calendar {
 			$options = ime_get_import_options( $centralize_array['origin'] );
 			$update_events = isset( $options['update_events'] ) ? $options['update_events'] : 'no';
 			if ( 'yes' != $update_events ) {
-				return array( 'status'=> 'skipped' );
+				return array(
+					'status' => 'skipped',
+					'id' 	 => $is_exitsing_event
+				);
 			}
 		}
 
@@ -142,7 +145,10 @@ class Import_Meetup_Events_My_Calendar {
 
 			if( !empty( $venue ) ){
 				$event_label 	= isset( $venue['name'] ) ? $venue['name'] : '';
-				$event_street 	= isset( $venue['full_address'] ) ? $venue['full_address'] : $venue['address_1'];
+				$event_street 	= isset( $venue['full_address'] ) ? $venue['full_address'] : '';
+				if( $event_street == '' && isset( $venue['address_1'] ) ){
+					$event_street = $venue['address_1'];
+				}
 				$event_street2	= isset( $venue['address_2'] ) ? $venue['address_2'] : '';
 				$address 		= isset( $venue['address_2'] ) ? $venue['address_2'] : '';
 				$event_city 	= isset( $venue['city'] ) ? $venue['city'] : '';

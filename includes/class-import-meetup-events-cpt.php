@@ -258,7 +258,7 @@ class Import_Meetup_Events_Cpt {
 			<tr>
 				<td><?php _e('Start Date & Time', 'import-meetup-events'); ?>:</td>
 				<td>
-				<input type="text" name="event_start_date" class="xt_datepicker" id="event_start_date" value="<?php echo get_post_meta($post->ID, 'event_start_date', true); ?>" /> @ 
+				<input type="text" name="event_start_date" class="ime_datepicker" id="event_start_date" value="<?php echo get_post_meta($post->ID, 'event_start_date', true); ?>" /> @ 
 				<?php
 				$this->generate_dropdown( 'event_start', 'hour', $start_hour );
 				$this->generate_dropdown( 'event_start', 'minute', $start_minute );
@@ -269,7 +269,7 @@ class Import_Meetup_Events_Cpt {
 			<tr>
 				<td><?php _e('End Date & Time', 'import-meetup-events'); ?>:</td>
 				<td>
-					<input type="text" name="event_end_date" class="xt_datepicker" id="event_end_date" value="<?php echo get_post_meta($post->ID, 'event_end_date', true); ?>" /> @ 
+					<input type="text" name="event_end_date" class="ime_datepicker" id="event_end_date" value="<?php echo get_post_meta($post->ID, 'event_end_date', true); ?>" /> @ 
 					<?php
 					$this->generate_dropdown( 'event_end', 'hour', $end_hour );
 					$this->generate_dropdown( 'event_end', 'minute', $end_minute );
@@ -575,7 +575,7 @@ class Import_Meetup_Events_Cpt {
 	function meetup_events_meta_before_content( $content ) { 
 	    if ( is_singular( $this->event_posttype ) ) {
 			$event_details = $this->meetup_events_get_event_meta( get_the_ID() );
-			$content = $content . $event_details ;
+			$content = $content . $event_details;
 		}
 	    return $content;
 	}
@@ -600,7 +600,7 @@ class Import_Meetup_Events_Cpt {
 	 *
 	 */
 	public function meetup_events_archive( $atts = array() ){
-		//[eventbrite_events col='2' posts_per_page='12' category="cat1,cat2"]
+		//[meetup_events col='2' posts_per_page='12' category="cat1,cat2"]
 		$current_date = current_time('Y-m-d');
 		$paged = ( get_query_var('paged') ? get_query_var('paged') : 1 );
 		if( is_front_page() ){
@@ -616,7 +616,7 @@ class Import_Meetup_Events_Cpt {
 						            'value' => $current_date,
 						        )
 				            ),
-		    'meta_key' => 'event_end_date',
+		    'meta_key' => 'event_start_date',
 		    'orderby' => 'meta_value',
 		    'order' => 'ASC',
 		    'paged' => $paged,
