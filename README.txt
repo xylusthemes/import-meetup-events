@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com/
 Tags: events, calendar, event, meetup, meetup event, meetup events, import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 4.9
-Stable tag: 1.3.0
+Tested up to: 5.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,14 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.4.0 =
+* ADDED: Support for WP 5.0
+* ADDED: Meetup Events Gutenberg block.
+* ADDED: more options in shortcode full shortcode is now like. [meetup_events col="2" posts_per_page="12" category="cat1,cat2" past_events="yes" order="desc" orderby="post_title" start_date="2017-12-25" end_date="2018-12-25" ]
+* ADDED: Merged Pro & Free codebase, Introduced Pro as an add-on
+* IMPROVEMENT: Some Improvements
+* FIXED: some bug fixes.
 
 = 1.3.0 =
 * ADDED: Featured Image import support
