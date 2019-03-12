@@ -116,6 +116,7 @@ class Import_Meetup_Events_Meetup {
 
 		$utc_offset = array_key_exists( 'utc_offset', $meetup_event ) ? $meetup_event['utc_offset'] : 0;
 		$utc_offset = floor( $utc_offset / 1000 );
+		$utc_offset_hours = ($utc_offset/3600);
 		$start_time = absint( $start_time_utc + $utc_offset );
 		$end_time = absint( $end_time_utc + $utc_offset );
 
@@ -142,6 +143,7 @@ class Import_Meetup_Events_Meetup {
 			'startime_utc'    => $start_time_utc,
 			'endtime_utc'     => $end_time_utc,
 			'timezone'        => '',
+			'utc_offset_hours'=> $utc_offset_hours,
 			'utc_offset'      => $utc_offset,
 			'event_duration'  => '',
 			'is_all_day'      => '',

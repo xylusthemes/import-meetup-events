@@ -233,6 +233,17 @@ class Import_Meetup_Events_TEC {
 			'EventShowMapLink'		=> 1,
 		);
 
+		if( isset($centralize_array['utc_offset_hours'] ) ){
+			$utc_offset_hours = sanitize_text_field($centralize_array['utc_offset_hours']);
+			if(strpos($utc_offset_hours, '-') === false){
+				$event_args['EventTimezone'] = 'UTC+'.$utc_offset_hours;
+				$event_args['EventTimezoneAbbr'] = 'UTC+'.$utc_offset_hours;
+			}else{
+				$event_args['EventTimezone'] = 'UTC'.$utc_offset_hours;
+				$event_args['EventTimezoneAbbr'] = 'UTC'.$utc_offset_hours;
+			}
+		}
+
 		if ( array_key_exists( 'organizer', $centralize_array ) ) {
 			$event_args['organizer'] = $this->get_organizer_args( $centralize_array['organizer'] );
 		}
