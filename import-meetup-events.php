@@ -54,6 +54,7 @@ if (!class_exists('Import_Meetup_Events')):
                 self::$instance->setup_constants();
 
                 add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+                add_action( 'plugins_loaded', array( self::$instance, 'load_authorize_class' ), 20 );
                 add_action('wp_enqueue_scripts', array(self::$instance, 'ime_enqueue_style'));
 
                 self::$instance->includes();
@@ -196,7 +197,24 @@ if (!class_exists('Import_Meetup_Events')):
                 false,
                 basename(dirname(__FILE__)) . '/languages'
             );
+        }
 
+        /**
+         * Loads the Meetup authorize class
+         *
+         * @access public
+         * @since 1.5
+         * @return void
+         */
+        public function load_authorize_class(){
+
+            if( !class_exists( 'Import_Meetup_Events_Authorize', false ) ){
+                include_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-authorize.php';
+                global $ime_events;
+                if( class_exists('Import_Meetup_Events_Authorize', false ) && !empty( $ime_events ) ){
+                    $ime_events->authorize = new Import_Meetup_Events_Authorize();
+                }
+            }
         }
 
         /**

@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Import_Meetup_Events_Meetup {
 
 	public $api_key;
+	public $access_token;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -22,9 +23,13 @@ class Import_Meetup_Events_Meetup {
 	 */
 	public function __construct() {
 		global $ime_events;
-
+		
 		$options = ime_get_import_options( 'meetup' );
 		$this->api_key = isset( $options['meetup_api_key'] ) ? $options['meetup_api_key'] : '';
+		if( empty( $this->api_key) ){
+			$auth_token = $this->get_user_auth_token();
+			$this->access_token = $auth_token;
+		}
 	}
 
 	/**
@@ -40,24 +45,28 @@ class Import_Meetup_Events_Meetup {
 		$imported_events = array();
 		$meetup_url = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
 		
-		if( $this->api_key == '' ){
-			$ime_errors[] = __( 'Please insert "Meetup API key" in settings.', 'import-meetup-events');
+		if( empty($this->api_key) && empty($this->access_token) ){
+			$ime_errors[] = __( 'Please insert "Meetup API key" Or OAuth key and secret in settings.', 'import-meetup-events');
 			return;
 		}
 
 		$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
 		if( $meetup_group_id == '' ){ return; }
 
-		$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/events?key=' . $this->api_key.'&fields=featured_photo';
+		if(!empty($this->api_key)){
+			$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/events?key=' . $this->api_key.'&fields=featured_photo';
+		}else{
+			$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/events?access_token=' . $this->access_token.'&fields=featured_photo';
+		}
+		
 	    $meetup_response = wp_remote_get( $meetup_api_url , array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
-
 		if ( is_wp_error( $meetup_response ) ) {
 			$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events');
 			return;
 		}
 		
 		$meetup_events = json_decode( $meetup_response['body'], true );
-		if ( is_array( $meetup_events ) && ! isset( $meetup_events['error'] ) ) {
+		if ( is_array( $meetup_events ) && !isset( $meetup_events['errors'] ) ) {
 
 			if( !empty( $meetup_events ) ){
 				foreach ($meetup_events as $meetup_event) {
@@ -67,7 +76,19 @@ class Import_Meetup_Events_Meetup {
 			return $imported_events;
 
 		}else{
-			$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events');
+			if( isset( $meetup_events['errors'] ) ){
+				foreach ( $meetup_events['errors'] as $meetup_event ) {
+					if( isset($meetup_event['message'] ) ){
+						$message = $meetup_event['message'];
+						if( isset($meetup_event['code']) && $meetup_event['code'] == 'auth_fail'){
+							$message = __( 'Please try again after re-connect your account.', 'import-meetup-events');
+						}
+						$ime_errors[] = $message;
+					}
+				}
+			}else{
+				$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events');
+			}
 			return;
 		}
 
@@ -257,15 +278,20 @@ class Import_Meetup_Events_Meetup {
 			return;
 		}
 		
-		if( $this->api_key == '' ){
-			$ime_errors[] = __( 'Please insert "Meetup API key" in settings.', 'import-meetup-events');
+		if( empty($this->api_key) && empty($this->access_token) ){
+			$ime_errors[] = __( 'Please insert "Meetup API key" Or OAuth key and secret in settings.', 'import-meetup-events');
 			return;
 		}
 
 		$url_group_slug = $this->fetch_group_slug_from_url( $meetup_url );
 		if( $url_group_slug == '' ){ return; }
 
-		$get_group = wp_remote_get( 'https://api.meetup.com/' . $url_group_slug .'/?key=' . $this->api_key, array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
+		if(!empty($this->api_key)){
+			$get_group = wp_remote_get( 'https://api.meetup.com/' . $url_group_slug .'/?key=' . $this->api_key, array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
+		}else{
+			$get_group = wp_remote_get( 'https://api.meetup.com/' . $url_group_slug .'/?access_token=' . $this->access_token, array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
+		}
+
 		if ( ! is_wp_error( $get_group ) ) {
 			$group = json_decode( $get_group['body'], true );
 			if ( is_array( $group ) && ! isset( $group['errors'] ) ) {
@@ -296,5 +322,62 @@ class Import_Meetup_Events_Meetup {
 			$url = substr( $url, 0, $slash_position );
 		}
 		return $url;
+	}
+
+	 /*
+	* Refresh Meetup user access token
+	*/
+    function ime_refresh_user_token() {
+    	$ime_user_token_options = get_option( 'ime_user_token_options', array() );
+    	$meetup_options = get_option( IME_OPTIONS );
+		$meetup_oauth_key = isset( $meetup_options['meetup_oauth_key'] ) ? $meetup_options['meetup_oauth_key'] : '';
+		$meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup_options['meetup_oauth_secret'] : '';
+		$refresh_token = isset($ime_user_token_options->refresh_token) ? $ime_user_token_options->refresh_token : '';
+
+		if( $meetup_oauth_key != '' && $meetup_oauth_secret != '' && $refresh_token != '' ){
+			$token_url = 'https://secure.meetup.com/oauth2/access';
+			$args = array(
+				'method' => 'POST',
+				'headers' => array( 'content-type' => 'application/x-www-form-urlencoded'),
+				'body'    => "client_id={$meetup_oauth_key}&client_secret={$meetup_oauth_secret}&grant_type=refresh_token&refresh_token={$refresh_token}"
+			);
+			$access_token = "";
+			$ime_user_token_options = array();
+			$response = wp_remote_post( $token_url, $args );
+			$body = wp_remote_retrieve_body( $response );
+			$body_response = json_decode( $body );
+			if ($body != '' && isset( $body_response->access_token ) ) {
+				$access_token = $body_response->access_token;
+				delete_transient('ime_meetup_auth_token');
+			    update_option('ime_user_token_options', $body_response);
+			    return $access_token;
+			}else{
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return false;
+    }
+
+	/**
+	 * Get User Auth Token
+	 *
+	 * @return string
+	 */
+	public function get_user_auth_token(){
+		$ime_transient_key = 'ime_meetup_auth_token';
+		$auth_token = get_transient( $ime_transient_key );
+		if ( false === $auth_token ) {
+			$ime_user_token_options = get_option( 'ime_user_token_options', array() );
+			if( !empty( $ime_user_token_options->refresh_token ) ){
+				$auth_token = $this->ime_refresh_user_token();
+				if($auth_token){
+					// Set transient.
+					set_transient( $ime_transient_key, $auth_token, 1800 );
+				}
+			}
+		}
+		return $auth_token;
 	}
 }

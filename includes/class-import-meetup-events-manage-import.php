@@ -160,11 +160,11 @@ class Import_Meetup_Events_Manage_Import {
 	public function handle_meetup_import_form_submit( $event_data ){
 		global $ime_errors, $ime_success_msg, $ime_events;
 
-		$meetup_options = ime_get_import_options('meetup');
-		if( !isset( $meetup_options['meetup_api_key'] ) || $meetup_options['meetup_api_key'] == '' ){
+		/*$meetup_options = ime_get_import_options('meetup');
+		if( !isset( $meetup_options['meetup_api_key'] ) || $meetup_options['meetup_api_key'] == ''0 ){
 			$ime_errors[] = __( 'Please insert "Meetup API key" in settings.', 'import-meetup-events');
 			return;
-		}
+		}*/
 				
 		$event_data['import_origin'] = 'meetup';
 		$event_data['meetup_url'] = isset( $_POST['meetup_url'] ) ? $_POST['meetup_url'] : '';

@@ -33,6 +33,7 @@ class Import_Meetup_Events_Admin {
 
 		add_action( 'init', array( $this, 'register_scheduled_import_cpt' ) );
 		add_action( 'init', array( $this, 'register_history_cpt' ) );
+		add_action( 'admin_init', array( $this, 'setup_success_messages' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles') );
@@ -373,5 +374,23 @@ class Import_Meetup_Events_Admin {
 			}
 		}
 		return $plugin_data;
+	}
+
+	/**
+	 * Setup Success Messages.
+	 *
+	 * @since    1.0.0
+	 */
+	public function setup_success_messages() {
+		global $ime_success_msg, $ime_errors;
+		if ( isset( $_GET['m_authorize'] ) && trim( $_GET['m_authorize'] ) != '' ) {
+			if( trim( $_GET['m_authorize'] ) == '1' ){
+				$ime_success_msg[] = esc_html__( 'Authorized Successfully.', 'import-meetup-events' );	
+			} elseif( trim( $_GET['m_authorize'] ) == '2' ){
+				$ime_errors[] = esc_html__( 'Please insert Meetup Auth Key and Secret.', 'import-meetup-events' );	
+			} elseif( trim( $_GET['m_authorize'] ) == '0' ){
+				$ime_errors[] = esc_html__( 'Something went wrong during authorization. Please try again.', 'import-meetup-events' );	
+			}
+		}
 	}
 }
