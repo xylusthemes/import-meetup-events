@@ -324,7 +324,7 @@ class Import_Meetup_Events_Meetup {
 		return $url;
 	}
 
-	 /*
+	/*
 	* Refresh Meetup user access token
 	*/
     function ime_refresh_user_token() {
