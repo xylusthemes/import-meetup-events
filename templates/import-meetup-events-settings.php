@@ -175,6 +175,22 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                             <?php do_action( 'ime_render_pro_notice' ); ?>
                         </td>
                     </tr>
+
+                    <tr>
+						<th scope="row">
+							<?php esc_attr_e( 'Accent Color', 'import-meetup-events' ); ?> :
+						</th>
+						<td>
+						<?php
+						$accent_color = isset( $meetup_options['accent_color'] ) ? $meetup_options['accent_color'] : '#039ED7';
+						?>
+						<input class="ime_color_field" type="text" name="meetup[accent_color]" value="<?php echo esc_attr( $accent_color ); ?>"/>
+						<span class="ime_small">
+							<?php esc_attr_e( 'Choose accent color for front-end event grid and event widget.', 'import-meetup-events' ); ?>
+						</span>
+						</td>
+                    </tr>
+                    
                 </tbody>
             </table>
             <br/>
