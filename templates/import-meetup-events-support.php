@@ -12,28 +12,44 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 ?>
 <div class="wpea_container">
     <div class="wpea_row">
-        <div class="wpea-column support_well">
-        	<h3><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
-            <p><?php _e( 'Thanks you for using Import Meetup Events, We are sincerely appreciate your support and we’re excited to see you using our plugins.','import-meetup-events' ); ?> </p>
-            <p><?php _e( 'Our support team is always around to help you.','import-meetup-events' ); ?></p>
-                
-            <p><strong><?php _e( 'Looking for free support?','import-meetup-events' ); ?></strong></p>
-            <a class="button button-secondary" href="<?php echo $open_source_support_url; ?>" target="_blank" >
-                <?php _e( 'Open-source forum on WordPress.org','import-meetup-events' ); ?>
-            </a>
+        <div class="wrap"style="min-width: 100%;">
+            <h3 class="setting_bar"><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
+            <div class="xylus-support-page">
+                <div class="support-block">
+                    <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ).'assets/images/target.png'; ?>" alt="Looking for Something?">
+                    <h3>Looking for Something?</h3>
+                    <p>We have documentation of how to import meetup events.</p>
+                    <a target="_blank" class="button button-primary" href="https://docs.xylusthemes.com/docs/import-meetup-events/">Visit the Plugin Documentation</a>
+                </div>
 
-            <p><strong><?php _e( 'Looking for more immediate support?','import-meetup-events' ); ?></strong></p>
-            <p><?php _e( 'We offer premium support on our website with the purchase of our premium plugins.','import-meetup-events' ); ?>
-            </p>
-            
-            <a class="button button-primary" href="<?php echo $support_url; ?>" target="_blank" >
-                <?php _e( 'Contact us directly (Premium Support)','import-meetup-events' ); ?>
-            </a>
+                <div class="support-block">
+                    <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ).'assets/images/assistance.png'; ?>" alt="Need Any Assistance?">
+                    <h3>Need Any Assistance?</h3>
+                    <p>Our EXPERT Support Team is always ready to Help you out.</p>
+                    <a target="_blank" class="button button-primary" href="https://xylusthemes.com/support/">Contact Support</a>
+                </div>
 
-            <p><strong><?php _e( 'Enjoying Import Meetup Events or have feedback?','import-meetup-events' ); ?></strong></p>
-            <a class="button button-secondary" href="<?php echo $review_url; ?>" target="_blank" >Leave us a review</a> 
-            <a class="button button-secondary" href="<?php echo $twitter_url; ?>" target="_blank" >Follow us on Twitter</a> 
-            <a class="button button-secondary" href="<?php echo $facebook_url; ?>" target="_blank" >Like us on Facebook</a>
+                <div class="support-block">
+                    <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ).'assets/images/bug.png'; ?>" alt="Found Any Bugs?">
+                    <h3>Found Any Bugs?</h3>
+                    <p>Report any Bug that you Discovered, Get Instant Solutions.</p>
+                    <a target="_blank" class="button button-primary" href="https://github.com/xylusthemes/import-meetup-events">Report to GitHub</a>
+                </div>
+
+                <div class="support-block">
+                    <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ).'assets/images/tools.png'; ?>" alt="Require Customization?">
+                    <h3>Require Customization?</h3>
+                    <p>We would Love to hear your Integration and Customization Ideas.</p>
+                    <a target="_blank" class="button button-primary" href="https://xylusthemes.com/what-we-do/">Connect Our Service</a>
+                </div>
+
+                <div class="support-block">
+                    <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ).'assets/images/like.png'; ?>" alt="Like The Plugin?">
+                    <h3>Like The Plugin?</h3>
+                    <p>Your Review is very important to us as it helps us to grow more.</p>
+                    <a target="_blank" class="button button-primary" href="https://wordpress.org/support/plugin/import-meetup-events/reviews/?rate=5#new-post">Review US on WP.org</a>
+                </div>
+            </div>
         </div>
 
         <?php 
