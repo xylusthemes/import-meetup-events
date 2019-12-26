@@ -162,7 +162,6 @@ class Import_Meetup_Events_EM {
 			update_post_meta( $inserted_event_id, '_event_end', date( 'Y-m-d H:i:s', $end_time ) );
 			update_post_meta( $inserted_event_id, '_event_start_local', date( 'Y-m-d H:i:s', $start_time ) );
 			update_post_meta( $inserted_event_id, '_event_end_local', date( 'Y-m-d H:i:s', $end_time ) );
-
 			update_post_meta( $inserted_event_id, '_location_id', $location_id );
 			update_post_meta( $inserted_event_id, '_event_status', $event_status );
 			update_post_meta( $inserted_event_id, '_event_private', 0 );
