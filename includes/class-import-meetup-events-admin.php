@@ -84,8 +84,8 @@ class Import_Meetup_Events_Admin {
 		if( 'meetup_import' == $page || $pagenow == 'widgets.php' || 'post.php' == $pagenow || 'post-new.php' == $pagenow ){
 		  	$css_dir = IME_PLUGIN_URL . 'assets/css/';
 		 	wp_enqueue_style('jquery-ui', $css_dir . 'jquery-ui.css', false, "1.12.0" );
-			 wp_enqueue_style('import-meetup-events', $css_dir . 'import-meetup-events-admin.css', false, "" );
-			 wp_enqueue_style('wp-color-picker');
+			wp_enqueue_style('import-meetup-events', $css_dir . 'import-meetup-events-admin.css', false, "" );
+			wp_enqueue_style('wp-color-picker');
 		}
 	}
 
