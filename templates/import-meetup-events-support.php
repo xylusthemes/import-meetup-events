@@ -13,7 +13,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 <div class="wpea_container">
     <div class="wpea_row">
         <div class="wpea-column support_well">
-        	<h3 class><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
+        	<h3 class="setting_bar"><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
             <div class="ime-support-features">
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
