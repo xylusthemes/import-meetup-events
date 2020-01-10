@@ -134,6 +134,9 @@ class Import_Meetup_Events_Admin {
 							<a href="<?php echo esc_url( add_query_arg( 'tab', 'support', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'support' ) { echo 'nav-tab-active'; } ?>">
 								<?php esc_html_e( 'Support & Help', 'import-facebook-events' ); ?>
 							</a>
+                            <a href="<?php echo esc_url( add_query_arg( 'tab', 'shortcode', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'shortcode' ) { echo 'nav-tab-active'; } ?>">
+								<?php esc_html_e( 'Shortcode', 'import-facebook-events' ); ?>
+							</a>
 						</h1>
 
 						<div class="wp-event-aggregator-page">
@@ -149,10 +152,12 @@ class Import_Meetup_Events_Admin {
 								}else{
 									do_action( 'ime_render_pro_notice' );
 								}
-							}elseif ( $tab == 'history' ) {
+							} elseif ( $tab == 'history' ) {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-history.php';
 							} elseif ( $tab == 'support' ) {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-support.php';
+                            } elseif ( $tab == 'shortcode' ) {
+								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-shortcode.php';
 							}
 							?>
 							<div style="clear: both"></div>

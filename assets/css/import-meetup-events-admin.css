@@ -288,3 +288,84 @@ table.ime_form_table tr td:nth-child(1) {
     float: left;
     margin-right: 10px;
 }
+/*ADD new short code page*/
+.shortcode_container {
+    width: 100%;
+    float: left;
+    display: block;
+}
+.box-part {
+    background: #FFF;
+    display: block;
+    border-radius: 3px;
+    font-weight: 500;
+    width: 33.33%;
+    height: 130px;
+    border: 1px solid #ddd;
+    text-align: center;
+    float: left;
+}
+.title {
+    font-size: 20px;
+    padding: 0 0 0 10px;
+}
+.text{
+    padding : 0 0 0 10px;
+}
+.last{
+    width: 100%;
+    background: #FFF;
+    display: block;
+    border-radius: 3px;
+    font-weight: 500;
+    height: 130px;
+    border: 1px solid #ddd;
+    text-align: center;
+    float: left;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .shortcode_container .box-part {
+            width: 100%;
+            height: 150px;
+        }
+        .last{
+            width: 100%;
+            height: 180px;
+        }
+}
+@media only screen and (min-width: 600px) {
+    .shortcode_container .box-part {
+            width: 100%;
+        }
+        .last{
+            width: 100%;
+        }
+}
+@media only screen and (min-width: 768px) {
+    .shortcode_container .box-part{
+            width: 50%;
+            height: 140px;
+        }
+        .last{
+            width: 100%;
+            height: 140px;
+        }
+} 
+@media only screen and (min-width: 992px) {
+    .shortcode_container  .box-part{
+            width: 50%;
+        }
+        .last{
+            width: 100%;
+        }
+} 
+@media only screen and (min-width: 1200px) {
+    .shortcode_container  .box-part{
+            width: 33.33%;
+        }
+        .last{
+            width: 100%;
+        }
+}
