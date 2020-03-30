@@ -99,7 +99,10 @@ class Import_Meetup_Events_EM {
 		$ticket_uri = $centralize_array['url'];
 		$timezone_name = isset( $centralize_array['timezone_name'] ) ? $centralize_array['timezone_name'] : '';
 		if( empty($timezone_name)){
-			$timezone_name = isset( $centralize_array['timezone'] ) ? $centralize_array['timezone'] : 'UTC';
+			$timezone_name = 'UTC';
+			if( isset( $centralize_array['timezone'] ) && !empty( trim( $centralize_array['timezone'] ) ) ){
+				$timezone_name = $centralize_array['timezone'];
+			}
 		}
 
 		$emeventdata = array(
