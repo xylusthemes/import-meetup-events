@@ -1,5 +1,6 @@
 <?php
 // If this file is called directly, abort.
+// Icon Credit: Icon made by Freepik and Vectors Market from www.flaticon.com
 if ( ! defined( 'ABSPATH' ) ) exit;
 global $ime_events;
 $open_source_support_url = 'https://wordpress.org/support/plugin/import-meetup-events/';
@@ -13,27 +14,59 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 <div class="wpea_container">
     <div class="wpea_row">
         <div class="wpea-column support_well">
-        	<h3><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
-            <p><?php _e( 'Thanks you for using Import Meetup Events, We are sincerely appreciate your support and we’re excited to see you using our plugins.','import-meetup-events' ); ?> </p>
-            <p><?php _e( 'Our support team is always around to help you.','import-meetup-events' ); ?></p>
-                
-            <p><strong><?php _e( 'Looking for free support?','import-meetup-events' ); ?></strong></p>
-            <a class="button button-secondary" href="<?php echo $open_source_support_url; ?>" target="_blank" >
-                <?php _e( 'Open-source forum on WordPress.org','import-meetup-events' ); ?>
-            </a>
-
-            <p><strong><?php _e( 'Looking for more immediate support?','import-meetup-events' ); ?></strong></p>
-            <p><?php _e( 'We offer premium support on our website with the purchase of our premium plugins.','import-meetup-events' ); ?>
-            </p>
-            
-            <a class="button button-primary" href="<?php echo $support_url; ?>" target="_blank" >
-                <?php _e( 'Contact us directly (Premium Support)','import-meetup-events' ); ?>
-            </a>
-
-            <p><strong><?php _e( 'Enjoying Import Meetup Events or have feedback?','import-meetup-events' ); ?></strong></p>
-            <a class="button button-secondary" href="<?php echo $review_url; ?>" target="_blank" >Leave us a review</a> 
-            <a class="button button-secondary" href="<?php echo $twitter_url; ?>" target="_blank" >Follow us on Twitter</a> 
-            <a class="button button-secondary" href="<?php echo $facebook_url; ?>" target="_blank" >Like us on Facebook</a>
+        	<h3 class="setting_bar"><?php esc_attr_e( 'Getting Support', 'import-meetup-events' ); ?></h3>
+            <div class="ime-support-features">
+				<div class="ime-support-features-card">
+					<div class="ime-support-features-img">
+						<img class="ime-support-features-icon" src="<?php echo IME_PLUGIN_URL.'assets/images/document.svg'; ?>" alt="<?php esc_attr_e( 'Looking for Something?', 'import-meetup-events' ); ?>">
+					</div>
+					<div class="ime-support-features-text">
+						<h3 class="ime-support-features-title"><?php esc_attr_e( 'Looking for Something?', 'import-meetup-events' ); ?></h3>
+						<p><?php esc_attr_e( 'We have documentation of how to import meetup events.', 'import-meetup-events' ); ?></p>
+						<a target="_blank" class="button button-primary" href="http://docs.xylusthemes.com/docs/import-meetup-events/"><?php esc_attr_e( 'Plugin Documentation', 'import-meetup-events' ); ?></a>
+					</div>
+				</div>
+				<div class="ime-support-features-card">
+					<div class="ime-support-features-img">
+						<img class="ime-support-features-icon" src="<?php echo IME_PLUGIN_URL.'assets/images/call-center.svg'; ?>" alt="<?php esc_attr_e( 'Need Any Assistance?', 'import-meetup-events' ); ?>">
+					</div>
+					<div class="ime-support-features-text">
+						<h3 class="ime-support-features-title"><?php esc_attr_e( 'Need Any Assistance?', 'import-meetup-events' ); ?></h3>
+						<p><?php esc_attr_e( 'Our EXPERT Support Team is always ready to Help you out.', 'import-meetup-events' ); ?></p>
+						<a target="_blank" class="button button-primary" href="https://xylusthemes.com/support/"><?php esc_attr_e( 'Contact Support', 'import-meetup-events' ); ?></a>
+					</div>
+				</div>
+				<div class="ime-support-features-card">
+					<div class="ime-support-features-img">
+						<img class="ime-support-features-icon"  src="<?php echo IME_PLUGIN_URL.'assets/images/bug.svg'; ?>" alt="<?php esc_attr_e( 'Found Any Bugs?', 'import-meetup-events' ); ?>" />
+					</div>
+					<div class="ime-support-features-text">
+						<h3 class="ime-support-features-title"><?php esc_attr_e( 'Found Any Bugs?', 'import-meetup-events' ); ?></h3>
+						<p><?php esc_attr_e( 'Report any Bug that you Discovered, Get Instant Solutions.', 'import-meetup-events' ); ?></p>
+						<a target="_blank" class="button button-primary" href="https://github.com/xylusthemes/import-meetup-events"><?php esc_attr_e( 'Report to GitHub', 'import-meetup-events' ); ?></a>
+					</div>
+				</div>
+				<div class="ime-support-features-card">
+					<div class="ime-support-features-img">
+						<img class="ime-support-features-icon" src="<?php echo IME_PLUGIN_URL.'assets/images/tools.svg'; ?>" alt="<?php esc_attr_e( 'Require Customization?', 'import-meetup-events' ); ?>" />
+					</div>
+					<div class="ime-support-features-text">
+						<h3 class="ime-support-features-title"><?php esc_attr_e( 'Require Customization?', 'import-meetup-events' ); ?></h3>
+						<p><?php esc_attr_e( 'We would Love to hear your Integration and Customization Ideas.', 'import-meetup-events' ); ?></p>
+						<a target="_blank" class="button button-primary" href="https://xylusthemes.com/what-we-do/"><?php esc_attr_e( 'Connect Our Service', 'import-meetup-events' ); ?></a>
+					</div>
+				</div>
+				<div class="ime-support-features-card">
+					<div class="ime-support-features-img">
+						<img class="ime-support-features-icon" src="<?php echo IME_PLUGIN_URL.'assets/images/like.svg'; ?>" alt="<?php esc_attr_e( 'Like The Plugin?', 'import-meetup-events' ); ?>" />
+					</div>
+					<div class="ime-support-features-text">
+						<h3 class="ime-support-features-title"><?php esc_attr_e( 'Like The Plugin?', 'import-meetup-events' ); ?></h3>
+						<p><?php esc_attr_e( 'Your Review is very important to us as it helps us to grow more.', 'import-meetup-events' ); ?></p>
+						<a target="_blank" class="button button-primary" href="https://wordpress.org/support/plugin/import-meetup-events/reviews/?rate=5#new-post"><?php esc_attr_e( 'Review Us on WP.org', 'import-meetup-events' ); ?></a>
+					</div>
+				</div>
+			</div>
         </div>
 
         <?php 
