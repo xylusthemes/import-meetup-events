@@ -779,7 +779,7 @@ class Import_Meetup_Events_Cpt {
 		$ime_options = get_option( IME_OPTIONS );
         $accent_color = isset( $ime_options['accent_color'] ) ? $ime_options['accent_color'] : '#039ED7';
         $direct_link = isset($ime_options['direct_link']) ? $ime_options['direct_link'] : 'no';
-        if (!iee_is_pro()) {
+        if (!ime_is_pro()) {
             $direct_link = 'no';
         }
 		ob_start();
