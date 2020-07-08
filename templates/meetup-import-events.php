@@ -37,6 +37,17 @@ global $ime_events;
 					    $ime_events->common->render_eventstatus_input();
 					    ?>
 
+						<tr>
+							<th scope="row">
+								<?php _e('Author','import-meetup-events'); ?> :
+							</th>
+							<td>
+								<?php wp_dropdown_users( array( 'show_option_none' => esc_attr__( 'Select Author','import-meetup-events'), 'name' => 'event_author' ) ); ?>
+								<span class="ime_small">
+									<?php _e( 'Select event author for imported events. Default event auther is current loggedin user.', 'import-meetup-events' ); ?>
+								</span>
+							</td>
+						</tr>
 
 					</tbody>
 		        </table>
