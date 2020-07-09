@@ -78,7 +78,7 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                                         ?>
                                         <input type="submit" class="button" name="ime_authorize" value="<?php echo $button_value; ?>" />
                                     </form>
-                                    <span class="ife_small">
+                                    <span class="ime_small">
                                         <?php _e( 'Please connect your meetup account for import meetup events.','import-meetup-events' ); ?>
                                     </span>
                                 <?php } ?>
@@ -160,6 +160,21 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                         </td>
                     </tr>
 
+                    <tr>
+                        <th scope="row">
+                            <?php _e('Direct link to Meetup', 'import-meetup-events'); ?> :
+                        </th>
+                        <td>
+                            <?php
+                            $direct_link = isset($meetup_options['direct_link']) ? $meetup_options['direct_link'] : 'no';
+                            ?>
+                            <input type="checkbox" name="meetup[direct_link]" value="yes" <?php if ($direct_link == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
+                            <span>
+                                <?php _e('Check to enable direct event link to Meetup instead of event detail page.', 'import-meetup-events'); ?>
+                            </span>
+                            <?php do_action('ime_render_pro_notice'); ?>
+                        </td>
+                    </tr>
                     <tr>
                         <th scope="row">
                             <?php _e( 'Advanced Synchronization', 'import-meetup-events' ); ?> : 
