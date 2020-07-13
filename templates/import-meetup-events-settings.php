@@ -197,12 +197,12 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
 						</th>
 						<td>
 						<?php
-                        $time_format = isset( $meetup_options['time_format'] ) ? $meetup_options['time_format'] : '';
+                        $time_format = isset( $meetup_options['time_format'] ) ? $meetup_options['time_format'] : '12hours';
 						?>
                         <select name="meetup[time_format]">
 								<option value="12hours" <?php selected('12hours', $time_format); ?>><?php esc_attr_e( '12 Hours', 'import-meetup-events' );  ?></option>
                                 <option value="24hours" <?php selected('24hours', $time_format); ?>><?php esc_attr_e( '24 Hours', 'import-meetup-events' ); ?></option>						
-                                <option value="wordpress_default" <?php selected('wordpress_default', $time_format); ?>><?php esc_attr_e( 'Wordpress Default', 'import-meetup-events' ); ?></option>
+                                <option value="wordpress_default" <?php selected('wordpress_default', $time_format); ?>><?php esc_attr_e( 'WordPress Default', 'import-meetup-events' ); ?></option>
                         </select>
 						<span class="ime_small">
 							<?php esc_attr_e( 'Choose event display time format for front-end.', 'import-meetup-events' ); ?>
