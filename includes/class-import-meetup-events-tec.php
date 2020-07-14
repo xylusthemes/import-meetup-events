@@ -85,6 +85,7 @@ class Import_Meetup_Events_TEC {
 		if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
 			$formated_args['post_status'] = $event_args['event_status'];
 		}
+		$formated_args['post_author'] = isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id();
 
 		if ( $is_exitsing_event && is_numeric( $is_exitsing_event ) && $is_exitsing_event > 0 ) {
 			$options = ime_get_import_options( $centralize_array['origin'] );
