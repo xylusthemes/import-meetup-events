@@ -207,6 +207,20 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                     </tr>
 
                     <tr>
+                        <th scope="row">
+                            <?php _e('Event Slug', 'import-meetup-events'); ?> :
+                        </th>
+                        <td>
+                            <?php
+                            $event_slug = isset($meetup_options['event_slug']) ? $meetup_options['event_slug'] : 'meetup-event';
+                            ?>
+                            <input type="text" name="meetup[event_slug]" value="<?php if ( $event_slug ) { echo $event_slug; } ?>" <?php if (!ime_is_pro()) { echo 'disabled="disabled"'; } ?> />
+                            <span class="ime_small">
+                                <?php _e('Slug for the event.', 'import-meetup-events'); ?>
+                            </span>
+                            <?php do_action('ime_render_pro_notice'); ?>
+                        </td>
+                    </tr>
 						<th scope="row">
 							<?php esc_attr_e( 'Event Display Time Format', 'import-meetup-events' ); ?> :
 						</th>

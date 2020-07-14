@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Import_Meetup_Events_Cpt {
 
 	// The Events Calendar Event Taxonomy
-	protected $event_slug;
+	public $event_slug;
 
 	// Event post type.
 	protected $event_posttype;
@@ -32,12 +32,14 @@ class Import_Meetup_Events_Cpt {
 	 */
 	public function __construct() {
 		
-		$this->event_slug = 'meetup-event';
+		
 				
 		$this->event_posttype = 'meetup_events';
 		$this->event_category = 'meetup_category';
 		$this->event_tag = 'meetup_tag';
 
+		$ime_options       = get_option( IME_OPTIONS );
+		$this->event_slug = isset( $ime_options['event_slug'] ) ? $ime_options['event_slug'] : 'meetup-event';
 		add_action( 'init', array( $this, 'register_event_post_type' ) );
 		add_action( 'init', array( $this, 'register_event_taxonomy' ) );
 
