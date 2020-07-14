@@ -42,7 +42,7 @@ global $ime_events;
 								<?php _e('Author','import-meetup-events'); ?> :
 							</th>
 							<td>
-								<?php wp_dropdown_users( array( 'show_option_none' => esc_attr__( 'Select Author','import-meetup-events'), 'name' => 'event_author' ) ); ?>
+								<?php wp_dropdown_users( array( 'show_option_none' => esc_attr__( 'Select Author','import-meetup-events'), 'name' => 'event_author', 'option_none_value' => get_current_user_id() ) ); ?>
 								<span class="ime_small">
 									<?php _e( 'Select event author for imported events. Default event auther is current loggedin user.', 'import-meetup-events' ); ?>
 								</span>
