@@ -31,15 +31,16 @@ class Import_Meetup_Events_Cpt {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		
-		
-				
+
+		$this->event_slug = 'meetup-event';
 		$this->event_posttype = 'meetup_events';
 		$this->event_category = 'meetup_category';
 		$this->event_tag = 'meetup_tag';
 
 		$ime_options       = get_option( IME_OPTIONS );
-		$this->event_slug = isset( $ime_options['event_slug'] ) ? $ime_options['event_slug'] : 'meetup-event';
+		if (ime_is_pro()) {
+			$this->event_slug = isset( $ime_options['event_slug'] ) ? $ime_options['event_slug'] : 'meetup-event';
+        }
 		add_action( 'init', array( $this, 'register_event_post_type' ) );
 		add_action( 'init', array( $this, 'register_event_taxonomy' ) );
 
