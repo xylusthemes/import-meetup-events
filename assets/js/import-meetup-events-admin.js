@@ -2,7 +2,7 @@
     'use strict';
 
     jQuery(document).ready(function() {
-        jQuery(".ime_datepicker").live("click", function() {
+        jQuery(document).on("click", ".ime_datepicker", function() {
             jQuery(this).datepicker({
                 changeMonth: true,
                 changeYear: true,
@@ -13,7 +13,7 @@
     });
 
     jQuery(document).ready(function() {
-        jQuery('#import_type').on('change', function() {
+        jQuery(document).on('change', '#import_type', function() {
             if (jQuery(this).val() != 'onetime') {
                 jQuery('.hide_frequency .import_frequency').show();
             } else {
@@ -26,7 +26,7 @@
 
     // Render Dynamic Terms.
     jQuery(document).ready(function() {
-        jQuery('.event_import_plugin').on('change', function() {
+        jQuery(document).on('change', '.event_import_plugin', function() {
 
             var event_plugin = jQuery(this).val();
             var data = {
