@@ -3,7 +3,7 @@
  * Plugin Name:       Import Meetup Events
  * Plugin URI:        https://xylusthemes.com/plugins/import-meetup-events/
  * Description:       Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly.
- * Version:           1.4.2
+ * Version:           1.4.3
  * Author:            xylus
  * Author URI:        http://xylusthemes.com/
  * License:           GPL-2.0+
@@ -98,7 +98,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __clone() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.4.2');
+            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.4.3');
         }
 
         /**
@@ -107,7 +107,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __wakeup() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.4.2');
+            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.4.3');
         }
 
         /**
@@ -121,7 +121,7 @@ if (!class_exists('Import_Meetup_Events')):
 
             // Plugin version.
             if (!defined('IME_VERSION')) {
-                define('IME_VERSION', '1.4.2');
+                define('IME_VERSION', '1.4.3');
             }
 
             // Minimum Pro plugin version.

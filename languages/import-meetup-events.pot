@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Import Meetup Events package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Import Meetup Events 1.4.2\n"
+"Project-Id-Version: Import Meetup Events 1.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/import-meetup-"
 "events\n"
-"POT-Creation-Date: 2020-07-15 17:08:32+00:00\n"
+"POT-Creation-Date: 2020-08-12 05:49:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Meetup Import"
 msgstr ""
 
-#. #-#-#-#-#  import-meetup-events.pot (Import Meetup Events 1.4.2)  #-#-#-#-#
+#. #-#-#-#-#  import-meetup-events.pot (Import Meetup Events 1.4.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-import-meetup-events-admin.php:101
 msgid "Import Meetup Events"
