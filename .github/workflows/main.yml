@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+      - run: |
+          git branch
       - name: WordPress .pot File Generator
         uses: iamdharmesh/action-wordpress-pot-generator@v1.0.1
         with:
