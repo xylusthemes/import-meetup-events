@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: WordPress .pot File Generator
-        uses: iamdharmesh/action-wordpress-pot-generator@v1.0.0
+        uses: iamdharmesh/action-wordpress-pot-generator@v1.0.1
         with:
           destination_path: './languages-test'
         env:
