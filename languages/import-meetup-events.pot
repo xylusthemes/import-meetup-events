@@ -1,31 +1,48 @@
-# Copyright (C) 2020 Import Meetup Events
-# This file is distributed under the same license as the Import Meetup Events package.
+# Copyright (C) 2020 xylus
+# This file is distributed under the same license as the Import Meetup Events plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: Import Meetup Events 1.4.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/import-meetup-"
-"events\n"
-"POT-Creation-Date: 2020-08-12 05:49:29+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/import-meetup-events\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2020-12-26T13:02:20+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: import-meetup-events\n"
 
-#: import-meetup-events.php:101 import-meetup-events.php:110
+#. Plugin Name of the plugin
+#: includes/class-import-meetup-events-admin.php:101
+msgid "Import Meetup Events"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://xylusthemes.com/plugins/import-meetup-events/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly."
+msgstr ""
+
+#. Author of the plugin
+msgid "xylus"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://xylusthemes.com/"
+msgstr ""
+
+#: import-meetup-events.php:101
+#: import-meetup-events.php:110
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:52
 #: templates/meetup-import-events.php:9
 msgid "Meetup Import"
-msgstr ""
-
-#. #-#-#-#-#  import-meetup-events.pot (Import Meetup Events 1.4.3)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: includes/class-import-meetup-events-admin.php:101
-msgid "Import Meetup Events"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:119
@@ -44,10 +61,6 @@ msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:131
 msgid "Settings"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:135
-msgid "Support & Help"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:224
@@ -177,22 +190,6 @@ msgstr ""
 msgid " Rate %1$sImport Meetup Events%2$s %3$s"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:335
-msgid "WP Event Aggregator"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:336
-msgid "Import Facebook Events"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:337
-msgid "Import Eventbrite Events"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:338
-msgid "WP Bulk Delete"
-msgstr ""
-
 #: includes/class-import-meetup-events-admin.php:389
 msgid "Authorized Successfully."
 msgstr ""
@@ -256,10 +253,6 @@ msgstr ""
 msgid "Meetup Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:208
-msgid "Invalid image URL"
-msgstr ""
-
 #: includes/class-import-meetup-events-common.php:306
 msgid "Event(s) are imported successfully."
 msgstr ""
@@ -320,14 +313,6 @@ msgstr ""
 
 #: includes/class-import-meetup-events-common.php:493
 msgid "Draft"
-msgstr ""
-
-#: includes/class-import-meetup-events-common.php:578
-msgid "Available in Pro version."
-msgstr ""
-
-#: includes/class-import-meetup-events-common.php:578
-msgid "Upgrade to PRO"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:95
@@ -434,7 +419,8 @@ msgid "Event Categories"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:163
-#: includes/class-import-meetup-events-cpt.php:165 templates/event-meta.php:77
+#: includes/class-import-meetup-events-cpt.php:165
+#: templates/event-meta.php:77
 msgid "Event Category"
 msgstr ""
 
@@ -471,7 +457,8 @@ msgid "New Category Name"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:197
-#: includes/class-import-meetup-events-cpt.php:199 templates/event-meta.php:84
+#: includes/class-import-meetup-events-cpt.php:199
+#: templates/event-meta.php:84
 msgid "Event Tags"
 msgstr ""
 
@@ -548,7 +535,8 @@ msgstr ""
 msgid "Location Details"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:298 templates/event-meta.php:145
+#: includes/class-import-meetup-events-cpt.php:298
+#: templates/event-meta.php:145
 msgid "Venue"
 msgstr ""
 
@@ -578,7 +566,8 @@ msgid "Latitude"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:354
-#: includes/class-import-meetup-events-cpt.php:391 templates/event-meta.php:120
+#: includes/class-import-meetup-events-cpt.php:391
+#: templates/event-meta.php:120
 msgid "Website"
 msgstr ""
 
@@ -590,16 +579,14 @@ msgstr ""
 msgid "Organizer Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:379 templates/event-meta.php:111
+#: includes/class-import-meetup-events-cpt.php:379
+#: templates/event-meta.php:111
 msgid "Email"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:385 templates/event-meta.php:115
+#: includes/class-import-meetup-events-cpt.php:385
+#: templates/event-meta.php:115
 msgid "Phone"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:551
-msgid "Event Date"
 msgstr ""
 
 #: includes/class-import-meetup-events-list-table.php:66
@@ -708,14 +695,13 @@ msgstr ""
 msgid "Please try again after re-connect your account."
 msgstr ""
 
-#: templates/admin-sidebar.php:16 templates/admin-sidebar.php:19
+#: templates/admin-sidebar.php:16
+#: templates/admin-sidebar.php:19
 msgid "Upgrade to Pro"
 msgstr ""
 
 #: templates/admin-sidebar.php:17
-msgid ""
-"Unlock more power to events import operation, enable scheduled imports "
-"today, Upgrade today!!"
+msgid "Unlock more power to events import operation, enable scheduled imports today, Upgrade today!!"
 msgstr ""
 
 #: templates/admin-sidebar.php:24
@@ -723,9 +709,7 @@ msgid "Custom WordPress Development Services"
 msgstr ""
 
 #: templates/admin-sidebar.php:25
-msgid ""
-"From small blog to complex web apps, we push the limits of what's possible "
-"with WordPress."
+msgid "From small blog to complex web apps, we push the limits of what's possible with WordPress."
 msgstr ""
 
 #: templates/admin-sidebar.php:27
@@ -773,9 +757,7 @@ msgid "Meetup Settings"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:20
-msgid ""
-"It looks like you don't have HTTPS enabled on your website. Please enable "
-"it. HTTPS is required for authorize your meetup account."
+msgid "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required for authorize your meetup account."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:26
@@ -783,9 +765,7 @@ msgid "Note : "
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:26
-msgid ""
-"You have to create a Meetup OAuth Consumer before filling the following "
-"details."
+msgid "You have to create a Meetup OAuth Consumer before filling the following details."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:26
@@ -880,8 +860,7 @@ msgid "Direct link to Meetup"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:173
-msgid ""
-"Check to enable direct event link to Meetup instead of event detail page."
+msgid "Check to enable direct event link to Meetup instead of event detail page."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:180
@@ -889,9 +868,7 @@ msgid "Advanced Synchronization"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:188
-msgid ""
-"Check to enable advanced synchronization, this will delete events which are "
-"removed from Meetup. Also, it deletes passed events."
+msgid "Check to enable advanced synchronization, this will delete events which are removed from Meetup. Also, it deletes passed events."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:196
@@ -1052,29 +1029,9 @@ msgid "Select Author"
 msgstr ""
 
 #: templates/meetup-import-events.php:47
-msgid ""
-"Select event author for imported events. Default event auther is current "
-"loggedin user."
+msgid "Select event author for imported events. Default event auther is current loggedin user."
 msgstr ""
 
 #: templates/meetup-import-events.php:59
 msgid "Import Event"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://xylusthemes.com/plugins/import-meetup-events/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Import Meetup Events allows you to import Meetup (meetup.com) events into "
-"your WordPress site effortlessly."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "xylus"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://xylusthemes.com/"
 msgstr ""
