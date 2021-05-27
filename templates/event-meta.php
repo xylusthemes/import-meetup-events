@@ -138,7 +138,7 @@ $venue['lat'] = get_post_meta( $event_id, 'venue_lat', true );
 $venue['lon'] = get_post_meta( $event_id, 'venue_lon', true );
 $venue_url = esc_url( get_post_meta( $event_id, 'venue_url', true ) );
 
-if( $venue_name != '' && ( $venue_address != '' || $venue['city'] != '' ) ){
+if( isset( $venue_name ) && isset( $venue_address ) || ( !empty( $venue_address ) || ( $venue['lat'] && $venue['lon'] )  ) ){
 	?>
 	<div class="organizermain library">
 		<div class="venue">
@@ -159,14 +159,27 @@ if( $venue_name != '' && ( $venue_address != '' || $venue['city'] != '' ) ){
 			echo '<p><i>' . implode( ", ", $venue_array ) . '</i></p>';
 			?>
 		</div>
-		<?php 
-		if( $venue['lat'] != '' && $venue['lon'] ){
-			?><div class="map">
-			<iframe src="https://maps.google.com/maps?q=<?php echo $venue['lat'].",".$venue['lon'];?>&hl=es;z=14&output=embed" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
-		</div>
+		<div class="map">
 			<?php
-		}
-		?>
+			if ( ! empty( $venue_name ) && ! empty( $venue_address ) &&  ! empty( $venue['lat'] ) && ! empty( $venue['lon'] ) ) {
+				?>
+				<iframe width="100%" height="350" frameborder="0" style="border:0; margin:0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw&q=<?php echo $venue_name. $venue_address; ?>&center=<?php echo $venue['lat'] . "," . $venue['lon']; ?>" allowfullscreen ></iframe>
+				<?php
+			}
+
+			if( ! empty( $venue_name ) && ! empty( $venue_address ) &&  ( empty( $venue['lat'] ) || empty( $venue['lon'] ) )  ){
+				?>
+				<iframe width="100%" height="350" frameborder="0" style="border:0; margin:0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw&q=<?php echo $venue_name. $venue_address; ?>" allowfullscreen ></iframe>
+				<?php
+			}
+
+			if( ( empty( $venue_name ) || empty( $venue_address ) ) &&  ! empty( $venue['lat'] ) && ! empty( $venue['lon'] )  ){
+				?>
+				<iframe width="100%" height="350" frameborder="0" style="border:0; margin:0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw&q=<?php echo $venue['lat'] . "," . $venue['lon']; ?>" allowfullscreen ></iframe>
+				<?php
+			}
+			?>
+		</div>
 		<div style="clear: both;"></div>
 	</div>
 	<?php
