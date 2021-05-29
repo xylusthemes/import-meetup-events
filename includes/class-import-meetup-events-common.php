@@ -205,7 +205,7 @@ class Import_Meetup_Events_Common {
 			// Set variables for storage, fix file filename for query strings.
 			preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $image_url, $matches );
 			if ( ! $matches ) {
-				return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL' ) );
+				return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL', 'import-meetup-events' ) );
 			}
 
 			$args = array(
@@ -575,7 +575,7 @@ class Import_Meetup_Events_Common {
 		if( !ime_is_pro() ){
 			?>
 			<span class="ime_small">
-		        <?php printf( '<span style="color: red">%s</span> <a href="' . IME_PLUGIN_BUY_NOW_URL. '" target="_blank" >%s</a>', __( 'Available in Pro version.', 'import-facebook-events' ), __( 'Upgrade to PRO', 'import-facebook-events' ) ); ?>
+		        <?php printf( '<span style="color: red">%s</span> <a href="' . IME_PLUGIN_BUY_NOW_URL. '" target="_blank" >%s</a>', __( 'Available in Pro version.', 'import-meetup-events' ), __( 'Upgrade to PRO', 'import-meetup-events' ) ); ?>
 		    </span>
 			<?php
 		}

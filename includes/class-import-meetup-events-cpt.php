@@ -548,7 +548,7 @@ class Import_Meetup_Events_Cpt {
 	 *
 	 */ 
 	function meetup_events_columns( $cols ) {
-		$cols['event_start_date'] = __('Event Date', 'event-list-calendar');
+		$cols['event_start_date'] = __('Event Date', 'import-meetup-events');
 		return $cols;
 	}
 

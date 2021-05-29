@@ -132,7 +132,7 @@ class Import_Meetup_Events_Admin {
 							</a>
 
 							<a href="<?php echo esc_url( add_query_arg( 'tab', 'support', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'support' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Support & Help', 'import-facebook-events' ); ?>
+								<?php esc_html_e( 'Support & Help', 'import-meetup-events' ); ?>
 							</a>
 						</h1>
 
@@ -332,10 +332,10 @@ class Import_Meetup_Events_Admin {
 	 */
 	public function get_xyuls_themes_plugins(){
 		return array(
-			'wp-event-aggregator' => esc_html__( 'WP Event Aggregator', 'import-facebook-events' ),
-			'import-facebook-events' => esc_html__( 'Import Facebook Events', 'import-facebook-events' ),
-			'import-eventbrite-events' => esc_html__( 'Import Eventbrite Events', 'import-facebook-events' ),
-			'wp-bulk-delete' => esc_html__( 'WP Bulk Delete', 'import-facebook-events' ),
+			'wp-event-aggregator' => esc_html__( 'WP Event Aggregator', 'import-meetup-events' ),
+			'import-facebook-events' => esc_html__( 'Import Facebook Events', 'import-meetup-events' ),
+			'import-eventbrite-events' => esc_html__( 'Import Eventbrite Events', 'import-meetup-events' ),
+			'wp-bulk-delete' => esc_html__( 'WP Bulk Delete', 'import-meetup-events' ),
 		);
 	}
 
