@@ -156,7 +156,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
             <script>
                 jQuery(document).ready(function() {
 					var dataReason = jQuery('input:radio[name="<?php echo $this->prefix; ?>deactivatation_reason_radio"]').val();
-                    jQuery('a#deactivate-<?php echo $this->slug; ?>').click(function (e) {
+                    jQuery('a[aria-label="Deactivate Import Meetup Events"]').on('click', function (e) {
                         e.preventDefault();
                         var pluginDeactivateURL = jQuery(this).attr('href');
                         jQuery('#<?php echo $this->slug; ?>-deactivate-dialog' ).dialog({
@@ -167,7 +167,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                             'buttons'       : [
                                 {
                                     text: "<?php _e('Submit & Deactivate', 'import-meetup-events' ); ?>",
-                                    class: 'button button-primary',
+                                    class: 'button button-primary <?php echo $this->prefix . "deactivate_button"; ?>',
                                     click: function() {
 										var that = this;
 										var dataQuery = jQuery('#<?php echo $this->prefix; ?>customer_query').val();
