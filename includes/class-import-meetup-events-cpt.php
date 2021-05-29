@@ -344,7 +344,7 @@ class Import_Meetup_Events_Cpt {
 			</tr>
 
 			<tr>
-				<td><?php _e('Latitude', 'import-meetup-events'); ?>:</td>
+				<td><?php _e('Longitude', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_lon" id="venue_lon" value="<?php echo get_post_meta($post->ID, 'venue_lon', true); ?>" />
 				</td>
