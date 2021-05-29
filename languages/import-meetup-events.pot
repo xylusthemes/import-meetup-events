@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-29T15:55:59+00:00\n"
+"POT-Creation-Date: 2021-05-29T16:30:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: import-meetup-events\n"
@@ -494,7 +494,7 @@ msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:163
 #: includes/class-import-meetup-events-cpt.php:165
-#: templates/event-meta.php:77
+#: templates/event-meta.php:78
 msgid "Event Category"
 msgstr ""
 
@@ -532,7 +532,7 @@ msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:197
 #: includes/class-import-meetup-events-cpt.php:199
-#: templates/event-meta.php:84
+#: templates/event-meta.php:85
 msgid "Event Tags"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgid "Location Details"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:298
-#: templates/event-meta.php:145
+#: templates/event-meta.php:146
 msgid "Venue"
 msgstr ""
 
@@ -644,7 +644,7 @@ msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:354
 #: includes/class-import-meetup-events-cpt.php:391
-#: templates/event-meta.php:120
+#: templates/event-meta.php:121
 msgid "Website"
 msgstr ""
 
@@ -657,12 +657,12 @@ msgid "Organizer Name"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:379
-#: templates/event-meta.php:111
+#: templates/event-meta.php:112
 msgid "Email"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:385
-#: templates/event-meta.php:115
+#: templates/event-meta.php:116
 msgid "Phone"
 msgstr ""
 
@@ -801,31 +801,31 @@ msgstr ""
 msgid "Get Premium"
 msgstr ""
 
-#: templates/event-meta.php:34
+#: templates/event-meta.php:35
 msgid "Details"
 msgstr ""
 
-#: templates/event-meta.php:39
+#: templates/event-meta.php:40
 msgid "Date"
 msgstr ""
 
-#: templates/event-meta.php:42
+#: templates/event-meta.php:43
 msgid "Time"
 msgstr ""
 
-#: templates/event-meta.php:52
+#: templates/event-meta.php:53
 msgid "Start"
 msgstr ""
 
-#: templates/event-meta.php:55
+#: templates/event-meta.php:56
 msgid "End"
 msgstr ""
 
-#: templates/event-meta.php:91
+#: templates/event-meta.php:92
 msgid "Click to Register"
 msgstr ""
 
-#: templates/event-meta.php:107
+#: templates/event-meta.php:108
 msgid "Organizer"
 msgstr ""
 
