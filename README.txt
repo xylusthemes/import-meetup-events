@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 5.7
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,14 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.4.4 =
+* ADDED: Optional Plugin deactivation Feedback
+* FIXED: Google map iframe embed error.
+* FIXED: Some translation string
+* IMPROVEMENTS: Made placehold.it load over https
+* IMPROVEMENTS: Support for WP 5.6
+
 = 1.4.3 =
 * FIXED: jQuery 3.0 Error
 
