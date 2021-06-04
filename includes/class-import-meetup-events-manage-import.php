@@ -168,7 +168,7 @@ class Import_Meetup_Events_Manage_Import {
 		}*/
 				
 		$event_data['import_origin'] = 'meetup';
-		$event_data['meetup_url'] = isset( $_POST['meetup_url'] ) ? $_POST['meetup_url'] : '';
+		$event_data['meetup_url'] = isset( $_POST['meetup_url'] ) ? trim($_POST['meetup_url']) : '';
 		
 		if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ){
 			$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );

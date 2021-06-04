@@ -45,14 +45,13 @@ class Import_Meetup_Events_Meetup {
 		$imported_events = array();
 		$meetup_url = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
 		
-		$remove_country_code = str_replace( 'https://www.meetup.com/', '', $meetup_url );
-		$add_extra = "";
-		$arr_count = explode("/",$remove_country_code);
-		if( count( $arr_count ) >= 2 ){
-			$add_extra = $arr_count[1];
-		}
-		if( $add_extra != '' ){
-			$meetup_url = 'https://www.meetup.com/'.$add_extra;
+		$divided 				= parse_url( $meetup_url );
+		$divided1['section'] 	= explode( "/" , $divided['path'] );
+		
+		if( !empty( $divided1['section'][2] ) ){
+			$meetup_url  = 'https://www.meetup.com/'.$divided1['section'][2];
+		}else{
+			$meetup_url  = 'https://www.meetup.com/'.$divided1['section'][1];
 		}
 		
 		if( empty($this->api_key) && empty($this->access_token) ){
