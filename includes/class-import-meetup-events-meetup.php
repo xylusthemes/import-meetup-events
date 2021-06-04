@@ -45,6 +45,15 @@ class Import_Meetup_Events_Meetup {
 		$imported_events = array();
 		$meetup_url = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
 		
+		$divided 				= parse_url( $meetup_url );
+		$divided1['section'] 	= explode( "/" , $divided['path'] );
+		
+		if( !empty( $divided1['section'][2] ) ){
+			$meetup_url  = 'https://www.meetup.com/'.$divided1['section'][2];
+		}else{
+			$meetup_url  = 'https://www.meetup.com/'.$divided1['section'][1];
+		}
+		
 		if( empty($this->api_key) && empty($this->access_token) ){
 			$ime_errors[] = __( 'Please insert "Meetup API key" Or OAuth key and secret in settings.', 'import-meetup-events');
 			return;
