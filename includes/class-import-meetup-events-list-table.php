@@ -434,6 +434,30 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		}
 	}
 
+	//import Delete botton 
+	public function extra_tablenav( $which ) {
+
+		if ( 'top' !== $which ) {
+			return;
+		}	
+		$ime_url_all_delete_args = array(
+			'page'       => wp_unslash( $_REQUEST['page'] ),
+			'tab'        => wp_unslash( $_REQUEST['tab'] ),
+			'ime_action' => 'ime_all_history_delete',
+		);
+
+		$delete_ids  = get_posts( array( 'numberposts' => 1,'fields' => 'ids', 'post_type'   => 'ime_import_history' ) );
+		if( !empty( $delete_ids ) ){
+			$wp_delete_nonce_url = esc_url( wp_nonce_url( add_query_arg( $ime_url_all_delete_args, admin_url( 'admin.php' ) ), 'ime_delete_all_history_nonce' ) );
+			$actions = '<a class="button apply" href="'.$wp_delete_nonce_url.'" onclick="return confirm(\'Warning!! Are you sure to Delete this import history? Import history will be permanatly deleted.\')">'.esc_html__( 'Clear Import History', 'import-meetup-events' ).'</a>';
+			echo $actions;
+		}
+
+		$action = array(
+			'all_delete' => $actions,
+		);
+	}
+
 	/**
 	 * Get Meetup url data.
 	 *
