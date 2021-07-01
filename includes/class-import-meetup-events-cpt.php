@@ -396,6 +396,26 @@ class Import_Meetup_Events_Cpt {
 			</tbody>
 		</table>
 
+		<div style="clear: both;"></div>
+		<table class="ime_form_table">
+			<thead>
+				<tr>
+					<th colspan="2">
+						<?php _e( 'Event Source Link', 'import-meetup-events' ); ?>
+						<hr>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><?php _e( 'Source Link', 'import-meetup-events' ); ?>:</td>
+				<td>
+					<input type="text" name="ime_event_link" id="ime_event_link" value="<?php echo get_post_meta( $post->ID, 'ime_event_link', true ); ?>" />
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
 		<?php
 	}
 
@@ -512,6 +532,9 @@ class Import_Meetup_Events_Cpt {
 		$organizer_phone = isset( $_POST['organizer_phone'] ) ? sanitize_text_field( $_POST['organizer_phone'] ) : '';
 		$organizer_url   = isset( $_POST['organizer_url'] ) ? esc_url( $_POST['organizer_url'] ) : '';
 
+		// Event Source Link
+		$ime_event_link   = isset( $_POST['ime_event_link'] ) ? esc_url( $_POST['ime_event_link'] ) : '';
+
 		// Save Event Data
 		// Date & Time
 		update_post_meta( $post_id, 'event_start_date', $event_start_date );
@@ -541,6 +564,9 @@ class Import_Meetup_Events_Cpt {
 		update_post_meta( $post_id, 'organizer_email', $organizer_email );
 		update_post_meta( $post_id, 'organizer_phone', $organizer_phone );
 		update_post_meta( $post_id, 'organizer_url', $organizer_url );
+
+		// Event Source Link
+		update_post_meta( $post_id, 'ime_event_link', $ime_event_link );
 	}
 
 	/**
