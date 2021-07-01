@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-29T17:25:54+00:00\n"
+"POT-Creation-Date: 2021-07-01T06:01:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: import-meetup-events\n"
@@ -698,7 +698,15 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:551
+#: includes/class-import-meetup-events-cpt.php:404
+msgid "Event Source Link"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:411
+msgid "Source Link"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:577
 msgid "Event Date"
 msgstr ""
 
