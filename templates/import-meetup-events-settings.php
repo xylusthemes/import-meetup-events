@@ -193,6 +193,21 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
 
                     <tr>
 						<th scope="row">
+							<?php _e( 'Import Small Event Thumbnail', 'import-meetup-events' ); ?> : 
+						</th>
+						<td>
+							<?php
+							$small_thumbnail = isset( $meetup_options['small_thumbnail'] ) ? $meetup_options['small_thumbnail'] : 'no';
+							?>
+							<input type="checkbox" name="meetup[small_thumbnail]" value="yes" <?php if ( $small_thumbnail == 'yes' ) { echo 'checked="checked"'; } ?> />
+							<span>
+								<?php _e( 'Check to enable import small thumbnail of events.', 'import-meetup-events' ); ?>
+							</span>
+						</td>
+					</tr>
+
+                    <tr>
+						<th scope="row">
 							<?php esc_attr_e( 'Accent Color', 'import-meetup-events' ); ?> :
 						</th>
 						<td>
