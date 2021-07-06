@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-29T17:25:54+00:00\n"
+"POT-Creation-Date: 2021-07-06T06:04:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: import-meetup-events\n"
@@ -793,7 +793,7 @@ msgid "Import histories are deleted successfully."
 msgstr ""
 
 #: includes/class-import-meetup-events-meetup.php:49
-#: includes/class-import-meetup-events-meetup.php:282
+#: includes/class-import-meetup-events-meetup.php:288
 msgid "Please insert \"Meetup API key\" Or OAuth key and secret in settings."
 msgstr ""
 
@@ -985,42 +985,50 @@ msgid "Check to enable advanced synchronization, this will delete events which a
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:196
-msgid "Accent Color"
+msgid "Import Small Event Thumbnail"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:204
-msgid "Choose accent color for front-end event grid and event widget."
+msgid "Check to enable import small thumbnail of events."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:211
-msgid "Event Slug"
+msgid "Accent Color"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:219
-msgid "Slug for the event."
+msgid "Choose accent color for front-end event grid and event widget."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:225
-msgid "Event Display Time Format"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:232
-msgid "12 Hours"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:233
-msgid "24 Hours"
+#: templates/import-meetup-events-settings.php:226
+msgid "Event Slug"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:234
-msgid "WordPress Default"
+msgid "Slug for the event."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:237
-msgid "Choose event display time format for front-end."
+#: templates/import-meetup-events-settings.php:240
+msgid "Event Display Time Format"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:247
+msgid "12 Hours"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:248
+msgid "24 Hours"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:249
+msgid "WordPress Default"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:252
+msgid "Choose event display time format for front-end."
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:264
 msgid "Save Settings"
 msgstr ""
 
