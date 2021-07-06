@@ -145,12 +145,18 @@ class Import_Meetup_Events_Meetup {
 		$event_description = isset( $meetup_event['description'] ) ? $meetup_event['description'] : '';
 		$event_url = isset( $meetup_event['link'] ) ? $meetup_event['link'] : '';
 		$image_url = '';
+
+		$ime_options       = get_option( IME_OPTIONS );
+		$small_thumbnail = isset( $ime_options['small_thumbnail'] ) ? $ime_options['small_thumbnail'] : 'no';
 		if( isset( $meetup_event['featured_photo'] ) ){
-			if( isset( $meetup_event['featured_photo']['highres_link'] ) ){
-				$image_url = $meetup_event['featured_photo']['highres_link'];
-			}
-			if( $image_url == '' && isset( $meetup_event['featured_photo']['photo_link'] ) ){
-				$image_url = $meetup_event['featured_photo']['photo_link'];	
+			if( $small_thumbnail == 'yes'){
+				if(isset( $meetup_event['featured_photo']['photo_link'] )){
+					$image_url = $meetup_event['featured_photo']['photo_link'];
+				}
+			}else{
+				if( isset( $meetup_event['featured_photo']['highres_link'] ) ){
+					$image_url = $meetup_event['featured_photo']['highres_link'];
+				}
 			}
 		}
 
