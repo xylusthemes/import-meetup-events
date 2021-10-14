@@ -56,6 +56,7 @@ if (!class_exists('Import_Meetup_Events')):
                 add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
                 add_action( 'plugins_loaded', array( self::$instance, 'load_authorize_class' ), 20 );
                 add_action('wp_enqueue_scripts', array(self::$instance, 'ime_enqueue_style'));
+                add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( self::$instance, 'ime_setting_doc_links' ) );
 
                 self::$instance->includes();
                 self::$instance->common = new Import_Meetup_Events_Common();
@@ -199,6 +200,18 @@ if (!class_exists('Import_Meetup_Events')):
                 basename(dirname(__FILE__)) . '/languages'
             );
         }
+
+        /**
+		 * IME setting And docs link add in plugin page.
+		 *
+		 * @since 1.0
+		 * @return void
+		 */
+		public function ime_setting_doc_links ( $links ) {
+			$ime_setting_link = array('<a href='.admin_url( "admin.php?page=meetup_import&tab=settings" ).' target="_blank">' . __('Setting', 'import-eventbrite-events') . '</a>');
+			$ime_docs_link = array('<a href="https://docs.xylusthemes.com/docs/import-meetup-events/" target="_blank">' . __('Docs', 'import-eventbrite-events') . '</a>');
+			return array_merge( $links, $ime_setting_link, $ime_docs_link );
+		}
 
         /**
          * Loads the Meetup authorize class
