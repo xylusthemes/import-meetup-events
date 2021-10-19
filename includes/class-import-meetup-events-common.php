@@ -523,7 +523,7 @@ class Import_Meetup_Events_Common {
 	public function get_event_by_event_id( $post_type, $event_id ) {
 		$event_args = array(
 			'post_type' => $post_type,
-			'post_status' => array( 'pending', 'draft', 'publish' ),
+			'post_status' => array( 'pending', 'draft', 'publish', 'private' ),
 			'posts_per_page' => -1,
 			/*'meta_key'   => 'ime_event_id',
 			'meta_value' => $event_id,*/
