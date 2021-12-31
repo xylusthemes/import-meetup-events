@@ -786,6 +786,7 @@ class Import_Meetup_Events_Cpt {
             $direct_link = 'no';
         }
 		ob_start();
+		if( !empty( $atts['className'] ) ){ ?><div class="<?php echo $atts['className'] ?>" > <?php }
 		?>
 		<div class="ime_archive row_grid">
 			<?php
@@ -812,6 +813,7 @@ class Import_Meetup_Events_Cpt {
 
 			?>
 		</div>
+		<?php if( !empty( $atts['className'] ) ){ echo "</div>"; } ?>
 		
 		<style type="text/css">
 			.ime_archive .ime_event .event_date{
