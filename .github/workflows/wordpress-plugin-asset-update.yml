@@ -2,7 +2,7 @@ name: WP Plugin README update
 on:
   push:
     branches:
-    - trunk
+    - master
 jobs:
   trunk:
     name: Push to trunk
