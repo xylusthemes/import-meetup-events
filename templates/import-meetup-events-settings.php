@@ -48,15 +48,11 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                             </th>
                             <td>
                                 <?php
-                                if( !empty($ime_authorized_user) && isset($ime_authorized_user->name) ) {
-                                    $image = isset($ime_authorized_user->photo->thumb_link) ? $ime_authorized_user->photo->thumb_link : '';
-                                    $email = isset($ime_authorized_user->email) ? $ime_authorized_user->email : '';
-                                    $name = $ime_authorized_user->name;
+                                if( !empty($ime_authorized_user) && isset($ime_authorized_user['name']) ) {
+                                    $email = isset($ime_authorized_user['email']) ? $ime_authorized_user['email'] : '';
+                                    $name = $ime_authorized_user['name'];
                                     ?>
                                     <div class="ime_connection_wrapper">
-                                        <div class="img_wrap">
-                                            <img src="<?php echo $image; ?>"  alt="<?php echo $name; ?>">
-                                        </div>
                                         <div class="name_wrap">
                                             <?php printf( __('Connected as: %s', 'import-meetup-events'), '<strong>'.$name.'</strong>' ); ?>
                                             <br/>
