@@ -1,4 +1,4 @@
-# Copyright (C) 2021 xylus
+# Copyright (C) 2022 xylus
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-19T09:19:29+00:00\n"
+"POT-Creation-Date: 2022-02-07T16:50:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: import-meetup-events\n"
 
 #. Plugin Name of the plugin
 #: includes/class-ime-plugin-deactivation.php:38
-#: includes/class-import-meetup-events-admin.php:101
+#: includes/class-import-meetup-events-admin.php:104
 msgid "Import Meetup Events"
 msgstr ""
 
@@ -119,180 +119,186 @@ msgstr ""
 msgid "Meetup Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:119
+#: includes/class-import-meetup-events-admin.php:54
+#: templates/admin-sidebar.php:16
+#: templates/admin-sidebar.php:19
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:122
 #: includes/class-import-meetup-events-list-table.php:387
 msgid "Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:123
+#: includes/class-import-meetup-events-admin.php:126
 msgid "Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:127
-#: includes/class-import-meetup-events-admin.php:286
+#: includes/class-import-meetup-events-admin.php:130
+#: includes/class-import-meetup-events-admin.php:289
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:131
+#: includes/class-import-meetup-events-admin.php:134
 msgid "Settings"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:135
+#: includes/class-import-meetup-events-admin.php:138
 msgid "Support & Help"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:224
-msgctxt "post type general name"
-msgid "Scheduled Import"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:225
-msgctxt "post type singular name"
-msgid "Scheduled Import"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:226
-msgctxt "admin menu"
-msgid "Scheduled Imports"
-msgstr ""
-
 #: includes/class-import-meetup-events-admin.php:227
-msgctxt "add new on admin bar"
+msgctxt "post type general name"
 msgid "Scheduled Import"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:228
-#: includes/class-import-meetup-events-admin.php:272
+msgctxt "post type singular name"
+msgid "Scheduled Import"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:229
+msgctxt "admin menu"
+msgid "Scheduled Imports"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:230
+msgctxt "add new on admin bar"
+msgid "Scheduled Import"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:231
+#: includes/class-import-meetup-events-admin.php:275
 msgctxt "book"
 msgid "Add New"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:229
+#: includes/class-import-meetup-events-admin.php:232
 msgid "Add New Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:230
+#: includes/class-import-meetup-events-admin.php:233
 msgid "New Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:231
+#: includes/class-import-meetup-events-admin.php:234
 msgid "Edit Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:232
+#: includes/class-import-meetup-events-admin.php:235
 msgid "View Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:233
+#: includes/class-import-meetup-events-admin.php:236
 msgid "All Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:234
+#: includes/class-import-meetup-events-admin.php:237
 msgid "Search Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:235
+#: includes/class-import-meetup-events-admin.php:238
 msgid "Parent Imports:"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:236
+#: includes/class-import-meetup-events-admin.php:239
 msgid "No Imports found."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:237
+#: includes/class-import-meetup-events-admin.php:240
 msgid "No Imports found in Trash."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:242
+#: includes/class-import-meetup-events-admin.php:245
 msgid "Scheduled Imports."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:268
+#: includes/class-import-meetup-events-admin.php:271
 msgctxt "post type general name"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:269
+#: includes/class-import-meetup-events-admin.php:272
 msgctxt "post type singular name"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:270
+#: includes/class-import-meetup-events-admin.php:273
 msgctxt "admin menu"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:271
+#: includes/class-import-meetup-events-admin.php:274
 msgctxt "add new on admin bar"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:273
+#: includes/class-import-meetup-events-admin.php:276
 #: includes/class-import-meetup-events-cpt.php:103
 msgid "Add New"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:274
+#: includes/class-import-meetup-events-admin.php:277
 msgid "New History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:275
+#: includes/class-import-meetup-events-admin.php:278
 msgid "Edit History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:276
+#: includes/class-import-meetup-events-admin.php:279
 msgid "View History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:277
+#: includes/class-import-meetup-events-admin.php:280
 msgid "All Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:278
+#: includes/class-import-meetup-events-admin.php:281
 msgid "Search History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:279
+#: includes/class-import-meetup-events-admin.php:282
 msgid "Parent History:"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:280
+#: includes/class-import-meetup-events-admin.php:283
 msgid "No History found."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:281
+#: includes/class-import-meetup-events-admin.php:284
 msgid "No History found in Trash."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:318
+#: includes/class-import-meetup-events-admin.php:321
 msgid " Rate %1$sImport Meetup Events%2$s %3$s"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:335
+#: includes/class-import-meetup-events-admin.php:338
 msgid "WP Event Aggregator"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:336
+#: includes/class-import-meetup-events-admin.php:339
 msgid "Import Facebook Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:337
+#: includes/class-import-meetup-events-admin.php:340
 msgid "Import Eventbrite Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:338
+#: includes/class-import-meetup-events-admin.php:341
 msgid "WP Bulk Delete"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:389
+#: includes/class-import-meetup-events-admin.php:392
 msgid "Authorized Successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:391
+#: includes/class-import-meetup-events-admin.php:394
 msgid "Please insert Meetup Auth Key and Secret."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:393
+#: includes/class-import-meetup-events-admin.php:396
 msgid "Something went wrong during authorization. Please try again."
 msgstr ""
 
@@ -767,50 +773,47 @@ msgstr ""
 msgid "Something went wrong! please try again."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:174
+#: includes/class-import-meetup-events-manage-import.php:170
 msgid "Please provide valid Meetup group URL."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:195
+#: includes/class-import-meetup-events-manage-import.php:192
 msgid "Scheduled import deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:199
-#: includes/class-import-meetup-events-manage-import.php:215
+#: includes/class-import-meetup-events-manage-import.php:196
+#: includes/class-import-meetup-events-manage-import.php:212
 msgid "Scheduled imports are deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:203
+#: includes/class-import-meetup-events-manage-import.php:200
 msgid "Scheduled import has been run successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:207
+#: includes/class-import-meetup-events-manage-import.php:204
 msgid "Import history deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:211
+#: includes/class-import-meetup-events-manage-import.php:208
 msgid "Import histories are deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-meetup.php:49
-#: includes/class-import-meetup-events-meetup.php:282
+#: includes/class-import-meetup-events-meetup.php:51
+#: includes/class-import-meetup-events-meetup.php:261
 msgid "Please insert \"Meetup API key\" Or OAuth key and secret in settings."
 msgstr ""
 
-#: includes/class-import-meetup-events-meetup.php:64
-#: includes/class-import-meetup-events-meetup.php:90
+#: includes/class-import-meetup-events-meetup.php:65
+msgid "Please insert Valid Meetup Group URl."
+msgstr ""
+
+#: includes/class-import-meetup-events-meetup.php:108
+msgid "Please insert Valid Meetup Event ID."
+msgstr ""
+
 #: includes/class-import-meetup-events-tec.php:148
 #: includes/class-import-meetup-events-tec.php:197
 msgid "Something went wrong, please try again."
-msgstr ""
-
-#: includes/class-import-meetup-events-meetup.php:84
-msgid "Please try again after re-connect your account."
-msgstr ""
-
-#: templates/admin-sidebar.php:16
-#: templates/admin-sidebar.php:19
-msgid "Upgrade to Pro"
 msgstr ""
 
 #: templates/admin-sidebar.php:17
@@ -1122,29 +1125,54 @@ msgid "Buy Now"
 msgstr ""
 
 #: templates/meetup-import-events.php:16
-msgid "Meetup Group URL"
+msgid "Import by"
+msgstr ""
+
+#: templates/meetup-import-events.php:20
+msgid "Event ID"
 msgstr ""
 
 #: templates/meetup-import-events.php:21
-msgid "Insert meetup group url ( Eg. https://www.meetup.com/ny-tech/)."
+msgid "Group URL"
 msgstr ""
 
-#: templates/meetup-import-events.php:28
+#: templates/meetup-import-events.php:24
+msgid "Select Event source. 1. by Event ID, 2. by Group URL"
+msgstr ""
+
+#: templates/meetup-import-events.php:31
+msgid "Meetup Event ID"
+msgstr ""
+
+#: templates/meetup-import-events.php:37
+#: templates/meetup-import-events.php:42
+msgid "Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class=\"borderall\">xxxxxxxxx</span>  )."
+msgstr ""
+
+#: templates/meetup-import-events.php:50
+msgid "Meetup Group URL"
+msgstr ""
+
+#: templates/meetup-import-events.php:55
+msgid "Insert meetup group url ( Eg. -<span class=\"borderall\">https://www.meetup.com/xxxx-xxx-xxxx/</span>  )."
+msgstr ""
+
+#: templates/meetup-import-events.php:63
 msgid "Import type"
 msgstr ""
 
-#: templates/meetup-import-events.php:42
+#: templates/meetup-import-events.php:77
 msgid "Author"
 msgstr ""
 
-#: templates/meetup-import-events.php:45
+#: templates/meetup-import-events.php:80
 msgid "Select Author"
 msgstr ""
 
-#: templates/meetup-import-events.php:47
+#: templates/meetup-import-events.php:82
 msgid "Select event author for imported events. Default event auther is current loggedin user."
 msgstr ""
 
-#: templates/meetup-import-events.php:59
+#: templates/meetup-import-events.php:94
 msgid "Import Event"
 msgstr ""
