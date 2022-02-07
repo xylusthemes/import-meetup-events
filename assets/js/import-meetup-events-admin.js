@@ -12,16 +12,35 @@
         });
     });
 
-    jQuery(document).ready(function() {
-        jQuery(document).on('change', '#import_type', function() {
-            if (jQuery(this).val() != 'onetime') {
+    jQuery(document).ready(function(){
+        jQuery(document).on('change', '#meetup_import_by', function(){
+    
+            if( jQuery(this).val() == 'event_id' ){
+                jQuery('.import_type_wrapper').hide();
+                jQuery('.meetup_group_url').hide();
+                jQuery('.meetup_group_url .ime_group_url').removeAttr( 'required' );
+                jQuery('.meetup_event_id').show();
+                jQuery('.meetup_event_id .ime_event_id').attr('required', 'required');
+            
+            }else if( jQuery(this).val() == 'group_url' ){
+                jQuery('.import_type_wrapper').show();
+                jQuery('.meetup_group_url').show();
+                jQuery('.meetup_group_url .ime_group_url').attr('required', 'required');
+                jQuery('.meetup_event_id').hide();
+                jQuery('.meetup_event_id .ime_event_id').removeAttr( 'required' );
+            }
+        });
+    
+        jQuery('#import_type').on('change', function(){
+            if( jQuery(this).val() != 'onetime' ){
                 jQuery('.hide_frequency .import_frequency').show();
-            } else {
+            }else{
                 jQuery('.hide_frequency .import_frequency').hide();
             }
         });
-
+    
         jQuery("#import_type").trigger('change');
+        jQuery("#meetup_import_by").trigger('change');
     });
 
     // Render Dynamic Terms.

@@ -42,54 +42,77 @@ class Import_Meetup_Events_Meetup {
 	public function import_events( $event_data = array() ){
 
 		global $ime_errors;
-		$imported_events = array();
-		$meetup_url = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
+		$imported_events 	= array();
+		$event_id 			= isset( $event_data['ime_event_id'] ) ? $event_data['ime_event_id'] : '';
+		$meetup_url 		= isset( $event_data['ime_group_url'] ) ? $event_data['ime_group_url'] : '';
+		$api 				= new Import_Meetup_Events_API();
 		
 		if( empty($this->api_key) && empty($this->access_token) ){
 			$ime_errors[] = __( 'Please insert "Meetup API key" Or OAuth key and secret in settings.', 'import-meetup-events');
 			return;
 		}
 
-		$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
-		if( $meetup_group_id == '' ){ return; }
+		if( !empty( $meetup_url ) ){
 
-		if(!empty($this->api_key)){
-			$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/events?key=' . $this->api_key.'&fields=featured_photo';
-		}else{
-			$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/events?access_token=' . $this->access_token.'&fields=featured_photo';
-		}
-		
-	    $meetup_response = wp_remote_get( $meetup_api_url , array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
-		if ( is_wp_error( $meetup_response ) ) {
-			$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events');
-			return;
-		}
-		
-		$meetup_events = json_decode( $meetup_response['body'], true );
-		if ( is_array( $meetup_events ) && !isset( $meetup_events['errors'] ) ) {
-
-			if( !empty( $meetup_events ) ){
-				foreach ($meetup_events as $meetup_event) {
-					$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
-				}	
+			$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
+			if( $meetup_group_id == '' ){ return; }
+			
+			$itemsNum			= 50;
+			$endCursor 			= null;
+			$meetup_event_data 	= $api->getGroupName( $meetup_group_id, $this->api_key );
+			
+			if( empty( $meetup_event_data['data']['groupByUrlname'] ) ){
+				$ime_errors[] = __( 'Please insert Valid Meetup Group URl.', 'import-meetup-events');
+				return;
 			}
+			
+			$get_event_data  	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
+			$total_pages  		= isset( $get_event_data['count'] ) ? ceil( $get_event_data['count']/$itemsNum ): 0;
+
+			if( $itemsNum < $get_event_data['count'] ){
+
+				for ($i=1; $i <= $total_pages; $i++) {
+					$meetup_event_data 		= $api->getGroupEvents( $meetup_group_id, $itemsNum, $endCursor, $this->api_key );
+		
+					$get_upcoming_events	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
+					$meetup_events			= $get_upcoming_events['edges'];
+
+					if( !empty( $meetup_events ) ){
+						foreach ($meetup_events as $meetup_event) {
+							$meetup_event 		= $meetup_event['node'];
+							$imported_events[] 	= $this->save_meetup_event( $meetup_event, $event_data );
+						}	
+					}
+					$endCursor = $get_upcoming_events['pageInfo']['endCursor'];
+				}
+				
+			}else{
+				$meetup_event_data 		= $api->getGroupEvents( $meetup_group_id, $itemsNum, $endCursor, $this->api_key );
+				$meetup_events	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents']['edges'];
+				if( !empty( $meetup_events ) ){
+					foreach ($meetup_events as $meetup_event) {
+							$meetup_event = $meetup_event['node'];
+							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
+					}	
+				}
+			}			
+
 			return $imported_events;
 
 		}else{
-			if( isset( $meetup_events['errors'] ) ){
-				foreach ( $meetup_events['errors'] as $meetup_event ) {
-					if( isset($meetup_event['message'] ) ){
-						$message = $meetup_event['message'];
-						if( isset($meetup_event['code']) && $meetup_event['code'] == 'auth_fail'){
-							$message = __( 'Please try again after re-connect your account.', 'import-meetup-events');
-						}
-						$ime_errors[] = $message;
-					}
-				}
-			}else{
-				$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events');
+			
+			$meetup_event_data 	= $api->getEvents( $event_id, $this->api_key );
+			$meetup_event		= $meetup_event_data['data']['event'];
+			
+			if( empty( $meetup_event ) ){
+				$ime_errors[] = __( 'Please insert Valid Meetup Event ID.', 'import-meetup-events');
+				return;
 			}
-			return;
+			
+			if( !empty( $meetup_event ) ){
+					$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );	
+			}
+			return $imported_events;
 		}
 
 	}
@@ -124,35 +147,18 @@ class Import_Meetup_Events_Meetup {
 			return false;
 		}
 
-		$start_time = $start_time_utc = time();
-		$end_time = $end_time_utc = time();
-		$utc_offset = 0;
-
-		if ( array_key_exists( 'time', $meetup_event ) ) {
-			$start_time_utc = floor( $meetup_event['time'] / 1000 );
-		}
-		$event_duration = array_key_exists( 'duration', $meetup_event ) ? $meetup_event['duration'] : 0;
-		$event_duration = absint( floor( $event_duration / 1000 ) ); // convert to seconds.
-		$end_time_utc = absint( $start_time_utc + $event_duration );
-
-		$utc_offset = array_key_exists( 'utc_offset', $meetup_event ) ? $meetup_event['utc_offset'] : 0;
-		$utc_offset = floor( $utc_offset / 1000 );
-		$utc_offset_hours = ($utc_offset/3600);
-		$start_time = absint( $start_time_utc + $utc_offset );
-		$end_time = absint( $end_time_utc + $utc_offset );
-
-		$event_name = isset( $meetup_event['name']) ? sanitize_text_field( $meetup_event['name'] ) : '';
-		$event_description = isset( $meetup_event['description'] ) ? $meetup_event['description'] : '';
-		$event_url = isset( $meetup_event['link'] ) ? $meetup_event['link'] : '';
-		$image_url = '';
-		if( isset( $meetup_event['featured_photo'] ) ){
-			if( isset( $meetup_event['featured_photo']['highres_link'] ) ){
-				$image_url = $meetup_event['featured_photo']['highres_link'];
-			}
-			if( $image_url == '' && isset( $meetup_event['featured_photo']['photo_link'] ) ){
-				$image_url = $meetup_event['featured_photo']['photo_link'];	
-			}
-		}
+		$timezone 			= isset( $meetup_event['timezone'] ) ? $meetup_event['timezone'] : '';
+		$start 				= isset( $meetup_event['dateTime'] ) ? $meetup_event['dateTime'] : ''; 
+		$end 				= isset( $meetup_event['endTime'] ) ? $meetup_event['endTime'] : '';
+		$start_time 		= strtotime( $this->convert_datetime_to_timezone_wise_datetime( $start, $timezone ) );
+		$end_time 			= strtotime( $this->convert_datetime_to_timezone_wise_datetime( $end, $timezone ) );
+		$event_name 		= isset( $meetup_event['title']) ? sanitize_text_field( $meetup_event['title'] ) : '';
+		$event_url 			= isset( $meetup_event['eventUrl'] ) ? $meetup_event['eventUrl'] : '';
+		$image_url 			= isset( $meetup_event['imageUrl'] ) ? $meetup_event['imageUrl'] : '';
+		$event_description  = isset( $meetup_event['description'] ) ? $meetup_event['description'] : '';
+		$shortDescription   = isset( $meetup_event['shortDescription'] ) ? $meetup_event['shortDescription'] : '';
+		$status   			= isset( $meetup_event['status'] ) ? $meetup_event['status'] : '';
+		$isOnline   		= isset( $meetup_event['isOnline'] ) ? $meetup_event['isOnline'] : '';
 
 		$xt_event = array(
 			'origin'          => 'meetup',
@@ -161,16 +167,22 @@ class Import_Meetup_Events_Meetup {
 			'description'     => $event_description,
 			'starttime_local' => $start_time,
 			'endtime_local'   => $end_time,
-			'startime_utc'    => $start_time_utc,
-			'endtime_utc'     => $end_time_utc,
-			'timezone'        => '',
-			'utc_offset_hours'=> $utc_offset_hours,
-			'utc_offset'      => $utc_offset,
-			'event_duration'  => '',
+			'startime_utc'    => $start_time,
+			'endtime_utc'     => $end_time,
+			'timezone'        => $timezone,
+			'utc_offset_hours'=> $start_time,
+			'utc_offset'      => $end_time,
 			'is_all_day'      => '',
 			'url'             => $event_url,
 			'image_url'       => $image_url,
+			'shortDescription'=> $shortDescription,
+			'status'		  => $status,
+			'isOnline'		  => $isOnline,
 		);
+
+		// echo "<pre>";
+		// print_r( $xt_event );
+		// exit();
 
 		if ( array_key_exists( 'group', $meetup_event ) ) {
 			$xt_event['organizer'] = $this->get_organizer( $meetup_event );
@@ -193,44 +205,17 @@ class Import_Meetup_Events_Meetup {
 		if ( ! array_key_exists( 'group', $meetup_event ) ) {
 			return null;
 		}
-
 		$organizer = $meetup_event['group'];
 		$event_organizer = array(
-			'ID'          => isset( $organizer['id'] ) ? $organizer['id'] : '',
-			'name'        => isset( $organizer['name'] ) ? $organizer['name'] : '',
-			'description' => isset( $organizer['description'] ) ? $organizer['description'] : '',
-			'email'       => '',
-			'phone'       => '',
-			'url'         => isset( $organizer['urlname'] ) ? "https://www.meetup.com/".$organizer['urlname']."/":'',
-			'image_url'   => '',
+			'id'          	=> isset( $organizer['id'] ) ? $organizer['id'] : '',
+			'name'        	=> isset( $organizer['name'] ) ? $organizer['name'] : '',
+			'description' 	=> isset( $organizer['description'] ) ? $organizer['description'] : '',
+			'email'			=> isset( $organizer['emailListAddress'] ) ? $organizer['emailListAddress'] : '',
+			'phone'       	=> '',
+			'url'         	=> isset( $organizer['urlname'] ) ? "https://www.meetup.com/".$organizer['urlname']."/":'',
+			'image_url'   	=> isset( $organizer['logo']->baseUrl ) ? $organizer['logo']->baseUrl : '',
 		);
 		return $event_organizer;
-
-		/*$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
-		if( $meetup_group_id != '' ){
-			$meetup_api_url = 'https://api.meetup.com/' . $meetup_group_id . '/?key=' . $this->api_key;
-		    $get_oraganizer = wp_remote_get( $meetup_api_url , array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
-			if ( !is_wp_error( $get_oraganizer ) ) {
-				$oraganizer = json_decode( $get_oraganizer['body'], true );
-				if ( is_array( $oraganizer ) && ! isset( $oraganizer['errors'] ) ) {
-					if ( ! empty( $oraganizer ) && array_key_exists( 'id', $oraganizer ) ) {
-
-						$image_url  = isset( $oraganizer['organizer']['photo']['photo_link'] ) ? urldecode( $$oraganizer['organizer']['photo']['photo_link'] ) : '';
-						
-						$event_organizer = array(
-							'ID'          => isset( $oraganizer['id'] ) ? $oraganizer['id'] : '',
-							'name'        => isset( $oraganizer['name'] ) ? $oraganizer['name'] : '',
-							'description' => isset( $oraganizer['description'] ) ? $oraganizer['description'] : '',
-							'email'       => '',
-							'phone'       => '',
-							'url'         => isset( $oraganizer['link'] ) ? $oraganizer['link'] : '',
-							'image_url'   => $image_url,
-						);
-						return $event_organizer;
-					}
-				}
-			}
-		}*/
 	}
 
 	/**
@@ -248,19 +233,13 @@ class Import_Meetup_Events_Meetup {
 		$event_location = array(
 			'ID'           => isset( $venue['id'] ) ? $venue['id'] : '',
 			'name'         => isset( $venue['name'] ) ? $venue['name'] : '',
-			'description'  => '',
-			'address_1'    => isset( $venue['address_1'] ) ? $venue['address_1'] : '',
-			'address_2'    => isset( $venue['address_2'] ) ? $venue['address_2'] : '',
+			'full_address' => isset( $venue['address'] ) ? $venue['address'] : '',
 			'city'         => isset( $venue['city'] ) ? $venue['city'] : '',
 			'state'        => isset( $venue['state'] ) ? $venue['state'] : '',
 			'country'      => isset( $venue['country'] ) ? strtoupper( $venue['country'] ) : '',
-			'zip'	       => isset( $venue['zip'] ) ? $venue['zip'] : '',
 			'lat'     	   => isset( $venue['lat'] ) ? $venue['lat'] : '',
-			'long'		   => isset( $venue['lon'] ) ? $venue['lon'] : '',
-			'full_address' => isset( $venue['address_1'] ) ? $venue['address_1'] : '',
-			'url'          => '',
-			'image_url'    => '',
-			'phone'	       => isset( $venue['phone'] ) ? $venue['phone'] : '',
+			'long'		   => isset( $venue['lng'] ) ? $venue['lng'] : '',
+			'zip'   	   => isset( $venue['postalCode'] ) ? $venue['postalCode'] : '',
 		);
 		return $event_location;
 	}
@@ -285,21 +264,15 @@ class Import_Meetup_Events_Meetup {
 
 		$url_group_slug = $this->fetch_group_slug_from_url( $meetup_url );
 		if( $url_group_slug == '' ){ return; }
-
-		if(!empty($this->api_key)){
-			$get_group = wp_remote_get( 'https://api.meetup.com/' . $url_group_slug .'/?key=' . $this->api_key, array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
-		}else{
-			$get_group = wp_remote_get( 'https://api.meetup.com/' . $url_group_slug .'/?access_token=' . $this->access_token, array( 'headers' => array( 'Content-Type' => 'application/json' ) ) );
-		}
-
-		if ( ! is_wp_error( $get_group ) ) {
-			$group = json_decode( $get_group['body'], true );
-			if ( is_array( $group ) && ! isset( $group['errors'] ) ) {
-				if ( ! empty( $group ) && array_key_exists( 'id', $group ) ) {
-
-					$group_name = isset( $group['name'] ) ? $group['name'] : '';
-					return $group_name;
-				}
+		
+		$api 				= new Import_Meetup_Events_API();
+		$meetup_group_data 	= $api->getGroupName( $url_group_slug, $this->api_key );
+		$get_group 			= $meetup_group_data['data']['groupByUrlname'];
+					
+		if ( is_array( $get_group ) && ! isset( $get_group['errors'] ) ) {
+			if ( ! empty( $get_group ) && array_key_exists( 'id', $get_group ) ) {
+				$group_name = isset( $get_group['name'] ) ? $get_group['name'] : '';
+				return $group_name;
 			}
 		}
 		return '';
@@ -380,4 +353,29 @@ class Import_Meetup_Events_Meetup {
 		}
 		return $auth_token;
 	}
+
+	/**
+     * Convert datetime to desired timezone.
+     *
+     * @param string $date_string     Date string to possibly convert
+     * @param string $timezone timezone to be conterted
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function convert_datetime_to_timezone_wise_datetime( $datetime, $timezone = false ) {
+        try {
+            $datetime = new DateTime( $datetime );
+            if( $timezone && $timezone !='' ){
+                try{
+                    $datetime->setTimezone(new DateTimeZone( $timezone ) );
+                }catch ( Exception $ee ){ }
+            }
+            return $datetime->format( 'Y-m-d H:i:s' );
+        }
+        catch ( Exception $e ) {
+            return $datetime;
+        }
+    }
 }

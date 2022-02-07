@@ -8,20 +8,55 @@ global $ime_events;
         <div class="ime-column ime_well">
             <h3><?php esc_attr_e( 'Meetup Import', 'import-meetup-events' ); ?></h3>
             <form method="post" id="ime_meetup_form">
-           	
-               	<table class="form-table">
+				
+				<table class="form-table">
 		            <tbody>
-		                <tr class="meetup_group_url">
-					    	<th scope="row">
-					    		<?php esc_attr_e( 'Meetup Group URL','import-meetup-events' ); ?> : 
-					    	</th>
-					    	<td>
-					    		<input class="ime_text" name="meetup_url" type="url" required="required" />
-			                    <span class="ime_small">
-			                        <?php _e( 'Insert meetup group url ( Eg. https://www.meetup.com/ny-tech/).', 'import-meetup-events' ); ?>
-			                    </span>
-					    	</td>
-					    </tr>
+						<tr>
+							<th scope="row">
+								<?php esc_attr_e( 'Import by', 'import-meetup-events' ); ?> :
+							</th>
+							<td>
+								<select name="meetup_import_by" id="meetup_import_by">
+									<option value="event_id"><?php esc_attr_e( 'Event ID', 'import-meetup-events' ); ?></option>
+									<option value="group_url"><?php esc_attr_e( 'Group URL', 'import-meetup-events' ); ?></option>
+								</select>
+								<span class="ime_small">
+									<?php _e( 'Select Event source. 1. by Event ID, 2. by Group URL', 'import-meetup-events' ); ?>
+								</span>
+							</td>
+						</tr>
+
+						<tr class="meetup_event_id">
+							<th scope="row">
+								<?php esc_attr_e( 'Meetup Event ID', 'import-meetup-events' ); ?> : 
+							</th>
+							<td>
+								<?php if ( ime_is_pro() ) { ?>
+								<textarea class="ime_meetup_ids" name="ime_event_id" type="text" rows="5" cols="50"></textarea>
+								<span class="ime_small">
+									<?php _e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
+								</span>
+								<?php } else { ?>
+								<input class="ime_text" name="ime_event_id" type="text" />
+								<span class="ime_small">
+									<?php _e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
+								</span>
+								<?php } ?>
+							</td>
+						</tr>
+
+						<tr class="meetup_group_url">
+							<th scope="row">
+								<?php esc_attr_e( 'Meetup Group URL','import-meetup-events' ); ?> : 
+							</th>
+							<td>
+								<input class="ime_text" name="ime_group_url" type="text" <?php if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
+								<span class="ime_small">
+									<?php _e( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
+								</span>
+								<?php do_action( 'ime_render_pro_notice' ); ?>
+							</td>
+						</tr>
 
 					    <tr class="import_type_wrapper">
 					    	<th scope="row">

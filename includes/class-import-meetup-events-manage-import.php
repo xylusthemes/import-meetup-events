@@ -161,20 +161,17 @@ class Import_Meetup_Events_Manage_Import {
 	public function handle_meetup_import_form_submit( $event_data ){
 		global $ime_errors, $ime_success_msg, $ime_events;
 
-		/*$meetup_options = ime_get_import_options('meetup');
-		if( !isset( $meetup_options['meetup_api_key'] ) || $meetup_options['meetup_api_key'] == ''0 ){
-			$ime_errors[] = __( 'Please insert "Meetup API key" in settings.', 'import-meetup-events');
-			return;
-		}*/
-				
-		$event_data['import_origin'] = 'meetup';
-		$event_data['meetup_url'] = isset( $_POST['meetup_url'] ) ? $_POST['meetup_url'] : '';
-		
-		if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ){
-			$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );
-			return;
+		$event_data['import_origin'] 	= 'meetup';
+		$event_data['ime_event_id'] 	= isset( $_POST['ime_event_id'] ) ? $_POST['ime_event_id'] : '';
+		$event_data['ime_group_url'] 	= isset( $_POST['ime_group_url'] ) ? $_POST['ime_group_url'] : '';
+
+		if( !empty( $event_data['ime_group_url'] ) ){
+			if ( filter_var( $event_data['ime_group_url'], FILTER_VALIDATE_URL) === false ){
+				$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );
+				return;
+			}
+			$event_data['ime_group_url'] = esc_url( $event_data['ime_group_url'] );
 		}
-		$event_data['meetup_url'] = esc_url( $event_data['meetup_url'] );
 
 		$import_events = $ime_events->meetup->import_events( $event_data );
 		if( $import_events && !empty( $import_events ) ){
