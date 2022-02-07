@@ -180,10 +180,6 @@ class Import_Meetup_Events_Meetup {
 			'isOnline'		  => $isOnline,
 		);
 
-		// echo "<pre>";
-		// print_r( $xt_event );
-		// exit();
-
 		if ( array_key_exists( 'group', $meetup_event ) ) {
 			$xt_event['organizer'] = $this->get_organizer( $meetup_event );
 		}
