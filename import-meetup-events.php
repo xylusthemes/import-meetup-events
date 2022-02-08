@@ -126,7 +126,7 @@ if (!class_exists('Import_Meetup_Events')):
 
             // Minimum Pro plugin version.
             if( ! defined( 'IME_MIN_PRO_VERSION' ) ){
-                define( 'IME_MIN_PRO_VERSION', '1.4.2' );
+                define( 'IME_MIN_PRO_VERSION', '1.5.0' );
             }
 
             // Plugin folder Path.
