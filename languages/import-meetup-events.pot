@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-07T19:49:27+00:00\n"
+"POT-Creation-Date: 2022-02-08T10:04:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: import-meetup-events\n"
@@ -799,15 +799,11 @@ msgid "Import histories are deleted successfully."
 msgstr ""
 
 #: includes/class-import-meetup-events-meetup.php:51
-#: includes/class-import-meetup-events-meetup.php:257
+#: includes/class-import-meetup-events-meetup.php:236
 msgid "Please insert \"Meetup API key\" Or OAuth key and secret in settings."
 msgstr ""
 
-#: includes/class-import-meetup-events-meetup.php:65
-msgid "Please insert Valid Meetup Group URl."
-msgstr ""
-
-#: includes/class-import-meetup-events-meetup.php:108
+#: includes/class-import-meetup-events-meetup.php:87
 msgid "Please insert Valid Meetup Event ID."
 msgstr ""
 
