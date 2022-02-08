@@ -166,7 +166,7 @@ class Import_Meetup_Events_Manage_Import {
 		$event_data['ime_event_ids'] = isset( $_POST['ime_event_ids'] ) ? array_map( 'trim', array_map( 'sanitize_text_field', explode( "\n", preg_replace( "/^\n+|^[\t\s]*\n+/m", '', wp_unslash( $_POST['ime_event_ids'] ) ) ) ) ) : array(); // input var okay.
 		$event_data['meetup_url']    = isset( $_POST['meetup_url'] ) ? sanitize_text_field( $_POST['meetup_url'] ) : '';
 
-		if ( !empty( $event_data['meetup_url'] ) ) {
+		if ( 'group_url' === $event_data['import_by'] && !empty( $event_data['meetup_url'] ) ) {
 			if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ) {
 				$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );
 				return;
