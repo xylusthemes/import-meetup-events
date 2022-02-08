@@ -13,7 +13,7 @@
     });
 
     jQuery(document).ready(function(){
-        jQuery(document).on('change', '#meetup_import_by', function(){
+        jQuery('#meetup_import_by').on('change', function(){
     
             if( jQuery(this).val() == 'event_id' ){
                 jQuery('.import_type_wrapper').hide();

@@ -264,10 +264,10 @@ class Import_Meetup_Events_TEC {
 	 */
 	public function get_organizer_args( $centralize_org_array ) {
 
-		if ( !isset( $centralize_org_array['id'] ) ) {
+		if ( !isset( $centralize_org_array['ID'] ) ) {
 			return null;
 		}
-		$existing_organizer = $this->get_organizer_by_id( $centralize_org_array['id'] );
+		$existing_organizer = $this->get_organizer_by_id( $centralize_org_array['ID'] );
 		if ( $existing_organizer && is_numeric( $existing_organizer ) && $existing_organizer > 0 ) {
 			return array(
 				'OrganizerID' => $existing_organizer,
@@ -282,7 +282,7 @@ class Import_Meetup_Events_TEC {
 		) );
 
 		if ( $create_organizer ) {
-			update_post_meta( $create_organizer, 'ime_event_organizer_id', $centralize_org_array['id'] );
+			update_post_meta( $create_organizer, 'ime_event_organizer_id', $centralize_org_array['ID'] );
 			return array(
 				'OrganizerID' => $create_organizer,
 			);

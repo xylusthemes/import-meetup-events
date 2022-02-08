@@ -2,7 +2,7 @@
 /**
  * Meetup GraphQL Wrapper.
  *
- * @author     Rajat Patel
+ * @author Rajat Patel
  */
 
 /**
@@ -45,10 +45,10 @@ class Import_Meetup_Events_API {
     }
 
     /**
-     * Contain Meetup Event Query
-     * @access public
+     * Get Meetup Event Query
+     * @access private
      */
-    public function getEventQuery(){
+    private function getEventQuery(){
         return <<<'GRAPHQL'
                 query ($eventId: ID!) {
                     event(id: $eventId) {
@@ -107,10 +107,10 @@ GRAPHQL;
     }
 
     /**
-     * Contain Meetup Group Event Query
-     * @access public
+     * Get Meetup Group Event Query
+     * @access private
      */
-    public function getGroupEventsQuery(){
+    private function getGroupEventsQuery(){
         return <<<'GRAPHQL'
             query ($urlname: String!, $itemsNum: Int!, $cursor: String) {
                 groupByUrlname(urlname: $urlname) {
@@ -180,9 +180,9 @@ GRAPHQL;
     }
 
     /**
-     * Get Meetup Events.
+     * Get Meetup Event by Id.
      *
-     * @return array Meetup Events
+     * @return array Meetup Event array.
      */
     public function getEvent( $event_id = 0 ){         
         $query = $this->getEventQuery();
@@ -202,9 +202,9 @@ GRAPHQL;
     }
 
     /**
-     * Get Meetup Authorize User Data
+     * Get Meetup Authorized User Data
      * 
-     * @return array User Token
+     * @return array User data
      */
     public function getAuthUser(){
 
@@ -230,7 +230,7 @@ GRAPHQL;
     public function graphql_query( $endpoint,  $query,  $variables = [] ) {
         $headers = ['Content-Type: application/json'];
         if (null !== $this->api_key) {
-            $headers[] = 'Authorization: bearer' . $this->api_key;
+            $headers[] = 'Authorization: Bearer ' . $this->api_key;
         }
 
         if (false === $data = @file_get_contents($endpoint, false, stream_context_create([

@@ -8,7 +8,6 @@ global $ime_events;
         <div class="ime-column ime_well">
             <h3><?php esc_attr_e( 'Meetup Import', 'import-meetup-events' ); ?></h3>
             <form method="post" id="ime_meetup_form">
-				
 				<table class="form-table">
 		            <tbody>
 						<tr>
@@ -86,7 +85,6 @@ global $ime_events;
 
 					</tbody>
 		        </table>
-                
                 <div class="ime_element">
                 	<input type="hidden" name="import_origin" value="meetup" />
                     <input type="hidden" name="ime_action" value="ime_import_submit" />
