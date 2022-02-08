@@ -203,7 +203,7 @@ class Import_Meetup_Events_Common {
 		if ( ! empty( $image_url ) ) {
 
 			// Set variables for storage, fix file filename for query strings.
-			preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $image_url, $matches );
+			preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png|webp)\b/i', $image_url, $matches );
 			if ( ! $matches ) {
 				return new WP_Error( 'image_sideload_failed', __( 'Invalid image URL', 'import-meetup-events' ) );
 			}
