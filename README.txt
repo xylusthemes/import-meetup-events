@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 5.9
-Stable tag: 1.4.4
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,11 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.0 =
+* ADDED: GraphQL Support
+* ADDED: Considered private status in event already exists check
+* IMPROVEMENTS: Support for WP 5.9
 
 = 1.4.4 =
 * ADDED: Optional Plugin deactivation Feedback
