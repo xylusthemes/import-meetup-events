@@ -90,8 +90,8 @@ class Import_Meetup_Events_Authorize {
 						$access_token = $body_response->access_token;
 					    update_option('ime_user_token_options', $body_response);
 
-						$api 				= new Import_Meetup_Events_API();
-						$profile_call 		= $api->getAuthUser( $access_token );
+						$api 				= new Import_Meetup_Events_API( $access_token );
+						$profile_call 		= $api->getAuthUser();
 						$user_data			= $profile_call['data']['self'];
 
 						$profile  = array(

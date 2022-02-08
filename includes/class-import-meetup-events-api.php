@@ -17,23 +17,39 @@ class Import_Meetup_Events_API {
      * @access private
      */
     private $api_url = 'https://api.meetup.com/gql';
+
+    /**
+     * Contain Meetup API Key
+     * @access private
+     */
+    private $api_key;
+
     
     /**
      * Initialize Meetup GraphQL.
      *
      * @param string $access_token    Acccess Token OR key
      */
-    public function __construct(){
-        $this->client = new Import_Meetup_Events_HttpClient();
+    public function __construct( $api_key = '' ){
+        if ( empty( $api_key ) ) {
+            $access_token   = get_option('ime_user_token_options', true);
+            $api_key        = get_option('xtmi_meetup_options', true);
+            
+            if ( ! empty( $access_token ) ) {
+                $api_key = $access_token->access_token;
+            } else {
+                $api_key = $api_key['meetup_api_key'];
+            }
+        }
+        $this->api_key = $api_key;
     }
 
     /**
-     * Get Meetup Events.
-     *
-     * @return array Meetup Events
+     * Contain Meetup Event Query
+     * @access public
      */
-    public function getEvents( $event_id = 0, $api_key = '' ){         
-        $query = <<<'GRAPHQL'
+    public function getEventQuery(){
+        return <<<'GRAPHQL'
                 query ($eventId: ID!) {
                     event(id: $eventId) {
                         id
@@ -87,22 +103,20 @@ class Import_Meetup_Events_API {
                         }
                     }
                 }
-                GRAPHQL;
-        $variables = ['eventId' => $event_id];
-        return $this->client->graphql_query( $this->api_url, $query, $variables, $api_key );
+GRAPHQL;
     }
-    
+
     /**
-     * Get Meetup Events By Group ID With pagination
-     *
-     * @return array Group ID
+     * Contain Meetup Group Event Query
+     * @access public
      */
-    public function getGroupEvents( $meetup_group_id = '', $itemsNum = 0, $cursor = "", $api_key = '' ){
-        $query = <<<'GRAPHQL'
+    public function getGroupEventsQuery(){
+        return <<<'GRAPHQL'
             query ($urlname: String!, $itemsNum: Int!, $cursor: String) {
                 groupByUrlname(urlname: $urlname) {
                     upcomingEvents(input: {first: $itemsNum, after: $cursor}){
                         pageInfo{
+                            hasNextPage
                             endCursor
                         }
                         count
@@ -162,31 +176,29 @@ class Import_Meetup_Events_API {
                     }
                 }
             }
-        GRAPHQL;
-        $variables = ['urlname' => $meetup_group_id, 'itemsNum' => $itemsNum, 'cursor'=> $cursor ];
-        return $this->client->graphql_query( $this->api_url, $query, $variables, $api_key);
+GRAPHQL;
     }
 
     /**
-     * Get Meetup Group Name by Gruop ID
-     * 
+     * Get Meetup Events.
+     *
+     * @return array Meetup Events
+     */
+    public function getEvent( $event_id = 0 ){         
+        $query = $this->getEventQuery();
+        $variables = ['eventId' => $event_id];
+        return $this->graphql_query( $this->api_url, $query, $variables );
+    }
+    
+    /**
+     * Get Meetup Events By Group ID With pagination
+     *
      * @return array Group ID
      */
-    public function getGroupName( $meetup_group_id = '', $api_key = '' ){
-
-        $query = <<<'GRAPHQL'
-        query ($urlname: String!) {
-            groupByUrlname(urlname: $urlname) {
-              upcomingEvents(input: {}) {
-                count
-              }
-              name
-              id
-            }
-          }
-        GRAPHQL;
-        $variables = ['urlname' => $meetup_group_id];
-        return $this->client->graphql_query( $this->api_url, $query, $variables, $api_key);
+    public function getGroupEvents( $meetup_group_id = '', $itemsNum = 0, $cursor = '' ){
+        $query = $this->getGroupEventsQuery();
+        $variables = ['urlname' => $meetup_group_id, 'itemsNum' => $itemsNum, 'cursor'=> $cursor ];
+        return $this->graphql_query( $this->api_url, $query, $variables );
     }
 
     /**
@@ -194,7 +206,7 @@ class Import_Meetup_Events_API {
      * 
      * @return array User Token
      */
-    public function getAuthUser( $api_key = '' ){
+    public function getAuthUser(){
 
         $query = <<<'GRAPHQL'
             query{
@@ -204,10 +216,34 @@ class Import_Meetup_Events_API {
                     name
                 }
             }
-        GRAPHQL;
+GRAPHQL;
         $variables = [];
-        return $this->client->graphql_query( $this->api_url, $query, $variables, $api_key);
+        return $this->graphql_query( $this->api_url, $query, $variables );
     }
 
+    /**
+     * grapgql_query function.
+     *
+     * @access protected
+     * @return cURL object
+     */
+    public function graphql_query( $endpoint,  $query,  $variables = [] ) {
+        $headers = ['Content-Type: application/json'];
+        if (null !== $this->api_key) {
+            $headers[] = 'Authorization: bearer' . $this->api_key;
+        }
+
+        if (false === $data = @file_get_contents($endpoint, false, stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => $headers,
+                'content' => json_encode(['query' => $query, 'variables' => $variables]),
+            ]
+        ]))) {
+            $error = error_get_last();
+            throw new ErrorException( $error['message'], $error['type']);
+        }
+
+        return json_decode($data, true);
+    }
 }
-  

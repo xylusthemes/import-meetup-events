@@ -57,52 +57,31 @@ class Import_Meetup_Events_Meetup {
 			$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
 			if( $meetup_group_id == '' ){ return; }
 			
-			$itemsNum			= 50;
-			$endCursor 			= null;
-			$meetup_event_data 	= $api->getGroupName( $meetup_group_id, $this->api_key );
-			
-			if( empty( $meetup_event_data['data']['groupByUrlname'] ) ){
-				$ime_errors[] = __( 'Please insert Valid Meetup Group URl.', 'import-meetup-events');
-				return;
-			}
-			
-			$get_event_data  	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
-			$total_pages  		= isset( $get_event_data['count'] ) ? ceil( $get_event_data['count']/$itemsNum ): 0;
+			$itemsnum			= 50;
+			$endcursor 			= null;
+			$have_next_page     = true;
 
-			if( $itemsNum < $get_event_data['count'] ){
+			while( true === $have_next_page ){
+				$meetup_event_data   = $api->getGroupEvents( $meetup_group_id, $itemsnum, $endcursor );
+				$get_upcoming_events = $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
+				$meetup_events		 = $get_upcoming_events['edges'];
 
-				for ($i=1; $i <= $total_pages; $i++) {
-					$meetup_event_data 		= $api->getGroupEvents( $meetup_group_id, $itemsNum, $endCursor, $this->api_key );
-		
-					$get_upcoming_events	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
-					$meetup_events			= $get_upcoming_events['edges'];
-
-					if( !empty( $meetup_events ) ){
-						foreach ($meetup_events as $meetup_event) {
-							$meetup_event 		= $meetup_event['node'];
-							$imported_events[] 	= $this->save_meetup_event( $meetup_event, $event_data );
-						}	
-					}
-					$endCursor = $get_upcoming_events['pageInfo']['endCursor'];
-				}
-				
-			}else{
-				$meetup_event_data 		= $api->getGroupEvents( $meetup_group_id, $itemsNum, $endCursor, $this->api_key );
-				$meetup_events	= $meetup_event_data['data']['groupByUrlname']['upcomingEvents']['edges'];
 				if( !empty( $meetup_events ) ){
 					foreach ($meetup_events as $meetup_event) {
-							$meetup_event = $meetup_event['node'];
-							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
+						$meetup_event 		= $meetup_event['node'];
+						$imported_events[] 	= $this->save_meetup_event( $meetup_event, $event_data );
 					}	
 				}
-			}			
+				$endcursor      = $get_upcoming_events['pageInfo']['endCursor'];
+				$have_next_page = $get_upcoming_events['pageInfo']['hasNextPage'];
+			}	
 
 			return $imported_events;
 
 		}else{
 			
-			$meetup_event_data 	= $api->getEvents( $event_id, $this->api_key );
-			$meetup_event		= $meetup_event_data['data']['event'];
+			$meetup_event_data = $api->getEvent( $event_id );
+			$meetup_event      = $meetup_event_data['data']['event'];
 			
 			if( empty( $meetup_event ) ){
 				$ime_errors[] = __( 'Please insert Valid Meetup Event ID.', 'import-meetup-events');
@@ -262,7 +241,7 @@ class Import_Meetup_Events_Meetup {
 		if( $url_group_slug == '' ){ return; }
 		
 		$api 				= new Import_Meetup_Events_API();
-		$meetup_group_data 	= $api->getGroupName( $url_group_slug, $this->api_key );
+		$meetup_group_data 	= $api->getGroupName( $url_group_slug );
 		$get_group 			= $meetup_group_data['data']['groupByUrlname'];
 					
 		if ( is_array( $get_group ) && ! isset( $get_group['errors'] ) ) {

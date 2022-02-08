@@ -181,7 +181,6 @@ if (!class_exists('Import_Meetup_Events')):
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-aioec.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-my-calendar.php';
             require_once IME_PLUGIN_DIR . 'includes/class-ime-plugin-deactivation.php';
-            require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-http.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-api.php';
             // Gutenberg Block
             require_once IME_PLUGIN_DIR . 'blocks/meetup-events/index.php';
