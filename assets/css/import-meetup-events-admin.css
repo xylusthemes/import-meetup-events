@@ -387,9 +387,6 @@ table.ime_form_table tr td:nth-child(1) {
 }
 
 /*Upgrade to pro link CSS*/
-.ime_upgrade_pro a {
+.ime_upgrade_pro {
   background: #1da867;
-}
-.ime_upgrade_pro a:hover {
-  background: #1da867 !important;
 }

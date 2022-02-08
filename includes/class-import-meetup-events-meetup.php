@@ -43,8 +43,10 @@ class Import_Meetup_Events_Meetup {
 
 		global $ime_errors;
 		$imported_events = array();
-		$event_id        = isset( $event_data['ime_event_id'] ) ? $event_data['ime_event_id'] : '';
-		$meetup_url      = isset( $event_data['ime_group_url'] ) ? $event_data['ime_group_url'] : '';
+		$event_ids       = array();
+		$import_by       = isset( $event_data['import_by'] ) ? $event_data['import_by'] : '';
+		$event_ids       = isset( $event_data['ime_event_ids'] ) ? $event_data['ime_event_ids'] : '';
+		$meetup_url      = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
 		$api             = new Import_Meetup_Events_API();
 		
 		if( empty($this->api_key) && empty($this->access_token) ){
@@ -52,44 +54,46 @@ class Import_Meetup_Events_Meetup {
 			return;
 		}
 
-		if( !empty( $meetup_url ) ){
+		if( 'group_url' === $import_by ){
 
 			$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
 			if( $meetup_group_id == '' ){ return; }
-			
-			$itemsnum       = 50;
-			$endcursor      = null;
-			$have_next_page = true;
+							
+				$itemsnum       = 50;
+				$endcursor      = null;
+				$have_next_page = true;
 
-			while( true === $have_next_page ){
-				$meetup_event_data   = $api->getGroupEvents( $meetup_group_id, $itemsnum, $endcursor );
-				$get_upcoming_events = $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
-				$meetup_events       = $get_upcoming_events['edges'];
+				while( true === $have_next_page ){
+					$meetup_event_data   = $api->getGroupEvents( $meetup_group_id, $itemsnum, $endcursor );
+					$get_upcoming_events = $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
+					$meetup_events       = $get_upcoming_events['edges'];
 
-				if( !empty( $meetup_events ) ){
-					foreach ($meetup_events as $meetup_event) {
-						$meetup_event      = $meetup_event['node'];
-						$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
-					}	
+					if( !empty( $meetup_events ) ){
+						foreach ($meetup_events as $meetup_event) {
+							$meetup_event      = $meetup_event['node'];
+							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
+						}	
+					}
+					$endcursor      = $get_upcoming_events['pageInfo']['endCursor'];
+					$have_next_page = $get_upcoming_events['pageInfo']['hasNextPage'];
 				}
-				$endcursor      = $get_upcoming_events['pageInfo']['endCursor'];
-				$have_next_page = $get_upcoming_events['pageInfo']['hasNextPage'];
-			}	
 
 			return $imported_events;
 
-		}else{
-			
-			$meetup_event_data = $api->getEvent( $event_id );
-			$meetup_event      = $meetup_event_data['data']['event'];
-			
-			if( empty( $meetup_event ) ){
-				$ime_errors[] = __( 'Please insert Valid Meetup Event ID.', 'import-meetup-events');
-				return;
-			}
-			
-			if( !empty( $meetup_event ) ){
-				$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );	
+		}elseif(  $import_by === 'event_id' ) {
+			if( !empty( $event_ids ) ){
+				foreach ( $event_ids as $event_id ) {
+					if ( ! empty( $event_id ) ) {
+						$meetup_event_data = $api->getEvent( $event_id );
+						$meetup_event      = $meetup_event_data['data']['event'];				
+						if( !empty( $meetup_event ) ){
+							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );	
+						}else{
+							$ime_errors[] = __( 'Please insert valid Meetup Event ID.', 'import-meetup-events');
+							return;
+						}
+					}
+				}
 			}
 			return $imported_events;
 		}
@@ -138,10 +142,11 @@ class Import_Meetup_Events_Meetup {
 		$shortDescription  = isset( $meetup_event['shortDescription'] ) ? $meetup_event['shortDescription'] : '';
 		$status            = isset( $meetup_event['status'] ) ? $meetup_event['status'] : '';
 		$isOnline          = isset( $meetup_event['isOnline'] ) ? $meetup_event['isOnline'] : '';
+		$event_id          = isset( $meetup_event['id'] ) ? str_replace( '!chp', '', $meetup_event['id']  ) : '';
 
 		$xt_event = array(
 			'origin'          => 'meetup',
-			'ID'              => isset( $meetup_event['id'] ) ? $meetup_event['id'] : '',
+			'ID'              => $event_id,
 			'name'            => $event_name,
 			'description'     => $event_description,
 			'starttime_local' => $start_time,

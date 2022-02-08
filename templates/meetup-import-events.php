@@ -31,12 +31,12 @@ global $ime_events;
 							</th>
 							<td>
 								<?php if ( ime_is_pro() ) { ?>
-								<textarea class="ime_meetup_ids" name="ime_event_id" type="text" rows="5" cols="50"></textarea>
+								<textarea class="ime_meetup_ids" name="ime_event_ids" type="text" rows="5" cols="50"></textarea>
 								<span class="ime_small">
-									<?php _e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
+									<?php _e( 'One event ID per line, ( Eg. Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class="borderall">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
 								</span>
 								<?php } else { ?>
-								<input class="ime_text" name="ime_event_id" type="text" />
+								<input class="ime_text" name="ime_event_ids" type="text" />
 								<span class="ime_small">
 									<?php _e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
 								</span>
@@ -49,7 +49,7 @@ global $ime_events;
 								<?php esc_attr_e( 'Meetup Group URL','import-meetup-events' ); ?> : 
 							</th>
 							<td>
-								<input class="ime_text" name="ime_group_url" type="text" <?php if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
+								<input class="ime_text" name="meetup_url" type="text" <?php if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
 								<span class="ime_small">
 									<?php _e( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
 								</span>
