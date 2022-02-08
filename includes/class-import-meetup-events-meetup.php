@@ -43,9 +43,8 @@ class Import_Meetup_Events_Meetup {
 
 		global $ime_errors;
 		$imported_events = array();
-		$event_ids       = array();
 		$import_by       = isset( $event_data['import_by'] ) ? $event_data['import_by'] : '';
-		$event_ids       = isset( $event_data['ime_event_ids'] ) ? $event_data['ime_event_ids'] : '';
+		$event_ids       = isset( $event_data['ime_event_ids'] ) ? $event_data['ime_event_ids'] : array();
 		$meetup_url      = isset( $event_data['meetup_url'] ) ? $event_data['meetup_url'] : '';
 		$api             = new Import_Meetup_Events_API();
 		
@@ -70,8 +69,7 @@ class Import_Meetup_Events_Meetup {
 
 					if( !empty( $meetup_events ) ){
 						foreach ($meetup_events as $meetup_event) {
-							$meetup_event      = $meetup_event['node'];
-							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );
+							$imported_events[] = $this->save_meetup_event( $meetup_event['node'], $event_data );
 						}	
 					}
 					$endcursor      = $get_upcoming_events['pageInfo']['endCursor'];

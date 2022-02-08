@@ -167,7 +167,7 @@ class Import_Meetup_Events_IME {
 
 			// Venue
 			update_post_meta( $inserted_event_id, 'venue_name', $venue_name );
-			if( !empty( $venue_name ) || $venue_name != 'Online event' ){
+			if( $venue_name != 'Online event' ){
 				update_post_meta( $inserted_event_id, 'venue_address', $venue_address );
 				update_post_meta( $inserted_event_id, 'venue_city', $venue_city );
 				update_post_meta( $inserted_event_id, 'venue_state', $venue_state );
