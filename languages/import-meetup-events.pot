@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-08T10:04:18+00:00\n"
+"POT-Creation-Date: 2022-02-08T10:32:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: import-meetup-events\n"
@@ -307,7 +307,7 @@ msgid "Please insert Meetup Oauth Key and Secret."
 msgstr ""
 
 #: includes/class-import-meetup-events-authorize.php:46
-#: includes/class-import-meetup-events-authorize.php:120
+#: includes/class-import-meetup-events-authorize.php:119
 msgid "You have not access to doing this operations."
 msgstr ""
 
@@ -1120,55 +1120,55 @@ msgstr ""
 msgid "Buy Now"
 msgstr ""
 
-#: templates/meetup-import-events.php:16
+#: templates/meetup-import-events.php:15
 msgid "Import by"
 msgstr ""
 
-#: templates/meetup-import-events.php:20
+#: templates/meetup-import-events.php:19
 msgid "Event ID"
 msgstr ""
 
-#: templates/meetup-import-events.php:21
+#: templates/meetup-import-events.php:20
 msgid "Group URL"
 msgstr ""
 
-#: templates/meetup-import-events.php:24
+#: templates/meetup-import-events.php:23
 msgid "Select Event source. 1. by Event ID, 2. by Group URL"
 msgstr ""
 
-#: templates/meetup-import-events.php:31
+#: templates/meetup-import-events.php:30
 msgid "Meetup Event ID"
 msgstr ""
 
-#: templates/meetup-import-events.php:37
-#: templates/meetup-import-events.php:42
+#: templates/meetup-import-events.php:36
+#: templates/meetup-import-events.php:41
 msgid "Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class=\"borderall\">xxxxxxxxx</span>  )."
 msgstr ""
 
-#: templates/meetup-import-events.php:50
+#: templates/meetup-import-events.php:49
 msgid "Meetup Group URL"
 msgstr ""
 
-#: templates/meetup-import-events.php:55
+#: templates/meetup-import-events.php:54
 msgid "Insert meetup group url ( Eg. -<span class=\"borderall\">https://www.meetup.com/xxxx-xxx-xxxx/</span>  )."
 msgstr ""
 
-#: templates/meetup-import-events.php:63
+#: templates/meetup-import-events.php:62
 msgid "Import type"
 msgstr ""
 
-#: templates/meetup-import-events.php:77
+#: templates/meetup-import-events.php:76
 msgid "Author"
 msgstr ""
 
-#: templates/meetup-import-events.php:80
+#: templates/meetup-import-events.php:79
 msgid "Select Author"
 msgstr ""
 
-#: templates/meetup-import-events.php:82
+#: templates/meetup-import-events.php:81
 msgid "Select event author for imported events. Default event auther is current loggedin user."
 msgstr ""
 
-#: templates/meetup-import-events.php:94
+#: templates/meetup-import-events.php:92
 msgid "Import Event"
 msgstr ""
