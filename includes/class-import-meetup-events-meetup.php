@@ -154,8 +154,8 @@ class Import_Meetup_Events_Meetup {
 			'startime_utc'    => $start_time,
 			'endtime_utc'     => $end_time,
 			'timezone'        => $timezone,
-			'utc_offset_hours'=> $start_time,
-			'utc_offset'      => $end_time,
+			'utc_offset_hours'=> $this->get_utc_offset( $timezone),
+			'utc_offset'      => $this->get_utc_offset( $timezone),
 			'is_all_day'      => '',
 			'url'             => $event_url,
 			'image_url'       => $image_url,
@@ -335,15 +335,13 @@ class Import_Meetup_Events_Meetup {
 	}
 
 	/**
-     * Convert datetime to desired timezone.
-     *
-     * @param string $date_string     Date string to possibly convert
-     * @param string $timezone timezone to be conterted
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
+	 * Convert datetime to desired timezone.
+	 *
+	 * @param string $date_string     Date string to possibly convert
+	 * @param string $timezone timezone to be conterted
+	 *
+	 * @return string
+	 */
     public function convert_datetime_to_timezone_wise_datetime( $datetime, $timezone = false ) {
         try {
             $datetime = new DateTime( $datetime );
@@ -358,4 +356,16 @@ class Import_Meetup_Events_Meetup {
             return $datetime;
         }
     }
+
+	/**
+	 * Get UTC offset for given timezone.
+	 */
+	public function get_utc_offset( $timezone = '') {
+		$tz = new DateTimeZone($timezone);
+		$utc_tz = new DateTimeZone('UTC');
+		$now = new DateTime("now", $tz);
+		$utc_now = new DateTime("now", $utc_tz);
+		$offset = ( ( $tz->getOffset($now) - $utc_tz->getOffset($utc_now) ) / 3600 );
+		return $offset;
+	}
 }
