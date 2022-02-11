@@ -50,6 +50,9 @@ class Import_Meetup_Events_Admin {
 	public function add_menu_pages(){
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
+		if( !ime_is_pro() ){
+			add_submenu_page( 'meetup_import', __( 'Upgrade to Pro', 'import-meetup-events' ),  '<li class="ime_upgrade_pro current"> ' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
+		}
 	}
 
 	/**
