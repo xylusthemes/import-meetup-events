@@ -90,9 +90,15 @@ class Import_Meetup_Events_Authorize {
 						$access_token = $body_response->access_token;
 					    update_option('ime_user_token_options', $body_response);
 
-						$profile_call= wp_remote_get("https://api.meetup.com/members/self?access_token=$access_token");
-						$profile = wp_remote_retrieve_body( $profile_call );
-						$profile = json_decode( $profile );
+						$api       = new Import_Meetup_Events_API( $access_token );
+						$auth_user = $api->getAuthUser();
+						$user_data = $auth_user['data']['self'];
+
+						$profile  = array(
+							'ID'	=> $user_data['id'],
+							'name'  => $user_data['name'],
+							'email' => $user_data['email']
+						);
 						update_option('ime_authorized_user', $profile );
 
 						$redirect_url = admin_url('admin.php?page=meetup_import&tab=settings&m_authorize=1');
