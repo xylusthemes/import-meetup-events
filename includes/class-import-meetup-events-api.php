@@ -206,6 +206,25 @@ GRAPHQL;
      * 
      * @return array User data
      */
+    public function getGroupName(  $meetup_group_id = '' ){
+
+        $query = <<<'GRAPHQL'
+        query ($urlname: String!) {
+            groupByUrlname(urlname: $urlname) {
+                id
+                name
+            }
+        }
+GRAPHQL;
+        $variables = [ 'urlname' => $meetup_group_id ];
+        return $this->graphql_query( $this->api_url, $query, $variables );
+    }
+
+    /**
+     * Get Meetup Authorized User Data
+     * 
+     * @return array User data
+     */
     public function getAuthUser(){
 
         $query = <<<'GRAPHQL'
