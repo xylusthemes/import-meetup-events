@@ -32,7 +32,7 @@ class Import_Meetup_Events_API {
      */
     public function __construct( $api_key = '' ){
         if ( empty( $api_key ) ) {
-            $access_token   = get_option('ime_user_token_options', true);
+            $access_token   = get_option('ime_user_token_options');
             $api_key        = get_option('xtmi_meetup_options', true);
             
             if ( ! empty( $access_token ) ) {
