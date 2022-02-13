@@ -209,9 +209,19 @@ if (!class_exists('Import_Meetup_Events')):
 		 * @return void
 		 */
 		public function ime_setting_doc_links ( $links ) {
-			$ime_setting_link = array('<a href='.admin_url( "admin.php?page=meetup_import&tab=settings" ).' target="_blank">' . __('Setting', 'import-eventbrite-events') . '</a>');
-			$ime_docs_link = array('<a href="https://docs.xylusthemes.com/docs/import-meetup-events/" target="_blank">' . __('Docs', 'import-eventbrite-events') . '</a>');
-			return array_merge( $links, $ime_setting_link, $ime_docs_link );
+            $ime_setting_doc_link = array(
+                'ime-event-setting'    => sprintf(
+                    '<a href="%s">%s</a>',
+                    esc_url( admin_url( 'admin.php?page=meetup_import&tab=settings' ) ),
+                    esc_html__( 'Setting', 'import-meetup-events' )
+                ),
+                'ime-event-docs' => sprintf(
+                    '<a target="_blank" href="%s">%s</a>',
+                    esc_url( 'https://docs.xylusthemes.com/docs/import-meetup-events/' ),
+                    esc_html__( 'Docs', 'import-meetup-events' )
+                ),
+            );
+            return array_merge( $links, $ime_setting_doc_link );
 		}
 
         /**
