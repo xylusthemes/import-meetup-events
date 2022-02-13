@@ -222,7 +222,7 @@ if (!class_exists('Import_Meetup_Events')):
                 ),
             );
             return array_merge( $links, $ime_setting_doc_link );
-		}
+        }
 
         /**
          * Loads the Meetup authorize class
