@@ -203,14 +203,14 @@ if (!class_exists('Import_Meetup_Events')):
         }
 
         /**
-		 * IME setting And docs link add in plugin page.
-		 *
-		 * @since 1.0
-		 * @return void
-		 */
-		public function ime_setting_doc_links ( $links ) {
+         * IME setting And docs link add in plugin page.
+         *
+         * @since 1.0
+         * @return void
+         */
+        public function ime_setting_doc_links ( $links ) {
             $ime_setting_doc_link = array(
-                'ime-event-setting'    => sprintf(
+                'ime-event-setting' => sprintf(
                     '<a href="%s">%s</a>',
                     esc_url( admin_url( 'admin.php?page=meetup_import&tab=settings' ) ),
                     esc_html__( 'Setting', 'import-meetup-events' )
