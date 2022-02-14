@@ -7,6 +7,11 @@ $meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup
 
 $ime_user_token_options = get_option( 'ime_user_token_options', array() );
 $ime_authorized_user = get_option( 'ime_authorized_user', array() );
+
+if( is_object( $ime_authorized_user ) ){
+    $ime_authorized_user = (array)$ime_authorized_user;
+}
+
 ?>
 <div class="ime_container">
     <div class="ime_row">
