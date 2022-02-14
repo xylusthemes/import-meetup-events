@@ -3,7 +3,7 @@
  * Plugin Name:       Import Meetup Events
  * Plugin URI:        https://xylusthemes.com/plugins/import-meetup-events/
  * Description:       Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly.
- * Version:           1.5.0
+ * Version:           1.5.1
  * Author:            xylus
  * Author URI:        http://xylusthemes.com/
  * License:           GPL-2.0+
@@ -56,6 +56,7 @@ if (!class_exists('Import_Meetup_Events')):
                 add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
                 add_action( 'plugins_loaded', array( self::$instance, 'load_authorize_class' ), 20 );
                 add_action('wp_enqueue_scripts', array(self::$instance, 'ime_enqueue_style'));
+                add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( self::$instance, 'ime_setting_doc_links' ) );
 
                 self::$instance->includes();
                 self::$instance->common = new Import_Meetup_Events_Common();
@@ -98,7 +99,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __clone() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.0');
+            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.1');
         }
 
         /**
@@ -107,7 +108,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __wakeup() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.0');
+            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.1');
         }
 
         /**
@@ -121,7 +122,7 @@ if (!class_exists('Import_Meetup_Events')):
 
             // Plugin version.
             if (!defined('IME_VERSION')) {
-                define('IME_VERSION', '1.5.0');
+                define('IME_VERSION', '1.5.1');
             }
 
             // Minimum Pro plugin version.
@@ -199,6 +200,28 @@ if (!class_exists('Import_Meetup_Events')):
                 false,
                 basename(dirname(__FILE__)) . '/languages'
             );
+        }
+
+        /**
+         * IME setting And docs link add in plugin page.
+         *
+         * @since 1.0
+         * @return void
+         */
+        public function ime_setting_doc_links ( $links ) {
+            $ime_setting_doc_link = array(
+                'ime-event-setting' => sprintf(
+                    '<a href="%s">%s</a>',
+                    esc_url( admin_url( 'admin.php?page=meetup_import&tab=settings' ) ),
+                    esc_html__( 'Setting', 'import-meetup-events' )
+                ),
+                'ime-event-docs' => sprintf(
+                    '<a target="_blank" href="%s">%s</a>',
+                    esc_url( 'https://docs.xylusthemes.com/docs/import-meetup-events/' ),
+                    esc_html__( 'Docs', 'import-meetup-events' )
+                ),
+            );
+            return array_merge( $links, $ime_setting_doc_link );
         }
 
         /**
