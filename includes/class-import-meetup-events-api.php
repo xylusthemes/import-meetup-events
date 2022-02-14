@@ -32,7 +32,7 @@ class Import_Meetup_Events_API {
      */
     public function __construct( $api_key = '' ){
         if ( empty( $api_key ) ) {
-            $access_token   = get_option('ime_user_token_options', true);
+            $access_token   = get_option('ime_user_token_options');
             $api_key        = get_option('xtmi_meetup_options', true);
             
             if ( ! empty( $access_token ) ) {
@@ -198,6 +198,25 @@ GRAPHQL;
     public function getGroupEvents( $meetup_group_id = '', $itemsNum = 0, $cursor = '' ){
         $query = $this->getGroupEventsQuery();
         $variables = ['urlname' => $meetup_group_id, 'itemsNum' => $itemsNum, 'cursor'=> $cursor ];
+        return $this->graphql_query( $this->api_url, $query, $variables );
+    }
+
+    /**
+     * Get Meetup Authorized User Data
+     * 
+     * @return array User data
+     */
+    public function getGroupName(  $meetup_group_id = '' ){
+
+        $query = <<<'GRAPHQL'
+        query ($urlname: String!) {
+            groupByUrlname(urlname: $urlname) {
+                id
+                name
+            }
+        }
+GRAPHQL;
+        $variables = [ 'urlname' => $meetup_group_id ];
         return $this->graphql_query( $this->api_url, $query, $variables );
     }
 
