@@ -23,7 +23,7 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
         } ?>
         
         <div class="widefat ime_settings_notice">
-            <?php printf( '<b>%1$s</b> %2$s <b><a href="https://www.meetup.com/api/oauth/list" target="_blank">%3$s</a></b> %4$s',  __( 'Note : ','import-meetup-events' ), __( 'You have to create a Meetup OAuth Consumer before filling the following details.','import-meetup-events' ), __( 'Click here','import-meetup-events' ),  __( 'to create new OAuth Consumer','import-meetup-events' ) ); ?>
+            <?php printf( '<b>%1$s</b> %2$s <b><a href="https://www.meetup.com/api/oauth/list/" target="_blank">%3$s</a></b> %4$s',  __( 'Note : ','import-meetup-events' ), __( 'You have to create a Meetup OAuth Consumer before filling the following details.','import-meetup-events' ), __( 'Click here','import-meetup-events' ),  __( 'to create new OAuth Consumer','import-meetup-events' ) ); ?>
             <br/>
             <?php _e( 'For detailed step by step instructions ', 'import-meetup-events' ); ?>
             <strong><a href="http://docs.xylusthemes.com/docs/import-meetup-events/creating-oauth-consumer/" target="_blank"><?php _e( 'Click here', 'import-meetup-events' ); ?></a></strong>.
@@ -102,7 +102,7 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                         <td>
                             <input class="meetup_api_key" name="meetup[meetup_oauth_key]" type="text" value="<?php echo $meetup_oauth_key; ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
@@ -114,7 +114,7 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                         <td>
                             <input class="meetup_api_key" name="meetup[meetup_oauth_secret]" type="text" value="<?php echo $meetup_oauth_secret; ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Secret you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Secret you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
@@ -132,7 +132,7 @@ $ime_authorized_user = get_option( 'ime_authorized_user', array() );
                         <td>
                             <input class="meetup_api_key" name="meetup[meetup_api_key]" type="text" value="<?php if ( isset( $meetup_options['meetup_api_key'] ) ) { echo $meetup_options['meetup_api_key']; } ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list" target="_blank">%s</a>', __( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
