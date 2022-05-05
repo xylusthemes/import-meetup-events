@@ -259,6 +259,8 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 						$history->the_post();
 						$last_import_history_date = sprintf( __( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U' ), current_time( 'timestamp' ) ) );
 					}
+				}else{
+					$last_import_history_date = sprintf( __( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U' ), current_time( 'timestamp' ) ) );
 				}
 				wp_reset_postdata();
 

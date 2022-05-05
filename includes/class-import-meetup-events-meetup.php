@@ -53,7 +53,7 @@ class Import_Meetup_Events_Meetup {
 			return;
 		}
 
-		if( 'group_url' === $import_by ){
+		if( 'group_url' === $import_by || !empty( $meetup_url ) ){
 
 			$meetup_group_id = $this->fetch_group_slug_from_url( $meetup_url );
 			if( $meetup_group_id == '' ){ return; }
@@ -141,6 +141,7 @@ class Import_Meetup_Events_Meetup {
 		$status            = isset( $meetup_event['status'] ) ? $meetup_event['status'] : '';
 		$isOnline          = isset( $meetup_event['isOnline'] ) ? $meetup_event['isOnline'] : '';
 		$event_id          = isset( $meetup_event['id'] ) ? str_replace( '!chp', '', $meetup_event['id']  ) : '';
+		$event_host        = isset( $meetup_event['hosts'] ) ? $meetup_event['hosts'] : '';
 
 		$xt_event = array(
 			'origin'          => 'meetup',
@@ -160,6 +161,7 @@ class Import_Meetup_Events_Meetup {
 			'shortDescription'=> $shortDescription,
 			'status'          => $status,
 			'isOnline'        => $isOnline,
+			'hosts'           => $event_host,
 		);
 
 		if ( array_key_exists( 'group', $meetup_event ) ) {
