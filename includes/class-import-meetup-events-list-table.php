@@ -560,16 +560,15 @@ class IME_Shortcode_List_Table extends WP_List_Table {
      *
      * @return Array
      */
-    public function get_columns() {
+	public function get_columns() {
 		$columns = array(
 			'id'            => __( 'ID', 'import-meetup-events' ),
 			'how_to_use'    => __( 'Title', 'import-meetup-events' ),
 			'shortcode'     => __( 'Shortcode', 'import-meetup-events' ),
 			'action'        => __( 'Action', 'import-meetup-events' ),
-        );
-
-        return $columns;
-    }
+		);
+		return $columns;
+	}
 
     /**
      * Define which columns are hidden
