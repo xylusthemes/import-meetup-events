@@ -134,6 +134,10 @@ class Import_Meetup_Events_Admin {
 								<?php esc_html_e( 'Settings', 'import-meetup-events' ); ?>
 							</a>
 
+							<a href="<?php echo esc_url( add_query_arg( 'tab', 'shortcodes', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( 'shortcodes' == $tab) { echo 'nav-tab-active'; } ?>">
+								<?php esc_html_e( 'Shortcodes', 'import-meetup-events' ); ?>
+							</a>
+
 							<a href="<?php echo esc_url( add_query_arg( 'tab', 'support', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'support' ) { echo 'nav-tab-active'; } ?>">
 								<?php esc_html_e( 'Support & Help', 'import-meetup-events' ); ?>
 							</a>
@@ -156,6 +160,8 @@ class Import_Meetup_Events_Admin {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-history.php';
 							} elseif ( $tab == 'support' ) {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-support.php';
+							}elseif ( 'shortcodes' === $tab ) {
+								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-shortcode.php';
 							}
 							?>
 							<div style="clear: both"></div>
