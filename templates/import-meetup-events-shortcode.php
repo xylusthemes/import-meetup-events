@@ -3,13 +3,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$ShortcodeTable = new IME_Shortcode_List_Table();
-$ShortcodeTable->prepare_items();
+$shortcodetable = new IME_Shortcode_List_Table();
+$shortcodetable->prepare_items();
 
 ?>
 <div class="ime_container">
     <div class="ime_row">
     <h3 class="setting_bar"><?php esc_attr_e( 'Meetup Shortcodes', 'import-meetup-events' ); ?></h3>
-        <?php $ShortcodeTable->display(); ?>
+        <?php $shortcodetable->display(); ?>
     </div>
 </div>

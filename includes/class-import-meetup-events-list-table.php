@@ -540,16 +540,16 @@ class IME_Shortcode_List_Table extends WP_List_Table {
         $sortable 	= $this->get_sortable_columns();
         $data 		= $this->table_data();
 
-        $perPage 		= 10;
-        $currentPage 	= $this->get_pagenum();
-        $totalItems 	= count( $data );
+        $perpage 		= 10;
+        $currentpage 	= $this->get_pagenum();
+        $totalitems 	= count( $data );
 
         $this->set_pagination_args( array(
-            'total_items' => $totalItems,
-            'per_page'    => $perPage
+            'total_items' => $totalitems,
+            'per_page'    => $perpage
         ) );
 
-        $data = array_slice( $data, ( ( $currentPage-1 ) * $perPage ), $perPage );
+        $data = array_slice( $data, ( ( $currentpage-1 ) * $perpage ), $perpage );
 
         $this->_column_headers = array( $columns, $hidden, $sortable );
         $this->items = $data;
@@ -565,7 +565,7 @@ class IME_Shortcode_List_Table extends WP_List_Table {
             'id'            => __( 'ID', 'import-meetup-events' ),
             'how_to_use'    => __( 'Title', 'import-meetup-events' ),
             'shortcode'     => __( 'Shortcode', 'import-meetup-events' ),
-			'action'    	=> __( 'Action', 'import-meetup-events' ),
+			'action'        => __( 'Action', 'import-meetup-events' ),
         );
 
         return $columns;
@@ -592,7 +592,7 @@ class IME_Shortcode_List_Table extends WP_List_Table {
                     'id'            => 1,
                     'how_to_use'    => 'Display All Events',
                     'shortcode'     => '<p class="ime_short_code">[meetup_events]</p>',
-                    'action'     	=> '<button class="ime-btn-copy-shortcode button-primary"  data-value="[meetup_events]">Copy</button>',
+                    'action'        => '<button class="ime-btn-copy-shortcode button-primary"  data-value="[meetup_events]">Copy</button>',
                     );
         $data[] = array(            
                     'id'            => 2,
