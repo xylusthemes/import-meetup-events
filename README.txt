@@ -94,10 +94,10 @@ It can also be installed manually.
 
 = 1.5.2 =
 * ADDED: Shortcode page for help
-* ADDED: Import history delete button
-* FIXED: Placeholder image not working
-* FIXED: OAuth key and secret link not working
-* FIXED: Authorization object error
+* ADDED: Import history delete button for clear import history
+* FIXED: Placeholder image url not working
+* FIXED: OAuth key and secret link issue
+* FIXED: Authorization object related error
 
 = 1.5.1 =
 * ADDED: Support and Docs link in plugin page
