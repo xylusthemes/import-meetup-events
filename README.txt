@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 5.9
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,13 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.2 =
+* ADDED: Shortcode page for help
+* ADDED: Import history delete button
+* FIXED: Placeholder image not working
+* FIXED: OAuth key and secret link not working
+* FIXED: Authorization object error
 
 = 1.5.1 =
 * ADDED: Support and Docs link in plugin page
