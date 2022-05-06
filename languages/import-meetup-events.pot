@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-05T05:40:36+00:00\n"
+"POT-Creation-Date: 2022-05-06T05:57:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: import-meetup-events\n"
@@ -769,6 +769,14 @@ msgstr ""
 msgid "Import Stats"
 msgstr ""
 
+#: includes/class-import-meetup-events-list-table.php:452
+msgid "Warning!! Are you sure to delete all these import history? Import history will be permanatly deleted."
+msgstr ""
+
+#: includes/class-import-meetup-events-list-table.php:455
+msgid "Clear Import History"
+msgstr ""
+
 #: includes/class-import-meetup-events-manage-import.php:41
 msgid "Please provide Import into plugin for Event import."
 msgstr ""
@@ -781,28 +789,28 @@ msgstr ""
 msgid "Something went wrong! please try again."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:171
+#: includes/class-import-meetup-events-manage-import.php:193
 msgid "Please provide valid Meetup group URL."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:193
+#: includes/class-import-meetup-events-manage-import.php:215
 msgid "Scheduled import deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:197
-#: includes/class-import-meetup-events-manage-import.php:213
+#: includes/class-import-meetup-events-manage-import.php:219
+#: includes/class-import-meetup-events-manage-import.php:235
 msgid "Scheduled imports are deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:201
+#: includes/class-import-meetup-events-manage-import.php:223
 msgid "Scheduled import has been run successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:205
+#: includes/class-import-meetup-events-manage-import.php:227
 msgid "Import history deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:209
+#: includes/class-import-meetup-events-manage-import.php:231
 msgid "Import histories are deleted successfully."
 msgstr ""
 
