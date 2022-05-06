@@ -540,16 +540,16 @@ class IME_Shortcode_List_Table extends WP_List_Table {
         $sortable 	= $this->get_sortable_columns();
         $data 		= $this->table_data();
 
-        $perpage 		= 10;
-        $currentpage 	= $this->get_pagenum();
-        $totalitems 	= count( $data );
+        $per_page 		= 10;
+        $current_page 	= $this->get_pagenum();
+        $total_items 	= count( $data );
 
         $this->set_pagination_args( array(
-            'total_items' => $totalitems,
-            'per_page'    => $perpage
+            'total_items' => $total_items,
+            'per_page'    => $per_page
         ) );
 
-        $data = array_slice( $data, ( ( $currentpage-1 ) * $perpage ), $perpage );
+        $data = array_slice( $data, ( ( $current_page-1 ) * $per_page ), $per_page );
 
         $this->_column_headers = array( $columns, $hidden, $sortable );
         $this->items = $data;
@@ -561,7 +561,7 @@ class IME_Shortcode_List_Table extends WP_List_Table {
      * @return Array
      */
     public function get_columns() {
-        $columns = array(
+		$columns = array(
 			'id'            => __( 'ID', 'import-meetup-events' ),
 			'how_to_use'    => __( 'Title', 'import-meetup-events' ),
 			'shortcode'     => __( 'Shortcode', 'import-meetup-events' ),
@@ -586,58 +586,58 @@ class IME_Shortcode_List_Table extends WP_List_Table {
      * @return Array
      */
     private function table_data() {
-        $data = array();
-
-        $data[] = array(
-                    'id'            => 1,
-                    'how_to_use'    => 'Display All Events',
-                    'shortcode'     => '<p class="ime_short_code">[meetup_events]</p>',
-                    'action'        => '<button class="ime-btn-copy-shortcode button-primary"  data-value="[meetup_events]">Copy</button>',
-                    );
-        $data[] = array(            
-                    'id'            => 2,
-                    'how_to_use'    => 'Display with column',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events col="2"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\"]' >Copy</button>",
-                    );
-        $data[] = array(
-                    'id'            => 3,
-                    'how_to_use'    => 'Limit for display events',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events posts_per_page="12"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events posts_per_page=\"12\"]' >Copy</button>",
+		$data = array();
+		
+		$data[] = array(
+			'id'            => 1,
+			'how_to_use'    => 'Display All Events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events]</p>',
+			'action'        => '<button class="ime-btn-copy-shortcode button-primary"  data-value="[meetup_events]">Copy</button>',
 		);
-        $data[] = array(
-                    'id'            => 4,
-                    'how_to_use'    => 'Display Events based on order',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\"]' >Copy</button>",
-                    );
-        $data[] = array(
-                    'id'            => 5,
-                    'how_to_use'    => 'Display events based on category',
-					'shortcode'     => '<p class="ime_short_code" >[meetup_events category="cat1"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events category=\"cat1\"]' >Copy</button>",
-                    );
-        $data[] = array(
-                    'id'            => 6,
-                    'how_to_use'    => 'Display Past events',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events past_events="yes"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events past_events=\"yes\"]' >Copy</button>",
-                    );
-        $data[] = array(
-                    'id'            => 7,
-                    'how_to_use'    => 'Display Events based on orderby',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc" orderby="post_title"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\" orderby=\"post_title\"]' >Copy</button>",
-                    );
-        $data[] = array(
-                    'id'            => 8,
-                    'how_to_use'    => 'Full Short-code',
-					'shortcode'     => '<p class="ime_short_code">[meetup_events  col="2" posts_per_page="12" category="cat1" past_events="yes" order="desc" orderby="post_title" start_date="YYYY-MM-DD" end_date="YYYY-MM-DD"]</p>',
-					'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\" posts_per_page=\"12\" category=\"cat1\" past_events=\"yes\" order=\"desc\" orderby=\"post_title\" start_date=\"YYYY-MM-DD\" end_date=\"YYYY-MM-DD\"]' >Copy</button>",
-                    );       
-        return $data;
-    }
+		$data[] = array(
+			'id'            => 2,
+			'how_to_use'    => 'Display with column',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events col="2"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 3,
+			'how_to_use'    => 'Limit for display events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events posts_per_page="12"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events posts_per_page=\"12\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 4,
+			'how_to_use'    => 'Display Events based on order',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 5,
+			'how_to_use'    => 'Display events based on category',
+			'shortcode'     => '<p class="ime_short_code" >[meetup_events category="cat1"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events category=\"cat1\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 6,
+			'how_to_use'    => 'Display Past events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events past_events="yes"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events past_events=\"yes\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 7,
+			'how_to_use'    => 'Display Events based on orderby',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc" orderby="post_title"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\" orderby=\"post_title\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 8,
+			'how_to_use'    => 'Full Short-code',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events  col="2" posts_per_page="12" category="cat1" past_events="yes" order="desc" orderby="post_title" start_date="YYYY-MM-DD" end_date="YYYY-MM-DD"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\" posts_per_page=\"12\" category=\"cat1\" past_events=\"yes\" order=\"desc\" orderby=\"post_title\" start_date=\"YYYY-MM-DD\" end_date=\"YYYY-MM-DD\"]' >Copy</button>",
+		);
+		return $data;
+	}
 	
     /**
      * Define what data to show on each column of the table
