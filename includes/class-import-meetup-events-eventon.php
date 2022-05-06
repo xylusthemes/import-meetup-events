@@ -131,7 +131,7 @@ class Import_Meetup_Events_EventON {
 			if( $event_image != '' ){
 				$ime_events->common->setup_featured_image_to_event( $inserted_event_id, $event_image );
 			}
-			$address = $centralize_array['location']['address_1'];
+			$address = $centralize_array['location']['name'];
 			if(  $centralize_array['location']['full_address'] != '' ){
 				$address = $centralize_array['location']['full_address'];
 			}
@@ -171,7 +171,6 @@ class Import_Meetup_Events_EventON {
 				$term_loc_ids = wp_set_object_terms( $inserted_event_id, $loc_term_id, $this->location_taxonomy );
 				update_post_meta( $inserted_event_id, 'evo_location_tax_id', $loc_term_id );
 				update_post_meta( $inserted_event_id, 'evcal_location_name', $centralize_array['location']['name'] );
-				update_post_meta( $inserted_event_id, 'evcal_location_link', $centralize_array['location']['url'] );
 				update_post_meta( $inserted_event_id, 'evcal_location', $address );
 				update_post_meta( $inserted_event_id, 'evcal_lat', $centralize_array['location']['lat'] );
 			 	update_post_meta( $inserted_event_id, 'evcal_lon', $centralize_array['location']['long'] );
