@@ -154,8 +154,8 @@ class Import_Meetup_Events_Manage_Import {
 
 		// Delete All History Data 
 		if ( isset( $_GET['ime_action'] ) && $_GET['ime_action'] == 'ime_all_history_delete' && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'ime_delete_all_history_nonce' ) ) {
-			$page        = isset( $_GET['page'] ) ? $_GET['page'] : 'meetup_import';
-			$tab         = isset( $_GET['tab'] ) ? $_GET['tab'] : 'history';
+			$page        = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : 'meetup_import';
+			$tab         = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'history';
 			$wp_redirect = admin_url( 'admin.php?page=' . $page );
 
 			$delete_ids  = get_posts( array( 'numberposts' => -1,'fields' => 'ids', 'post_type'   => 'ime_import_history' ) );
