@@ -456,10 +456,6 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 			</a>
 			<?php
 		}
-
-		$action = array(
-			'all_delete' => $actions,
-		);
 	}
 
 	/**
