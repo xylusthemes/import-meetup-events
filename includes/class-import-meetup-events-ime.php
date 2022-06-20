@@ -78,18 +78,26 @@ class Import_Meetup_Events_IME {
 		$end_time = $centralize_array['endtime_local'];
 		$ticket_uri = $centralize_array['url'];
 
+		if( !empty( $is_exitsing_event ) ){
+			$event_status = get_post_status( $is_exitsing_event );
+		}else{
+			$event_status = 'pending';
+		}
+
 		$emeventdata = array(
 			'post_title'  => $post_title,
 			'post_content' => $post_description,
 			'post_type'   => $this->event_posttype,
-			'post_status' => 'pending',
+			'post_status' => $event_status,
 			'post_author'  => isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id()
 		);
 		if ( $is_exitsing_event ) {
 			$emeventdata['ID'] = $is_exitsing_event;
 		}
-		if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
-			$emeventdata['post_status'] = $event_args['event_status'];
+		if( empty( $is_exitsing_event ) ){
+			if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
+				$emeventdata['post_status'] = $event_args['event_status'];
+			}
 		}
 
 		$inserted_event_id = wp_insert_post( $emeventdata, true );
@@ -98,15 +106,21 @@ class Import_Meetup_Events_IME {
 			$inserted_event = get_post( $inserted_event_id );
 			if ( empty( $inserted_event ) ) { return '';}
 
-			// Asign event category.
-			$ife_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
-			if ( ! empty( $ife_cats ) ) {
-				foreach ( $ife_cats as $ife_catk => $ife_catv ) {
-					$ife_cats[ $ife_catk ] = (int) $ife_catv;
-				}
+			if( !empty( $is_exitsing_event ) ){
+				$check_category = get_the_terms( $is_exitsing_event, $this->taxonomy );
 			}
-			if ( ! empty( $ife_cats ) ) {
-				wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
+
+			// Asign event category.
+			if( empty( $check_category ) ){
+				$ife_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
+				if ( ! empty( $ife_cats ) ) {
+					foreach ( $ife_cats as $ife_catk => $ife_catv ) {
+						$ife_cats[ $ife_catk ] = (int) $ife_catv;
+					}
+				}
+				if ( ! empty( $ife_cats ) ) {
+					wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
+				}
 			}
 
 			// Assign Featured images
@@ -150,6 +164,7 @@ class Import_Meetup_Events_IME {
 			$organizer_email = isset( $organizer_array['email'] ) ? sanitize_text_field( $organizer_array['email'] ) : '';
 			$organizer_phone = isset( $organizer_array['phone'] ) ? sanitize_text_field( $organizer_array['phone'] ) : '';
 			$organizer_url   = isset( $organizer_array['url'] ) ? sanitize_text_field( $organizer_array['url'] ) : '';
+			$organizer_photo   = isset( $organizer_array['image_url'] ) ? sanitize_text_field( $organizer_array['image_url'] ) : '';
 
 			// Save Event Data
 			// Date & Time
@@ -166,20 +181,23 @@ class Import_Meetup_Events_IME {
 
 			// Venue
 			update_post_meta( $inserted_event_id, 'venue_name', $venue_name );
-			update_post_meta( $inserted_event_id, 'venue_address', $venue_address );
-			update_post_meta( $inserted_event_id, 'venue_city', $venue_city );
-			update_post_meta( $inserted_event_id, 'venue_state', $venue_state );
-			update_post_meta( $inserted_event_id, 'venue_country', $venue_country );
-			update_post_meta( $inserted_event_id, 'venue_zipcode', $venue_zipcode );
-			update_post_meta( $inserted_event_id, 'venue_lat', $venue_lat );
-			update_post_meta( $inserted_event_id, 'venue_lon', $venue_lon );
-			update_post_meta( $inserted_event_id, 'venue_url', $venue_url );
+			if( $venue_name != 'Online event' ){
+				update_post_meta( $inserted_event_id, 'venue_address', $venue_address );
+				update_post_meta( $inserted_event_id, 'venue_city', $venue_city );
+				update_post_meta( $inserted_event_id, 'venue_state', $venue_state );
+				update_post_meta( $inserted_event_id, 'venue_country', $venue_country );
+				update_post_meta( $inserted_event_id, 'venue_zipcode', $venue_zipcode );
+				update_post_meta( $inserted_event_id, 'venue_lat', $venue_lat );
+				update_post_meta( $inserted_event_id, 'venue_lon', $venue_lon );
+				update_post_meta( $inserted_event_id, 'venue_url', $venue_url );
+			}
 
 			// Organizer
 			update_post_meta( $inserted_event_id, 'organizer_name', $organizer_name );
 			update_post_meta( $inserted_event_id, 'organizer_email', $organizer_email );
 			update_post_meta( $inserted_event_id, 'organizer_phone', $organizer_phone );
 			update_post_meta( $inserted_event_id, 'organizer_url', $organizer_url );
+			update_post_meta( $inserted_event_id, 'organizer_photo', $organizer_photo );
 
 			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', esc_url( $ticket_uri ) );

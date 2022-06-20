@@ -151,6 +151,28 @@ class Import_Meetup_Events_Manage_Import {
         	wp_redirect(  add_query_arg( $query_args, $wp_redirect ) );
 			exit;
 		}
+
+		// Delete All History Data 
+		if ( isset( $_GET['ime_action'] ) && $_GET['ime_action'] == 'ime_all_history_delete' && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'ime_delete_all_history_nonce' ) ) {
+			$page        = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : 'meetup_import';
+			$tab         = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'history';
+			$wp_redirect = admin_url( 'admin.php?page=' . $page );
+
+			$delete_ids  = get_posts( array( 'numberposts' => -1,'fields' => 'ids', 'post_type'   => 'ime_import_history' ) );
+
+			if ( ! empty( $delete_ids ) ) {
+				foreach ( $delete_ids as $delete_id ) {
+					wp_delete_post( $delete_id, true );
+				}
+			}		
+			$query_args = array(
+				'ime_msg' => 'history_dels',
+				'tab'     => $tab,
+			);			
+			wp_redirect( add_query_arg( $query_args, $wp_redirect ) );
+			exit;
+		}
+
 	}
 
 	/**
@@ -161,20 +183,18 @@ class Import_Meetup_Events_Manage_Import {
 	public function handle_meetup_import_form_submit( $event_data ){
 		global $ime_errors, $ime_success_msg, $ime_events;
 
-		/*$meetup_options = ime_get_import_options('meetup');
-		if( !isset( $meetup_options['meetup_api_key'] ) || $meetup_options['meetup_api_key'] == ''0 ){
-			$ime_errors[] = __( 'Please insert "Meetup API key" in settings.', 'import-meetup-events');
-			return;
-		}*/
-				
 		$event_data['import_origin'] = 'meetup';
-		$event_data['meetup_url'] = isset( $_POST['meetup_url'] ) ? $_POST['meetup_url'] : '';
-		
-		if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ){
-			$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );
-			return;
+		$event_data['import_by']     = isset( $_POST['meetup_import_by'] ) ? sanitize_text_field( $_POST['meetup_import_by'] ) : '';
+		$event_data['ime_event_ids'] = isset( $_POST['ime_event_ids'] ) ? array_map( 'trim', array_map( 'sanitize_text_field', explode( "\n", preg_replace( "/^\n+|^[\t\s]*\n+/m", '', wp_unslash( $_POST['ime_event_ids'] ) ) ) ) ) : array(); // input var okay.
+		$event_data['meetup_url']    = isset( $_POST['meetup_url'] ) ? sanitize_text_field( $_POST['meetup_url'] ) : '';
+
+		if ( 'group_url' === $event_data['import_by'] && !empty( $event_data['meetup_url'] ) ) {
+			if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ) {
+				$ime_errors[] = esc_html__( 'Please provide valid Meetup group URL.', 'import-meetup-events' );
+				return;
+			}
+			$event_data['meetup_url'] = esc_url( $event_data['meetup_url'] );
 		}
-		$event_data['meetup_url'] = esc_url( $event_data['meetup_url'] );
 
 		$import_events = $ime_events->meetup->import_events( $event_data );
 		if( $import_events && !empty( $import_events ) ){

@@ -50,6 +50,9 @@ class Import_Meetup_Events_Admin {
 	public function add_menu_pages(){
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
+		if( !ime_is_pro() ){
+			add_submenu_page( 'meetup_import', __( 'Upgrade to Pro', 'import-meetup-events' ),  '<li class="ime_upgrade_pro current"> ' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
+		}
 	}
 
 	/**
@@ -131,6 +134,10 @@ class Import_Meetup_Events_Admin {
 								<?php esc_html_e( 'Settings', 'import-meetup-events' ); ?>
 							</a>
 
+							<a href="<?php echo esc_url( add_query_arg( 'tab', 'shortcodes', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( 'shortcodes' == $tab) { echo 'nav-tab-active'; } ?>">
+								<?php esc_html_e( 'Shortcodes', 'import-meetup-events' ); ?>
+							</a>
+
 							<a href="<?php echo esc_url( add_query_arg( 'tab', 'support', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'support' ) { echo 'nav-tab-active'; } ?>">
 								<?php esc_html_e( 'Support & Help', 'import-meetup-events' ); ?>
 							</a>
@@ -153,6 +160,8 @@ class Import_Meetup_Events_Admin {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-history.php';
 							} elseif ( $tab == 'support' ) {
 								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-support.php';
+							}elseif ( 'shortcodes' === $tab ) {
+								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-shortcode.php';
 							}
 							?>
 							<div style="clear: both"></div>

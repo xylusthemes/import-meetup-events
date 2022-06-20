@@ -812,8 +812,12 @@ class Import_Meetup_Events_Cpt {
             $direct_link = 'no';
         }
 		ob_start();
+		$classes = 'ime_archive row_grid';
+		if( !empty( $atts['className'] ) ){ 
+			$classes .= ' ' . $atts['className'];
+		}
 		?>
-		<div class="ime_archive row_grid">
+		<div class="<?php echo esc_attr( $classes ); ?>">
 			<?php
 			if( $meetup_events->have_posts() ):
 				while ( $meetup_events->have_posts() ) : $meetup_events->the_post();

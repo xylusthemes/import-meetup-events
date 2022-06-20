@@ -12,16 +12,35 @@
         });
     });
 
-    jQuery(document).ready(function() {
-        jQuery(document).on('change', '#import_type', function() {
-            if (jQuery(this).val() != 'onetime') {
+    jQuery(document).ready(function(){
+        jQuery('#meetup_import_by').on('change', function(){
+    
+            if( jQuery(this).val() == 'event_id' ){
+                jQuery('.import_type_wrapper').hide();
+                jQuery('.meetup_group_url').hide();
+                jQuery('.meetup_group_url .meetup_url').removeAttr( 'required' );
+                jQuery('.meetup_event_id').show();
+                jQuery('.meetup_event_id .ime_event_ids').attr('required', 'required');
+            
+            }else if( jQuery(this).val() == 'group_url' ){
+                jQuery('.import_type_wrapper').show();
+                jQuery('.meetup_group_url').show();
+                jQuery('.meetup_group_url .meetup_url').attr('required', 'required');
+                jQuery('.meetup_event_id').hide();
+                jQuery('.meetup_event_id .ime_event_ids').removeAttr( 'required' );
+            }
+        });
+    
+        jQuery('#import_type').on('change', function(){
+            if( jQuery(this).val() != 'onetime' ){
                 jQuery('.hide_frequency .import_frequency').show();
-            } else {
+            }else{
                 jQuery('.hide_frequency .import_frequency').hide();
             }
         });
-
+    
         jQuery("#import_type").trigger('change');
+        jQuery("#meetup_import_by").trigger('change');
     });
 
     // Render Dynamic Terms.
@@ -54,5 +73,30 @@
             $(this).wpColorPicker();
         });
     });
+
+    //Shortcode Copy Text
+	jQuery(document).ready(function($){
+		$(document).on("click", ".ime-btn-copy-shortcode", function() { 
+			var trigger = $(this);
+			$(".ime-btn-copy-shortcode").removeClass("text-success");
+			var $tempElement = $("<input>");
+			$("body").append($tempElement);
+			var copyType = $(this).data("value");
+			$tempElement.val(copyType).select();
+			document.execCommand("Copy");
+			$tempElement.remove();
+			$(trigger).addClass("text-success");
+			var $this = $(this),
+			oldText = $this.text();
+			$this.attr("disabled", "disabled");
+			$this.text("Copied!");
+			setTimeout(function(){
+				$this.text("Copy");
+				$this.removeAttr("disabled");
+			}, 800);
+	  
+		});
+
+	});
 
 })(jQuery);

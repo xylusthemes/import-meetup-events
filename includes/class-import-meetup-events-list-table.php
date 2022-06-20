@@ -434,6 +434,34 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		}
 	}
 
+	//import Delete botton 
+	public function extra_tablenav( $which ) {
+
+		if ( 'top' !== $which ) {
+			return;
+		}	
+		$ime_url_all_delete_args = array(
+			'page'       => wp_unslash( $_REQUEST['page'] ),
+			'tab'        => wp_unslash( $_REQUEST['tab'] ),
+			'ime_action' => 'ime_all_history_delete',
+		);
+
+		$delete_ids  = get_posts( array( 'numberposts' => 1,'fields' => 'ids', 'post_type'   => 'ime_import_history' ) );
+		if( !empty( $delete_ids ) ){
+			$wp_delete_nonce_url = esc_url( wp_nonce_url( add_query_arg( $ime_url_all_delete_args, admin_url( 'admin.php' ) ), 'ime_delete_all_history_nonce' ) );
+			$confirmation_message = esc_html__( "Warning!! Are you sure to delete all these import history? Import history will be permanatly deleted.", "import-meetup-events" );
+			?>
+			<a class="button apply" href="<?php echo $wp_delete_nonce_url; ?>" onclick="return confirm('<?php echo $confirmation_message; ?>')">
+				<?php esc_html_e( 'Clear Import History', 'import-meetup-events' ); ?>
+			</a>
+			<?php
+		}
+
+		$action = array(
+			'all_delete' => $actions,
+		);
+	}
+
 	/**
 	 * Get Meetup url data.
 	 *
@@ -526,4 +554,136 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		wp_reset_postdata();
 		return $scheduled_import_data;
 	}
+}
+
+/**
+* Class for the shortcode list table.
+*/
+class IME_Shortcode_List_Table extends WP_List_Table {
+
+    public function prepare_items() {
+
+        $columns 	= $this->get_columns();
+        $hidden 	= $this->get_hidden_columns();
+        $sortable 	= $this->get_sortable_columns();
+        $data 		= $this->table_data();
+
+        $per_page 		= 10;
+        $current_page 	= $this->get_pagenum();
+        $total_items 	= count( $data );
+
+        $this->set_pagination_args( array(
+            'total_items' => $total_items,
+            'per_page'    => $per_page
+        ) );
+
+        $data = array_slice( $data, ( ( $current_page-1 ) * $per_page ), $per_page );
+
+        $this->_column_headers = array( $columns, $hidden, $sortable );
+        $this->items = $data;
+    }
+
+    /**
+     * Override the parent columns method. Defines the columns to use in your listing table
+     *
+     * @return Array
+     */
+	public function get_columns() {
+		$columns = array(
+			'id'            => __( 'ID', 'import-meetup-events' ),
+			'how_to_use'    => __( 'Title', 'import-meetup-events' ),
+			'shortcode'     => __( 'Shortcode', 'import-meetup-events' ),
+			'action'        => __( 'Action', 'import-meetup-events' ),
+		);
+		return $columns;
+	}
+
+    /**
+     * Define which columns are hidden
+     *
+     * @return Array
+     */
+    public function get_hidden_columns() {
+        return array();
+    }
+
+    /**
+     * Get the table data
+     *
+     * @return Array
+     */
+    private function table_data() {
+		$data = array();
+		
+		$data[] = array(
+			'id'            => 1,
+			'how_to_use'    => 'Display All Events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events]</p>',
+			'action'        => '<button class="ime-btn-copy-shortcode button-primary"  data-value="[meetup_events]">Copy</button>',
+		);
+		$data[] = array(
+			'id'            => 2,
+			'how_to_use'    => 'Display with column',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events col="2"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 3,
+			'how_to_use'    => 'Limit for display events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events posts_per_page="12"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events posts_per_page=\"12\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 4,
+			'how_to_use'    => 'Display Events based on order',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 5,
+			'how_to_use'    => 'Display events based on category',
+			'shortcode'     => '<p class="ime_short_code" >[meetup_events category="cat1"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events category=\"cat1\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 6,
+			'how_to_use'    => 'Display Past events',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events past_events="yes"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events past_events=\"yes\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 7,
+			'how_to_use'    => 'Display Events based on orderby',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events order="asc" orderby="post_title"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events order=\"asc\" orderby=\"post_title\"]' >Copy</button>",
+		);
+		$data[] = array(
+			'id'            => 8,
+			'how_to_use'    => 'Full Short-code',
+			'shortcode'     => '<p class="ime_short_code">[meetup_events  col="2" posts_per_page="12" category="cat1" past_events="yes" order="desc" orderby="post_title" start_date="YYYY-MM-DD" end_date="YYYY-MM-DD"]</p>',
+			'action'     	=> "<button class='ime-btn-copy-shortcode button-primary' data-value='[meetup_events col=\"2\" posts_per_page=\"12\" category=\"cat1\" past_events=\"yes\" order=\"desc\" orderby=\"post_title\" start_date=\"YYYY-MM-DD\" end_date=\"YYYY-MM-DD\"]' >Copy</button>",
+		);
+		return $data;
+	}
+	
+    /**
+     * Define what data to show on each column of the table
+     *
+     * @param  Array $item        Data
+     * @param  String $column_name - Current column name
+     *
+     */
+    public function column_default( $item, $column_name )
+    {
+        switch( $column_name ) {
+            case 'id':
+            case 'how_to_use':
+            case 'shortcode':
+			case 'action':
+                return $item[ $column_name ];
+
+            default:
+                return print_r( $item, true ) ;
+        }
+    }
 }
