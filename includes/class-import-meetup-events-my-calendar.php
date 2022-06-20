@@ -82,8 +82,14 @@ class Import_Meetup_Events_My_Calendar {
 				$event_status = 'publish';
 				$event_approved = '1';
 			}else{
-				$event_status = 'draft';
-				$event_approved = '0';
+				$get_mc_status = get_post_meta( $is_exitsing_event,'iee_event_status', true);
+				if( !empty( $get_mc_status ) && $get_mc_status == 'publish' ){
+					$event_status = 'publish';
+					$event_approved = '1';
+				}else{
+					$event_status = 'draft';
+					$event_approved = '0';
+				}
 			}
 		}else{
 			$event_status = $event_args['event_status'];
@@ -144,6 +150,7 @@ class Import_Meetup_Events_My_Calendar {
 			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', $centralize_array['url'] );
+			update_post_meta( $inserted_event_id, 'iee_event_status', $event_status );
 
 			// Setup Variables for insert into table.
 			$begin     = date( 'Y-m-d', $start_time );
