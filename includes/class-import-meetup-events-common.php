@@ -71,6 +71,22 @@ class Import_Meetup_Events_Common {
 	}
 
 	/**
+	 * Get do not update data fields
+	 *
+	 * @since  1.0.0
+	 * @return array
+	 */
+	public function ime_is_updatable( $field = '' ) {
+		if ( empty( $field ) ){ return true; }
+		$ime_options = get_option( IME_OPTIONS, array() );
+		$meetup_options = isset( $ime_options['dont_update'] ) ? $ime_options['dont_update'] : array();
+		if ( isset( $meetup_options[$field] ) &&  'yes' == $meetup_options[$field] ){
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Render Taxonomy Terms based on event import into Selection.
 	 *
 	 * @since 1.0
