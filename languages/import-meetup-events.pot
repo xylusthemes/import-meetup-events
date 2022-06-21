@@ -41,11 +41,11 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: import-meetup-events.php:216
+#: import-meetup-events.php:217
 msgid "Setting"
 msgstr ""
 
-#: import-meetup-events.php:221
+#: import-meetup-events.php:222
 msgid "Docs"
 msgstr ""
 
@@ -762,7 +762,7 @@ msgid "Import Frequency"
 msgstr ""
 
 #: includes/class-import-meetup-events-list-table.php:121
-#: includes/class-import-meetup-events-list-table.php:596
+#: includes/class-import-meetup-events-list-table.php:592
 msgid "Action"
 msgstr ""
 
@@ -790,15 +790,15 @@ msgstr ""
 msgid "Clear Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:593
+#: includes/class-import-meetup-events-list-table.php:589
 msgid "ID"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:594
+#: includes/class-import-meetup-events-list-table.php:590
 msgid "Title"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:595
+#: includes/class-import-meetup-events-list-table.php:591
 msgid "Shortcode"
 msgstr ""
 
@@ -840,7 +840,7 @@ msgid "Import histories are deleted successfully."
 msgstr ""
 
 #: includes/class-import-meetup-events-meetup.php:52
-#: includes/class-import-meetup-events-meetup.php:239
+#: includes/class-import-meetup-events-meetup.php:240
 msgid "Please insert \"Meetup API key\" Or OAuth key and secret in settings."
 msgstr ""
 
