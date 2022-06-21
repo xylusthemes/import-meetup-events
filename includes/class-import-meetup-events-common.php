@@ -78,6 +78,7 @@ class Import_Meetup_Events_Common {
 	 */
 	public function ime_is_updatable( $field = '' ) {
 		if ( empty( $field ) ){ return true; }
+		if ( !ime_is_pro() ){ return true; }
 		$ime_options = get_option( IME_OPTIONS, array() );
 		$meetup_options = isset( $ime_options['dont_update'] ) ? $ime_options['dont_update'] : array();
 		if ( isset( $meetup_options[$field] ) &&  'yes' == $meetup_options[$field] ){

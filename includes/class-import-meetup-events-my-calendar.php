@@ -89,34 +89,14 @@ class Import_Meetup_Events_My_Calendar {
 		if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
 			$mc_eventdata['post_status'] = $event_args['event_status'];
 		}
-		$event_status = 'publish';
-		$event_approved = '1';
-		if ( empty( $is_exitsing_event ) && $mc_eventdata['post_status'] != 'publish' ){
-			$event_status = 'draft';
-			$event_approved = '0';
+
+		$event_approved = '0';
+		if( $mc_eventdata['post_status'] == 'publish' ){
+			$event_approved = '1';
 		}
 		if ( $is_exitsing_event && ! $ime_events->common->ime_is_updatable('status') ) {
 			$mc_eventdata['post_status'] = get_post_status( $is_exitsing_event );
 			$event_args['event_status'] = get_post_status( $is_exitsing_event );
-
-			$get_status = get_post_meta( $is_exitsing_event,'_mc_event_data', true);
-			$get_mc_status = get_post_meta( $is_exitsing_event,'ime_event_status', true);
-			
-			if ( isset( $get_status['event_approved'] ) && $get_status['event_approved'] != 1 ){
-				$event_status = 'draft';
-				$event_approved = '0';
-			} else {
-				if ( empty( $get_status['event_approved'] ) && $get_mc_status != 'publish' ) {
-					$event_status = 'draft';
-					$event_approved = '0';
-				}
-			}
-		}else{
-			$event_status = $mc_eventdata['post_status'];
-			if(  $mc_eventdata['post_status'] != 'publish' ){
-				$event_status = 'draft';
-				$event_approved = '0';
-			}
 		}
 		$inserted_event_id = wp_insert_post( $mc_eventdata, true );
 
@@ -150,7 +130,6 @@ class Import_Meetup_Events_My_Calendar {
 			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', $centralize_array['url'] );
-			update_post_meta( $inserted_event_id, 'ime_event_status', $event_status );
 
 			// Setup Variables for insert into table.
 			$begin     = date( 'Y-m-d', $start_time );
@@ -331,16 +310,12 @@ class Import_Meetup_Events_My_Calendar {
 				'%f',
 				'%f'
 			);
+			if ( $is_exitsing_event && ! $ime_events->common->ime_is_updatable('status') ) {
+				unset( $event_data['event_approved'] );
+			}
 			
-			$db_event_id = $wpdb->get_var( $wpdb->prepare( "SELECT `event_id` FROM ".my_calendar_table()." WHERE `event_title` = %s AND `event_post`= %d LIMIT 1", sanitize_text_field( $inserted_event->post_title ), $inserted_event_id ) );
+			$db_event_id = $wpdb->get_var( $wpdb->prepare( "SELECT `event_id` FROM ".my_calendar_table()." WHERE `event_post`= %d LIMIT 1", $inserted_event_id ) );
 			if( $db_event_id > 0 && is_numeric( $db_event_id ) && !empty( $db_event_id ) ){
-				if ( !$ime_events->common->ime_is_updatable('category') ){
-					$cat_id = $wpdb->get_var( "SELECT `event_category` FROM ".my_calendar_table()." WHERE `event_id`=". absint( $db_event_id ) );
-					if( $cat_id ){
-						$event_data['event_category'] = $cat_id;
-					}
-				}
-				
 				$event_where = array( 'event_id' => absint( $db_event_id ) );
 				$wpdb->update( my_calendar_table(), $event_data, $event_where, $event_formats );	
 			}else{
