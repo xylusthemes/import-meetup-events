@@ -202,11 +202,11 @@ if( is_object( $ime_authorized_user ) ){
                             $sdontupdate = isset( $meetup_options['status'] ) ? $meetup_options['status'] : 'no';
                             $cdontupdate = isset( $meetup_options['category'] ) ? $meetup_options['category'] : 'no';
                             ?>
-                            <input type="checkbox" name="meetup[dont_update][status]" value="yes" <?php if( $sdontupdate == 'yes' ) { echo 'checked="checked"'; } if (!ime_is_pro()) {echo 'disabled="disabled"'; }?> />
+                            <input type="checkbox" name="meetup[dont_update][status]" value="yes" <?php checked( $sdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
                             <span class="xtei_small">
                                 <?php _e( 'Status ( Publish, Pending, Draft etc.. )', 'import-meetup-events' ); ?>
                             </span><br/>
-                            <input type="checkbox" name="meetup[dont_update][category]" value="yes" <?php if( $cdontupdate == 'yes' ) { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; }?> />
+                            <input type="checkbox" name="meetup[dont_update][category]" value="yes" <?php checked( $cdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
                             <span class="xtei_small">
                                 <?php _e( 'Event category', 'import-meetup-events' ); ?>
                             </span><br/>

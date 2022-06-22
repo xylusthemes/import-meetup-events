@@ -73,7 +73,7 @@ class Import_Meetup_Events_Common {
 	/**
 	 * Get do not update data fields
 	 *
-	 * @since  1.0.0
+	 * @since  1.5.3
 	 * @return array
 	 */
 	public function ime_is_updatable( $field = '' ) {
