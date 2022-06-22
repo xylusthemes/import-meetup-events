@@ -316,6 +316,12 @@ class Import_Meetup_Events_My_Calendar {
 			
 			$db_event_id = $wpdb->get_var( $wpdb->prepare( "SELECT `event_id` FROM ".my_calendar_table()." WHERE `event_post`= %d LIMIT 1", $inserted_event_id ) );
 			if( $db_event_id > 0 && is_numeric( $db_event_id ) && !empty( $db_event_id ) ){
+				if ( !$ime_events->common->ime_is_updatable('category') ){
+					$cat_id = $wpdb->get_var( "SELECT `event_category` FROM ".my_calendar_table()." WHERE `event_id`=". absint( $db_event_id ) );
+					if( $cat_id ){
+						$event_data['event_category'] = $cat_id;
+					}
+				}
 				$event_where = array( 'event_id' => absint( $db_event_id ) );
 				$wpdb->update( my_calendar_table(), $event_data, $event_where, $event_formats );	
 			}else{
