@@ -193,6 +193,31 @@ if( is_object( $ime_authorized_user ) ){
                     </tr>
 
                     <tr>
+                        <th scope="row">
+                            <?php _e( "Don't Update these data.", "import-meetup-events" ); ?> : 
+                        </th>
+                        <td>
+                            <?php
+                            $meetup_options = isset($meetup_options['dont_update'])? $meetup_options['dont_update'] : array();
+                            $sdontupdate = isset( $meetup_options['status'] ) ? $meetup_options['status'] : 'no';
+                            $cdontupdate = isset( $meetup_options['category'] ) ? $meetup_options['category'] : 'no';
+                            ?>
+                            <input type="checkbox" name="meetup[dont_update][status]" value="yes" <?php checked( $sdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
+                            <span class="xtei_small">
+                                <?php _e( 'Status ( Publish, Pending, Draft etc.. )', 'import-meetup-events' ); ?>
+                            </span><br/>
+                            <input type="checkbox" name="meetup[dont_update][category]" value="yes" <?php checked( $cdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
+                            <span class="xtei_small">
+                                <?php _e( 'Event category', 'import-meetup-events' ); ?>
+                            </span><br/>
+                            <span class="ime_small">
+                                <?php _e( "Select data which you don't want to update during existing events update. (This is applicable only if you have checked 'update existing events')", 'import-meetup-events' ); ?>
+                            </span>
+                            <?php do_action('ime_render_pro_notice'); ?>
+                        </td>
+                    </tr>
+
+                    <tr>
 						<th scope="row">
 							<?php esc_attr_e( 'Accent Color', 'import-meetup-events' ); ?> :
 						</th>

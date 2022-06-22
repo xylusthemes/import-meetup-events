@@ -88,6 +88,9 @@ class Import_Meetup_Events_TEC {
 		$formated_args['post_author'] = isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id();
 
 		if ( $is_exitsing_event && is_numeric( $is_exitsing_event ) && $is_exitsing_event > 0 ) {
+			if ( ! $ime_events->common->ime_is_updatable('status') ) {
+				$formated_args['post_status'] = get_post_status( $is_exitsing_event );
+			}
 			$options = ime_get_import_options( $centralize_array['origin'] );
 			$update_events = isset( $options['update_events'] ) ? $options['update_events'] : 'no';
 			if ( 'yes' == $update_events ) {
@@ -178,7 +181,9 @@ class Import_Meetup_Events_TEC {
 				}
 			}
 			if ( ! empty( $ime_cats ) ) {
-				wp_set_object_terms( $update_event_id, $ime_cats, $this->taxonomy );
+				if ( $ime_events->common->ime_is_updatable('category') ){
+					wp_set_object_terms( $update_event_id, $ime_cats, $this->taxonomy );
+				}
 			}
 
 			$event_featured_image  = $centralize_array['image_url'];

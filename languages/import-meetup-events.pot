@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-21T17:41:47+00:00\n"
+"POT-Creation-Date: 2022-06-22T07:07:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: import-meetup-events\n"
@@ -335,107 +335,107 @@ msgstr ""
 msgid "These categories are assign to imported event."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:149
+#: includes/class-import-meetup-events-common.php:166
 msgid "The Events Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:154
+#: includes/class-import-meetup-events-common.php:171
 msgid "Events Manager"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:159
+#: includes/class-import-meetup-events-common.php:176
 msgid "Event Organiser"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:164
+#: includes/class-import-meetup-events-common.php:181
 msgid "EventON"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:169
+#: includes/class-import-meetup-events-common.php:186
 msgid "All in one Event Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:174
+#: includes/class-import-meetup-events-common.php:191
 msgid "My Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:176
+#: includes/class-import-meetup-events-common.php:193
 #: includes/class-import-meetup-events-cpt.php:97
 #: includes/class-import-meetup-events-cpt.php:101
 msgid "Meetup Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:208
+#: includes/class-import-meetup-events-common.php:225
 msgid "Invalid image URL"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:306
+#: includes/class-import-meetup-events-common.php:323
 msgid "Event(s) are imported successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:308
+#: includes/class-import-meetup-events-common.php:325
 #: includes/class-import-meetup-events-list-table.php:357
 msgid "%d Created"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:311
+#: includes/class-import-meetup-events-common.php:328
 #: includes/class-import-meetup-events-list-table.php:360
 msgid "%d Updated"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:314
+#: includes/class-import-meetup-events-common.php:331
 msgid "%d Skipped (Already exists)"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:400
+#: includes/class-import-meetup-events-common.php:417
 msgid "Once Hourly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:403
+#: includes/class-import-meetup-events-common.php:420
 msgid "Twice Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:406
+#: includes/class-import-meetup-events-common.php:423
 msgid "Once Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:409
+#: includes/class-import-meetup-events-common.php:426
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:412
+#: includes/class-import-meetup-events-common.php:429
 msgid "Once a Month"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:427
+#: includes/class-import-meetup-events-common.php:444
 msgid "One-time Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:428
+#: includes/class-import-meetup-events-common.php:445
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:482
+#: includes/class-import-meetup-events-common.php:499
 msgid "Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:487
+#: includes/class-import-meetup-events-common.php:504
 msgid "Published"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:490
+#: includes/class-import-meetup-events-common.php:507
 msgid "Pending"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:493
+#: includes/class-import-meetup-events-common.php:510
 msgid "Draft"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:578
+#: includes/class-import-meetup-events-common.php:595
 msgid "Available in Pro version."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:578
+#: includes/class-import-meetup-events-common.php:595
 msgid "Upgrade to PRO"
 msgstr ""
 
@@ -848,8 +848,8 @@ msgstr ""
 msgid "Please insert valid Meetup Event ID."
 msgstr ""
 
-#: includes/class-import-meetup-events-tec.php:148
-#: includes/class-import-meetup-events-tec.php:197
+#: includes/class-import-meetup-events-tec.php:151
+#: includes/class-import-meetup-events-tec.php:202
 msgid "Something went wrong, please try again."
 msgstr ""
 
@@ -1025,42 +1025,58 @@ msgid "Check to enable advanced synchronization, this will delete events which a
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:197
+msgid "Don't Update these data."
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:207
+msgid "Status ( Publish, Pending, Draft etc.. )"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:211
+msgid "Event category"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:214
+msgid "Select data which you don't want to update during existing events update. (This is applicable only if you have checked 'update existing events')"
+msgstr ""
+
+#: templates/import-meetup-events-settings.php:222
 msgid "Accent Color"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:205
+#: templates/import-meetup-events-settings.php:230
 msgid "Choose accent color for front-end event grid and event widget."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:212
+#: templates/import-meetup-events-settings.php:237
 msgid "Event Slug"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:220
+#: templates/import-meetup-events-settings.php:245
 msgid "Slug for the event."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:226
+#: templates/import-meetup-events-settings.php:251
 msgid "Event Display Time Format"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:233
+#: templates/import-meetup-events-settings.php:258
 msgid "12 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:234
+#: templates/import-meetup-events-settings.php:259
 msgid "24 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:235
+#: templates/import-meetup-events-settings.php:260
 msgid "WordPress Default"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:238
+#: templates/import-meetup-events-settings.php:263
 msgid "Choose event display time format for front-end."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:250
+#: templates/import-meetup-events-settings.php:275
 msgid "Save Settings"
 msgstr ""
 
