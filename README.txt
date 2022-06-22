@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.0
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,13 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.3 =
+* ADDED: Converted the Event Description Markup to Html import.
+* ADDED: Support for don't update status & category during auto-update. (Pro)
+* ADDED: Event source link field in create/edit event.
+* FIXED: Duplicate Event issue in My Calendar.
+* IMPROVEMENTS: Support for WP 6.0
 
 = 1.5.2 =
 * ADDED: Shortcode page for help
