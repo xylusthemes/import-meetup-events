@@ -128,7 +128,7 @@ class Import_Meetup_Events_Meetup {
 			return false;
 		}
 
-		$parsedown         = new Parsedown();
+		$parsedown         = new IMEParsedown();
 		$timezone          = isset( $meetup_event['timezone'] ) ? $meetup_event['timezone'] : '';
 		$start             = isset( $meetup_event['dateTime'] ) ? $meetup_event['dateTime'] : ''; 
 		$end               = isset( $meetup_event['endTime'] ) ? $meetup_event['endTime'] : '';

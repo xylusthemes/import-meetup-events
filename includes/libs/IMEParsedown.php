@@ -2,7 +2,7 @@
 
 #
 #
-# Parsedown
+# IMEParsedown
 # http://parsedown.org
 #
 # (c) Emanuil Rusev
@@ -13,7 +13,7 @@
 #
 #
 
-class Parsedown
+class IMEParsedown
 {
     # ~
 
