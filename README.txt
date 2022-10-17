@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.0
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,10 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.5 =
+* ADDED: Compatibility with The Events Calendar 6.0
+* FIXED: Parsedown class conflict issue.
 
 = 1.5.4 =
 * ADDED: Compatibility with The Events Calendar 6.0
