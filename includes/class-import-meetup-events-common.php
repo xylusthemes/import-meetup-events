@@ -44,7 +44,7 @@ class Import_Meetup_Events_Common {
 					if( !empty( $active_plugins ) ){
 						foreach ($active_plugins as $slug => $name ) {
 							?>
-							<option value="<?php echo $slug;?>"><?php echo $name; ?></option>
+							<option value="<?php echo esc_attr( $slug ); ?>"><?php echo esc_attr( $name ); ?></option>
 							<?php
 						}
 					}
@@ -95,7 +95,7 @@ class Import_Meetup_Events_Common {
 	 */
 	function ime_render_terms_by_plugin() {
 		global $ime_events;
-		$event_plugin  = esc_attr( $_REQUEST['event_plugin'] );
+		$event_plugin  = isset( $_REQUEST['event_plugin'] ) ? esc_attr( wp_unslash( $_REQUEST['event_plugin'] ) ) : '' ;
 		$event_taxonomy = '';
 		switch ( $event_plugin ) {
 			case 'ime':
@@ -139,8 +139,8 @@ class Import_Meetup_Events_Common {
 		if( ! empty( $terms ) ){ ?>
 			<select name="event_cats[]" multiple="multiple">
 		        <?php foreach ($terms as $term ) { ?>
-					<option value="<?php echo $term->term_id; ?>">
-	                	<?php echo $term->name; ?>                                	
+					<option value="<?php echo esc_attr( $term->term_id ); ?>">
+	                	<?php echo esc_attr( $term->name ); ?>                                	
 	                </option>
 				<?php } ?> 
 			</select>
@@ -596,7 +596,7 @@ class Import_Meetup_Events_Common {
 		if( !ime_is_pro() ){
 			?>
 			<span class="ime_small">
-		        <?php printf( '<span style="color: red">%s</span> <a href="' . IME_PLUGIN_BUY_NOW_URL. '" target="_blank" >%s</a>', __( 'Available in Pro version.', 'import-meetup-events' ), __( 'Upgrade to PRO', 'import-meetup-events' ) ); ?>
+		        <?php printf( '<span style="color: red">%s</span> <a href="' . esc_url( IME_PLUGIN_BUY_NOW_URL ) . '" target="_blank" >%s</a>', esc_html__( 'Available in Pro version.', 'import-meetup-events' ), esc_html__( 'Upgrade to PRO', 'import-meetup-events' ) ); ?>
 		    </span>
 			<?php
 		}

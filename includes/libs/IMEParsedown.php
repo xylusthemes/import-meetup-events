@@ -1,34 +1,34 @@
 <?php
 
-#
-#
-# IMEParsedown
-# http://parsedown.org
-#
-# (c) Emanuil Rusev
-# http://erusev.com
-#
-# For the full license information, view the LICENSE file that was distributed
-# with this source code.
-#
-#
+//
+//
+// IMEParsedown
+// http://parsedown.org
+//
+// (c) Emanuil Rusev
+// http://erusev.com
+//
+// For the full license information, view the LICENSE file that was distributed
+// with this source code.
+//
+//
 
 class IMEParsedown
 {
-    # ~
+    // ~
 
     const version = '1.8.0-beta-7';
 
-    # ~
+    // ~
 
     function text($text)
     {
         $Elements = $this->textElements($text);
 
-        # convert to markup
+        // convert to markup
         $markup = $this->elements($Elements);
 
-        # trim line breaks
+        // trim line breaks
         $markup = trim($markup, "\n");
 
         return $markup;
@@ -36,25 +36,25 @@ class IMEParsedown
 
     protected function textElements($text)
     {
-        # make sure no definitions are set
+        // make sure no definitions are set
         $this->DefinitionData = array();
 
-        # standardize line breaks
+        // standardize line breaks
         $text = str_replace(array("\r\n", "\r"), "\n", $text);
 
-        # remove surrounding line breaks
+        // remove surrounding line breaks
         $text = trim($text, "\n");
 
-        # split text into lines
+        // split text into lines
         $lines = explode("\n", $text);
 
-        # iterate through lines to identify blocks
+        // iterate through lines to identify blocks
         return $this->linesElements($lines);
     }
 
-    #
-    # Setters
-    #
+    //
+    // Setters
+    //
 
     function setBreaksEnabled($breaksEnabled)
     {
@@ -119,9 +119,9 @@ class IMEParsedown
         'steam:',
     );
 
-    #
-    # Lines
-    #
+    //
+    // Lines
+    //
 
     protected $BlockTypes = array(
         '#' => array('Header'),
@@ -149,15 +149,15 @@ class IMEParsedown
         '~' => array('FencedCode'),
     );
 
-    # ~
+    // ~
 
     protected $unmarkedBlockTypes = array(
         'Code',
     );
 
-    #
-    # Blocks
-    #
+    //
+    // Blocks
+    //
 
     protected function lines(array $lines)
     {
@@ -197,11 +197,11 @@ class IMEParsedown
 
             $text = $indent > 0 ? substr($line, $indent) : $line;
 
-            # ~
+            // ~
 
             $Line = array('body' => $line, 'indent' => $indent, 'text' => $text);
 
-            # ~
+            // ~
 
             if (isset($CurrentBlock['continuable']))
             {
@@ -224,11 +224,11 @@ class IMEParsedown
                 }
             }
 
-            # ~
+            // ~
 
             $marker = $text[0];
 
-            # ~
+            // ~
 
             $blockTypes = $this->unmarkedBlockTypes;
 
@@ -240,8 +240,8 @@ class IMEParsedown
                 }
             }
 
-            #
-            # ~
+            //
+            // ~
 
             foreach ($blockTypes as $blockType)
             {
@@ -272,7 +272,7 @@ class IMEParsedown
                 }
             }
 
-            # ~
+            // ~
 
             if (isset($CurrentBlock) and $CurrentBlock['type'] === 'Paragraph')
             {
@@ -296,7 +296,7 @@ class IMEParsedown
             }
         }
 
-        # ~
+        // ~
 
         if (isset($CurrentBlock['continuable']) and $this->isBlockCompletable($CurrentBlock['type']))
         {
@@ -304,14 +304,14 @@ class IMEParsedown
             $CurrentBlock = $this->$methodName($CurrentBlock);
         }
 
-        # ~
+        // ~
 
         if (isset($CurrentBlock))
         {
             $Elements[] = $this->extractElement($CurrentBlock);
         }
 
-        # ~
+        // ~
 
         return $Elements;
     }
@@ -343,8 +343,8 @@ class IMEParsedown
         return method_exists($this, 'block' . $Type . 'Complete');
     }
 
-    #
-    # Code
+    //
+    // Code
 
     protected function blockCode($Line, $Block = null)
     {
@@ -397,8 +397,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Comment
+    //
+    // Comment
 
     protected function blockComment($Line)
     {
@@ -442,8 +442,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Fenced Code
+    //
+    // Fenced Code
 
     protected function blockFencedCode($Line)
     {
@@ -533,8 +533,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Header
+    //
+    // Header
 
     protected function blockHeader($Line)
     {
@@ -568,8 +568,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # List
+    //
+    // List
 
     protected function blockList($Line, array $CurrentBlock = null)
     {
@@ -742,8 +742,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Quote
+    //
+    // Quote
 
     protected function blockQuote($Line)
     {
@@ -786,8 +786,8 @@ class IMEParsedown
         }
     }
 
-    #
-    # Rule
+    //
+    // Rule
 
     protected function blockRule($Line)
     {
@@ -805,8 +805,8 @@ class IMEParsedown
         }
     }
 
-    #
-    # Setext
+    //
+    // Setext
 
     protected function blockSetextHeader($Line, array $Block = null)
     {
@@ -823,8 +823,8 @@ class IMEParsedown
         }
     }
 
-    #
-    # Markup
+    //
+    // Markup
 
     protected function blockMarkup($Line)
     {
@@ -866,8 +866,8 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Reference
+    //
+    // Reference
 
     protected function blockReference($Line)
     {
@@ -891,8 +891,8 @@ class IMEParsedown
         }
     }
 
-    #
-    # Table
+    //
+    // Table
 
     protected function blockTable($Line, array $Block = null)
     {
@@ -948,7 +948,7 @@ class IMEParsedown
             $alignments []= $alignment;
         }
 
-        # ~
+        // ~
 
         $HeaderElements = array();
 
@@ -989,7 +989,7 @@ class IMEParsedown
             $HeaderElements []= $HeaderElement;
         }
 
-        # ~
+        // ~
 
         $Block = array(
             'alignments' => $alignments,
@@ -1071,9 +1071,9 @@ class IMEParsedown
         }
     }
 
-    #
-    # ~
-    #
+    //
+    // ~
+    //
 
     protected function paragraph($Line)
     {
@@ -1102,9 +1102,9 @@ class IMEParsedown
         return $Block;
     }
 
-    #
-    # Inline Elements
-    #
+    //
+    // Inline Elements
+    //
 
     protected $InlineTypes = array(
         '!' => array('Image'),
@@ -1119,13 +1119,13 @@ class IMEParsedown
         '\\' => array('EscapeSequence'),
     );
 
-    # ~
+    // ~
 
     protected $inlineMarkerList = '!*_&[:<`~\\';
 
-    #
-    # ~
-    #
+    //
+    // ~
+    //
 
     public function line($text, $nonNestables = array())
     {
@@ -1134,7 +1134,7 @@ class IMEParsedown
 
     protected function lineElements($text, $nonNestables = array())
     {
-        # standardize line breaks
+        // standardize line breaks
         $text = str_replace(array("\r\n", "\r"), "\n", $text);
 
         $Elements = array();
@@ -1144,7 +1144,7 @@ class IMEParsedown
             : array_combine($nonNestables, $nonNestables)
         );
 
-        # $excerpt is based on the first occurrence of a marker
+        // $excerpt is based on the first occurrence of a marker
 
         while ($excerpt = strpbrk($text, $this->inlineMarkerList))
         {
@@ -1156,7 +1156,7 @@ class IMEParsedown
 
             foreach ($this->InlineTypes[$marker] as $inlineType)
             {
-                # check to see if the current inline type is nestable in the current context
+                // check to see if the current inline type is nestable in the current context
 
                 if (isset($nonNestables[$inlineType]))
                 {
@@ -1170,21 +1170,21 @@ class IMEParsedown
                     continue;
                 }
 
-                # makes sure that the inline belongs to "our" marker
+                // makes sure that the inline belongs to "our" marker
 
                 if (isset($Inline['position']) and $Inline['position'] > $markerPosition)
                 {
                     continue;
                 }
 
-                # sets a default inline position
+                // sets a default inline position
 
                 if ( ! isset($Inline['position']))
                 {
                     $Inline['position'] = $markerPosition;
                 }
 
-                # cause the new element to 'inherit' our non nestables
+                // cause the new element to 'inherit' our non nestables
 
 
                 $Inline['element']['nonNestables'] = isset($Inline['element']['nonNestables'])
@@ -1192,23 +1192,23 @@ class IMEParsedown
                     : $nonNestables
                 ;
 
-                # the text that comes before the inline
+                // the text that comes before the inline
                 $unmarkedText = substr($text, 0, $Inline['position']);
 
-                # compile the unmarked text
+                // compile the unmarked text
                 $InlineText = $this->inlineText($unmarkedText);
                 $Elements[] = $InlineText['element'];
 
-                # compile the inline
+                // compile the inline
                 $Elements[] = $this->extractElement($Inline);
 
-                # remove the examined text
+                // remove the examined text
                 $text = substr($text, $Inline['position'] + $Inline['extent']);
 
                 continue 2;
             }
 
-            # the marker does not belong to an inline
+            // the marker does not belong to an inline
 
             $unmarkedText = substr($text, 0, $markerPosition + 1);
 
@@ -1232,9 +1232,9 @@ class IMEParsedown
         return $Elements;
     }
 
-    #
-    # ~
-    #
+    //
+    // ~
+    //
 
     protected function inlineText($text)
     {
@@ -1576,7 +1576,7 @@ class IMEParsedown
         }
     }
 
-    # ~
+    // ~
 
     protected function unmarkedText($text)
     {
@@ -1584,9 +1584,9 @@ class IMEParsedown
         return $this->element($Inline['element']);
     }
 
-    #
-    # Handlers
-    #
+    //
+    // Handlers
+    //
 
     protected function handle(array $Element)
     {
@@ -1693,7 +1693,7 @@ class IMEParsedown
             $Element = $this->sanitiseElement($Element);
         }
 
-        # identity map if element has no handler
+        // identity map if element has no handler
         $Element = $this->handle($Element);
 
         $hasName = isset($Element['name']);
@@ -1798,7 +1798,7 @@ class IMEParsedown
         return $markup;
     }
 
-    # ~
+    // ~
 
     protected function li($lines)
     {
@@ -1814,9 +1814,9 @@ class IMEParsedown
         return $Elements;
     }
 
-    #
-    # AST Convenience
-    #
+    //
+    // AST Convenience
+    //
 
     /**
      * Replace occurrences $regexp with $Elements in $text. Return an array of
@@ -1847,9 +1847,9 @@ class IMEParsedown
         return $newElements;
     }
 
-    #
-    # Deprecated Methods
-    #
+    //
+    // Deprecated Methods
+    //
 
     function parse($text)
     {
@@ -1881,12 +1881,12 @@ class IMEParsedown
         {
             foreach ($Element['attributes'] as $att => $val)
             {
-                # filter out badly parsed attribute
+                // filter out badly parsed attribute
                 if ( ! preg_match($goodAttribute, $att))
                 {
                     unset($Element['attributes'][$att]);
                 }
-                # dump onevent attribute
+                // dump onevent attribute
                 elseif (self::striAtStart($att, 'on'))
                 {
                     unset($Element['attributes'][$att]);
@@ -1912,9 +1912,9 @@ class IMEParsedown
         return $Element;
     }
 
-    #
-    # Static Methods
-    #
+    //
+    // Static Methods
+    //
 
     protected static function escape($text, $allowQuotes = false)
     {
@@ -1951,14 +1951,14 @@ class IMEParsedown
 
     private static $instances = array();
 
-    #
-    # Fields
-    #
+    //
+    // Fields
+    //
 
     protected $DefinitionData;
 
-    #
-    # Read-Only
+    //
+    // Read-Only
 
     protected $specialCharacters = array(
         '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '~'

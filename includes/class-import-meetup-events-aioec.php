@@ -216,7 +216,6 @@ class Import_Meetup_Events_Aioec {
 				$event_table_array['longitude'] = $lon;
 			}
 			
-
 			$event_format = array(
 				'%d',  // post_id
 				'%d',  // start

@@ -246,7 +246,7 @@ GRAPHQL;
      * @access protected
      * @return cURL object
      */
-    public function graphql_query( $endpoint,  $query,  $variables = [] ) {
+    public function graphql_query( $endpoint, $query, $variables = [] ) {
         $headers = ['Content-Type: application/json'];
         if (null !== $this->api_key) {
             $headers[] = 'Authorization: Bearer ' . $this->api_key;

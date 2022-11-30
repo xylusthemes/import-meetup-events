@@ -27,12 +27,12 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	 */
 	public function __construct() {
 		global $status, $page;
-	        // Set parent defaults.
-	        parent::__construct( array(
-	            'singular'  => 'xt_scheduled_import',     // singular name of the listed records.
-	            'plural'    => 'ime_scheduled_import',    // plural name of the listed records.
-	            'ajax'      => false,        // does this table support ajax?
-	        ) );
+			// Set parent defaults.
+			parent::__construct( array(
+				'singular'  => 'xt_scheduled_import',     // singular name of the listed records.
+				'plural'    => 'ime_scheduled_import',    // plural name of the listed records.
+				'ajax'      => false,        // does this table support ajax?
+			) );
 	}
 
 	/**
@@ -57,21 +57,21 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	function column_title( $item ) {
 
 		$ime_url_delete_args = array(
-			'page'   => wp_unslash( $_REQUEST['page'] ),
+			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
 			'ime_action' => 'ime_simport_delete',
 			'import_id'  => absint( $item['ID'] ),
 		);
 		// Build row actions.
 		$actions = array(
-		    'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this scheduled import? Scheduled import will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_import_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
+			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this scheduled import? Scheduled import will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_import_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
 		);
 
 		// Return the title contents.
 		return sprintf('<strong>%1$s</strong><span>%4$s</span> <span style="color:silver">(id:%2$s)</span>%3$s',
-		    $item['title'],
-		    $item['ID'],
-		    $this->row_actions( $actions ),
-		    __('Origin', 'import-meetup-events') . ': <b>' . ucfirst( $item["import_origin"] ) . '</b>'
+			$item['title'],
+			$item['ID'],
+			$this->row_actions( $actions ),
+			__('Origin', 'import-meetup-events') . ': <b>' . ucfirst( $item["import_origin"] ) . '</b>'
 		);
 	}
 
@@ -85,7 +85,7 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	function column_action( $item ) {
 
 		$xtmi_run_import_args = array(
-			'page'   => wp_unslash( $_REQUEST['page'] ),
+			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
 			'ime_action' => 'ime_run_import',
 			'import_id'  => $item['ID'],
 		);
@@ -99,12 +99,12 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	}
 
 	function column_cb($item){
-        return sprintf(
-            '<input type="checkbox" name="%1$s[]" value="%2$s" />',
-            /*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("video")
-            /*$2%s*/ $item['ID']             //The value of the checkbox should be the record's id
-        );
-    }
+		return sprintf(
+			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
+			/*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("video")
+			/*$2%s*/ $item['ID']             //The value of the checkbox should be the record's id
+		);
+	}
 
 	/**
 	 * Get column title.
@@ -125,11 +125,11 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 
 	public function get_bulk_actions() {
 
-        return array(
-            'delete' => __( 'Delete', 'import-meetup-events' ),
-        );
+		return array(
+			'delete' => __( 'Delete', 'import-meetup-events' ),
+		);
 
-    }
+	}
 
 	/**
 	 * Prepare Meetup url data.
@@ -158,9 +158,9 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 			$this->items = ( $data['import_data'] )? $data['import_data'] : array();
 
 			$this->set_pagination_args( array(
-			    'total_items' => $total_items,  // WE have to calculate the total number of items.
-			    'per_page'    => $per_page, // WE have to determine how many items to show on a page.
-			    'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
+				'total_items' => $total_items,  // WE have to calculate the total number of items.
+				'per_page'    => $per_page, // WE have to determine how many items to show on a page.
+				'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
 			) );
 		}
 	}
@@ -291,12 +291,12 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 	 */
 	public function __construct() {
 		global $status, $page;
-	        // Set parent defaults.
-	        parent::__construct( array(
-	            'singular'  => 'import_history',     // singular name of the listed records.
-	            'plural'    => 'ime_import_histories',   // plural name of the listed records.
-	            'ajax'      => false,        // does this table support ajax?
-	        ) );
+			// Set parent defaults.
+			parent::__construct( array(
+				'singular'  => 'import_history',     // singular name of the listed records.
+				'plural'    => 'ime_import_histories',   // plural name of the listed records.
+				'ajax'      => false,        // does this table support ajax?
+			) );
 	}
 
 	/**
@@ -321,21 +321,21 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 	function column_title( $item ) {
 
 		$ime_url_delete_args = array(
-			'page'   => wp_unslash( $_REQUEST['page'] ),
-			'tab'   => wp_unslash( $_REQUEST['tab'] ),
+			'page'   => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
+			'tab'   => sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ),
 			'ime_action' => 'ime_history_delete',
 			'history_id'  => absint( $item['ID'] ),
 		);
 		// Build row actions.
 		$actions = array(
-		    'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this import history? Import history will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_history_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
+			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this import history? Import history will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_history_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
 		);
 
 		// Return the title contents.
 		return sprintf('<strong>%1$s</strong><span>%3$s</span> %2$s',
-		    $item['title'],
-		    $this->row_actions( $actions ),
-		    __('Origin', 'import-meetup-events') . ': <b>' . ucfirst( get_post_meta( $item['ID'], 'import_origin', true ) ) . '</b>'
+			$item['title'],
+			$this->row_actions( $actions ),
+			__('Origin', 'import-meetup-events') . ': <b>' . ucfirst( get_post_meta( $item['ID'], 'import_origin', true ) ) . '</b>'
 		);
 	}
 
@@ -369,12 +369,12 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 	}
 
 	function column_cb($item){
-        return sprintf(
-            '<input type="checkbox" name="%1$s[]" value="%2$s" />',
-            /*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("video")
-            /*$2%s*/ $item['ID']                //The value of the checkbox should be the record's id
-        );
-    }
+		return sprintf(
+			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
+			/*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("video")
+			/*$2%s*/ $item['ID']                //The value of the checkbox should be the record's id
+		);
+	}
 
 	/**
 	 * Get column title.
@@ -394,11 +394,11 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 
 	public function get_bulk_actions() {
 
-        return array(
-            'delete' => __( 'Delete', 'import-meetup-events' ),
-        );
+		return array(
+			'delete' => __( 'Delete', 'import-meetup-events' ),
+		);
 
-    }
+	}
 
 	/**
 	 * Prepare Meetup url data.
@@ -427,9 +427,9 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 			$this->items = ( $data['import_data'] )? $data['import_data'] : array();
 
 			$this->set_pagination_args( array(
-			    'total_items' => $total_items,  // WE have to calculate the total number of items.
-			    'per_page'    => $per_page, // WE have to determine how many items to show on a page.
-			    'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
+				'total_items' => $total_items,  // WE have to calculate the total number of items.
+				'per_page'    => $per_page, // WE have to determine how many items to show on a page.
+				'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
 			) );
 		}
 	}
@@ -441,17 +441,17 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 			return;
 		}	
 		$ime_url_all_delete_args = array(
-			'page'       => wp_unslash( $_REQUEST['page'] ),
-			'tab'        => wp_unslash( $_REQUEST['tab'] ),
+			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
+			'tab'        => sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ),
 			'ime_action' => 'ime_all_history_delete',
 		);
 
-		$delete_ids  = get_posts( array( 'numberposts' => 1,'fields' => 'ids', 'post_type'   => 'ime_import_history' ) );
+		$delete_ids = get_posts( array( 'numberposts' => 1,'fields' => 'ids', 'post_type' => 'ime_import_history' ) );
 		if( !empty( $delete_ids ) ){
 			$wp_delete_nonce_url = esc_url( wp_nonce_url( add_query_arg( $ime_url_all_delete_args, admin_url( 'admin.php' ) ), 'ime_delete_all_history_nonce' ) );
 			$confirmation_message = esc_html__( "Warning!! Are you sure to delete all these import history? Import history will be permanatly deleted.", "import-meetup-events" );
 			?>
-			<a class="button apply" href="<?php echo $wp_delete_nonce_url; ?>" onclick="return confirm('<?php echo $confirmation_message; ?>')">
+			<a class="button apply" href="<?php echo esc_url( $wp_delete_nonce_url ); ?>" onclick="return confirm('<?php echo esc_attr( $confirmation_message ); ?>')">
 				<?php esc_html_e( 'Clear Import History', 'import-meetup-events' ); ?>
 			</a>
 			<?php
@@ -557,33 +557,33 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 */
 class IME_Shortcode_List_Table extends WP_List_Table {
 
-    public function prepare_items() {
+	public function prepare_items() {
 
-        $columns 	= $this->get_columns();
-        $hidden 	= $this->get_hidden_columns();
-        $sortable 	= $this->get_sortable_columns();
-        $data 		= $this->table_data();
+		$columns 	= $this->get_columns();
+		$hidden 	= $this->get_hidden_columns();
+		$sortable 	= $this->get_sortable_columns();
+		$data 		= $this->table_data();
 
-        $per_page 		= 10;
-        $current_page 	= $this->get_pagenum();
-        $total_items 	= count( $data );
+		$per_page 		= 10;
+		$current_page 	= $this->get_pagenum();
+		$total_items 	= count( $data );
 
-        $this->set_pagination_args( array(
-            'total_items' => $total_items,
-            'per_page'    => $per_page
-        ) );
+		$this->set_pagination_args( array(
+			'total_items' => $total_items,
+			'per_page'    => $per_page
+		) );
 
-        $data = array_slice( $data, ( ( $current_page-1 ) * $per_page ), $per_page );
+		$data = array_slice( $data, ( ( $current_page-1 ) * $per_page ), $per_page );
 
-        $this->_column_headers = array( $columns, $hidden, $sortable );
-        $this->items = $data;
-    }
+		$this->_column_headers = array( $columns, $hidden, $sortable );
+		$this->items = $data;
+	}
 
-    /**
-     * Override the parent columns method. Defines the columns to use in your listing table
-     *
-     * @return Array
-     */
+	/**
+	 * Override the parent columns method. Defines the columns to use in your listing table
+	 *
+	 * @return Array
+	 */
 	public function get_columns() {
 		$columns = array(
 			'id'            => __( 'ID', 'import-meetup-events' ),
@@ -594,21 +594,21 @@ class IME_Shortcode_List_Table extends WP_List_Table {
 		return $columns;
 	}
 
-    /**
-     * Define which columns are hidden
-     *
-     * @return Array
-     */
-    public function get_hidden_columns() {
-        return array();
-    }
+	/**
+	 * Define which columns are hidden
+	 *
+	 * @return Array
+	 */
+	public function get_hidden_columns() {
+		return array();
+	}
 
-    /**
-     * Get the table data
-     *
-     * @return Array
-     */
-    private function table_data() {
+	/**
+	 * Get the table data
+	 *
+	 * @return Array
+	 */
+	private function table_data() {
 		$data = array();
 		
 		$data[] = array(
@@ -662,24 +662,23 @@ class IME_Shortcode_List_Table extends WP_List_Table {
 		return $data;
 	}
 	
-    /**
-     * Define what data to show on each column of the table
-     *
-     * @param  Array $item        Data
-     * @param  String $column_name - Current column name
-     *
-     */
-    public function column_default( $item, $column_name )
-    {
-        switch( $column_name ) {
-            case 'id':
-            case 'how_to_use':
-            case 'shortcode':
+	/**
+	 * Define what data to show on each column of the table
+	 *
+	 * @param Array $item        Data
+	 * @param String $column_name - Current column name
+	 */
+	public function column_default( $item, $column_name )
+	{
+		switch( $column_name ) {
+			case 'id':
+			case 'how_to_use':
+			case 'shortcode':
 			case 'action':
-                return $item[ $column_name ];
+				return $item[ $column_name ];
 
-            default:
-                return print_r( $item, true ) ;
-        }
-    }
+			default:
+				return print_r( $item, true ) ;
+		}
+	}
 }

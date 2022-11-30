@@ -28,16 +28,16 @@ if( is_object( $ime_authorized_user ) ){
         } ?>
         
         <div class="widefat ime_settings_notice">
-            <?php printf( '<b>%1$s</b> %2$s <b><a href="https://www.meetup.com/api/oauth/list/" target="_blank">%3$s</a></b> %4$s',  __( 'Note : ','import-meetup-events' ), __( 'You have to create a Meetup OAuth Consumer before filling the following details.','import-meetup-events' ), __( 'Click here','import-meetup-events' ),  __( 'to create new OAuth Consumer','import-meetup-events' ) ); ?>
+            <?php printf( '<b>%1$s</b> %2$s <b><a href="https://www.meetup.com/api/oauth/list/" target="_blank">%3$s</a></b> %4$s', esc_html__( 'Note : ','import-meetup-events' ), esc_html__( 'You have to create a Meetup OAuth Consumer before filling the following details.','import-meetup-events' ), esc_html__( 'Click here','import-meetup-events' ), esc_html__( 'to create new OAuth Consumer','import-meetup-events' ) ); ?>
             <br/>
             <?php _e( 'For detailed step by step instructions ', 'import-meetup-events' ); ?>
             <strong><a href="http://docs.xylusthemes.com/docs/import-meetup-events/creating-oauth-consumer/" target="_blank"><?php _e( 'Click here', 'import-meetup-events' ); ?></a></strong>.
             <br/>
             <?php _e( '<strong>Set the Application Website as : </strong>', 'import-meetup-events' ); ?>
-            <span style="color: green;"><?php echo get_site_url(); ?></span>
+            <span style="color: green;"><?php echo esc_url( get_site_url() ); ?></span>
             <br/>
             <?php _e( '<strong>Set Redirect URI : </strong>', 'import-meetup-events' ); ?>
-            <span style="color: green;"><?php echo admin_url( 'admin-post.php?action=ime_authorize_callback' ); ?></span>
+            <span style="color: green;"><?php echo esc_url( admin_url( 'admin-post.php?action=ime_authorize_callback' ) ); ?></span>
         </div>
 
         <?php
@@ -59,11 +59,11 @@ if( is_object( $ime_authorized_user ) ){
                                     ?>
                                     <div class="ime_connection_wrapper">
                                         <div class="name_wrap">
-                                            <?php printf( __('Connected as: %s', 'import-meetup-events'), '<strong>'.$name.'</strong>' ); ?>
+                                            <?php printf( esc_html__('Connected as: %s', 'import-meetup-events'), '<strong>'. esc_attr( $name ) .'</strong>' ); ?>
                                             <br/>
-                                            <?php echo $email; ?>
+                                            <?php echo esc_attr( $email ); ?>
                                             <br/>
-                                            <a href="<?php echo admin_url('admin-post.php?action=ime_deauthorize_action'); ?>">
+                                            <a href="<?php echo esc_url( admin_url('admin-post.php?action=ime_deauthorize_action') ); ?>">
                                                 <?php _e('Remove Connection', 'import-meetup-events'); ?>
                                             </a>
                                         </div>
@@ -71,13 +71,13 @@ if( is_object( $ime_authorized_user ) ){
                                     <?php
                                 }else{
                                     ?>
-                                    <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
+                                    <form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
                                         <input type="hidden" name="action" value="ime_authorize_action"/>
                                         <?php wp_nonce_field('ime_authorize_action', 'ime_authorize_nonce'); ?>
                                         <?php
-                                        $button_value = __('Connect', 'import-meetup-events');
+                                        $button_value = esc_html__('Connect', 'import-meetup-events');
                                         ?>
-                                        <input type="submit" class="button" name="ime_authorize" value="<?php echo $button_value; ?>" />
+                                        <input type="submit" class="button" name="ime_authorize" value="<?php echo esc_attr( $button_value ); ?>" />
                                     </form>
                                     <span class="ime_small">
                                         <?php _e( 'Please connect your meetup account for import meetup events.','import-meetup-events' ); ?>
@@ -105,9 +105,9 @@ if( is_object( $ime_authorized_user ) ){
                             <?php _e( 'Meetup OAuth Key','import-meetup-events' ); ?> :
                         </th>
                         <td>
-                            <input class="meetup_api_key" name="meetup[meetup_oauth_key]" type="text" value="<?php echo $meetup_oauth_key; ?>" />
+                            <input class="meetup_api_key" name="meetup[meetup_oauth_key]" type="text" value="<?php echo esc_attr( $meetup_oauth_key ); ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', esc_html__( 'Insert your meetup.com OAuth Key you can get it from', 'import-meetup-events' ), esc_html__( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
@@ -117,9 +117,9 @@ if( is_object( $ime_authorized_user ) ){
                             <?php _e( 'Meetup OAuth Secret','import-meetup-events' ); ?> :
                         </th>
                         <td>
-                            <input class="meetup_api_key" name="meetup[meetup_oauth_secret]" type="text" value="<?php echo $meetup_oauth_secret; ?>" />
+                            <input class="meetup_api_key" name="meetup[meetup_oauth_secret]" type="text" value="<?php echo esc_attr( $meetup_oauth_secret ); ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com OAuth Secret you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', esc_html__( 'Insert your meetup.com OAuth Secret you can get it from', 'import-meetup-events' ), esc_html__( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
@@ -135,9 +135,9 @@ if( is_object( $ime_authorized_user ) ){
                             <?php _e( 'Meetup API key','import-meetup-events' ); ?> :
                         </th>
                         <td>
-                            <input class="meetup_api_key" name="meetup[meetup_api_key]" type="text" value="<?php if ( isset( $meetup_options['meetup_api_key'] ) ) { echo $meetup_options['meetup_api_key']; } ?>" />
+                            <input class="meetup_api_key" name="meetup[meetup_api_key]" type="text" value="<?php if ( isset( $meetup_options['meetup_api_key'] ) ) { echo esc_attr( $meetup_options['meetup_api_key'] ); } ?>" />
                             <span class="xtei_small">
-                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', __( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), __( 'here', 'import-meetup-events' ) ); ?>
+                                <?php printf('%s <a href="https://www.meetup.com/api/oauth/list/" target="_blank">%s</a>', esc_html__( 'Insert your meetup.com API key you can get it from', 'import-meetup-events' ), esc_html__( 'here', 'import-meetup-events' ) ); ?>
                             </span>
                         </td>
                     </tr>
@@ -198,9 +198,9 @@ if( is_object( $ime_authorized_user ) ){
                         </th>
                         <td>
                             <?php
-                            $meetup_options = isset($meetup_options['dont_update'])? $meetup_options['dont_update'] : array();
-                            $sdontupdate = isset( $meetup_options['status'] ) ? $meetup_options['status'] : 'no';
-                            $cdontupdate = isset( $meetup_options['category'] ) ? $meetup_options['category'] : 'no';
+                            $dn_update   = isset($meetup_options['dont_update'])? $meetup_options['dont_update'] : array();
+                            $sdontupdate = isset( $dn_update['status'] ) ? $dn_update['status'] : 'no';
+                            $cdontupdate = isset( $dn_update['category'] ) ? $dn_update['category'] : 'no';
                             ?>
                             <input type="checkbox" name="meetup[dont_update][status]" value="yes" <?php checked( $sdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
                             <span class="xtei_small">
@@ -240,7 +240,7 @@ if( is_object( $ime_authorized_user ) ){
                             <?php
                             $event_slug = isset($meetup_options['event_slug']) ? $meetup_options['event_slug'] : 'meetup-event';
                             ?>
-                            <input type="text" name="meetup[event_slug]" value="<?php if ( $event_slug ) { echo $event_slug; } ?>" <?php if (!ime_is_pro()) { echo 'disabled="disabled"'; } ?> />
+                            <input type="text" name="meetup[event_slug]" value="<?php if ( $event_slug ) { echo esc_attr( $event_slug ); } ?>" <?php if (!ime_is_pro()) { echo 'disabled="disabled"'; } ?> />
                             <span class="ime_small">
                                 <?php _e('Slug for the event.', 'import-meetup-events'); ?>
                             </span>
