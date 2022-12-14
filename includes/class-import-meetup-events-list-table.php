@@ -66,12 +66,22 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 		    'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this scheduled import? Scheduled import will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_import_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
 		);
 
+		$source_data = get_post_meta( $item['ID'], 'import_eventdata', true );
+		$source = 'No Data Found';
+		if( !empty( $source_data['meetup_url'] ) ){
+			$source = '<a href="' . esc_url( $source_data['meetup_url'] ) . '" target="_blank" >' . esc_attr( $item['title'] ) . '</a>';
+		}
+
 		// Return the title contents.
-		return sprintf('<strong>%1$s</strong><span>%4$s</span> <span style="color:silver">(id:%2$s)</span>%3$s',
+		return sprintf('<strong>%1$s</strong>
+		<span>%4$s</span></br>
+		<span>%5$s</span></br>
+		<span style="color:silver">(id:%2$s)</span>%3$s',
 		    $item['title'],
 		    $item['ID'],
 		    $this->row_actions( $actions ),
-		    __('Origin', 'import-meetup-events') . ': <b>' . ucfirst( $item["import_origin"] ) . '</b>'
+		    __('Origin', 'import-meetup-events') . ': <b>' . ucfirst( $item["import_origin"] ) . '</b>',
+			__('Source', 'import-meetup-events') . ': <b>' . $source . '</b>'
 		);
 	}
 
