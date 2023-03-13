@@ -629,7 +629,7 @@ class Import_Meetup_Events_Cpt {
 	 *
 	 */
 	public function meetup_events_archive( $atts = array() ){
-		//[meetup_events col='2' posts_per_page='12' category="cat1,cat2" past_events="yes" order="desc" orderby="" start_date="" end_date="" ]
+		//[meetup_events layout="style2" col='2' posts_per_page='12' category="cat1,cat2" past_events="yes" order="desc" orderby="" start_date="" end_date="" ]
 		$current_date = current_time( 'timestamp' );
 		$paged = ( get_query_var('paged') ? get_query_var('paged') : 1 );
 		if( is_front_page() ){
@@ -768,8 +768,8 @@ class Import_Meetup_Events_Cpt {
 		}
 
 
-		$col = 3;
-		$css_class = 'col-ime-md-4';
+		$col = 2;
+		$css_class = 'col-ime-md-6';
 		if( isset( $atts['col'] ) && $atts['col'] != '' && is_numeric( $atts['col'] ) ){
 			$col = $atts['col'];
 			switch ( $col ) {
@@ -819,11 +819,16 @@ class Import_Meetup_Events_Cpt {
 		?>
 		<div class="<?php echo esc_attr( $classes ); ?>">
 			<?php
+			$template_args                = array();
+			$template_args['css_class']   = $css_class;
+			$template_args['direct_link'] = $direct_link;
 			if( $meetup_events->have_posts() ):
 				while ( $meetup_events->have_posts() ) : $meetup_events->the_post();
-					
-					include IME_PLUGIN_DIR . '/templates/archive-content.php';
-					
+					if( isset( $atts['layout'] ) && $atts['layout'] == 'style2' && ime_is_pro() ){
+						get_ime_template( 'ime-archive-content2.php', $template_args );
+					}else{
+						get_ime_template( 'archive-content.php', $template_args );
+					}
 				endwhile; // End of the loop.
 
 				if ($meetup_events->max_num_pages > 1) : // custom pagination  ?>

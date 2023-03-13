@@ -882,3 +882,53 @@ function ime_is_pro(){
 	}
 	return false;
 }
+
+/**
+ * Gets and includes template files.
+ *
+ * @since 1.5.6
+ * @param mixed  $template_name
+ * @param array  $args (default: array())
+ * @param string $template_path (default: '')
+ * @param string $default_path (default: '')
+ */
+function get_ime_template( $template_name, $args = array(), $template_path = 'import-meetup-events', $default_path = '' ) {
+	if ( $args && is_array( $args ) ) {
+		extract( $args );
+	}
+	include locate_ime_template( $template_name, $template_path, $default_path );
+}
+
+/**
+ * Locates a template and return the path for inclusion.
+ *
+ * This is the load order:
+ *
+ *      yourtheme       /   $template_path  /   $template_name
+ *      yourtheme       /   $template_name
+ *      $default_path   /   $template_name
+ *
+ * @since 1.5.6
+ * @param string      $template_name
+ * @param string      $template_path (default: 'import-meetup-events')
+ * @param string|bool $default_path (default: '') False to not load a default
+ * @return string
+ */
+function locate_ime_template( $template_name, $template_path = 'import-meetup-events', $default_path = '' ) {
+	// Look within passed path within the theme - this is priority
+	$template = locate_template(
+		array(
+			trailingslashit( $template_path ) . $template_name,
+			$template_name,
+		)
+	);
+	// Get default template
+	if ( ! $template && $default_path !== false ) {
+		$default_path = $default_path ? $default_path : IME_PLUGIN_DIR . '/templates/';
+		if ( file_exists( trailingslashit( $default_path ) . $template_name ) ) {
+			$template = trailingslashit( $default_path ) . $template_name;
+		}
+	}
+	// Return what we found
+	return apply_filters( 'ime_locate_template', $template, $template_name, $template_path );
+}
