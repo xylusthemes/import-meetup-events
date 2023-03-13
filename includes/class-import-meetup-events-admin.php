@@ -35,6 +35,7 @@ class Import_Meetup_Events_Admin {
 		add_action( 'init', array( $this, 'register_history_cpt' ) );
 		add_action( 'admin_init', array( $this, 'setup_success_messages' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages') );
+		add_filter( 'submenu_file', array( $this, 'get_selected_tab_submenu_ime' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles') );
 		add_action( 'admin_notices', array( $this, 'display_notices') );
@@ -48,10 +49,17 @@ class Import_Meetup_Events_Admin {
 	 * @return void
 	 */
 	public function add_menu_pages(){
+		global $submenu;	
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
+		$submenu['meetup_import'][] = array( __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=meetup' ) );
+		$submenu['meetup_import'][] = array( __( 'Schedule Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=scheduled' ) );
+		$submenu['meetup_import'][] = array( __( 'Import History', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=history' ) );
+		$submenu['meetup_import'][] = array( __( 'Settings', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=settings' ));
+		$submenu['meetup_import'][] = array( __( 'Shortcodes', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=shortcodes' ));
+		$submenu['meetup_import'][] = array( __( 'Support & help', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=support' ));
 		if( !ime_is_pro() ){
-			add_submenu_page( 'meetup_import', __( 'Upgrade to Pro', 'import-meetup-events' ), '<li class="ime_upgrade_pro current"> ' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
+			$submenu['meetup_import'][] = array( '<li class="ime_upgrade_pro current">' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
 		}
 	}
 
@@ -384,6 +392,23 @@ class Import_Meetup_Events_Admin {
 			}
 		}
 		return $plugin_data;
+	}
+
+	/**
+	 * Tab Submenu got selected.
+	 *
+	 * @since 1.5.6
+	 * @return void
+	 */
+	public function get_selected_tab_submenu_ime( $submenu_file ){
+		if( !empty( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) == 'meetup_import' ){
+			$allowed_tabs = array( 'meetup', 'scheduled', 'history', 'settings', 'shortcodes', 'support' );
+			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'meetup';
+			if( in_array( $tab, $allowed_tabs ) ){
+				$submenu_file = admin_url( 'admin.php?page=meetup_import&tab='.$tab );
+			}
+		}
+		return $submenu_file;
 	}
 
 	/**

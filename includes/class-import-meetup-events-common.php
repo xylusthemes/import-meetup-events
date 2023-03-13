@@ -538,52 +538,20 @@ class Import_Meetup_Events_Common {
 	 * @return /boolean
 	 */
 	public function get_event_by_event_id( $post_type, $event_id ) {
-		$event_args = array(
-			'post_type' => $post_type,
-			'post_status' => array( 'pending', 'draft', 'publish', 'private' ),
-			'posts_per_page' => -1,
-			/*'meta_key'   => 'ime_event_id',
-			'meta_value' => $event_id,*/
-			'suppress_filters' => true,
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'ime_event_id',
-					'value'   => $event_id,
-					'compare' => '=',
-				),
-				array(
-					'key'     => '_xt_meetup_event_id',
-					'value'   => $event_id,
-					'compare' => '=',
-				),
-				array(
-					'key'     => 'xtmi_meetup_event_id',
-					'value'   => $event_id,
-					'compare' => '=',
-				),
-			),
+		global $wpdb;
+		$get_post_id = $wpdb->get_col(
+			$wpdb->prepare(
+				'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
+				$post_type,
+				'trash',
+				'ime_event_id',
+				$event_id
+			)
 		);
 
-		if( $post_type == 'tribe_events' && class_exists( 'Tribe__Events__Query' ) ){
-			if( method_exists( "Tribe__Events__Query", "pre_get_posts" ) ){
-				remove_action( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
-			}
-		}		
-		$events = new WP_Query( $event_args );
-		if( $post_type == 'tribe_events' && class_exists( 'Tribe__Events__Query' ) ){
-			if( method_exists( "Tribe__Events__Query", "pre_get_posts" ) ){
-				add_action( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
-			}
-		}	
-
-		if ( $events->have_posts() ) {
-			while ( $events->have_posts() ) {
-				$events->the_post();
-				return get_the_ID();
-			}
+		if ( !empty( $get_post_id[0] ) ) {
+			return $get_post_id[0];
 		}
-		wp_reset_postdata();
 		return false;
 	}
 
