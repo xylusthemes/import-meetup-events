@@ -194,7 +194,7 @@ if( is_object( $ime_authorized_user ) ){
 
                     <tr>
                         <th scope="row">
-                            <?php _e( "Don't Update these data.", "import-meetup-events" ); ?> : 
+                            <?php _e( "Don't Update these data", "import-meetup-events" ); ?> : 
                         </th>
                         <td>
                             <?php
