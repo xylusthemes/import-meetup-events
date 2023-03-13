@@ -78,7 +78,7 @@ class Import_Meetup_Events_Meetup {
 
 			return $imported_events;
 
-		}elseif(  $import_by === 'event_id' ) {
+		}elseif( $import_by === 'event_id' ) {
 			if( !empty( $event_ids ) ){
 				foreach ( $event_ids as $event_id ) {
 					if ( ! empty( $event_id ) ) {

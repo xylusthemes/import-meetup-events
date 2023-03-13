@@ -592,62 +592,62 @@ msgstr ""
 msgid "New Category Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:197
-#: includes/class-import-meetup-events-cpt.php:199
+#: includes/class-import-meetup-events-cpt.php:198
+#: includes/class-import-meetup-events-cpt.php:200
 #: templates/event-meta.php:85
 msgid "Event Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:198
-#: includes/class-import-meetup-events-cpt.php:200
+#: includes/class-import-meetup-events-cpt.php:199
+#: includes/class-import-meetup-events-cpt.php:201
 msgid "Event Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:201
+#: includes/class-import-meetup-events-cpt.php:202
 msgid "Search Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:202
+#: includes/class-import-meetup-events-cpt.php:203
 msgid "Popular Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:203
+#: includes/class-import-meetup-events-cpt.php:204
 msgid "All Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:204
+#: includes/class-import-meetup-events-cpt.php:205
 msgid "Edit Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:205
+#: includes/class-import-meetup-events-cpt.php:206
 msgid "View Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:206
+#: includes/class-import-meetup-events-cpt.php:207
 msgid "Update Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:207
+#: includes/class-import-meetup-events-cpt.php:208
 msgid "Add New Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:208
+#: includes/class-import-meetup-events-cpt.php:209
 msgid "New Tag Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:209
+#: includes/class-import-meetup-events-cpt.php:210
 msgid "Separate tags with commas"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:210
+#: includes/class-import-meetup-events-cpt.php:211
 msgid "Add or remove tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:211
+#: includes/class-import-meetup-events-cpt.php:212
 msgid "Choose from the most used tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:212
+#: includes/class-import-meetup-events-cpt.php:213
 msgid "No tags found"
 msgstr ""
 
@@ -736,7 +736,7 @@ msgstr ""
 msgid "Source Link"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:577
+#: includes/class-import-meetup-events-cpt.php:573
 msgid "Event Date"
 msgstr ""
 
@@ -1041,7 +1041,7 @@ msgid "Check to enable advanced synchronization, this will delete events which a
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:197
-msgid "Don't Update these data."
+msgid "Don't Update these data"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:207

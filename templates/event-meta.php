@@ -18,85 +18,85 @@ $map_api_key         = 'AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw';
 $ime_options = get_option( IME_OPTIONS );
 $time_format = isset( $ime_options['time_format'] ) ? $ime_options['time_format'] : '12hours';
 if($time_format == '12hours' ){
-    $start_time          = date_i18n( 'h:i a', $start_date_str );
-    $end_time            = date_i18n( 'h:i a', $end_date_str );
+	$start_time          = date_i18n( 'h:i a', $start_date_str );
+	$end_time            = date_i18n( 'h:i a', $end_date_str );
 }elseif($time_format == '24hours' ){
-    $start_time          = date_i18n( 'G:i', $start_date_str );
-    $end_time            = date_i18n( 'G:i', $end_date_str );
+	$start_time          = date_i18n( 'G:i', $start_date_str );
+	$end_time            = date_i18n( 'G:i', $end_date_str );
 }else{
-    $start_time          = date_i18n( get_option( 'time_format' ), $start_date_str );
-    $end_time            = date_i18n( get_option( 'time_format' ), $end_date_str );
+	$start_time          = date_i18n( get_option( 'time_format' ), $start_date_str );
+	$end_time            = date_i18n( get_option( 'time_format' ), $end_date_str );
 }
 
 ?>
 <div class="ime_event_meta">
 <div class="organizermain">
-  <div class="details">
-    <div class="titlemain" > <?php esc_html_e( 'Details','import-meetup-events' ); ?> </div>
+	<div class="details">
+		<div class="titlemain" > <?php esc_html_e( 'Details','import-meetup-events' ); ?> </div>
 
-    <?php 
-    if( date( 'Y-m-d', $start_date_str ) == date( 'Y-m-d', $end_date_str ) ){
-    	?>
-    	<strong><?php esc_html_e( 'Date','import-meetup-events' ); ?>:</strong>
-	    <p><?php echo $start_date_formated; ?></p>
+		<?php 
+		if( date( 'Y-m-d', $start_date_str ) == date( 'Y-m-d', $end_date_str ) ){
+			?>
+			<strong><?php esc_html_e( 'Date','import-meetup-events' ); ?>:</strong>
+			<p><?php echo esc_attr( $start_date_formated ); ?></p>
 
-	    <strong><?php esc_html_e( 'Time','import-meetup-events' ); ?>:</strong>
-	    <p><?php if( $start_time != $end_time ){ 
-	    		echo $start_time . ' - ' . $end_time;
-	    	}else{
-	    		echo $start_time;
-    		}?>
-		</p>
-		<?php
-	}else{
-		?>
-		<strong><?php esc_html_e( 'Start','import-meetup-events' ); ?>:</strong>
-	    <p><?php echo $start_date_formated . ' - ' . $start_time; ?></p>
+			<strong><?php esc_html_e( 'Time','import-meetup-events' ); ?>:</strong>
+			<p><?php if( $start_time != $end_time ){ 
+					echo esc_attr( $start_time . ' - ' . $end_time );
+				}else{
+					echo esc_attr( $start_time );
+				}?>
+			</p>
+			<?php
+		}else{
+			?>
+			<strong><?php esc_html_e( 'Start','import-meetup-events' ); ?>:</strong>
+			<p><?php echo esc_attr( $start_date_formated  . ' - ' . $start_time ); ?></p>
 
-	    <strong><?php esc_html_e( 'End','import-meetup-events' ); ?>:</strong>
-	    <p><?php echo $end_date_formated . ' - ' . $end_time; ?></p>
-		<?php
-	}
-
-	$eve_tags = $eve_cats = array();
-	$event_categories = wp_get_post_terms( $event_id, $ime_events->cpt->get_event_categroy_taxonomy() );
-	if( !empty( $event_categories ) ){
-		foreach ($event_categories as $event_category ) {
-			$eve_cats[] = '<a href="'. esc_url( get_term_link( $event_category->term_id ) ).'">' . $event_category->name. '</a>';
+			<strong><?php esc_html_e( 'End','import-meetup-events' ); ?>:</strong>
+			<p><?php echo esc_attr( $end_date_formated . ' - ' . $end_time ); ?></p>
+			<?php
 		}
-	}
 
-	$event_tags = wp_get_post_terms( $event_id, $ime_events->cpt->get_event_tag_taxonomy() );
-	if( !empty( $event_tags ) ){
-		foreach ($event_tags as $event_tag ) {
-			$eve_tags[] = '<a href="'. esc_url( get_term_link( $event_tag->term_id ) ).'">' . $event_tag->name. '</a>';
+		$eve_tags = $eve_cats = array();
+		$event_categories = wp_get_post_terms( $event_id, $ime_events->cpt->get_event_categroy_taxonomy() );
+		if( !empty( $event_categories ) ){
+			foreach ($event_categories as $event_category ) {
+				$eve_cats[] = '<a href="'. esc_url( get_term_link( $event_category->term_id ) ).'">' . $event_category->name. '</a>';
+			}
 		}
-	}
 
-	if( !empty( $eve_cats ) ){
+		$event_tags = wp_get_post_terms( $event_id, $ime_events->cpt->get_event_tag_taxonomy() );
+		if( !empty( $event_tags ) ){
+			foreach ($event_tags as $event_tag ) {
+				$eve_tags[] = '<a href="'. esc_url( get_term_link( $event_tag->term_id ) ).'">' . $event_tag->name. '</a>';
+			}
+		}
+
+		if( !empty( $eve_cats ) ){
+			?>
+			<strong><?php esc_html_e( 'Event Category','import-meetup-events' ); ?>:</strong>
+			<p><?php echo implode(', ', $eve_cats ); ?></p>
+			<?php
+		}
+
+		if( !empty( $eve_tags ) ){
+			?>
+			<strong><?php esc_html_e( 'Event Tags','import-meetup-events' ); ?>:</strong>
+			<p><?php echo implode(', ', $eve_tags ); ?></p>
+			<?php
+		}
 		?>
-		<strong><?php esc_html_e( 'Event Category','import-meetup-events' ); ?>:</strong>
-	    <p><?php echo implode(', ', $eve_cats ); ?></p>
-		<?php
-	}
 
-	if( !empty( $eve_tags ) ){
-		?>
-		<strong><?php esc_html_e( 'Event Tags','import-meetup-events' ); ?>:</strong>
-	    <p><?php echo implode(', ', $eve_tags ); ?></p>
-		<?php
-	}
-	?>
+		<?php if( $website != '' ){ ?>
+			<strong><?php esc_html_e( 'Click to Register','import-meetup-events' ); ?>:</strong>
+			<a href="<?php echo esc_url( $website ); ?>"><?php echo esc_attr( $website ); ?></a>
+		<?php } ?>
 
-    <?php if( $website != '' ){ ?>
-    	<strong><?php esc_html_e( 'Click to Register','import-meetup-events' ); ?>:</strong>
-    	<a href="<?php echo esc_url( $website ); ?>"><?php echo $website; ?></a>
-    <?php } ?>
+	</div>
 
-  </div>
-
-  <?php
-  		// Organizer
+	<?php
+		// Organizer
 		$org_name = get_post_meta( $event_id, 'organizer_name', true );
 		$org_email = get_post_meta( $event_id, 'organizer_email', true );
 		$org_phone = get_post_meta( $event_id, 'organizer_phone', true );
@@ -106,24 +106,24 @@ if($time_format == '12hours' ){
 			?>
 			<div class="organizer">
 				<div class="titlemain"><?php esc_html_e( 'Organizer','import-meetup-events' ); ?></div>
-				<p><?php echo $org_name; ?></p>
+				<p><?php echo esc_attr( $org_name ); ?></p>
 			</div>
 			<?php if( $org_email != '' ){ ?>
-		    	<strong><?php esc_html_e( 'Email','import-meetup-events' ); ?>:</strong>
-		    	<a href="<?php echo 'mailto:'.$org_email; ?>"><?php echo $org_email; ?></a>
-		    <?php } ?>
-		    <?php if( $org_phone != '' ){ ?>
-		    	<strong><?php esc_html_e( 'Phone','import-meetup-events' ); ?>:</strong>
-		    	<a href="<?php echo 'tel:'.$org_phone; ?>"><?php echo $org_phone; ?></a>
-		    <?php } ?>
-		    <?php if( $website != '' ){ ?>
-		    	<strong style="display: block;">
-		    		<?php esc_html_e( 'Website','import-meetup-events' ); ?>:
-		    	</strong>
-		    	<a href="<?php echo esc_url( $org_url ); ?>"><?php echo $org_url; ?></a>
-		    <?php }
+				<strong><?php esc_html_e( 'Email','import-meetup-events' ); ?>:</strong>
+				<a href="<?php echo esc_attr( 'mailto:'.$org_email ); ?>"><?php echo esc_attr( $org_email ); ?></a>
+			<?php } ?>
+			<?php if( $org_phone != '' ){ ?>
+				<strong><?php esc_html_e( 'Phone','import-meetup-events' ); ?>:</strong>
+				<a href="<?php echo esc_attr( 'tel:'.$org_phone ); ?>"><?php echo esc_attr( $org_phone ); ?></a>
+			<?php } ?>
+			<?php if( $website != '' ){ ?>
+				<strong style="display: block;">
+					<?php esc_html_e( 'Website','import-meetup-events' ); ?>:
+				</strong>
+				<a href="<?php echo esc_url( $org_url ); ?>"><?php echo esc_attr( $org_url ); ?></a>
+			<?php }
 		}
-    ?>
+	?>
 	<div style="clear: both"></div>
 </div>
 </div>
@@ -144,10 +144,10 @@ if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue[
 	<div class="organizermain library">
 		<div class="venue">
 			<div class="titlemain"> <?php esc_html_e( 'Venue','import-meetup-events' ); ?> </div>
-			<p><?php echo $venue_name; ?></p>
+			<p><?php echo esc_attr( $venue_name ); ?></p>
 			<?php
 			if( $venue_address != '' ){
-				echo '<p><i>' . $venue_address . '</i></p>';
+				echo '<p><i>' . esc_attr( $venue_address ) . '</i></p>';
 			}
 			$venue_array = array();
 			foreach ($venue as $key => $value) {
@@ -185,7 +185,7 @@ if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue[
 			$query = http_build_query($params);
 			?>
 			<div class="map">
-				<iframe src="https://www.google.com/maps/embed/v1/place?key=<?php echo $map_api_key; ?>&<?php echo $query; ?>" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
+				<iframe src="https://www.google.com/maps/embed/v1/place?key=<?php echo esc_attr( $map_api_key ); ?>&<?php echo esc_attr( $query ); ?>" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
 			</div>
 			<?php
 		}

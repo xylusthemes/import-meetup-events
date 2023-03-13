@@ -28,7 +28,7 @@ class Import_Meetup_Events_Authorize {
 	* Authorize Meetup user to get access token
 	*/
     function ime_authorize_user() {
-		if ( ! empty($_POST) && wp_verify_nonce($_POST['ime_authorize_nonce'], 'ime_authorize_action' ) ) {
+		if ( ! empty($_POST) && wp_verify_nonce( esc_attr( wp_unslash( $_POST['ime_authorize_nonce'] ) ), 'ime_authorize_action' ) ) {
 			$meetup_options = get_option( IME_OPTIONS );
 			$meetup_oauth_key = isset( $meetup_options['meetup_oauth_key'] ) ? $meetup_options['meetup_oauth_key'] : '';
 			$meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup_options['meetup_oauth_secret'] : '';
@@ -40,10 +40,10 @@ class Import_Meetup_Events_Authorize {
 				        . $meetup_oauth_key . "&response_type=code&redirect_uri=" . $param_url;
 				header("Location: " . $dialog_url);
 			}else{
-				die( __( 'Please insert Meetup Oauth Key and Secret.', 'import-meetup-events' ) );
+				die( esc_html__( 'Please insert Meetup Oauth Key and Secret.', 'import-meetup-events' ) );
 			}
         } else {
-            die( __('You have not access to doing this operations.', 'import-meetup-events' ) );
+            die( esc_html__('You have not access to doing this operations.', 'import-meetup-events' ) );
         }
     }
 
@@ -54,7 +54,7 @@ class Import_Meetup_Events_Authorize {
     	delete_option('ime_authorized_user');
     	delete_option('ime_user_token_options');
 		$redirect_url = admin_url('admin.php?page=meetup_import&tab=settings');
-	    wp_redirect($redirect_url);
+	    wp_safe_redirect( $redirect_url );
 	    exit();
     }
 
@@ -65,7 +65,7 @@ class Import_Meetup_Events_Authorize {
 		global $ime_success_msg;
 		if ( isset( $_GET['code'] ) && !empty( $_GET['code'] ) ) {
 
-				$code = sanitize_text_field($_GET['code']);
+				$code = sanitize_text_field( wp_unslash( $_GET['code'] ) );
 				$meetup_options = get_option( IME_OPTIONS );
 				$meetup_oauth_key = isset( $meetup_options['meetup_oauth_key'] ) ? $meetup_options['meetup_oauth_key'] : '';
 				$meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup_options['meetup_oauth_secret'] : '';
@@ -102,21 +102,21 @@ class Import_Meetup_Events_Authorize {
 						update_option('ime_authorized_user', $profile );
 
 						$redirect_url = admin_url('admin.php?page=meetup_import&tab=settings&m_authorize=1');
-					    wp_redirect($redirect_url);
+					    wp_safe_redirect($redirect_url);
 					    exit();
 					}else{
 						$redirect_url = admin_url('admin.php?page=meetup_import&tab=settings&m_authorize=0');
-					    wp_redirect($redirect_url);
+					    wp_safe_redirect($redirect_url);
 					    exit();
 					}
 				} else {
 					$redirect_url = admin_url('admin.php?page=meetup_import&tab=settings&m_authorize=2');
-					wp_redirect($redirect_url);
+					wp_safe_redirect($redirect_url);
 					exit();
 				}
 
             } else {
-				die( __('You have not access to doing this operations.', 'import-meetup-events' ) );
+				die( esc_html__('You have not access to doing this operations.', 'import-meetup-events' ) );
             }
     }
 }
