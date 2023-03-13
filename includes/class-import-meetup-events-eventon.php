@@ -134,7 +134,7 @@ class Import_Meetup_Events_EventON {
 				$ime_events->common->setup_featured_image_to_event( $inserted_event_id, $event_image );
 			}
 			$address = $centralize_array['location']['name'];
-			if(  $centralize_array['location']['full_address'] != '' ){
+			if( $centralize_array['location']['full_address'] != '' ){
 				$address = $centralize_array['location']['full_address'];
 			}
 			
@@ -184,24 +184,23 @@ class Import_Meetup_Events_EventON {
 			if( $centralize_array['organizer']['name'] != '' ){
 
 				$org_contact = $centralize_array['organizer']['phone'];
-				if(  $centralize_array['organizer']['email'] != '' ){
+				if( $centralize_array['organizer']['email'] != '' ){
 					$org_contact = $centralize_array['organizer']['email'];
 				}
 				$org_term = term_exists( $centralize_array['organizer']['name'], $this->organizer_taxonomy );
 				if ($org_term !== 0 && $org_term !== null) {
-				  if( is_array( $org_term ) ){
-				  	$org_term_id = (int)$org_term['term_id'];
-				  }
+					if( is_array( $org_term ) ){
+						$org_term_id = (int)$org_term['term_id'];
+					}
 				}else{
 					$new_org_term = wp_insert_term(
-					  $centralize_array['organizer']['name'], 
-					  $this->organizer_taxonomy
+						$centralize_array['organizer']['name'], 
+						$this->organizer_taxonomy
 					);
 					if( !is_wp_error( $new_org_term ) ){
 						$org_term_id = (int)$new_org_term['term_id'];
 					}
-				}	
-				
+				}
 
 				$org_term_meta = array();
 				$org_term_meta['evcal_org_contact'] = $org_contact;

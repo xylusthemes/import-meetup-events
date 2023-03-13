@@ -99,7 +99,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __clone() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.5');
+            _doing_it_wrong(__FUNCTION__, esc_html__('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.5');
         }
 
         /**
@@ -108,7 +108,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0.0
          */
         public function __wakeup() {
-            _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.5 ');
+            _doing_it_wrong(__FUNCTION__, esc_html__('Cheatin&#8217; huh?', 'import-meetup-events'), '1.5.5 ');
         }
 
         /**
@@ -209,7 +209,7 @@ if (!class_exists('Import_Meetup_Events')):
          * @since 1.0
          * @return void
          */
-        public function ime_setting_doc_links ( $links ) {
+        public function ime_setting_doc_links( $links ) {
             $ime_setting_doc_link = array(
                 'ime-event-setting' => sprintf(
                     '<a href="%s">%s</a>',

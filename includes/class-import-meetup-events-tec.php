@@ -136,8 +136,8 @@ class Import_Meetup_Events_TEC {
 			$new_event_id = tribe_create_event( $formated_args );
 		}
 		if ( $new_event_id ) {
-			update_post_meta( $new_event_id, 'ime_event_id',  $centralize_array['ID'] );
-			update_post_meta( $new_event_id, 'ime_event_origin',  $event_args['import_origin'] );
+			update_post_meta( $new_event_id, 'ime_event_id', $centralize_array['ID'] );
+			update_post_meta( $new_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $new_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
 			
 			// Asign event category.
@@ -189,8 +189,8 @@ class Import_Meetup_Events_TEC {
 			$update_event_id = tribe_update_event( $event_id, $formated_args );
 		}
 		if ( $update_event_id ) {
-			update_post_meta( $update_event_id, 'ime_event_id',  $centralize_array['ID'] );
-			update_post_meta( $update_event_id, 'ime_event_origin',  $event_args['import_origin'] );
+			update_post_meta( $update_event_id, 'ime_event_id', $centralize_array['ID'] );
+			update_post_meta( $update_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $update_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
 			
 			// Asign event category.

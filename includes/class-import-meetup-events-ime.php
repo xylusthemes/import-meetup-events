@@ -195,7 +195,6 @@ class Import_Meetup_Events_IME {
 			update_post_meta( $inserted_event_id, 'ime_event_link', esc_url( $ticket_uri ) );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 
-
 			if ( $is_exitsing_event ) {
 				do_action( 'ime_after_update_em_'.$centralize_array["origin"].'_event', $inserted_event_id, $centralize_array );
 				return array(

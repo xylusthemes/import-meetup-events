@@ -172,7 +172,6 @@ class Import_Meetup_Events_My_Calendar {
 				$event_phone2   = '';
 				$event_zoom     = 16;
 
-
 				$location_data = array(
 					'location_label'     => $event_label,
 					'location_street'    => $event_street,
