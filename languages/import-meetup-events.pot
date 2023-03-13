@@ -134,7 +134,7 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:122
-#: includes/class-import-meetup-events-list-table.php:387
+#: includes/class-import-meetup-events-list-table.php:397
 msgid "Import"
 msgstr ""
 
@@ -374,12 +374,12 @@ msgid "Event(s) are imported successfully."
 msgstr ""
 
 #: includes/class-import-meetup-events-common.php:325
-#: includes/class-import-meetup-events-list-table.php:357
+#: includes/class-import-meetup-events-list-table.php:367
 msgid "%d Created"
 msgstr ""
 
 #: includes/class-import-meetup-events-common.php:328
-#: includes/class-import-meetup-events-list-table.php:360
+#: includes/class-import-meetup-events-list-table.php:370
 msgid "%d Updated"
 msgstr ""
 
@@ -729,76 +729,80 @@ msgid "Event Date"
 msgstr ""
 
 #: includes/class-import-meetup-events-list-table.php:66
-#: includes/class-import-meetup-events-list-table.php:129
-#: includes/class-import-meetup-events-list-table.php:331
-#: includes/class-import-meetup-events-list-table.php:398
+#: includes/class-import-meetup-events-list-table.php:139
+#: includes/class-import-meetup-events-list-table.php:341
+#: includes/class-import-meetup-events-list-table.php:408
 msgid "Delete"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:74
-#: includes/class-import-meetup-events-list-table.php:338
+#: includes/class-import-meetup-events-list-table.php:83
+#: includes/class-import-meetup-events-list-table.php:348
 msgid "Origin"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:96
+#: includes/class-import-meetup-events-list-table.php:84
+msgid "Source"
+msgstr ""
+
+#: includes/class-import-meetup-events-list-table.php:106
 msgid "Import Now"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:117
+#: includes/class-import-meetup-events-list-table.php:127
 msgid "Scheduled import"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:118
+#: includes/class-import-meetup-events-list-table.php:128
 msgid "Import Event Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:119
-#: includes/class-import-meetup-events-list-table.php:388
+#: includes/class-import-meetup-events-list-table.php:129
+#: includes/class-import-meetup-events-list-table.php:398
 msgid "Import Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:120
+#: includes/class-import-meetup-events-list-table.php:130
 msgid "Import Frequency"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:121
-#: includes/class-import-meetup-events-list-table.php:592
+#: includes/class-import-meetup-events-list-table.php:131
+#: includes/class-import-meetup-events-list-table.php:602
 msgid "Action"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:260
+#: includes/class-import-meetup-events-list-table.php:270
 msgid "Last Import: %s ago"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:363
+#: includes/class-import-meetup-events-list-table.php:373
 msgid "%d Skipped"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:389
+#: includes/class-import-meetup-events-list-table.php:399
 msgid "Import Date"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:390
+#: includes/class-import-meetup-events-list-table.php:400
 msgid "Import Stats"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:452
+#: includes/class-import-meetup-events-list-table.php:462
 msgid "Warning!! Are you sure to delete all these import history? Import history will be permanatly deleted."
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:455
+#: includes/class-import-meetup-events-list-table.php:465
 msgid "Clear Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:589
+#: includes/class-import-meetup-events-list-table.php:599
 msgid "ID"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:590
+#: includes/class-import-meetup-events-list-table.php:600
 msgid "Title"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:591
+#: includes/class-import-meetup-events-list-table.php:601
 msgid "Shortcode"
 msgstr ""
 
