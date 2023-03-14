@@ -45,7 +45,7 @@ class Import_Meetup_Events_Manage_Import {
 			$event_data['import_type'] = 'onetime';
 			$event_data['import_frequency'] = 'daily';
 			$event_data['event_status'] = isset( $_POST['event_status'] ) ? sanitize_text_field( wp_unslash( $_POST['event_status'] ) ) : 'pending';
-			$event_data['event_cats'] = isset( $_POST['event_cats'] ) ? sanitize_text_field( wp_unslash( $_POST['event_cats'] ) ) : array();
+			$event_data['event_cats'] = isset( $_POST['event_cats'] ) ? wp_unslash( $_POST['event_cats'] ) : array();
 			$event_data['event_author']     = !empty( $_POST['event_author'] ) ? sanitize_text_field( wp_unslash( $_POST['event_author'] ) ) : get_current_user_id();
 			$event_origin = isset( $_POST['import_origin'] ) ? sanitize_text_field( wp_unslash( $_POST['import_origin'] ) ):'meetup';
 
