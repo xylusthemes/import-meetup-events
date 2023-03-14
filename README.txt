@@ -1,11 +1,11 @@
 === Import Meetup Events ===
-Contributors: xylus,dharm1025
+Contributors: xylus,dharm1025,rajat1192
 Donate link: http://xylusthemes.com/
 Tags: events, calendar, event, meetup, meetup event, meetup events, import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.1
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,9 @@ You can configure settings for this plugin at **Meetup Import** Menu in your Wor
 Here are some features of this plugins.
 
 *   "Manual" event import.
+*   Upcoming Events Widget On Elementor Editor.[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
+*   New Event listing Grid view Layout.[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
+*   Element for Visual Composer ( WPBackery Page Builder).[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
 *   Scheduled event import - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
 *   Setup time interval for "Automatic" event import.
 *   Assign events to particular categories.
@@ -91,6 +94,16 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.6 =
+* ADDED: Events Grid List New Layout ( PRO )
+* ADDED: Upcoming Events Elementor Widget ( PRO )
+* ADDED: Element for Visual Composer ( WPBackery Page Builder)
+* ADDED: Admin Submenu Schedule Import, Import History, etc..
+* ADDED: Schedule import Source Data Link.
+* FIXED: Duplicate Event issue in TEC.
+* IMPROVEMENTS: PHPCS Improvements.
+* IMPROVEMENTS: Support for PHP 8
 
 = 1.5.5 =
 * ADDED: Compatibility with The Events Calendar 6.0
