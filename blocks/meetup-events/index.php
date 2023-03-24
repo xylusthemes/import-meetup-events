@@ -21,7 +21,7 @@ function ime_register_gutenberg_block() {
 	global $ime_events;
 	if ( function_exists( 'register_block_type' ) ) {
 		// Register block editor script.
-		$js_dir = IME_PLUGIN_URL . 'assets/js/';
+		$js_dir = IME_PLUGIN_URL . 'assets/js/blocks/';
 		wp_register_script(
 			'ime-meetup-events-block',
 			$js_dir . 'gutenberg.blocks.js',
@@ -34,6 +34,12 @@ function ime_register_gutenberg_block() {
 		wp_register_style(
 			'ime-meetup-events-block-style',
 			$css_dir . 'import-meetup-events.css',
+			array(),
+			IME_VERSION
+		);
+		wp_register_style(
+			'ime-meetup-events-block-style2',
+			$css_dir . 'grid-style2.css',
 			array(),
 			IME_VERSION
 		);
@@ -50,7 +56,8 @@ function ime_register_gutenberg_block() {
 					'default' => 12,
 				),
 				'past_events'    => array(
-					'type' => 'string',
+					'type'    => 'boolean',
+					'default' => false,
 				),
 				'start_date'     => array(
 					'type'    => 'string',
@@ -68,10 +75,15 @@ function ime_register_gutenberg_block() {
 					'type'    => 'string',
 					'default' => 'event_start_date',
 				),
+				'layout'        => array(
+					'type'    => 'string',
+					'default' => '',
+				),
 
 			),
 			'editor_script'   => 'ime-meetup-events-block', // The script name we gave in the wp_register_script() call.
 			'editor_style'    => 'ime-meetup-events-block-style', // The script name we gave in the wp_register_style() call.
+			'style'           => 'ime-meetup-events-block-style2',
 			'render_callback' => array( $ime_events->cpt, 'meetup_events_archive' ),
 		) );
 	}
