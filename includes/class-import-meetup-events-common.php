@@ -191,6 +191,7 @@ class Import_Meetup_Events_Common {
 			$supported_plugins['my_calendar'] = __( 'My Calendar', 'import-meetup-events' );
 		}		
 		$supported_plugins['ime'] = __( 'Meetup Events', 'import-meetup-events' );
+		$supported_plugins        = apply_filters( 'ime_supported_plugins', $supported_plugins );
 		return $supported_plugins;
 	}
 
