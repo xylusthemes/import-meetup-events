@@ -8,12 +8,13 @@ if( $event_id == '' ){
 	$event_id = get_the_ID();
 }
 
+$get_gmap_key        = get_option( 'ime_google_maps_api_key', true );
 $start_date_str = get_post_meta( $event_id, 'start_ts', true );
 $end_date_str = get_post_meta( $event_id, 'end_ts', true );
 $start_date_formated = date_i18n( 'F j', $start_date_str );
 $end_date_formated = date_i18n( 'F j', $end_date_str );
 $website = get_post_meta( $event_id, 'ime_event_link', true );
-$map_api_key         = 'AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw';
+// $map_api_key         = 'AIzaSyCjIo8L01fL0CgtaGrk3gpoRQkmWN2kKSw';
 
 $ime_options = get_option( IME_OPTIONS );
 $time_format = isset( $ime_options['time_format'] ) ? $ime_options['time_format'] : '12hours';
@@ -138,6 +139,14 @@ $venue['zipcode'] = get_post_meta( $event_id, 'venue_zipcode', true );
 $venue['lat'] = get_post_meta( $event_id, 'venue_lat', true );
 $venue['lon'] = get_post_meta( $event_id, 'venue_lon', true );
 $venue_url = esc_url( get_post_meta( $event_id, 'venue_url', true ) );
+
+if ( ime_is_pro() && empty( $get_gmap_key ) ) {
+	$map_api_key  = IMEPRO_GM_APIKEY;
+}elseif( !empty( $get_gmap_key ) ){
+	$map_api_key  = $get_gmap_key;
+}else{
+	$map_api_key  = '';
+}
 
 if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue['lon'] ) ) ) {
 	?>

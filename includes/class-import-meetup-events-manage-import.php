@@ -23,6 +23,7 @@ class Import_Meetup_Events_Manage_Import {
 		add_action( 'admin_init', array( $this, 'handle_import_form_submit' ) , 99);
 		add_action( 'admin_init', array( $this, 'handle_import_settings_submit' ), 99 );
 		add_action( 'admin_init', array( $this, 'handle_listtable_oprations' ), 99 );
+		add_action( 'admin_init', array( $this, 'handle_gma_settings_submit' ), 99 );
 	}
 
 	/**
@@ -50,6 +51,25 @@ class Import_Meetup_Events_Manage_Import {
 			$event_origin = isset( $_POST['import_origin'] ) ? sanitize_text_field( wp_unslash( $_POST['import_origin'] ) ):'meetup';
 
 			$this->handle_meetup_import_form_submit( $event_data );
+		}
+	}
+
+	/**
+	 * Process insert google maps api key for embed maps
+	 *
+	 * @since    1.5.8
+	 */
+	public function handle_gma_settings_submit() {
+		global $ime_errors, $ime_success_msg;
+		if ( isset( $_POST['ime_gma_action'] ) && 'ime_save_gma_settings' === sanitize_text_field( wp_unslash( $_POST['ime_gma_action'] ) ) && check_admin_referer( 'ime_gma_setting_form_nonce_action', 'ime_gma_setting_form_nonce' ) ) { // input var okay.
+			$gma_option = array();
+			$gma_option['ime_google_maps_api_key'] = isset( $_POST['ime_google_maps_api_key'] ) ? wp_unslash( $_POST['ime_google_maps_api_key'] ) : ''; // input var okay.
+			$is_update = update_option( 'ime_google_maps_api_key', $gma_option['ime_google_maps_api_key'] );
+			if ( $is_update ) {
+				$ime_success_msg[] = __( 'Google Maps API Key has been saved successfully.', 'import-meetup-events' );
+			} else {
+				$ime_errors[] = __( 'Something went wrong! please try again.', 'import-meetup-events' );
+			}
 		}
 	}
 
