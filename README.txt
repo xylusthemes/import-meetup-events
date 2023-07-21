@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.2
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,9 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.5.9 =
+* FIXED: Google Map Iframe Bug
 
 = 1.5.8 =
 * ADDED: Skip Trashed Events Option
