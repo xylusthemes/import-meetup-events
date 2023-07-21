@@ -338,8 +338,15 @@ if( is_object( $ime_authorized_user ) ){
                 <?php if( ime_is_pro() ){ ?>
                 <div id="license" class="ime_tab_content">
                     <?php
-                        if( class_exists( 'Import_Meetup_Events_Pro_Common' ) ){
+                        if( class_exists( 'Import_Meetup_Events_Pro_Common' ) && function_exists( 'ime_licence_page_in_setting' ) ){
                             $ime_events->common_pro->ime_licence_page_in_setting(); 
+                        }else{
+                            $license_section = sprintf(
+                                '<h3 class="setting_bar" >Once you have updated the plugin Pro version <a href="%s">%s</a>, you will be able to access this section.</h3>',
+                                esc_url( admin_url( 'plugins.php?s=import+meetup+events+pro' ) ),
+                                esc_html__( 'Here', 'import-meetup-events' )
+                            );
+                            echo $license_section;
                         }
                     ?>
                 </div>
