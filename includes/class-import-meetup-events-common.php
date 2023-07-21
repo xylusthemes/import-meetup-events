@@ -21,6 +21,7 @@ class Import_Meetup_Events_Common {
 	public function __construct() {
 		add_action( 'wp_ajax_ime_render_terms_by_plugin', array( $this,'ime_render_terms_by_plugin' ) );
 		add_action( 'ime_render_pro_notice', array( $this, 'render_pro_notice') );
+		add_action( 'admin_init', array( $this, 'ime_check_for_minimum_pro_version' ) );
 	}	
 
 	/**
@@ -68,6 +69,21 @@ class Import_Meetup_Events_Common {
 		</tr>
 		<?php		
 
+	}
+
+	/**
+	 * Check if user has minimum pro version.
+	 *
+	 * @since    1.5.8
+	 * @return void
+	 */
+	public function ime_check_for_minimum_pro_version() {
+		if ( defined( 'IMEPRO_VERSION' ) ) {
+			if ( version_compare( IMEPRO_VERSION, IME_MIN_PRO_VERSION, '<' ) ) {
+				global $ime_warnings;
+				$ime_warnings[] = __( 'Your current "Import Meetup Event Pro" add-on is not competible with Free plugin. Please Upgrade Pro latest to work event importing Flawlessly.', 'import-meetup-events' );
+			}
+		}
 	}
 
 	/**
