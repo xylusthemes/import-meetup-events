@@ -384,7 +384,7 @@ if( is_object( $ime_authorized_user ) ){
                 <?php if( ime_is_pro() ){ ?>
                 <div id="license" class="ime_tab_content">
                     <?php
-                        if( class_exists( 'Import_Meetup_Events_Pro_Common' ) && function_exists( 'ime_licence_page_in_setting' ) ){
+                        if( class_exists( 'Import_Meetup_Events_Pro_Common' ) && method_exists( $ime_events->common_pro, 'ime_licence_page_in_setting' ) ){
                             $ime_events->common_pro->ime_licence_page_in_setting(); 
                         }else{
                             $license_section = sprintf(
