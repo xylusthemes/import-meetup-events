@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-26T18:25:28+00:00\n"
+"POT-Creation-Date: 2023-07-21T06:22:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: import-meetup-events\n"
 
 #. Plugin Name of the plugin
@@ -335,119 +335,123 @@ msgstr ""
 msgid "You have not access to doing this operations."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:39
+#: includes/class-import-meetup-events-common.php:40
 msgid "Import into"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:58
+#: includes/class-import-meetup-events-common.php:59
 msgid "Event Categories for Event Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:65
+#: includes/class-import-meetup-events-common.php:66
 msgid "These categories are assign to imported event."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:166
+#: includes/class-import-meetup-events-common.php:84
+msgid "Your current \"Import Meetup Event Pro\" add-on is not competible with Free plugin. Please Upgrade Pro latest to work event importing Flawlessly."
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:182
 msgid "The Events Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:171
+#: includes/class-import-meetup-events-common.php:187
 msgid "Events Manager"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:176
+#: includes/class-import-meetup-events-common.php:192
 msgid "Event Organiser"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:181
+#: includes/class-import-meetup-events-common.php:197
 msgid "EventON"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:186
+#: includes/class-import-meetup-events-common.php:202
 msgid "All in one Event Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:191
+#: includes/class-import-meetup-events-common.php:207
 msgid "My Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:193
+#: includes/class-import-meetup-events-common.php:209
 #: includes/class-import-meetup-events-cpt.php:97
 #: includes/class-import-meetup-events-cpt.php:101
 msgid "Meetup Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:225
+#: includes/class-import-meetup-events-common.php:241
 msgid "Invalid image URL"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:323
+#: includes/class-import-meetup-events-common.php:339
 msgid "Event(s) are imported successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:325
+#: includes/class-import-meetup-events-common.php:341
 #: includes/class-import-meetup-events-list-table.php:367
 msgid "%d Created"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:328
+#: includes/class-import-meetup-events-common.php:344
 #: includes/class-import-meetup-events-list-table.php:370
 msgid "%d Updated"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:331
+#: includes/class-import-meetup-events-common.php:347
 msgid "%d Skipped (Already exists)"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:417
+#: includes/class-import-meetup-events-common.php:433
 msgid "Once Hourly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:420
+#: includes/class-import-meetup-events-common.php:436
 msgid "Twice Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:423
+#: includes/class-import-meetup-events-common.php:439
 msgid "Once Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:426
+#: includes/class-import-meetup-events-common.php:442
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:429
+#: includes/class-import-meetup-events-common.php:445
 msgid "Once a Month"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:444
+#: includes/class-import-meetup-events-common.php:460
 msgid "One-time Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:445
+#: includes/class-import-meetup-events-common.php:461
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:499
+#: includes/class-import-meetup-events-common.php:515
 msgid "Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:504
+#: includes/class-import-meetup-events-common.php:520
 msgid "Published"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:507
+#: includes/class-import-meetup-events-common.php:523
 msgid "Pending"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:510
+#: includes/class-import-meetup-events-common.php:526
 msgid "Draft"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:567
+#: includes/class-import-meetup-events-common.php:583
 msgid "Available in Pro version."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:567
+#: includes/class-import-meetup-events-common.php:583
 msgid "Upgrade to PRO"
 msgstr ""
 
