@@ -192,11 +192,20 @@ if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue[
 				$params['center'] = $lat_lng;
 			}
 			$query = http_build_query($params);
-			?>
-			<div class="map">
-				<iframe src="https://www.google.com/maps/embed/v1/place?key=<?php echo esc_attr( $map_api_key ); ?>&<?php echo esc_attr( $query ); ?>" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
-			</div>
-			<?php
+			if( empty( $map_api_key ) ){
+				$full_address = str_replace( ' ', '%20', $venue_address ) .','. $venue['city'] .','. $venue['state'] .','. $venue['country'].'+(' . str_replace( ' ', '%20', $venue_name ) . ')';	
+				?>
+				<div class="map">
+					<iframe src="https://maps.google.com/maps?q=<?php echo $full_address; ?>&hl=es;z=14&output=embed" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
+				</div>
+				<?php
+			}else{ 
+				?>
+				<div class="map">
+					<iframe src="https://www.google.com/maps/embed/v1/place?key=<?php echo esc_attr( $map_api_key ); ?>&<?php echo esc_attr( $query ); ?>" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
+				</div>
+				<?php
+			}
 		}
 		?>
 		<div style="clear: both;"></div>
