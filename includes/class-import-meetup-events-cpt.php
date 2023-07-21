@@ -478,7 +478,7 @@ class Import_Meetup_Events_Cpt {
 	{
 
 		// Verify the nonce before proceeding.
-		if ( !isset( $_POST['ime_event_metabox_nonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ime_event_metabox_nonce'], IME_PLUGIN_DIR ) ) ) ){
+		if ( !isset( $_POST['ime_event_metabox_nonce'] ) || !wp_verify_nonce( $_POST['ime_event_metabox_nonce'], IME_PLUGIN_DIR ) ){
 			return $post_id;
 		}
 
