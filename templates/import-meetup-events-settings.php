@@ -163,6 +163,22 @@ if( is_object( $ime_authorized_user ) ){
 
                     <tr>
                         <th scope="row">
+                            <?php _e( 'Skip Trashed Events', 'import-meetup-events' ); ?> :
+                        </th>
+                        <td>
+                            <?php
+                            $skip_trash = isset( $meetup_options['skip_trash'] ) ? $meetup_options['skip_trash'] : 'no';
+                            ?>
+                            <input type="checkbox" name="meetup[skip_trash]" value="yes" <?php if ( $skip_trash == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
+                            <span>
+                                <?php _e('Check to enable skip-the-trash events during importing.', 'import-meetup-events'); ?>
+                            </span>
+                            <?php do_action('ime_render_pro_notice'); ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">
                             <?php _e('Direct link to Meetup', 'import-meetup-events'); ?> :
                         </th>
                         <td>
