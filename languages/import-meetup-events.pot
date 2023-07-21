@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-21T07:01:58+00:00\n"
+"POT-Creation-Date: 2023-07-21T07:10:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: import-meetup-events\n"
@@ -1050,103 +1050,99 @@ msgid "Check to enable skip-the-trash events during importing."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:196
-#: templates/import-meetup-events-settings.php:227
 msgid "Direct link to Meetup"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:204
-#: templates/import-meetup-events-settings.php:235
 msgid "Check to enable direct event link to Meetup instead of event detail page."
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:211
-#: templates/import-meetup-events-settings.php:242
 msgid "Advanced Synchronization"
 msgstr ""
 
 #: templates/import-meetup-events-settings.php:219
-#: templates/import-meetup-events-settings.php:250
 msgid "Check to enable advanced synchronization, this will delete events which are removed from Meetup. Also, it deletes passed events."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:258
+#: templates/import-meetup-events-settings.php:226
 msgid "Don't Update these data"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:268
+#: templates/import-meetup-events-settings.php:236
 msgid "Status ( Publish, Pending, Draft etc.. )"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:272
+#: templates/import-meetup-events-settings.php:240
 msgid "Event category"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:275
+#: templates/import-meetup-events-settings.php:243
 msgid "Select data which you don't want to update during existing events update. (This is applicable only if you have checked 'update existing events')"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:283
+#: templates/import-meetup-events-settings.php:251
 msgid "Accent Color"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:291
+#: templates/import-meetup-events-settings.php:259
 msgid "Choose accent color for front-end event grid and event widget."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:298
+#: templates/import-meetup-events-settings.php:266
 msgid "Event Slug"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:306
+#: templates/import-meetup-events-settings.php:274
 msgid "Slug for the event."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:312
+#: templates/import-meetup-events-settings.php:280
 msgid "Event Display Time Format"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:319
+#: templates/import-meetup-events-settings.php:287
 msgid "12 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:320
+#: templates/import-meetup-events-settings.php:288
 msgid "24 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:321
+#: templates/import-meetup-events-settings.php:289
 msgid "WordPress Default"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:324
+#: templates/import-meetup-events-settings.php:292
 msgid "Choose event display time format for front-end."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:336
-#: templates/import-meetup-events-settings.php:378
+#: templates/import-meetup-events-settings.php:304
+#: templates/import-meetup-events-settings.php:346
 msgid "Save Settings"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:345
+#: templates/import-meetup-events-settings.php:313
 msgid "Google Maps API Settings"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:352
+#: templates/import-meetup-events-settings.php:320
 msgid "Google Maps API"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:363
+#: templates/import-meetup-events-settings.php:331
 msgid "Google maps API Key (Required)"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:364
+#: templates/import-meetup-events-settings.php:332
 msgid "How to get an API Key"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:365
+#: templates/import-meetup-events-settings.php:333
 msgid "Find out more about API Key restrictions"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:393
+#: templates/import-meetup-events-settings.php:361
 msgid "Here"
 msgstr ""
 
