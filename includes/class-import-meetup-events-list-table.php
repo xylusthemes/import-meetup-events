@@ -361,6 +361,7 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		$created = get_post_meta( $item['ID'], 'created', true );
 		$updated = get_post_meta( $item['ID'], 'updated', true );
 		$skipped = get_post_meta( $item['ID'], 'skipped', true );
+		$skip_trash = get_post_meta( $item['ID'], 'skip_trash', true );
 
 		$success_message = '<span style="color: silver"><strong>';
 		if( $created > 0 ){
@@ -371,6 +372,9 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		}
 		if( $skipped > 0 ){
 			$success_message .= sprintf( __( '%d Skipped', 'import-meetup-events' ), $skipped ) ."<br>";
+		}
+		if( $skip_trash > 0 ){
+			$success_message .= sprintf( __( '%d Skipped in Trash', 'import-meetup-events' ), $skip_trash ) ."<br>";
 		}
 		$success_message .= "</strong></span>";
 

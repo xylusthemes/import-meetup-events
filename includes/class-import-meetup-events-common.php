@@ -21,6 +21,7 @@ class Import_Meetup_Events_Common {
 	public function __construct() {
 		add_action( 'wp_ajax_ime_render_terms_by_plugin', array( $this,'ime_render_terms_by_plugin' ) );
 		add_action( 'ime_render_pro_notice', array( $this, 'render_pro_notice') );
+		add_action( 'admin_init', array( $this, 'ime_check_for_minimum_pro_version' ) );
 	}	
 
 	/**
@@ -68,6 +69,21 @@ class Import_Meetup_Events_Common {
 		</tr>
 		<?php		
 
+	}
+
+	/**
+	 * Check if user has minimum pro version.
+	 *
+	 * @since    1.5.8
+	 * @return void
+	 */
+	public function ime_check_for_minimum_pro_version() {
+		if ( defined( 'IMEPRO_VERSION' ) ) {
+			if ( version_compare( IMEPRO_VERSION, IME_MIN_PRO_VERSION, '<' ) ) {
+				global $ime_warnings;
+				$ime_warnings[] = __( 'Your current "Import Meetup Event Pro" add-on is not competible with Free plugin. Please Upgrade Pro latest to work event importing Flawlessly.', 'import-meetup-events' );
+			}
+		}
 	}
 
 	/**
@@ -191,6 +207,7 @@ class Import_Meetup_Events_Common {
 			$supported_plugins['my_calendar'] = __( 'My Calendar', 'import-meetup-events' );
 		}		
 		$supported_plugins['ime'] = __( 'Meetup Events', 'import-meetup-events' );
+		$supported_plugins        = apply_filters( 'ime_supported_plugins', $supported_plugins );
 		return $supported_plugins;
 	}
 
@@ -308,6 +325,8 @@ class Import_Meetup_Events_Common {
 				$import_status['updated'][] = $value;
 			}elseif( $value['status'] == 'skipped'){
 				$import_status['skipped'][] = $value;
+			}elseif( $value['status'] == 'skip_trash'){
+				$import_status['skip_trash'][] = $value;
 			}else{
 
 			}
@@ -315,10 +334,11 @@ class Import_Meetup_Events_Common {
 				$import_ids[] = $value['id'];
 			}
 		}
-		$created = $updated = $skipped = 0;
+		$created = $updated = $skipped = $skipped = 0;
 		$created = isset( $import_status['created'] ) ? count( $import_status['created'] ) : 0;
 		$updated = isset( $import_status['updated'] ) ? count( $import_status['updated'] ) : 0;
 		$skipped = isset( $import_status['skipped'] ) ? count( $import_status['skipped'] ) : 0;
+		$skip_trash = isset( $import_status['skip_trash'] ) ? count( $import_status['skip_trash'] ) : 0;
 		
 		$success_message = esc_html__( 'Event(s) are imported successfully.', 'import-meetup-events' )."<br>";
 		if( $created > 0 ){
@@ -330,6 +350,9 @@ class Import_Meetup_Events_Common {
 		if( $skipped > 0 ){
 			$success_message .= "<strong>".sprintf( __( '%d Skipped (Already exists)', 'import-meetup-events' ), $skipped ) ."</strong><br>";
 		}
+		if ( $skip_trash > 0 ) {
+			$success_message .= "<strong>" . sprintf( __( '%d Skipped (Already exists in Trash )', 'import-meetup-events' ), $skip_trash ) . "</strong><br>";
+		}
 		$ime_success_msg[] = $success_message;
 
 		if( $schedule_post != '' && $schedule_post > 0 ){
@@ -338,7 +361,7 @@ class Import_Meetup_Events_Common {
 			$temp_title = 'Manual Import';
 		}
 		
-		if( $created > 0 || $updated > 0 || $skipped >0 ){
+		if( $created > 0 || $updated > 0 || $skipped > 0 || $skip_trash > 0 ){
 			$insert_args = array(
 				'post_type'   => 'ime_import_history',
 				'post_status' => 'publish',
@@ -351,6 +374,7 @@ class Import_Meetup_Events_Common {
 				update_post_meta( $insert, 'created', $created );
 				update_post_meta( $insert, 'updated', $updated );
 				update_post_meta( $insert, 'skipped', $skipped );
+				update_post_meta( $insert, 'skip_trash', $skipped );
 				update_post_meta( $insert, 'import_data', $import_args );
 				if( $schedule_post != '' && $schedule_post > 0 ){
 					update_post_meta( $insert, 'schedule_import_id', $schedule_post );
@@ -539,15 +563,28 @@ class Import_Meetup_Events_Common {
 	 */
 	public function get_event_by_event_id( $post_type, $event_id ) {
 		global $wpdb;
-		$get_post_id = $wpdb->get_col(
-			$wpdb->prepare(
-				'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
-				$post_type,
-				'trash',
-				'ime_event_id',
-				$event_id
-			)
-		);
+		$ime_options = get_option( IME_OPTIONS );
+		$skip_trash = isset( $ime_options['skip_trash'] ) ? $ime_options['skip_trash'] : 'no';
+		if( $skip_trash === 'yes'){
+			$get_post_id = $wpdb->get_col(
+				$wpdb->prepare(
+					'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
+					$post_type,
+					'ime_event_id',
+					$event_id
+				)
+			);
+		}else{
+			$get_post_id = $wpdb->get_col(
+				$wpdb->prepare(
+					'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
+					$post_type,
+					'trash',
+					'ime_event_id',
+					$event_id
+				)
+			);
+		}
 
 		if ( !empty( $get_post_id[0] ) ) {
 			return $get_post_id[0];

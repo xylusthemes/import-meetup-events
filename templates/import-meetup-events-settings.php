@@ -144,7 +144,7 @@ if( is_object( $ime_authorized_user ) ){
                                                 <?php _e( ' - OR -', 'import-meetup-events' ); ?>
                                             </th>
                                         </tr>
-
+                                      
                                         <tr>
                                             <th scope="row">
                                                 <?php _e( 'Meetup API key','import-meetup-events' ); ?> :
@@ -175,7 +175,53 @@ if( is_object( $ime_authorized_user ) ){
                                                 </span>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <?php _e( 'Skip Trashed Events', 'import-meetup-events' ); ?> :
+                                            </th>
+                                            <td>
+                                                <?php
+                                                $skip_trash = isset( $meetup_options['skip_trash'] ) ? $meetup_options['skip_trash'] : 'no';
+                                                ?>
+                                                <input type="checkbox" name="meetup[skip_trash]" value="yes" <?php if ( $skip_trash == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
+                                                <span>
+                                                    <?php _e('Check to enable skip-the-trash events during importing.', 'import-meetup-events'); ?>
+                                                </span>
+                                                <?php do_action('ime_render_pro_notice'); ?>
+                                            </td>
+                                        </tr>
 
+                                        <tr>
+                                            <th scope="row">
+                                                <?php _e('Direct link to Meetup', 'import-meetup-events'); ?> :
+                                            </th>
+                                            <td>
+                                                <?php
+                                                $direct_link = isset($meetup_options['direct_link']) ? $meetup_options['direct_link'] : 'no';
+                                                ?>
+                                                <input type="checkbox" name="meetup[direct_link]" value="yes" <?php if ($direct_link == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
+                                                <span>
+                                                    <?php _e('Check to enable direct event link to Meetup instead of event detail page.', 'import-meetup-events'); ?>
+                                                </span>
+                                                <?php do_action('ime_render_pro_notice'); ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <?php _e( 'Advanced Synchronization', 'import-meetup-events' ); ?> : 
+                                            </th>
+                                            <td>
+                                                <?php
+                                                $advanced_sync = isset( $meetup_options['advanced_sync'] ) ? $meetup_options['advanced_sync'] : 'no';
+                                                ?>
+                                                <input type="checkbox" name="meetup[advanced_sync]" value="yes" <?php if( $advanced_sync == 'yes' ) { echo 'checked="checked"'; } if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?> />
+                                                <span>
+                                                    <?php _e( 'Check to enable advanced synchronization, this will delete events which are removed from Meetup. Also, it deletes passed events.', 'import-meetup-events' ); ?>
+                                                </span>
+                                                <?php do_action( 'ime_render_pro_notice' ); ?>
+                                            </td>
+                                        </tr>
+                                      
                                         <tr>
                                             <th scope="row">
                                                 <?php _e('Direct link to Meetup', 'import-meetup-events'); ?> :
