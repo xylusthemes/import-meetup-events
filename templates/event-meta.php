@@ -8,7 +8,7 @@ if( $event_id == '' ){
 	$event_id = get_the_ID();
 }
 
-$get_gmap_key        = get_option( 'ime_google_maps_api_key', true );
+$get_gmap_key        = get_option( 'ime_google_maps_api_key', false );
 $start_date_str = get_post_meta( $event_id, 'start_ts', true );
 $end_date_str = get_post_meta( $event_id, 'end_ts', true );
 $start_date_formated = date_i18n( 'F j', $start_date_str );
