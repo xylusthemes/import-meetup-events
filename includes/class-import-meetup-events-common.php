@@ -374,7 +374,7 @@ class Import_Meetup_Events_Common {
 				update_post_meta( $insert, 'created', $created );
 				update_post_meta( $insert, 'updated', $updated );
 				update_post_meta( $insert, 'skipped', $skipped );
-				update_post_meta( $insert, 'skip_trash', $skipped );
+				update_post_meta( $insert, 'skip_trash', $skip_trash );
 				update_post_meta( $insert, 'import_data', $import_args );
 				if( $schedule_post != '' && $schedule_post > 0 ){
 					update_post_meta( $insert, 'schedule_import_id', $schedule_post );
