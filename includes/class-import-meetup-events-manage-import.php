@@ -150,6 +150,10 @@ class Import_Meetup_Events_Manage_Import {
 			$delete_ids = isset( $_REQUEST['xt_scheduled_import'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['xt_scheduled_import'] ) ) : '0';
 			if( !empty( $delete_ids ) ){
 				foreach ($delete_ids as $delete_id ) {
+					$timestamp = wp_next_scheduled( 'ime_run_scheduled_import', array( 'post_id' => (int)$delete_id ) );
+					if ( $timestamp ) {
+						wp_unschedule_event( $timestamp, 'ime_run_scheduled_import', array( 'post_id' => (int)$delete_id ) );
+					}
 					wp_delete_post( $delete_id, true );
 				}
 			}
