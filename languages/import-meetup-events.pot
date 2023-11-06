@@ -847,28 +847,28 @@ msgstr ""
 msgid "Import settings has been saved successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:213
+#: includes/class-import-meetup-events-manage-import.php:217
 msgid "Please provide valid Meetup group URL."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:235
+#: includes/class-import-meetup-events-manage-import.php:239
 msgid "Scheduled import deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:239
-#: includes/class-import-meetup-events-manage-import.php:255
+#: includes/class-import-meetup-events-manage-import.php:243
+#: includes/class-import-meetup-events-manage-import.php:259
 msgid "Scheduled imports are deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:243
+#: includes/class-import-meetup-events-manage-import.php:247
 msgid "Scheduled import has been run successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:247
+#: includes/class-import-meetup-events-manage-import.php:251
 msgid "Import history deleted successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-manage-import.php:251
+#: includes/class-import-meetup-events-manage-import.php:255
 msgid "Import histories are deleted successfully."
 msgstr ""
 
