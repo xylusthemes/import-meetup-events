@@ -33,6 +33,7 @@ if (!class_exists('Import_Meetup_Events')):
          * Import_Meetup_Events The one true Import_Meetup_Events.
          */
         private static $instance;
+        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar;
 
         /**
          * Main Import Meetup Events Instance.
