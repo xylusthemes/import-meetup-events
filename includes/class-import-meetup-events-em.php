@@ -225,13 +225,13 @@ class Import_Meetup_Events_EM {
 			}
 
 			if ( $is_exitsing_event ) {
-				do_action( 'ime_after_update_em_'.$centralize_array["origin"].'_event', $inserted_event_id, $centralize_array );
+				do_action( 'ime_after_update_em_'.$centralize_array["origin"].'_event', ['inserted_event_id' => $inserted_event_id, 'centralize_array' => $centralize_array] );
 				return array(
 					'status' => 'updated',
 					'id' 	 => $inserted_event_id
 				);
 			}else{
-				do_action( 'ime_after_create_em_'.$centralize_array["origin"].'_event', $inserted_event_id, $centralize_array );
+				do_action( 'ime_after_create_em_'.$centralize_array["origin"].'_event', ['inserted_event_id' => $inserted_event_id, 'centralize_array' => $centralize_array] );
 				return array(
 					'status' => 'created',
 					'id' 	 => $inserted_event_id
