@@ -63,7 +63,7 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 		);
 		// Build row actions.
 		$actions = array(
-			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this scheduled import? Scheduled import will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_import_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
+			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure you want to delete all these import histories? Import history will be permanently deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_import_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
 		);
 
 		$source_data = get_post_meta( $item['ID'], 'import_eventdata', true );
@@ -338,7 +338,7 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		);
 		// Build row actions.
 		$actions = array(
-			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure to Delete this import history? Import history will be permanatly deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_history_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
+			'delete' => sprintf( '<a href="%1$s" onclick="return confirm(\'Warning!! Are you sure you want to delete all these import histories? Import history will be permanently deleted.\')">%2$s</a>',esc_url( wp_nonce_url( add_query_arg( $ime_url_delete_args ), 'ime_delete_history_nonce' ) ), esc_html__( 'Delete', 'import-meetup-events' ) ),
 		);
 
 		// Return the title contents.
@@ -463,7 +463,7 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		$delete_ids = get_posts( array( 'numberposts' => 1,'fields' => 'ids', 'post_type' => 'ime_import_history' ) );
 		if( !empty( $delete_ids ) ){
 			$wp_delete_nonce_url = esc_url( wp_nonce_url( add_query_arg( $ime_url_all_delete_args, admin_url( 'admin.php' ) ), 'ime_delete_all_history_nonce' ) );
-			$confirmation_message = esc_html__( "Warning!! Are you sure to delete all these import history? Import history will be permanatly deleted.", "import-meetup-events" );
+			$confirmation_message = esc_html__( "Warning!! Are you sure you want to delete all these import histories? Import history will be permanently deleted.", "import-meetup-events" );
 			?>
 			<a class="button apply" href="<?php echo esc_url( $wp_delete_nonce_url ); ?>" onclick="return confirm('<?php echo esc_attr( $confirmation_message ); ?>')">
 				<?php esc_html_e( 'Clear Import History', 'import-meetup-events' ); ?>

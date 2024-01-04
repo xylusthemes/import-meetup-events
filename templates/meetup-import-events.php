@@ -33,7 +33,7 @@ global $ime_events;
 								<?php if ( ime_is_pro() ) { ?>
 								<textarea class="ime_meetup_ids" name="ime_event_ids" type="text" rows="5" cols="50"></textarea>
 								<span class="ime_small">
-									<?php _e( 'One event ID per line, ( Eg. Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class="borderall">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
+									<?php _e( 'One event ID per line. (E.g., Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class=\"borderall\">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
 								</span>
 								<?php } else { ?>
 								<input class="ime_text" name="ime_event_ids" type="text" />
