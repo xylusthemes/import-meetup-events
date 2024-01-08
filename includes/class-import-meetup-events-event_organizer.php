@@ -129,16 +129,16 @@ class Import_Meetup_Events_Event_Organizer {
 			if ( empty( $inserted_event ) ) { return '';}
 
 			// Asign event category.
-			$ife_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
-			if ( ! empty( $ife_cats ) ) {
-				foreach ( $ife_cats as $ife_catk => $ife_catv ) {
-					$ife_cats[ $ife_catk ] = (int) $ife_catv;
+			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
+			if ( ! empty( $ime_cats ) ) {
+				foreach ( $ime_cats as $ime_catk => $ime_catv ) {
+					$ime_cats[ $ime_catk ] = (int) $ime_catv;
 				}
 			}
 
-			if ( ! empty( $ife_cats ) ) {
+			if ( ! empty( $ime_cats ) ) {
 				if (!($is_exitsing_event && ! $ime_events->common->ime_is_updatable('category') )) {
-					wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
+					wp_set_object_terms( $inserted_event_id, $ime_cats, $this->taxonomy );
 				}
 			}
 
