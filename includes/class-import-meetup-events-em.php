@@ -77,24 +77,24 @@ class Import_Meetup_Events_EM {
 			return false;
 		}
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		$is_existing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
 				
-		if ( $is_exitsing_event ) {
+		if ( $is_existing_event ) {
 			// Update event or not?
 			$options = ime_get_import_options( $centralize_array['origin'] );
 			$update_events = isset( $options['update_events'] ) ? $options['update_events'] : 'no';
 			$skip_trash    = isset( $options['skip_trash'] ) ? $options['skip_trash'] : 'no';
-			$post_status   = get_post_status( $is_exitsing_event );
+			$post_status   = get_post_status( $is_existing_event );
 			if ( 'trash' == $post_status && $skip_trash == 'yes' ) {
 				return array(
 					'status' => 'skip_trash',
-					'id'     => $is_exitsing_event,
+					'id'     => $is_existing_event,
 				);
 			}
 			if ( 'yes' != $update_events ) {
 				return array(
 					'status' => 'skipped',
-					'id' 	 => $is_exitsing_event
+					'id' 	 => $is_existing_event
 				);
 			}
 		}
@@ -120,16 +120,16 @@ class Import_Meetup_Events_EM {
 			'post_status' => 'pending',
 			'post_author'  => isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id()
 		);
-		if ( $is_exitsing_event ) {
-			$emeventdata['ID'] = $is_exitsing_event;
+		if ( $is_existing_event ) {
+			$emeventdata['ID'] = $is_existing_event;
 		}
 		if( isset( $event_args['event_status'] ) && $event_args['event_status'] != '' ){
 			$emeventdata['post_status'] = $event_args['event_status'];
 		}
 
-		if ( $is_exitsing_event && ! $ime_events->common->ime_is_updatable('status') ) {
-			$emeventdata['post_status'] = get_post_status( $is_exitsing_event );
-			$event_args['event_status'] = get_post_status( $is_exitsing_event );
+		if ( $is_existing_event && ! $ime_events->common->ime_is_updatable('status') ) {
+			$emeventdata['post_status'] = get_post_status( $is_existing_event );
+			$event_args['event_status'] = get_post_status( $is_existing_event );
 		}
 		$inserted_event_id = wp_insert_post( $emeventdata, true );
 
@@ -138,14 +138,14 @@ class Import_Meetup_Events_EM {
 			if ( empty( $inserted_event ) ) { return '';}
 
 			// Asign event category.
-			$ife_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
-			if ( ! empty( $ife_cats ) ) {
-				foreach ( $ife_cats as $ife_catk => $ife_catv ) {
-					$ife_cats[ $ife_catk ] = (int) $ife_catv;
+			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
+			if ( ! empty( $ime_cats ) ) {
+				foreach ( $ime_cats as $ime_catk => $ime_catv ) {
+					$ime_cats[ $ime_catk ] = (int) $ime_catv;
 				}
 			}
 			if ( ! empty( $ife_cats ) ) {
-				if (!($is_exitsing_event && ! $ime_events->common->ime_is_updatable('category') )) {
+				if (!($is_existing_event && ! $ime_events->common->ime_is_updatable('category') )) {
 					wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
 				}
 			}
@@ -155,12 +155,12 @@ class Import_Meetup_Events_EM {
 			if( $event_image != '' ){
 				$ime_events->common->setup_featured_image_to_event( $inserted_event_id, $event_image );
 			}else{
-				if( $is_exitsing_event ){
+				if( $is_existing_event ){
 					delete_post_thumbnail( $inserted_event_id );
 				}
 			}
 
-			if ( $is_exitsing_event ) {
+			if ( $is_existing_event ) {
 				$location_id = $this->get_location_args( $centralize_array['location'], $inserted_event_id );
 			}else{
 				$location_id = $this->get_location_args( $centralize_array['location'], false );
@@ -210,7 +210,7 @@ class Import_Meetup_Events_EM {
 			);
 
 			$event_table = ( defined( 'EM_EVENTS_TABLE' ) ? EM_EVENTS_TABLE : $wpdb->prefix . 'em_events' );
-			if ( $is_exitsing_event ) {
+			if ( $is_existing_event ) {
 				$eve_id = get_post_meta( $inserted_event_id, '_event_id', true );
 				$where = array( 'event_id' => $eve_id );
 				$wpdb->update( $event_table , $event_array, $where );
@@ -224,7 +224,7 @@ class Import_Meetup_Events_EM {
 				$status_changed = $wpdb->update( $wpdb->posts, array( 'post_status' => sanitize_text_field( $event_args['event_status'] ) ), array( 'ID' => $inserted_event_id ) );
 			}
 
-			if ( $is_exitsing_event ) {
+			if ( $is_existing_event ) {
 				do_action( 'ime_after_update_em_'.$centralize_array["origin"].'_event', $inserted_event_id, $centralize_array );
 				return array(
 					'status' => 'updated',

@@ -124,15 +124,15 @@ class Import_Meetup_Events_EventON {
 			if ( empty( $inserted_event ) ) { return '';}
 
 			// Asign event category.
-			$ife_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
-			if ( ! empty( $ife_cats ) ) {
-				foreach ( $ife_cats as $ife_catk => $ife_catv ) {
-					$ife_cats[ $ife_catk ] = (int) $ife_catv;
+			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
+			if ( ! empty( $ime_cats ) ) {
+				foreach ( $ime_cats as $ime_catk => $ime_catv ) {
+					$ime_cats[ $ime_catk ] = (int) $ime_catv;
 				}
 			}
-			if ( ! empty( $ife_cats ) ) {
+			if ( ! empty( $ime_cats ) ) {
 				if (!($is_exitsing_event && ! $ime_events->common->ime_is_updatable('category') )) {
-					wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
+					wp_set_object_terms( $inserted_event_id, $ime_cats, $this->taxonomy );
 				}
 			}
 
@@ -155,8 +155,8 @@ class Import_Meetup_Events_EventON {
 			update_post_meta( $inserted_event_id, 'evcal_srow', $start_time );
 			update_post_meta( $inserted_event_id, 'evcal_erow', $end_time );
 			update_post_meta( $inserted_event_id, 'evcal_lmlink', $centralize_array['url'] );
-			update_post_meta( $inserted_event_id, 'ife_event_timezone', $timezone );
-			update_post_meta( $inserted_event_id, 'ife_event_timezone_name', $timezone );
+			update_post_meta( $inserted_event_id, 'ime_event_timezone', $timezone );
+			update_post_meta( $inserted_event_id, 'ime_event_timezone_name', $timezone );
 			update_post_meta( $inserted_event_id, '_evo_tz', $timezone );
 
 			$start_ampm = date("a", $start_time);
