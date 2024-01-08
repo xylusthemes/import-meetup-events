@@ -39,7 +39,7 @@ class Import_Meetup_Events_Manage_Import {
 			
 			$event_data['import_into'] = isset( $_POST['event_plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['event_plugin'] ) ) : '';
 			if( $event_data['import_into'] == '' ){
-				$ime_errors[] = esc_html__( 'Please provide Import into plugin for Event import.', 'import-meetup-events' );
+				$ime_errors[] = esc_html__( 'Please provide an import plugin for Event import.', 'import-meetup-events' );
 				return;
 			}
 			

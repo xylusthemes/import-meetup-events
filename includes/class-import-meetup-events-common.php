@@ -81,7 +81,7 @@ class Import_Meetup_Events_Common {
 		if ( defined( 'IMEPRO_VERSION' ) ) {
 			if ( version_compare( IMEPRO_VERSION, IME_MIN_PRO_VERSION, '<' ) ) {
 				global $ime_warnings;
-				$ime_warnings[] = __( 'Your current "Import Meetup Event Pro" add-on is not compatible with the Free plugin. Please Upgrade Pro to the latest for event importing to work flawlessly.', 'import-meetup-events' );
+				$ime_warnings[] = __( 'Your current "Import Meetup Event Pro" add-on is not compatible with Free plugin. Please upgrade Pro to the latest version to work on event importing flawlessly.', 'import-meetup-events' );
 			}
 		}
 	}

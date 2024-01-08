@@ -37,7 +37,7 @@ if( is_object( $ime_authorized_user ) ){
                             if( !isset( $_SERVER['HTTPS'] ) && false === stripos( $site_url, 'https' ) && $meetup_oauth_key != '' && $meetup_oauth_secret != '' && empty($ime_authorized_user) ) {
                                 ?>
                                 <div class="widefat ime_settings_error">
-                                    <?php _e( "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required for authorize your meetup account.","import-meetup-events" ); ?>
+                                    <?php _e( "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required to authorize your meetup account.","import-meetup-events" ); ?>
                                 </div>
                             <?php
                             } ?>
@@ -216,7 +216,7 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[advanced_sync]" value="yes" <?php if( $advanced_sync == 'yes' ) { echo 'checked="checked"'; } if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?> />
                                                 <span>
-                                                    <?php _e( 'Check to enable advanced synchronization, this will delete events which are removed from Meetup. Also, it deletes passed events.', 'import-meetup-events' ); ?>
+                                                    <?php _e( 'Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events.', 'import-meetup-events' ); ?>
                                                 </span>
                                                 <?php do_action( 'ime_render_pro_notice' ); ?>
                                             </td>
@@ -240,7 +240,7 @@ if( is_object( $ime_authorized_user ) ){
                                                     <?php _e( 'Event category', 'import-meetup-events' ); ?>
                                                 </span><br/>
                                                 <span class="ime_small">
-                                                    <?php _e( "Select data which you don't want to update during existing events update. (This is applicable only if you have checked 'update existing events')", 'import-meetup-events' ); ?>
+                                                    <?php _e( "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')", 'import-meetup-events' ); ?>
                                                 </span>
                                                 <?php do_action('ime_render_pro_notice'); ?>
                                             </td>
