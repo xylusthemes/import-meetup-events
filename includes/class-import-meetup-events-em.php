@@ -144,9 +144,9 @@ class Import_Meetup_Events_EM {
 					$ime_cats[ $ime_catk ] = (int) $ime_catv;
 				}
 			}
-			if ( ! empty( $ife_cats ) ) {
+			if ( ! empty( $ime_cats ) ) {
 				if (!($is_existing_event && ! $ime_events->common->ime_is_updatable('category') )) {
-					wp_set_object_terms( $inserted_event_id, $ife_cats, $this->taxonomy );
+					wp_set_object_terms( $inserted_event_id, $ime_cats, $this->taxonomy );
 				}
 			}
 
