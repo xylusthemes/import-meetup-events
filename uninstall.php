@@ -14,7 +14,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Remove options
-delete_option( IME_OPTIONS );
+delete_option( 'xtmi_meetup_options' );
 
 // Remove schduled Imports
 $scheduled_import_args = array(
