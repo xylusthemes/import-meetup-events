@@ -9,30 +9,35 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-08T10:00:01+00:00\n"
+"POT-Creation-Date: 2024-02-26T06:58:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: import-meetup-events\n"
 
 #. Plugin Name of the plugin
+#: import-meetup-events.php
 #: includes/class-ime-plugin-deactivation.php:38
 #: includes/class-import-meetup-events-admin.php:112
 msgid "Import Meetup Events"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: import-meetup-events.php
 msgid "https://xylusthemes.com/plugins/import-meetup-events/"
 msgstr ""
 
 #. Description of the plugin
+#: import-meetup-events.php
 msgid "Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly."
 msgstr ""
 
 #. Author of the plugin
+#: import-meetup-events.php
 msgid "xylus"
 msgstr ""
 
 #. Author URI of the plugin
+#: import-meetup-events.php
 msgid "http://xylusthemes.com/"
 msgstr ""
 
