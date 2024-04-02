@@ -142,6 +142,8 @@ class Import_Meetup_Events_Meetup {
 		$status            = isset( $meetup_event['status'] ) ? $meetup_event['status'] : '';
 		$isOnline          = isset( $meetup_event['isOnline'] ) ? $meetup_event['isOnline'] : '';
 		$event_id          = isset( $meetup_event['id'] ) ? str_replace( '!chp', '', $meetup_event['id']  ) : '';
+		$is_series         = isset( $meetup_event['recurrenceDescription'] ) ? $meetup_event['recurrenceDescription'] : '';
+		$is_series         = !empty( $is_series ) ? true : false;
 
 		$xt_event = array(
 			'origin'          => 'meetup',
@@ -161,6 +163,7 @@ class Import_Meetup_Events_Meetup {
 			'shortDescription'=> $shortDescription,
 			'status'          => $status,
 			'isOnline'        => $isOnline,
+			'is_series'       => $is_series,
 		);
 
 		if ( array_key_exists( 'group', $meetup_event ) ) {

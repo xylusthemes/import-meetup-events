@@ -56,7 +56,15 @@ class Import_Meetup_Events_My_Calendar {
 			return false;
 		}
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		$series_id = '';
+		if( $centralize_array['is_series'] == true ){
+			$generatedt = isset( $centralize_array['name'] ) ? $ime_events->common->genarate_series_id( $centralize_array['name'] ) : '';
+			$starttimel = isset( $centralize_array['starttime_local'] ) ? $centralize_array['starttime_local'] : '';
+			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
+			$series_id  = $generatedt . $starttimel . $endtimel;
+		}
+		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
+
 		if ( $is_exitsing_event ) {
 			// Update event or not?
 			$options = ime_get_import_options( $centralize_array['origin'] );
@@ -138,6 +146,9 @@ class Import_Meetup_Events_My_Calendar {
 			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', $centralize_array['url'] );
+
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 
 			// Setup Variables for insert into table.
 			$begin     = date( 'Y-m-d', $start_time );
