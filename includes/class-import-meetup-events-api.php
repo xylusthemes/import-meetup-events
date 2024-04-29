@@ -79,6 +79,10 @@ class Import_Meetup_Events_API {
                             type
                             url
                         }
+                        series{
+                            endDate
+                            description
+                        }
                         isOnline
                         imageUrl
                         hosts{
@@ -148,6 +152,10 @@ GRAPHQL;
                                 onlineVenue{
                                     type
                                     url
+                                }
+                                series{
+                                    endDate
+                                    description
                                 }
                                 isOnline
                                 imageUrl

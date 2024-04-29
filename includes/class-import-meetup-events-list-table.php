@@ -376,6 +376,11 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		if( $skip_trash > 0 ){
 			$success_message .= sprintf( __( '%d Skipped in Trash', 'import-meetup-events' ), $skip_trash ) ."<br>";
 		}
+
+		if( $created == 0 && $updated == 0 && $skipped == 0 && $skip_trash == 0  ){
+			$success_message .= "There are no events imported/Updated";
+		}
+
 		$success_message .= "</strong></span>";
 
 		// Return the title contents.

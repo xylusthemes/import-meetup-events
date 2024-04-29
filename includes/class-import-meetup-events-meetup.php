@@ -61,14 +61,24 @@ class Import_Meetup_Events_Meetup {
 				$itemsnum       = 50;
 				$endcursor      = null;
 				$have_next_page = true;
-
-				while( true === $have_next_page ){
+				$stopLoop       = false;
+				while( true === $have_next_page && !$stopLoop ){
 					$meetup_event_data   = $api->getGroupEvents( $meetup_group_id, $itemsnum, $endcursor );
 					$get_upcoming_events = $meetup_event_data['data']['groupByUrlname']['upcomingEvents'];
 					$meetup_events       = $get_upcoming_events['edges'];
 
 					if( !empty( $meetup_events ) ){
-						foreach ($meetup_events as $meetup_event) {
+						foreach ($meetup_events as $meetup_event ) {
+
+							if( isset( $meetup_event['node']['series'] ) && !empty( $meetup_event['node']['series'] ) ){
+								$end =  $meetup_event['node']['endTime'];
+								$unixTimestamp = strtotime( $end );
+								$nextfiveyear   =  strtotime('+2 years', time() );
+								if( $unixTimestamp > $nextfiveyear ){
+									$stopLoop = true;
+									break 2;
+								}
+							}
 							$imported_events[] = $this->save_meetup_event( $meetup_event['node'], $event_data );
 						}	
 					}
