@@ -70,7 +70,14 @@ class Import_Meetup_Events_EventON {
 			return false;
 		}
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		$series_id = '';
+		if( $centralize_array['is_series'] == true ){
+			$generatedt = isset( $centralize_array['name'] ) ? $ime_events->common->genarate_series_id( $centralize_array['name'] ) : '';
+			$starttimel = isset( $centralize_array['starttime_local'] ) ? $centralize_array['starttime_local'] : '';
+			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
+			$series_id  = $generatedt . $starttimel . $endtimel;
+		}
+		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
 		
 		if ( $is_exitsing_event ) {
 			// Update event or not?
@@ -123,6 +130,9 @@ class Import_Meetup_Events_EventON {
 			$inserted_event = get_post( $inserted_event_id );
 			if ( empty( $inserted_event ) ) { return '';}
 
+			//Event ID
+			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
+
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -149,7 +159,6 @@ class Import_Meetup_Events_EventON {
 			//Timezone
 			$timezone      = isset( $centralize_array['timezone'] ) ? $centralize_array['timezone'] : '';
 
-			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', $centralize_array['url'] );
 			update_post_meta( $inserted_event_id, 'evcal_srow', $start_time );
@@ -158,6 +167,9 @@ class Import_Meetup_Events_EventON {
 			update_post_meta( $inserted_event_id, 'ime_event_timezone', $timezone );
 			update_post_meta( $inserted_event_id, 'ime_event_timezone_name', $timezone );
 			update_post_meta( $inserted_event_id, '_evo_tz', $timezone );
+
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 
 			$start_ampm = date("a", $start_time);
 			$start_hour = date("h", $start_time);

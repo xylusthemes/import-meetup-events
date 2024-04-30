@@ -73,7 +73,14 @@ class Import_Meetup_Events_Event_Organizer {
 			return false;
 		}
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		$series_id = '';
+		if( $centralize_array['is_series'] == true ){
+			$generatedt = isset( $centralize_array['name'] ) ? $ime_events->common->genarate_series_id( $centralize_array['name'] ) : '';
+			$starttimel = isset( $centralize_array['starttime_local'] ) ? $centralize_array['starttime_local'] : '';
+			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
+			$series_id  = $generatedt . $starttimel . $endtimel;
+		}
+		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
 
 		if ( $is_exitsing_event ) {
 			// Update event or not?
@@ -128,6 +135,9 @@ class Import_Meetup_Events_Event_Organizer {
 			$inserted_event = get_post( $inserted_event_id );
 			if ( empty( $inserted_event ) ) { return '';}
 
+			//Event ID
+			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
+
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -158,9 +168,11 @@ class Import_Meetup_Events_Event_Organizer {
 			update_post_meta( $inserted_event_id, '_eventorganiser_schedule_start_finish', date( 'Y-m-d H:i:s', $end_time ) );
 			update_post_meta( $inserted_event_id, '_eventorganiser_schedule_last_start', date( 'Y-m-d H:i:s', $start_time ) );
 			update_post_meta( $inserted_event_id, '_eventorganiser_schedule_last_finish', date( 'Y-m-d H:i:s', $end_time ) );
-			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', esc_url( $ticket_uri ) );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
+			
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 			
 			// Custom table Details
 			$event_array = array(
