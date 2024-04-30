@@ -80,7 +80,14 @@ class Import_Meetup_Events_TEC {
 	public function import_event( $centralize_array, $event_args ){
 		global $ime_events;
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		$series_id = '';
+		if( $centralize_array['is_series'] == true ){
+			$generatedt = isset( $centralize_array['name'] ) ? $ime_events->common->genarate_series_id( $centralize_array['name'] ) : '';
+			$starttimel = isset( $centralize_array['starttime_local'] ) ? $centralize_array['starttime_local'] : '';
+			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
+			$series_id  = $generatedt . $starttimel . $endtimel;
+		}
+		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
 		if( function_exists( 'tribe_events' ) ){
 			$formated_args = $this->format_event_args_for_tec_orm( $centralize_array );
 			if ( isset( $event_args['event_status'] ) && ! empty( $event_args['event_status'] ) ) {
@@ -147,6 +154,9 @@ class Import_Meetup_Events_TEC {
 			update_post_meta( $new_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $new_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $new_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
+
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 			
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
@@ -200,6 +210,9 @@ class Import_Meetup_Events_TEC {
 			update_post_meta( $update_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $update_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $update_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
+
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 			
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? (array) $event_args['event_cats'] : array();

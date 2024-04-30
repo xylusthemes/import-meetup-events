@@ -57,7 +57,15 @@ class Import_Meetup_Events_IME {
 			return false;
 		}
 
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'] );
+		//generate series id and compare
+		$series_id = '';
+		if( $centralize_array['is_series'] == true ){
+			$generatedt = isset( $centralize_array['name'] ) ? $ime_events->common->genarate_series_id( $centralize_array['name'] ) : '';
+			$starttimel = isset( $centralize_array['starttime_local'] ) ? $centralize_array['starttime_local'] : '';
+			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
+			$series_id  = $generatedt . $starttimel . $endtimel;
+		}
+		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
 		
 		if ( $is_exitsing_event ) {
 			// Update event or not?
@@ -194,6 +202,9 @@ class Import_Meetup_Events_IME {
 				update_post_meta( $inserted_event_id, 'venue_lon', $venue_lon );
 				update_post_meta( $inserted_event_id, 'venue_url', $venue_url );
 			}
+
+			//save series ID
+			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
 
 			// Organizer
 			update_post_meta( $inserted_event_id, 'organizer_name', $organizer_name );

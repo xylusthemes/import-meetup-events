@@ -561,7 +561,7 @@ class Import_Meetup_Events_Common {
 	 * @param int $event_id event id.
 	 * @return /boolean
 	 */
-	public function get_event_by_event_id( $post_type, $event_id ) {
+	public function get_event_by_event_id( $post_type, $event_id, $series_id = '' ) {
 		global $wpdb;
 		$ime_options = get_option( IME_OPTIONS );
 		$skip_trash = isset( $ime_options['skip_trash'] ) ? $ime_options['skip_trash'] : 'no';
@@ -574,6 +574,16 @@ class Import_Meetup_Events_Common {
 					$event_id
 				)
 			);
+			if ( empty( $get_post_id[0] ) && !empty( $series_id ) ) {
+				$get_post_id = $wpdb->get_col(
+					$wpdb->prepare(
+						'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
+						$post_type,
+						'ime_series_id',
+						$series_id
+					)
+				);
+			}
 		}else{
 			$get_post_id = $wpdb->get_col(
 				$wpdb->prepare(
@@ -584,12 +594,41 @@ class Import_Meetup_Events_Common {
 					$event_id
 				)
 			);
+			if ( empty( $get_post_id[0] ) && !empty( $series_id ) ) {
+				$get_post_id = $wpdb->get_col(
+					$wpdb->prepare(
+						'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
+						$post_type,
+						'trash',
+						'ime_series_id',
+						$series_id
+					)
+				);
+			}
 		}
 
 		if ( !empty( $get_post_id[0] ) ) {
 			return $get_post_id[0];
 		}
 		return false;
+	}
+
+	/**
+	 * Convert event Title to series
+	 *
+	 * @since    1.6.2
+	 */
+	function genarate_series_id( $title ) {
+		// Convert to lowercase
+		$title = strtolower($title);
+
+		// Remove unwanted characters and trim whitespace
+		$title = preg_replace("/[^a-z]+/", "", $title);
+	
+		// Trim any leading or trailing whitespace
+		$title = trim($title);
+	
+		return $title;
 	}
 
 	/**
