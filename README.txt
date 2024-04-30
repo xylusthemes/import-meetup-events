@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.5
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,11 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.6.2 =
+* FIXED: Recurring Events Duplicate issue
+* FIXED: Schedule import bug after complete action to manually,
+* IMPROVEMENTS: Enhanced Schedule import history entry.
 
 = 1.6.1 =
 * FIXED: Grammar Correction
