@@ -130,6 +130,9 @@ class Import_Meetup_Events_EventON {
 			$inserted_event = get_post( $inserted_event_id );
 			if ( empty( $inserted_event ) ) { return '';}
 
+			//Event ID
+			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
+
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -156,7 +159,6 @@ class Import_Meetup_Events_EventON {
 			//Timezone
 			$timezone      = isset( $centralize_array['timezone'] ) ? $centralize_array['timezone'] : '';
 
-			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $inserted_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $inserted_event_id, 'ime_event_link', $centralize_array['url'] );
 			update_post_meta( $inserted_event_id, 'evcal_srow', $start_time );
