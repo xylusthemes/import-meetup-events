@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-30T10:15:23+00:00\n"
+"POT-Creation-Date: 2024-04-30T10:21:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: import-meetup-events\n"
@@ -164,7 +164,7 @@ msgid "Upgrade to Pro"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:130
-#: includes/class-import-meetup-events-list-table.php:401
+#: includes/class-import-meetup-events-list-table.php:406
 msgid "Import"
 msgstr ""
 
@@ -390,77 +390,77 @@ msgstr ""
 msgid "Invalid image URL"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:343
+#: includes/class-import-meetup-events-common.php:340
 msgid "Event(s) are imported successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:345
+#: includes/class-import-meetup-events-common.php:342
 #: includes/class-import-meetup-events-list-table.php:368
 msgid "%d Created"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:348
+#: includes/class-import-meetup-events-common.php:345
 #: includes/class-import-meetup-events-list-table.php:371
 msgid "%d Updated"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:351
+#: includes/class-import-meetup-events-common.php:348
 msgid "%d Skipped (Already exists)"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:354
+#: includes/class-import-meetup-events-common.php:351
 msgid "%d Skipped (Already exists in Trash )"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:441
+#: includes/class-import-meetup-events-common.php:436
 msgid "Once Hourly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:444
+#: includes/class-import-meetup-events-common.php:439
 msgid "Twice Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:447
+#: includes/class-import-meetup-events-common.php:442
 msgid "Once Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:450
+#: includes/class-import-meetup-events-common.php:445
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:453
+#: includes/class-import-meetup-events-common.php:448
 msgid "Once a Month"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:468
+#: includes/class-import-meetup-events-common.php:463
 msgid "One-time Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:469
+#: includes/class-import-meetup-events-common.php:464
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:523
+#: includes/class-import-meetup-events-common.php:518
 msgid "Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:528
+#: includes/class-import-meetup-events-common.php:523
 msgid "Published"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:531
+#: includes/class-import-meetup-events-common.php:526
 msgid "Pending"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:534
+#: includes/class-import-meetup-events-common.php:529
 msgid "Draft"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:643
+#: includes/class-import-meetup-events-common.php:638
 msgid "Available in Pro version."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:643
+#: includes/class-import-meetup-events-common.php:638
 msgid "Upgrade to PRO"
 msgstr ""
 
@@ -756,7 +756,7 @@ msgstr ""
 #: includes/class-import-meetup-events-list-table.php:66
 #: includes/class-import-meetup-events-list-table.php:139
 #: includes/class-import-meetup-events-list-table.php:341
-#: includes/class-import-meetup-events-list-table.php:412
+#: includes/class-import-meetup-events-list-table.php:417
 msgid "Delete"
 msgstr ""
 
@@ -782,7 +782,7 @@ msgid "Import Event Status"
 msgstr ""
 
 #: includes/class-import-meetup-events-list-table.php:129
-#: includes/class-import-meetup-events-list-table.php:402
+#: includes/class-import-meetup-events-list-table.php:407
 msgid "Import Category"
 msgstr ""
 
@@ -791,7 +791,7 @@ msgid "Import Frequency"
 msgstr ""
 
 #: includes/class-import-meetup-events-list-table.php:131
-#: includes/class-import-meetup-events-list-table.php:606
+#: includes/class-import-meetup-events-list-table.php:611
 msgid "Action"
 msgstr ""
 
@@ -807,31 +807,31 @@ msgstr ""
 msgid "%d Skipped in Trash"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:403
+#: includes/class-import-meetup-events-list-table.php:408
 msgid "Import Date"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:404
+#: includes/class-import-meetup-events-list-table.php:409
 msgid "Import Stats"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:466
+#: includes/class-import-meetup-events-list-table.php:471
 msgid "Warning!! Are you sure you want to delete all these import histories? Import history will be permanently deleted."
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:469
+#: includes/class-import-meetup-events-list-table.php:474
 msgid "Clear Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:603
+#: includes/class-import-meetup-events-list-table.php:608
 msgid "ID"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:604
+#: includes/class-import-meetup-events-list-table.php:609
 msgid "Title"
 msgstr ""
 
-#: includes/class-import-meetup-events-list-table.php:605
+#: includes/class-import-meetup-events-list-table.php:610
 msgid "Shortcode"
 msgstr ""
 
@@ -878,11 +878,11 @@ msgid "Import histories are deleted successfully."
 msgstr ""
 
 #: includes/class-import-meetup-events-meetup.php:52
-#: includes/class-import-meetup-events-meetup.php:243
+#: includes/class-import-meetup-events-meetup.php:253
 msgid "Please insert \"Meetup API key\" Or OAuth key and secret in settings."
 msgstr ""
 
-#: includes/class-import-meetup-events-meetup.php:90
+#: includes/class-import-meetup-events-meetup.php:100
 msgid "Please insert valid Meetup Event ID."
 msgstr ""
 
