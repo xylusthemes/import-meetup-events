@@ -50,9 +50,11 @@ if( is_object( $ime_authorized_user ) ){
                                 <br/>
                                 <?php _e( '<strong>Set the Application Website as : </strong>', 'import-meetup-events' ); ?>
                                 <span style="color: green;"><?php echo esc_url( get_site_url() ); ?></span>
+                                <span class="dashicons dashicons-admin-page ime-btn-copy-shortcode ime_link_cp" data-value='<?php echo esc_url( get_site_url() ); ?>' ></span>
                                 <br/>
                                 <?php _e( '<strong>Set Redirect URI : </strong>', 'import-meetup-events' ); ?>
                                 <span style="color: green;"><?php echo esc_url( admin_url( 'admin-post.php?action=ime_authorize_callback' ) ); ?></span>
+                                <span class="dashicons dashicons-admin-page ime-btn-copy-shortcode ime_link_cp" data-value='<?php echo esc_url( admin_url( 'admin-post.php?action=ime_authorize_callback' ) ); ?>' ></span>
                             </div>
 
                             <?php

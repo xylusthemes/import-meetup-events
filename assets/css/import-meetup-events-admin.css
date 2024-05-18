@@ -491,3 +491,8 @@ table.ime_form_table tr td:nth-child(1) {
   50% { transform: scale(1.2); }
   100% { transform: scale(0); }
 }
+
+.ime_link_cp{
+  width: 10%;
+  text-align: left;
+}

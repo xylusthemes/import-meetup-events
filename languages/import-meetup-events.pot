@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-30T11:49:42+00:00\n"
+"POT-Creation-Date: 2024-05-18T06:05:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: import-meetup-events\n"
@@ -976,178 +976,178 @@ msgstr ""
 msgid "<strong>Set the Application Website as : </strong>"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:54
+#: templates/import-meetup-events-settings.php:55
 msgid "<strong>Set Redirect URI : </strong>"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:61
+#: templates/import-meetup-events-settings.php:63
 msgid "Connect your Meetup Account"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:67
+#: templates/import-meetup-events-settings.php:69
 msgid "Meetup Authorization"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:77
+#: templates/import-meetup-events-settings.php:79
 msgid "Connected as: %s"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:82
+#: templates/import-meetup-events-settings.php:84
 msgid "Remove Connection"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:93
+#: templates/import-meetup-events-settings.php:95
 msgid "Connect"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:98
+#: templates/import-meetup-events-settings.php:100
 msgid "Please connect your meetup account for import meetup events."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:120
+#: templates/import-meetup-events-settings.php:122
 msgid "Meetup OAuth Key"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:125
+#: templates/import-meetup-events-settings.php:127
 msgid "Insert your meetup.com OAuth Key you can get it from"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:125
-#: templates/import-meetup-events-settings.php:137
-#: templates/import-meetup-events-settings.php:155
+#: templates/import-meetup-events-settings.php:127
+#: templates/import-meetup-events-settings.php:139
+#: templates/import-meetup-events-settings.php:157
 msgid "here"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:132
+#: templates/import-meetup-events-settings.php:134
 msgid "Meetup OAuth Secret"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:137
+#: templates/import-meetup-events-settings.php:139
 msgid "Insert your meetup.com OAuth Secret you can get it from"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:144
+#: templates/import-meetup-events-settings.php:146
 msgid " - OR -"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:150
+#: templates/import-meetup-events-settings.php:152
 msgid "Meetup API key"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:155
+#: templates/import-meetup-events-settings.php:157
 msgid "Insert your meetup.com API key you can get it from"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:166
+#: templates/import-meetup-events-settings.php:168
 msgid "Update existing events"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:174
+#: templates/import-meetup-events-settings.php:176
 msgid "Check to updates existing events."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:180
+#: templates/import-meetup-events-settings.php:182
 msgid "Skip Trashed Events"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:188
+#: templates/import-meetup-events-settings.php:190
 msgid "Check to enable skip-the-trash events during importing."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:196
+#: templates/import-meetup-events-settings.php:198
 msgid "Direct link to Meetup"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:204
+#: templates/import-meetup-events-settings.php:206
 msgid "Check to enable direct event link to Meetup instead of event detail page."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:211
+#: templates/import-meetup-events-settings.php:213
 msgid "Advanced Synchronization"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:219
+#: templates/import-meetup-events-settings.php:221
 msgid "Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:226
+#: templates/import-meetup-events-settings.php:228
 msgid "Don't Update these data"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:236
+#: templates/import-meetup-events-settings.php:238
 msgid "Status ( Publish, Pending, Draft etc.. )"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:240
+#: templates/import-meetup-events-settings.php:242
 msgid "Event category"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:243
+#: templates/import-meetup-events-settings.php:245
 msgid "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:251
+#: templates/import-meetup-events-settings.php:253
 msgid "Accent Color"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:259
+#: templates/import-meetup-events-settings.php:261
 msgid "Choose accent color for front-end event grid and event widget."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:266
+#: templates/import-meetup-events-settings.php:268
 msgid "Event Slug"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:274
+#: templates/import-meetup-events-settings.php:276
 msgid "Slug for the event."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:280
+#: templates/import-meetup-events-settings.php:282
 msgid "Event Display Time Format"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:287
+#: templates/import-meetup-events-settings.php:289
 msgid "12 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:288
+#: templates/import-meetup-events-settings.php:290
 msgid "24 Hours"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:289
+#: templates/import-meetup-events-settings.php:291
 msgid "WordPress Default"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:292
+#: templates/import-meetup-events-settings.php:294
 msgid "Choose event display time format for front-end."
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:304
-#: templates/import-meetup-events-settings.php:346
+#: templates/import-meetup-events-settings.php:306
+#: templates/import-meetup-events-settings.php:348
 msgid "Save Settings"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:313
+#: templates/import-meetup-events-settings.php:315
 msgid "Google Maps API Settings"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:320
+#: templates/import-meetup-events-settings.php:322
 msgid "Google Maps API"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:331
+#: templates/import-meetup-events-settings.php:333
 msgid "Google maps API Key (Required)"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:332
+#: templates/import-meetup-events-settings.php:334
 msgid "How to get an API Key"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:333
+#: templates/import-meetup-events-settings.php:335
 msgid "Find out more about API Key restrictions"
 msgstr ""
 
-#: templates/import-meetup-events-settings.php:361
+#: templates/import-meetup-events-settings.php:363
 msgid "Here"
 msgstr ""
 
