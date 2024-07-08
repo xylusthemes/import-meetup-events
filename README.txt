@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com/
 Tags: events, calendar, event, meetup, meetup event, meetup events, import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 6.5
-Stable tag: 1.6.2
+Tested up to: 6.6
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.6.3 =
+* ADDED: Copy-Paste button in the settings page.
+* IMPROVEMENTS: Support for WP 6.6
 
 = 1.6.2 =
 * FIXED: Recurring Events Duplicate issue
