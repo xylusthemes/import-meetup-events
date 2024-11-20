@@ -5,7 +5,7 @@ Tags: events, calendar, event, meetup, meetup event, meetup events, import, meet
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.7
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.6.4 =
+* FIXED: Update Issue in Events Manager
+* IMPROVEMENTS: Support for WP 6.7
 
 = 1.6.3 =
 * ADDED: Copy-Paste button in the settings page.
