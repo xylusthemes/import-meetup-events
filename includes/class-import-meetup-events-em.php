@@ -85,7 +85,7 @@ class Import_Meetup_Events_EM {
 			$endtimel   = isset( $centralize_array['endtime_local'] ) ? $centralize_array['endtime_local'] : '';
 			$series_id  = $generatedt . $starttimel . $endtimel;
 		}
-		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
+		$is_existing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
 				
 		if ( $is_existing_event ) {
 			// Update event or not?
