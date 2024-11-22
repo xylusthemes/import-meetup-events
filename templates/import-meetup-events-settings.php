@@ -177,6 +177,22 @@ if( is_object( $ime_authorized_user ) ){
                                                 </span>
                                             </td>
                                         </tr>
+
+                                        <tr>
+											<th scope="row">
+												<?php _e( 'Move past events in trash', 'import-meetup-events' ); ?> : 
+											</th>
+											<td>
+												<?php
+												$move_peit_events = isset( $meetup_options['move_peit'] ) ? $meetup_options['move_peit'] : 'no';
+												?>
+												<input type="checkbox" name="meetup[move_peit]" value="yes" <?php if ( $move_peit_events == 'yes' ) { echo 'checked="checked"'; } ?> />
+												<span class="xtei_small">
+													<?php _e( 'Check to move past events in the trash, Automatically move events to the trash 24 hours after their end date using wp-cron. This runs once daily in the background.', 'import-meetup-events' ); ?>
+												</span>
+											</td>
+										</tr>
+
                                         <tr>
                                             <th scope="row">
                                                 <?php _e( 'Skip Trashed Events', 'import-meetup-events' ); ?> :
