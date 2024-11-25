@@ -223,7 +223,16 @@ if (!class_exists('Import_Meetup_Events')):
                     esc_html__( 'Docs', 'import-meetup-events' )
                 ),
             );
-            return array_merge( $links, $ime_setting_doc_link );
+
+            $upgrade_to_pro = array();
+            if( !ime_is_pro() ){
+                $upgrade_to_pro = array( 'ime-event-pro-link' => sprintf(
+                    '<a href="%s" target="_blank" style="color:#1da867;font-weight: 900;">%s</a>',
+                    esc_url( 'https://xylusthemes.com/plugins/import-meetup-events/' ),
+                    esc_html__( 'Upgrade to Pro', 'import-meetup-events' )
+                ) ) ;
+            }
+            return array_merge( $links, $ime_setting_doc_link, $upgrade_to_pro );
         }
 
         /**
