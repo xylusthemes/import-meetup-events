@@ -88,28 +88,9 @@ class Import_Meetup_Events_TEC {
 			$series_id  = $generatedt . $starttimel . $endtimel;
 		}
 		$is_exitsing_event = $ime_events->common->get_event_by_event_id( $this->event_posttype, $centralize_array['ID'], $series_id );
-		if( function_exists( 'tribe_events' ) ){
-			$formated_args = $this->format_event_args_for_tec_orm( $centralize_array );
-			if ( isset( $event_args['event_status'] ) && ! empty( $event_args['event_status'] ) ) {
-				$formated_args['status'] = $event_args['event_status'];
-			}
-		}else{
-			$formated_args = $this->format_event_args_for_tec( $centralize_array );
-			if ( isset( $event_args['event_status'] ) && ! empty( $event_args['event_status'] ) ) {
-				$formated_args['post_status'] = $event_args['event_status'];
-			}
-		}
-		$formated_args['post_author'] = isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id();
-
+		$formated_args = array();
 		if ( $is_exitsing_event && is_numeric( $is_exitsing_event ) && $is_exitsing_event > 0 ) {
-			if ( ! $ime_events->common->ime_is_updatable('status') ) {
-				if( function_exists( 'tribe_events' ) ){
-					$formated_args['status'] = get_post_status( $is_exitsing_event );
-				} else {
-					$formated_args['post_status'] = get_post_status( $is_exitsing_event );
-				}
-			}
-			$options = ime_get_import_options( $centralize_array['origin'] );
+			$options       = ime_get_import_options( $centralize_array['origin'] );
 			$update_events = isset( $options['update_events'] ) ? $options['update_events'] : 'no';
 			$skip_trash    = isset( $options['skip_trash'] ) ? $options['skip_trash'] : 'no';
 			$post_status   = get_post_status( $is_exitsing_event );
@@ -119,18 +100,34 @@ class Import_Meetup_Events_TEC {
 					'id'     => $is_exitsing_event,
 				);
 			}
-			if ( 'yes' == $update_events ) {
-				return $this->update_event( $is_exitsing_event, $centralize_array, $formated_args, $event_args );
-			}else{
+			if ( 'yes' === $update_events ) {
+
+				$formated_args['post_status'] = $event_args['event_status'];
+				$formated_args['post_author'] = isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id();
+				if ( ! $ime_events->common->ime_is_updatable( 'status' ) ) {
+					$formated_args['post_status'] = get_post_status( $is_exitsing_event );
+				}
+
+				return $this->update_event( $is_exitsing_event, $centralize_array, $formated_args, $event_args, $series_id );
+			} else {
 				return array(
 					'status' => 'skipped',
-					'id' 	 => $is_exitsing_event
+					'id'     => $is_exitsing_event,
 				);
 			}
 		} else {
-			return $this->create_event( $centralize_array, $formated_args, $event_args );
-		}
 
+			if ( isset( $event_args['event_status'] ) && ! empty( $event_args['event_status'] ) ) {
+				$formated_args['post_status'] = $event_args['event_status'];
+			}
+			$formated_args['post_author'] = isset($event_args['event_author']) ? $event_args['event_author'] : get_current_user_id();
+
+			if ( ! $ime_events->common->ime_is_updatable( 'status' ) ) {
+				$formated_args['post_status'] = get_post_status( $is_exitsing_event );
+			}
+
+			return $this->create_event( $centralize_array, $formated_args, $event_args, $series_id );
+		}
 	}
 
 	/**
@@ -142,22 +139,43 @@ class Import_Meetup_Events_TEC {
 	 * @param int   $post_id Post id.
 	 * @return void
 	 */
-	public function create_event( $centralize_array = array(), $formated_args = array(), $event_args = array() ) {
+	public function create_event( $centralize_array = array(), $formated_args = array(), $event_args = array(), $series_id ) {
 		// Create event using TEC advanced functions.
-		global $ime_events;
-		if( function_exists( 'tribe_events' ) ){
-			$new_event_id = tribe_events()->set_args( $formated_args )->create()->ID;
-		}else{
-			$new_event_id = tribe_create_event( $formated_args );
-		}
+		global $ime_events ,$wpdb;
+	
+		$event_title   = isset( $centralize_array['name'] ) ? $centralize_array['name'] : '';
+		$event_content = isset( $centralize_array['description'] ) ? $centralize_array['description'] : '';
+		$event_status  = $formated_args['post_status'];
+		$event_author  = $formated_args['post_author'];
+		
+		$tec_event     = array(
+			'post_title'   => $event_title,
+			'post_content' => $event_content,
+			'post_status'  => $event_status,
+			'post_author'  => $event_author,
+			'post_type'    => $this->event_posttype,
+		);
+		
+		$new_event_id = wp_insert_post( $tec_event, true );
+
+
 		if ( $new_event_id ) {
+			
+			//update all metadata
+			$allmetas = $this->format_event_args_for_tec( $centralize_array );
+			if( !empty( $allmetas ) ){
+				foreach( $allmetas as $key => $value ){
+					if( !empty( $value ) ){
+						update_post_meta( $new_event_id, $key, $value );
+					}
+				}
+			}
+
 			update_post_meta( $new_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $new_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $new_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
-
 			//save series ID
-			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
-			
+			update_post_meta( $new_event_id, 'ime_series_id', $series_id );
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -169,18 +187,53 @@ class Import_Meetup_Events_TEC {
 				wp_set_object_terms( $new_event_id, $ime_cats, $this->taxonomy );
 			}
 
-			$event_featured_image  = $centralize_array['image_url'];
-			if( $event_featured_image != '' ){
+			// Asign event tag.
+			$ime_tags = isset( $event_args['event_tags'] ) ? $event_args['event_tags'] : array();
+			if ( ! empty( $ime_tags ) ) {
+				foreach ( $ime_tags as $ime_tagk => $ime_tagv ) {
+					$ime_tags[ $ime_tagk ] = (int) $ime_tagv;
+				}
+			}
+			if ( ! empty( $ime_tags ) ) {
+				wp_set_object_terms( $new_event_id, $ime_tags, $this->tag_taxonomy );
+			}
+
+			$event_featured_image = $centralize_array['image_url'];
+			if ( ! empty( $event_featured_image ) ) {
 				$ime_events->common->setup_featured_image_to_event( $new_event_id, $event_featured_image );
 			}
 
-			do_action( 'ime_after_create_tec_'.$centralize_array["origin"].'_event', $new_event_id, $formated_args, $centralize_array );
+			//Insert in Custom Table 
+			$esource_id     = $centralize_array['ID'];
+			$start_time     = date( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
+			$end_time       = date( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
+			
+			$start_date_utc = $allmetas['_EventStartDateUTC'];
+			$end_date_utc   = $allmetas['_EventEndDateUTC'];
+
+			$timezone       = isset( $allmetas['timezone'] ) ? $allmetas['timezone'] : 'UTC';
+			$duration       = 0;
+
+			$hash = sha1( $new_event_id . $duration . $start_time . $end_time . $start_date_utc . $end_date_utc . $timezone );
+
+			$totable_name   = $wpdb->prefix . 'tec_occurrences';
+			$todata         = array( 'event_id' => $esource_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc, 'duration' => $duration, 'hash' => $hash, 'has_recurrence' => 0, 'is_rdate' => 0, );
+			$wpdb->insert( $totable_name, $todata );
+
+			$tetable_name   = $wpdb->prefix . 'tec_events';
+			$tedata         = array(
+				'event_id'  => $esource_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc, 'duration' => $duration, 'rset' => null,
+			);
+			$wpdb->insert( $tetable_name, $tedata );
+
+
+			do_action( 'ime_after_create_tec_' . $centralize_array['origin'] . '_event', $new_event_id, $formated_args, $centralize_array );
 			return array(
 				'status' => 'created',
-				'id' 	 => $new_event_id
+				'id'     => $new_event_id,
 			);
 
-		}else{
+		} else {
 			$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events' );
 			return;
 		}
@@ -196,24 +249,43 @@ class Import_Meetup_Events_TEC {
 	 * @param int   $post_id Post id.
 	 * @return void
 	 */
-	public function update_event( $event_id, $centralize_array, $formated_args = array(), $event_args = array() ) {
+	public function update_event( $event_id, $centralize_array, $formated_args = array(), $event_args = array(), $series_id ) {
 		// Update event using TEC advanced functions.
-		global $ime_events;
+		global $ime_events, $wpdb;
 
-		if( function_exists( 'tribe_events' ) ){
-			$update_event_id = tribe_events()->where( 'id', $event_id )->set_args( $formated_args )->save();
-			$update_event_id = $event_id;
-		}else{
-			$update_event_id = tribe_update_event( $event_id, $formated_args );
-		}
+		$event_title   = isset( $centralize_array['name'] ) ? $centralize_array['name'] : '';
+		$event_content = isset( $centralize_array['description'] ) ? $centralize_array['description'] : '';
+		$event_status  = $formated_args['post_status'];
+		$event_author  = $formated_args['post_author'];
+		
+		$tec_event     = array(
+			'ID'           => $event_id,
+			'post_title'   => $event_title,
+			'post_content' => $event_content,
+			'post_status'  => $event_status,
+			'post_author'  => $event_author,
+			'post_type'    => $this->event_posttype,
+		);
+		
+		$update_event_id = wp_update_post( $tec_event, true );
+
 		if ( $update_event_id ) {
+
+			//update all metadata
+			$allmetas = $this->format_event_args_for_tec( $centralize_array );
+			if( !empty( $allmetas ) ){
+				foreach( $allmetas as $key => $value ){
+					if( !empty( $value ) ){
+						update_post_meta( $update_event_id, $key, $value );
+					}
+				}
+			}
+
 			update_post_meta( $update_event_id, 'ime_event_id', $centralize_array['ID'] );
 			update_post_meta( $update_event_id, 'ime_event_origin', $event_args['import_origin'] );
 			update_post_meta( $update_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
-
 			//save series ID
-			update_post_meta( $inserted_event_id, 'ime_series_id', $series_id );
-			
+			update_post_meta( $update_event_id, 'ime_series_id', $series_id );
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? (array) $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -222,24 +294,61 @@ class Import_Meetup_Events_TEC {
 				}
 			}
 			if ( ! empty( $ime_cats ) ) {
-				if ( $ime_events->common->ime_is_updatable('category') ){
+				if ( $ime_events->common->ime_is_updatable( 'category' ) ) {
 					wp_set_object_terms( $update_event_id, $ime_cats, $this->taxonomy );
 				}
 			}
 
-			$event_featured_image  = $centralize_array['image_url'];
-			if( $event_featured_image != '' ){
+			// Asign event tag.
+			$ime_tags = isset( $event_args['event_tags'] ) ? $event_args['event_tags'] : array();
+			if ( ! empty( $ime_tags ) ) {
+				foreach ( $ime_tags as $ime_tagk => $ime_tagv ) {
+					$ime_tags[ $ime_tagk ] = (int) $ime_tagv;
+				}
+			}
+			if ( ! empty( $ime_tags ) ) {
+				if ( $ime_events->common->ime_is_updatable( 'category' ) ) {
+					wp_set_object_terms( $update_event_id, $ime_tags, $this->tag_taxonomy );
+				}
+			}
+
+			$event_featured_image = $centralize_array['image_url'];
+			if ( ! empty( $event_featured_image ) ) {
 				$ime_events->common->setup_featured_image_to_event( $update_event_id, $event_featured_image );
-			}else{
+			} else {
 				delete_post_thumbnail( $update_event_id );
 			}
 
-			do_action( 'ime_after_update_tec_'.$centralize_array["origin"].'_event', $update_event_id, $formated_args, $centralize_array );
+
+
+			//Update in Custom Table 
+			$esource_id     = $centralize_array['ID'];
+			$start_time     = date( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
+			$end_time       = date( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
+
+			$start_date_utc = $allmetas['_EventStartDateUTC'];
+			$end_date_utc   = $allmetas['_EventEndDateUTC'];
+			
+			$timezone       = isset( $allmetas['timezone'] ) ? $allmetas['timezone'] : 'UTC';
+
+			$totable_name   = $wpdb->prefix . 'tec_occurrences';
+			$todata         = array( 'event_id' => $esource_id, 'post_id' => $update_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc );
+			$where          = array( 'event_id' => $esource_id, 'post_id' => $update_event_id );
+			$wpdb->update( $totable_name, $todata, $where );
+
+			// Update the wp_tec_events table
+			$tetable_name   = $wpdb->prefix . 'tec_events';
+			$tedata         = array( 'event_id' => $esource_id, 'post_id' => $update_event_id, 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
+			$where          = array( 'event_id' => $esource_id, 'post_id' => $update_event_id );
+			$wpdb->update( $tetable_name, $tedata, $where );
+
+
+			do_action( 'ime_after_update_tec_' . $centralize_array['origin'] . '_event', $update_event_id, $formated_args, $centralize_array );
 			return array(
 				'status' => 'updated',
-				'id' 	 => $update_event_id
+				'id'     => $update_event_id,
 			);
-		}else{
+		} else {
 			$ime_errors[] = __( 'Something went wrong, please try again.', 'import-meetup-events' );
 			return;
 		}
@@ -249,91 +358,58 @@ class Import_Meetup_Events_TEC {
 	 * Format events arguments as per TEC
 	 *
 	 * @since    1.0.0
-	 * @param array $centralize_array Meetup event.
-	 * @return array
-	 */
-	public function format_event_args_for_tec_orm( $centralize_array ) {
-
-		if ( empty( $centralize_array ) ) {
-			return;
-		}
-		$start_time = $centralize_array['starttime_local'];
-		$end_time   = $centralize_array['endtime_local'];
-		$timezone   = isset( $centralize_array['timezone'] ) ? $centralize_array['timezone'] : 'UTC'; 
-		$event_args = array(
-			'title'             => $centralize_array['name'],
-			'post_content'      => $centralize_array['description'],
-			'status'            => 'pending',
-			'url'               => $centralize_array['url'],
-			'timezone'          => $timezone,
-			'start_date'        => date( 'Y-m-d H:i:s', $start_time ),
-			'end_date'          => date( 'Y-m-d H:i:s', $end_time ),
-		);
-
-		if ( array_key_exists( 'organizer', $centralize_array ) ) {
-			$organizer               = $this->get_organizer_args( $centralize_array['organizer'] );      
-			$event_args['organizer'] = $organizer['OrganizerID'];
-		}
-
-		if ( array_key_exists( 'location', $centralize_array ) ) {
-			$venue               = $this->get_venue_args( $centralize_array['location'] );
-			$event_args['venue'] = $venue['VenueID'];
-		}
-		return $event_args;
-	}
-
-
-	/**
-	 * Format events arguments as per TEC
-	 *
-	 * @since    1.0.0
 	 * @param array $centralize_array Eventbrite event.
 	 * @return array
 	 */
 	public function format_event_args_for_tec( $centralize_array ) {
-
+		global $ime_events;
 		if( empty( $centralize_array ) ){
 			return;
 		}
-		$start_time = $centralize_array['starttime_local'];
-		$end_time = $centralize_array['endtime_local'];
-		$event_args  = array(
-			'post_type'             => $this->event_posttype,
-			'post_title'            => $centralize_array['name'],
-			'post_status'           => 'pending',
-			'post_content'          => $centralize_array['description'],
-			'EventStartDate'        => date( 'Y-m-d', $start_time ),
-			'EventStartHour'        => date( 'h', $start_time ),
-			'EventStartMinute'      => date( 'i', $start_time ),
-			'EventStartMeridian'    => date( 'a', $start_time ),
-			'EventEndDate'          => date( 'Y-m-d', $end_time ),
-			'EventEndHour'          => date( 'h', $end_time ),
-			'EventEndMinute'        => date( 'i', $end_time ),
-			'EventEndMeridian'      => date( 'a', $end_time ),
-			'EventStartDateUTC'     => !empty( $centralize_array['startime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['startime_utc'] ) : '',
-			'EventEndDateUTC'       => !empty( $centralize_array['endtime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['endtime_utc'] ) : '',
-			'EventURL'              => $centralize_array['url'],
-			'EventShowMap' 			=> 1,
-			'EventShowMapLink'		=> 1,
+		$start_time      = $centralize_array['starttime_local'];
+		$end_time        = $centralize_array['endtime_local'];
+		$timezone        = isset( $centralize_array['timezone'] ) ? sanitize_text_field( $centralize_array['timezone'] ) : 'UTC';
+		$timezone_name   = isset( $centralize_array['timezone_name'] ) ? $centralize_array['timezone_name'] : 'Africa/Abidjan';
+		$esource_url     = isset( $centralize_array['url'] ) ? esc_url( $centralize_array['url'] ) : '';
+		$esource_id      = $centralize_array['ID'];
+		$bstart_time_utc = isset( $centralize_array['startime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['startime_utc'] ) : '';
+		$bendtime_utc    = isset( $centralize_array['endtime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['endtime_utc'] ) : '';
+		$start_time_utc  = $ime_events->common->ime_convert_to_utc_timestamp( $bstart_time_utc, $timezone );
+		$end_time_utc    = $ime_events->common->ime_convert_to_utc_timestamp( $bendtime_utc, $timezone );
+
+
+		$event_args = array(
+			'_EventStartDate'         => date( 'Y-m-d', $start_time ),
+			'_EventStartHour'         => date( 'h', $start_time ),
+			'_EventStartMinute'       => date( 'i', $start_time ),
+			'_EventStartMeridian'     => date( 'a', $start_time ),
+			'_EventEndDate'           => date( 'Y-m-d', $end_time ),
+			'_EventEndHour'           => date( 'h', $end_time ),
+			'_EventEndMinute'         => date( 'i', $end_time ),
+			'_EventEndMeridian'       => date( 'a', $end_time ),
+			'_EventStartDateUTC'      => !empty( $start_time_utc ) ? date( 'Y-m-d H:i:s', $start_time_utc ) : '',
+			'_EventEndDateUTC'        => !empty( $end_time_utc ) ? date( 'Y-m-d H:i:s', $end_time_utc ) : '',
+			'_EventURL'               => $centralize_array['url'],
+			'_EventShowMap'           => 1,
+			'_EventShowMapLink'       => 1,
+			'_EventTimezone'          => $timezone_name,
+			'ime_event_timezone'      => $timezone,
+			'ime_event_link'          => $esource_url,
+			'ime_event_timezone_name' => $timezone_name,
 		);
 
-		if( isset($centralize_array['utc_offset_hours'] ) ){
-			$utc_offset_hours = sanitize_text_field($centralize_array['utc_offset_hours']);
-			if(strpos($utc_offset_hours, '-') === false){
-				$event_args['EventTimezone'] = 'UTC+'.$utc_offset_hours;
-				$event_args['EventTimezoneAbbr'] = 'UTC+'.$utc_offset_hours;
-			}else{
-				$event_args['EventTimezone'] = 'UTC'.$utc_offset_hours;
-				$event_args['EventTimezoneAbbr'] = 'UTC'.$utc_offset_hours;
-			}
+		if( isset( $centralize_array['is_all_day'] ) && true === $centralize_array['is_all_day'] ){
+			$event_args['_EventAllDay']      = 'yes';
 		}
 
 		if ( array_key_exists( 'organizer', $centralize_array ) ) {
-			$event_args['organizer'] = $this->get_organizer_args( $centralize_array['organizer'] );
+			$get_organizer = $this->get_organizer_args( $centralize_array['organizer'] );
+			$event_args['_EventOrganizerID'] = $get_organizer['OrganizerID'];
 		}
 
 		if ( array_key_exists( 'location', $centralize_array ) ) {
-			$event_args['venue'] = $this->get_venue_args( $centralize_array['location'] );
+			$get_location = $this->get_venue_args( $centralize_array['location'] );
+			$event_args['_EventVenueID'] = $get_location['VenueID'];
 		}
 		return $event_args;
 	}
@@ -381,42 +457,52 @@ class Import_Meetup_Events_TEC {
 	 * @return array
 	 */
 	public function get_venue_args( $venue ) {
-		global $ime_events; 
-
-		if ( !isset( $venue['ID'] ) ) {
-			return null;
+		global $ime_events;
+		$venue_id = !empty( $venue['ID'] ) ? $venue['ID'] : '';
+		if( !empty( $venue['ID'] ) ){
+			$existing_venue = $this->get_venue_by_id( $venue_id );
 		}
-		$existing_venue = $this->get_venue_by_id( $venue['ID'] );
-
+		if( empty( $existing_venue ) ){
+			$existing_venue = $this->get_venue_by_name( $venue['name'] );
+		}
 		if ( $existing_venue && is_numeric( $existing_venue ) && $existing_venue > 0 ) {
 			return array(
-				'VenueID' => $existing_venue,
+				'VenueID' => $existing_venue
 			);
 		}
 
 		$country = isset( $venue['country'] ) ? $venue['country'] : '';
-		if( strlen( $country ) > 2 && $country != '' ){
+		if ( strlen( $country ) > 2 && ! empty( $country ) ) {
 			$country = $ime_events->common->ime_get_country_code( $country );
 		}
-		$create_venue = tribe_create_venue( array(
-			'Venue'   => isset( $venue['name'] ) ? $venue['name'] : '',
-			'Address' => isset( $venue['full_address'] ) ? $venue['full_address'] : $venue['address_1'],
-			'City'    => isset( $venue['city'] ) ? $venue['city'] : '',
-			'State'   => isset( $venue['state'] ) ? $venue['state'] : '',
-			'Country' => $country,
-			'Zip'     => isset( $venue['zip'] ) ? $venue['zip'] : '',
-			'Phone'   => isset( $venue['phone'] ) ? $venue['phone'] : '',
-			'ShowMap' => true,
-			'ShowMapLink' => true,
-		) );
+		$address_1    = isset( $venue['address_1'] ) ? $venue['address_1'] : '';
+		$create_venue = tribe_create_venue(
+			array(
+				'Venue'       => isset( $venue['name'] ) ? $venue['name'] : '',
+				'Address'     => isset( $venue['full_address'] ) ? $venue['full_address'] : $address_1,
+				'City'        => isset( $venue['city'] ) ? $venue['city'] : '',
+				'State'       => isset( $venue['state'] ) ? $venue['state'] : '',
+				'Country'     => $country,
+				'Zip'         => isset( $venue['zip'] ) ? $venue['zip'] : '',
+				'Phone'       => isset( $venue['phone'] ) ? $venue['phone'] : '',
+				'ShowMap'     => true,
+				'ShowMapLink' => true,
+			)
+		);
 
-		if ( $create_venue ) {
-			update_post_meta( $create_venue, 'ime_event_venue_id', $venue['ID'] );
+		if ( $create_venue > 0  ) {
+			update_post_meta( $create_venue, 'ime_event_venue_name', $venue['name'] );
+			update_post_meta( $create_venue, 'ime_event_venue_id', $venue_id );
+			
 			return array(
-				'VenueID' => $create_venue,
+				'VenueID' => $create_venue
+			);
+		}else{
+			return array(
+				'VenueID' => NULL
 			);
 		}
-		return false;		
+		return false;
 	}
 
 	/**
@@ -449,13 +535,32 @@ class Import_Meetup_Events_TEC {
 	 * @return int/boolean
 	 */
 	public function get_venue_by_id( $venue_id ) {
-		$existing_organizer = get_posts( array(
-			'posts_per_page' => 1,
-			'post_type' => $this->venue_posttype,
-			'meta_key' => 'ime_event_venue_id',
-			'meta_value' => $venue_id,
-			'suppress_filters' => false,
-		) );
+		$existing_organizer = get_posts(
+			array(
+				'posts_per_page'   => 1,
+				'post_type'        => $this->venue_posttype,
+				'meta_key'         => 'ime_event_venue_id',
+				'meta_value'       => $venue_id,
+				'suppress_filters' => false,
+			)
+		);
+
+		if ( is_array( $existing_organizer ) && ! empty( $existing_organizer ) ) {
+			return $existing_organizer[0]->ID;
+		}
+		return false;
+	}
+
+	public function get_venue_by_name( $venue_name ) {
+		$existing_organizer = get_posts(
+			array(
+				'posts_per_page'   => 1,
+				'post_type'        => $this->venue_posttype,
+				'meta_key'         => 'ime_event_venue_name',
+				'meta_value'       => $venue_name,
+				'suppress_filters' => false,
+			)
+		);
 
 		if ( is_array( $existing_organizer ) && ! empty( $existing_organizer ) ) {
 			return $existing_organizer[0]->ID;
