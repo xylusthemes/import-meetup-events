@@ -16,7 +16,7 @@ class Import_Meetup_Events_API {
      * Contain Meetup GraphQL URL
      * @access private
      */
-    private $api_url = 'https://api.meetup.com/gql';
+    private $api_url = 'https://api.meetup.com/gql-ext';
 
     /**
      * Contain Meetup API Key
@@ -57,13 +57,9 @@ class Import_Meetup_Events_API {
                         dateTime
                         endTime
                         description
-                        shortDescription
-                        recurrenceDescription
-                        duration
-                        timezone
                         eventUrl
                         status
-                        venue{
+                        venues{
                             id
                             name
                             address
@@ -71,43 +67,45 @@ class Import_Meetup_Events_API {
                             state
                             country
                             lat
-                            lng
+                            lon
                             postalCode
-                            zoom
-                        }
-                        onlineVenue{
-                            type
-                            url
+                            venueType
                         }
                         series{
                             endDate
                             description
                         }
-                        isOnline
-                        imageUrl
-                        hosts{
+                        featuredEventPhoto{
                             id
+                            baseUrl
+                            thumbUrl
+                            standardUrl
+                            highResUrl
+                        }
+                        eventType
+                        eventHosts{
+                            memberId
                             name
-                            email
-                            lat
-                            lon
-                            city
-                            state
-                            country
+                            memberPhoto{
+                                id
+                                standardUrl
+                                highResUrl
+                            }
                         }
                         group{
                             id
                             name
                             description
-                            emailListAddress
+                            emailAnnounceAddress
                             urlname
-                            logo{
-                                baseUrl
+                            keyGroupPhoto {
+                                id
+                                standardUrl
                             }
                         }
                     }
                 }
-GRAPHQL;
+            GRAPHQL;
     }
 
     /**
@@ -118,12 +116,12 @@ GRAPHQL;
         return <<<'GRAPHQL'
             query ($urlname: String!, $itemsNum: Int!, $cursor: String) {
                 groupByUrlname(urlname: $urlname) {
-                    upcomingEvents(input: {first: $itemsNum, after: $cursor}){
+                    events(first: $itemsNum, after: $cursor ){
                         pageInfo{
                             hasNextPage
                             endCursor
                         }
-                        count
+                        totalCount
                         edges {
                             node {
                                 id
@@ -131,13 +129,9 @@ GRAPHQL;
                                 dateTime
                                 endTime
                                 description
-                                shortDescription
-                                recurrenceDescription
-                                duration
-                                timezone
                                 eventUrl
                                 status
-                                venue{
+                                venues{
                                     id
                                     name
                                     address
@@ -145,38 +139,40 @@ GRAPHQL;
                                     state
                                     country
                                     lat
-                                    lng
+                                    lon
                                     postalCode
-                                    zoom
-                                }
-                                onlineVenue{
-                                    type
-                                    url
+                                    venueType
                                 }
                                 series{
                                     endDate
                                     description
                                 }
-                                isOnline
-                                imageUrl
-                                hosts{
+                                featuredEventPhoto{
                                     id
+                                    baseUrl
+                                    thumbUrl
+                                    standardUrl
+                                    highResUrl
+                                }
+                                eventType
+                                eventHosts{
+                                    memberId
                                     name
-                                    email
-                                    lat
-                                    lon
-                                    city
-                                    state
-                                    country
+                                    memberPhoto{
+                                        id
+                                        standardUrl
+                                        highResUrl
+                                    }
                                 }
                                 group{
                                     id
                                     name
                                     description
-                                    emailListAddress
+                                    emailAnnounceAddress
                                     urlname
-                                    logo{
-                                        baseUrl
+                                    keyGroupPhoto {
+                                        id
+                                        standardUrl
                                     }
                                 }
                             }
@@ -184,7 +180,7 @@ GRAPHQL;
                     }
                 }
             }
-GRAPHQL;
+        GRAPHQL;
     }
 
     /**
@@ -223,7 +219,7 @@ GRAPHQL;
                 name
             }
         }
-GRAPHQL;
+        GRAPHQL;
         $variables = [ 'urlname' => $meetup_group_id ];
         return $this->graphql_query( $this->api_url, $query, $variables );
     }
@@ -243,7 +239,7 @@ GRAPHQL;
                     name
                 }
             }
-GRAPHQL;
+        GRAPHQL;
         $variables = [];
         return $this->graphql_query( $this->api_url, $query, $variables );
     }
