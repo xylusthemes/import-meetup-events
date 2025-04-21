@@ -903,6 +903,23 @@ class Import_Meetup_Events_Common {
 	}
 
 	/**
+	 * Converts a given date and time in a specific timezone to a UNIX timestamp in UTC.
+	 *
+	 * @param string $datetime The date and time string 
+	 * @param string $timezone The timezone of the given date and time
+	 * @return int UNIX timestamp in UTC.
+	 */
+	public function ime_convert_to_utc_timestamp( $datetime, $timezone ) {
+		try {
+			$date = new DateTime( $datetime, new DateTimeZone( $timezone ) );
+			$date->setTimezone( new DateTimeZone( 'UTC' ) );
+			return $date->getTimestamp();
+		} catch ( Exception $e ) {
+			return 0;
+		}
+	}
+	
+	/*
      * Create missing Scheduled Import
      *
      * @param int $post_id Post id.
