@@ -213,19 +213,18 @@ class Import_Meetup_Events_TEC {
 
 			$timezone       = isset( $allmetas['timezone'] ) ? $allmetas['timezone'] : 'UTC';
 			$duration       = 0;
+			$hash           = sha1( $new_event_id . $duration . $start_time . $end_time . $start_date_utc . $end_date_utc . $timezone );
 
-			$hash = sha1( $new_event_id . $duration . $start_time . $end_time . $start_date_utc . $end_date_utc . $timezone );
-
-			$totable_name   = $wpdb->prefix . 'tec_occurrences';
-			$todata         = array( 'event_id' => $esource_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc, 'duration' => $duration, 'hash' => $hash, 'has_recurrence' => 0, 'is_rdate' => 0, );
-			$wpdb->insert( $totable_name, $todata );
-
+			// insert the $wpdb->prefix.tec_events table
 			$tetable_name   = $wpdb->prefix . 'tec_events';
-			$tedata         = array(
-				'event_id'  => $esource_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc, 'duration' => $duration, 'rset' => null,
-			);
+			$tedata         = array( 'post_id'   => $new_event_id, 'start_date' => $start_time, 'end_date'  => $end_time, 'timezone'  => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
 			$wpdb->insert( $tetable_name, $tedata );
+			$tec_e_id       = $wpdb->insert_id;
 
+			// Update the $wpdb->prefix.tec_occurrences table
+			$totable_name   = $wpdb->prefix . 'tec_occurrences';
+			$todata         = array( 'event_id' => $tec_e_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc, 'hash' => $hash );
+			$wpdb->insert( $totable_name, $todata );
 
 			do_action( 'ime_after_create_tec_' . $centralize_array['origin'] . '_event', $new_event_id, $formated_args, $centralize_array );
 			return array(
@@ -286,6 +285,9 @@ class Import_Meetup_Events_TEC {
 			update_post_meta( $update_event_id, 'ime_event_link', esc_url( $centralize_array['url'] ) );
 			//save series ID
 			update_post_meta( $update_event_id, 'ime_series_id', $series_id );
+
+			delete_post_meta( $update_event_id, '_tribe_is_classic_editor' );
+
 			// Asign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? (array) $event_args['event_cats'] : array();
 			if ( ! empty( $ime_cats ) ) {
@@ -331,16 +333,17 @@ class Import_Meetup_Events_TEC {
 			
 			$timezone       = isset( $allmetas['timezone'] ) ? $allmetas['timezone'] : 'UTC';
 
-			$totable_name   = $wpdb->prefix . 'tec_occurrences';
-			$todata         = array( 'event_id' => $esource_id, 'post_id' => $update_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc );
-			$where          = array( 'event_id' => $esource_id, 'post_id' => $update_event_id );
-			$wpdb->update( $totable_name, $todata, $where );
-
-			// Update the wp_tec_events table
+			// Update the $wpdb->prefix.tec_events table
 			$tetable_name   = $wpdb->prefix . 'tec_events';
-			$tedata         = array( 'event_id' => $esource_id, 'post_id' => $update_event_id, 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
-			$where          = array( 'event_id' => $esource_id, 'post_id' => $update_event_id );
+			$tedata         = array( 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
+			$where          = array( 'post_id' => $update_event_id );
 			$wpdb->update( $tetable_name, $tedata, $where );
+
+			//update the $wpdb->prefix.tec_occurrences table
+			$totable_name   = $wpdb->prefix . 'tec_occurrences';
+			$todata         = array( 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc  );
+			$where          = array( 'post_id' => $update_event_id );
+			$wpdb->update( $totable_name, $todata, $where );
 
 
 			do_action( 'ime_after_update_tec_' . $centralize_array['origin'] . '_event', $update_event_id, $formated_args, $centralize_array );
