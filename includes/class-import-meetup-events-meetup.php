@@ -220,7 +220,8 @@ class Import_Meetup_Events_Meetup {
 		if ( ! array_key_exists( 'venues', $meetup_event ) ) {
 			return null;
 		}
-		$venue = $meetup_event['venues'][0];
+
+		$venue = isset( $meetup_event['venues'][0] ) ? $meetup_event['venues'][0] : array();
 		$event_location = array(
 			'ID'           => isset( $venue['id'] ) ? $venue['id'] : '',
 			'name'         => isset( $venue['name'] ) ? $venue['name'] : '',
