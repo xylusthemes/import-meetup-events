@@ -26,7 +26,8 @@ function ime_register_gutenberg_block() {
 			'ime-meetup-events-block',
 			$js_dir . 'gutenberg.blocks.js',
 			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ),
-			IME_VERSION
+			IME_VERSION,
+			true
 		);
 
 		// Register block editor style.

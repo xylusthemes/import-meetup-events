@@ -25,7 +25,6 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
 
         private $prefix = 'ime_';
         private $slug = 'import-meetup-events';
-        private $plugin_name;
         private $plugin_version = '1.0.0';
         private $api_url = 'https://api.xylusthemes.com/api/v1/';
 
@@ -35,7 +34,6 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
          * @since    1.0.0
          */
         public function __construct() {
-			$this->plugin_name =  __('Import Meetup Events', 'import-meetup-events' );
 			if ( defined( 'IME_VERSION' ) ) {
 				$this->plugin_version = IME_VERSION;
 			}
@@ -77,7 +75,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
         }
 
         function submit_plugin_deactivation_feedback(){
-            if ( !wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), $this->prefix.'plugin_deactivation_feedback')) {
+            if ( isset( $_REQUEST['nonce'] ) && !wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), $this->prefix.'plugin_deactivation_feedback')) {
                 exit("nonce verification failed");
             }
 
@@ -94,9 +92,9 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
             $client_secret = $credentials->client_secret;
             $customer_email = $user->user_email;
             $customer_name = $user->user_firstname. ' '.$user->user_lastname;
-            $deactivation_reason = sanitize_text_field( wp_unslash( $_REQUEST['reason'] ) );
+            $deactivation_reason = isset( $_REQUEST['reason'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['reason'] ) ) : '';
             $deactivation_reason_message = $this->get_deactivation_reasons()[$deactivation_reason];
-            $customer_query = sanitize_text_field( wp_unslash( $_REQUEST['customerQuery'] ) );
+            $customer_query = isset( $_REQUEST['customerQuery'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['customerQuery'] ) ) : '';
 
             $data = array(
                 "type" => "plugin_deactivation",
@@ -104,7 +102,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                 "customer_name" => $customer_name,
                 "customer_email" => $customer_email,
                 "plugin" => $this->slug,
-                "plugin_name" => $this->plugin_name,
+                "plugin_name" => 'Import Meetup Events',
                 "plugin_version" => $this->plugin_version,
                 "plugin_version" => $this->plugin_version,
                 "deactivation_reason" => $deactivation_reason,
@@ -163,7 +161,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                             width: 600,
                             'buttons'       : [
                                 {
-                                    text: "<?php _e('Submit & Deactivate', 'import-meetup-events' ); ?>",
+                                    text: "<?php esc_attr_e('Submit & Deactivate', 'import-meetup-events' ); ?>",
                                     class: 'button button-primary <?php echo esc_attr( $this->prefix ). "deactivate_button"; ?>',
                                     click: function() {
 										var that = this;
@@ -191,7 +189,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                                     }
                                 },
                                 {
-                                    text: "<?php _e('Skip & Deactivate', 'import-meetup-events' ); ?>",
+                                    text: "<?php esc_attr_e('Skip & Deactivate', 'import-meetup-events' ); ?>",
                                     class: 'button',
                                     click: function() {
                                         jQuery( this ).dialog( "close" );
@@ -208,26 +206,26 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                         var customerQuery = jQuery('#<?php echo esc_attr( $this->prefix ); ?>customer_query');
                         customerQuery.removeAttr('required');
                         if (reason === "confusing") {
-                            customerQuery.attr("placeholder", "<?php _e('Finding it confusing? let us know so that we can improve the interface', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Finding it confusing? let us know so that we can improve the interface', 'import-meetup-events' ); ?>");
 
                         } else if (reason === "other") {
-                            customerQuery.attr("placeholder", "<?php _e('Can you let us know the reason for deactivation (Required)', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Can you let us know the reason for deactivation (Required)', 'import-meetup-events' ); ?>");
                             customerQuery.prop('required', true);
 
                         } else if (reason === "buggy" || reason === 'not_working') {
-                            customerQuery.attr("placeholder", "<?php _e('Can you please let us know about the bug/issue in detail?', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Can you please let us know about the bug/issue in detail?', 'import-meetup-events' ); ?>");
 
                         } else if (reason === "better_plugin") {
-                            customerQuery.attr("placeholder", "<?php _e('Can you please let us know which plugin you found helpful', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Can you please let us know which plugin you found helpful', 'import-meetup-events' ); ?>");
 
                         } else if (reason === "feature_request") {
-                            customerQuery.attr("placeholder", "<?php _e('Can you please let us know more about the feature you want', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Can you please let us know more about the feature you want', 'import-meetup-events' ); ?>");
 
                         }  else if (reason === "wrong_plugins") {
-                            customerQuery.attr("placeholder", "<?php _e('Can you please let us know more about your requirement', 'import-meetup-events' ); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Can you please let us know more about your requirement', 'import-meetup-events' ); ?>");
 
                         } else if (reason === "temporary") {
-                            customerQuery.attr("placeholder", "<?php _e('Write your query here', 'import-meetup-events'); ?>");
+                            customerQuery.attr("placeholder", "<?php esc_attr_e('Write your query here', 'import-meetup-events'); ?>");
                         }
                     });
                 });
@@ -271,7 +269,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                             </div>
                         <?php } ?>
                         <br>
-                        <textarea id="<?php echo esc_attr( $this->prefix ); ?>customer_query" name="<?php echo esc_attr( $this->prefix ); ?>customer_query" rows="4" placeholder="<?php _e('Write your query here', 'import-meetup-events'); ?>"></textarea>
+                        <textarea id="<?php echo esc_attr( $this->prefix ); ?>customer_query" name="<?php echo esc_attr( $this->prefix ); ?>customer_query" rows="4" placeholder="<?php esc_attr_e('Write your query here', 'import-meetup-events'); ?>"></textarea>
                     </div>
                     <div style="text-align: center;">
                         <p style="font-size: 12px;margin: 2px 0 -10px 0;">
@@ -280,6 +278,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                     </div>
                 </form>
 				<div class="<?php echo esc_attr( $this->prefix ); ?>deactivatation_loading" style="width: 100%;text-align: center; display:none;">
+                    <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 					<img src="<?php echo esc_url( admin_url('images/spinner.gif') ); ?>" />
 				</div>
             </div>

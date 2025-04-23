@@ -1,7 +1,7 @@
 === Import Meetup Events ===
 Contributors: xylus,dharm1025,rajat1192
 Donate link: http://xylusthemes.com/
-Tags: events, calendar, event, meetup, meetup event, meetup events, import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
+Tags: calendar, meetup, meetup event, Events, Meetup API
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.8
@@ -16,6 +16,8 @@ Import Meetup Events allows you to import Meetup (meetup.com) events into your W
 This plugin allows you to import events from [meetup.com](https://www.meetup.com/) into your wordpress. You can schedule event import so it will be imported automatacally [Pro]
 
 This Plugin is works as a stand alone as well as add-on plugin for below listed Events plugins, which allows you to run imports from meetup.com right from your dashboard. As a stand alone plugin this plugin work independently for event import and Event Management.
+
+Import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
 
 You can use `[meetup_events]` for display in-built Meetup events list.
 
@@ -250,6 +252,3 @@ It can also be installed manually.
 = 1.0.0 =
 * Initial Version.
 
-== Upgrade Notice == 
-
-We have Improved scheduled event import and moved it to paid version, so if you have installed older version (1.0.0) of this plugin and scheduled imports are setup then please purchase [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme) or do not upgrade plugin.

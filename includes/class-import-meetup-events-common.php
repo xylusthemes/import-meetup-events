@@ -111,7 +111,7 @@ class Import_Meetup_Events_Common {
 	 */
 	function ime_render_terms_by_plugin() {
 		global $ime_events;
-		$event_plugin  = isset( $_REQUEST['event_plugin'] ) ? esc_attr( wp_unslash( $_REQUEST['event_plugin'] ) ) : '' ;
+		$event_plugin  = isset( $_REQUEST['event_plugin'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['event_plugin'] ) ) ) : '' ; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$event_taxonomy = '';
 		switch ( $event_plugin ) {
 			case 'ime':
@@ -149,7 +149,7 @@ class Import_Meetup_Events_Common {
 		$terms = array();
 		if ( $event_taxonomy != '' ) {
 			if( taxonomy_exists( $event_taxonomy ) ){
-				$terms = get_terms( $event_taxonomy, array( 'hide_empty' => false ) );
+				$terms = get_terms( array( 'taxonomy'   => $event_taxonomy, 'hide_empty' => false, ) );
 			}
 		}
 		if( ! empty( $terms ) ){ ?>
@@ -339,15 +339,19 @@ class Import_Meetup_Events_Common {
 		
 		$success_message = esc_html__( 'Event(s) are imported successfully.', 'import-meetup-events' )."<br>";
 		if( $created > 0 ){
+			// translators: %d: Number of events created.
 			$success_message .= "<strong>".sprintf( __( '%d Created', 'import-meetup-events' ), $created )."</strong><br>";
 		}
 		if( $updated > 0 ){
+			// translators: %d: Number of events Updated.
 			$success_message .= "<strong>".sprintf( __( '%d Updated', 'import-meetup-events' ), $updated )."</strong><br>";
 		}
 		if( $skipped > 0 ){
+			// translators: %d: Number of events Skipped.
 			$success_message .= "<strong>".sprintf( __( '%d Skipped (Already exists)', 'import-meetup-events' ), $skipped ) ."</strong><br>";
 		}
 		if ( $skip_trash > 0 ) {
+			// translators: %d: Number of events creaSkippedted.
 			$success_message .= "<strong>" . sprintf( __( '%d Skipped (Already exists in Trash )', 'import-meetup-events' ), $skip_trash ) . "</strong><br>";
 		}
 		$ime_success_msg[] = $success_message;
@@ -561,6 +565,7 @@ class Import_Meetup_Events_Common {
 		$ime_options = get_option( IME_OPTIONS );
 		$skip_trash = isset( $ime_options['skip_trash'] ) ? $ime_options['skip_trash'] : 'no';
 		if( $skip_trash === 'yes'){
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$get_post_id = $wpdb->get_col(
 				$wpdb->prepare(
 					'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
@@ -570,6 +575,7 @@ class Import_Meetup_Events_Common {
 				)
 			);
 			if ( empty( $get_post_id[0] ) && !empty( $series_id ) ) {
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				$get_post_id = $wpdb->get_col(
 					$wpdb->prepare(
 						'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
@@ -580,6 +586,7 @@ class Import_Meetup_Events_Common {
 				);
 			}
 		}else{
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$get_post_id = $wpdb->get_col(
 				$wpdb->prepare(
 					'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
@@ -590,6 +597,7 @@ class Import_Meetup_Events_Common {
 				)
 			);
 			if ( empty( $get_post_id[0] ) && !empty( $series_id ) ) {
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				$get_post_id = $wpdb->get_col(
 					$wpdb->prepare(
 						'SELECT ' . $wpdb->prefix . 'posts.ID FROM ' . $wpdb->prefix . 'posts, ' . $wpdb->prefix . 'postmeta WHERE ' . $wpdb->prefix . 'posts.post_type = %s AND ' . $wpdb->prefix . 'postmeta.post_id = ' . $wpdb->prefix . 'posts.ID AND ' . $wpdb->prefix . 'posts.post_status != %s AND (' . $wpdb->prefix . 'postmeta.meta_key = %s AND ' . $wpdb->prefix . 'postmeta.meta_value = %s ) LIMIT 1',
