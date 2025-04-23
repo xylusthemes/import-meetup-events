@@ -262,9 +262,9 @@ if (!class_exists('Import_Meetup_Events')):
          */
         public function ime_enqueue_style() {
             $css_dir = IME_PLUGIN_URL . 'assets/css/';
-            wp_enqueue_style('font-awesome', $css_dir . 'font-awesome.min.css', false, "");
-            wp_enqueue_style('import-meetup-events-front', $css_dir . 'import-meetup-events.css', false, "");
-            wp_enqueue_style('import-meetup-events-front-style2', $css_dir . 'grid-style2.css', false, '' );
+            wp_enqueue_style('font-awesome', $css_dir . 'font-awesome.min.css', false, IME_VERSION );
+            wp_enqueue_style('import-meetup-events-front', $css_dir . 'import-meetup-events.css', false, IME_VERSION );
+            wp_enqueue_style('import-meetup-events-front-style2', $css_dir . 'grid-style2.css', false, IME_VERSION );
         }
 
     }

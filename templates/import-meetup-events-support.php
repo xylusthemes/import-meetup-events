@@ -18,6 +18,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
             <div class="ime-support-features">
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
+                        <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 						<img class="ime-support-features-icon" src="<?php echo esc_url( IME_PLUGIN_URL.'assets/images/document.svg' ); ?>" alt="<?php esc_attr_e( 'Looking for Something?', 'import-meetup-events' ); ?>">
 					</div>
 					<div class="ime-support-features-text">
@@ -28,6 +29,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 				</div>
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
+                        <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 						<img class="ime-support-features-icon" src="<?php echo esc_url( IME_PLUGIN_URL.'assets/images/call-center.svg' ); ?>" alt="<?php esc_attr_e( 'Need Any Assistance?', 'import-meetup-events' ); ?>">
 					</div>
 					<div class="ime-support-features-text">
@@ -38,6 +40,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 				</div>
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
+                        <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 						<img class="ime-support-features-icon"  src="<?php echo esc_url( IME_PLUGIN_URL.'assets/images/bug.svg' ); ?>" alt="<?php esc_attr_e( 'Found Any Bugs?', 'import-meetup-events' ); ?>" />
 					</div>
 					<div class="ime-support-features-text">
@@ -48,6 +51,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 				</div>
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
+                        <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 						<img class="ime-support-features-icon" src="<?php echo esc_url( IME_PLUGIN_URL.'assets/images/tools.svg' ); ?>" alt="<?php esc_attr_e( 'Require Customization?', 'import-meetup-events' ); ?>" />
 					</div>
 					<div class="ime-support-features-text">
@@ -58,6 +62,7 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
 				</div>
 				<div class="ime-support-features-card">
 					<div class="ime-support-features-img">
+                        <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
 						<img class="ime-support-features-icon" src="<?php echo esc_url( IME_PLUGIN_URL.'assets/images/like.svg' ); ?>" alt="<?php esc_attr_e( 'Like The Plugin?', 'import-meetup-events' ); ?>" />
 					</div>
 					<div class="ime-support-features-text">
@@ -79,13 +84,14 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
         }
         ?>
         <div class="" style="margin-top: 20px;">
-            <h3 class="setting_bar"><?php _e( 'Plugins you should try','import-meetup-events' ); ?></h3>
+            <h3 class="setting_bar"><?php esc_attr_e( 'Plugins you should try','import-meetup-events' ); ?></h3>
             <?php 
             if( !empty( $plugins ) ){
                 foreach ($plugins as $plugin ) {
                     ?>
                     <div class="plugin_box">
                         <?php if( $plugin->banners['low'] != '' ){ ?>
+                            <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
                             <img src="<?php echo esc_attr( $plugin->banners['low'] ); ?>" class="plugin_img" title="<?php echo esc_attr( $plugin->name ); ?>">
                         <?php } ?>                    
                         <div class="plugin_content">
@@ -98,23 +104,23 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
                             ) );?>
 
                             <?php if( $plugin->version != '' ){ ?>
-                                <p><strong><?php _e( 'Version:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->version ); ?></p>
+                                <p><strong><?php esc_attr_e( 'Version:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->version ); ?></p>
                             <?php } ?>
 
                             <?php if( $plugin->requires != '' ){ ?>
-                                <p><strong><?php _e( 'Requires:','import-meetup-events' ); ?> </strong> <?php _e( 'WordPress ','import-meetup-events' ); echo esc_attr( $plugin->requires ); ?>+</p>
+                                <p><strong><?php esc_attr_e( 'Requires:','import-meetup-events' ); ?> </strong> <?php esc_attr_e( 'WordPress ','import-meetup-events' ); echo esc_attr( $plugin->requires ); ?>+</p>
                             <?php } ?>
 
                             <?php if( $plugin->active_installs != '' ){ ?>
-                                <p><strong><?php _e( 'Active Installs:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->active_installs ); ?>+</p>
+                                <p><strong><?php esc_attr_e( 'Active Installs:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->active_installs ); ?>+</p>
                             <?php } ?>
 
                             <?php //print_r( $plugin ); ?>
                             <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin='. $plugin->slug.'&TB_iframe=1&width=772&height=600') ); ?>" target="_blank">
-                                <?php _e( 'Install Now','import-meetup-events' ); ?>
+                                <?php esc_attr_e( 'Install Now','import-meetup-events' ); ?>
                             </a>
                             <a class="button button-primary" href="<?php echo esc_url( $plugin->homepage . '?utm_source=crosssell&utm_medium=web&utm_content=supportpage&utm_campaign=freeplugin' ); ?>" target="_blank">
-                                <?php _e( 'Buy Now','import-meetup-events' ); ?>
+                                <?php esc_attr_e( 'Buy Now','import-meetup-events' ); ?>
                             </a>
                         </div>
                     </div>

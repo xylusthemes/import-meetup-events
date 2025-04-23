@@ -20,7 +20,7 @@ global $ime_events;
 									<option value="group_url"><?php esc_attr_e( 'Group URL', 'import-meetup-events' ); ?></option>
 								</select>
 								<span class="ime_small">
-									<?php _e( 'Select Event source. 1. by Event ID, 2. by Group URL', 'import-meetup-events' ); ?>
+									<?php esc_attr_e( 'Select Event source. 1. by Event ID, 2. by Group URL', 'import-meetup-events' ); ?>
 								</span>
 							</td>
 						</tr>
@@ -33,12 +33,12 @@ global $ime_events;
 								<?php if ( ime_is_pro() ) { ?>
 								<textarea class="ime_meetup_ids" name="ime_event_ids" type="text" rows="5" cols="50"></textarea>
 								<span class="ime_small">
-									<?php _e( 'One event ID per line. (E.g., Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class=\"borderall\">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
+									<?php esc_attr_e( 'One event ID per line. (E.g., Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class=\"borderall\">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
 								</span>
 								<?php } else { ?>
 								<input class="ime_text" name="ime_event_ids" type="text" />
 								<span class="ime_small">
-									<?php _e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
+									<?php esc_attr_e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
 								</span>
 								<?php } ?>
 							</td>
@@ -51,7 +51,7 @@ global $ime_events;
 							<td>
 								<input class="ime_text" name="meetup_url" type="text" <?php if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
 								<span class="ime_small">
-									<?php _e( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
+									<?php esc_attr_e( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
 								</span>
 								<?php do_action( 'ime_render_pro_notice' ); ?>
 							</td>
@@ -73,12 +73,12 @@ global $ime_events;
 
 						<tr>
 							<th scope="row">
-								<?php _e('Author','import-meetup-events'); ?> :
+								<?php esc_attr_e('Author','import-meetup-events'); ?> :
 							</th>
 							<td>
 								<?php wp_dropdown_users( array( 'show_option_none' => esc_attr__( 'Select Author','import-meetup-events'), 'name' => 'event_author', 'option_none_value' => get_current_user_id() ) ); ?>
 								<span class="ime_small">
-									<?php _e( 'Select event author for imported events. Default event auther is current loggedin user.', 'import-meetup-events' ); ?>
+									<?php esc_attr_e( 'Select event author for imported events. Default event auther is current loggedin user.', 'import-meetup-events' ); ?>
 								</span>
 							</td>
 						</tr>

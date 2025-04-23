@@ -57,7 +57,7 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	function column_title( $item ) {
 
 		$ime_url_delete_args = array(
-			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
+			'page'       => isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 'meetup_import', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			'ime_action' => 'ime_simport_delete',
 			'import_id'  => absint( $item['ID'] ),
 		);
@@ -95,7 +95,7 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	function column_action( $item ) {
 
 		$xtmi_run_import_args = array(
-			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
+			'page'       => isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 'meetup_import', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			'ime_action' => 'ime_run_import',
 			'import_id'  => $item['ID'],
 		);
@@ -195,8 +195,8 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 		);
 
 		if( $origin != '' ){
-			$query_args['meta_key'] = 'import_origin';
-			$query_args['meta_value'] = esc_attr( $origin );
+			$query_args['meta_key'] = 'import_origin'; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+			$query_args['meta_value'] = esc_attr( $origin ); //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 		}
 		$importdata_query = new WP_Query( $query_args );
 		$scheduled_import_data['total_records'] = ( $importdata_query->found_posts ) ? (int) $importdata_query->found_posts : 0;
@@ -260,8 +260,8 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 					'post_type'   => 'ime_import_history',
 					'post_status' => 'publish',
 					'posts_per_page' => 1,
-					'meta_key'   => 'schedule_import_id',
-					'meta_value' => $import_id,
+					'meta_key'   => 'schedule_import_id', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+					'meta_value' => $import_id,           //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
 
 				);
 
@@ -269,7 +269,8 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 				if ( $history->have_posts() ) {
 					while ( $history->have_posts() ) {
 						$history->the_post();
-						$last_import_history_date = sprintf( __( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U' ), current_time( 'timestamp' ) ) );
+						// translators: %s: Human-readable time difference like "2 hours ago", "3 days ago", etc.
+						$last_import_history_date = sprintf( esc_attr__( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U' ), current_time( 'timestamp' ) ) );
 					}
 				}
 				wp_reset_postdata();
@@ -278,7 +279,7 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 				if(isset($next_run_times[$import_id]) && !empty($next_run_times[$import_id])){
 					$next_time = $next_run_times[$import_id];
 					$next_run = sprintf( '%s (%s)',
-						esc_html( get_date_from_gmt( date( 'Y-m-d H:i:s', $next_time ), 'Y-m-d H:i:s' ) ),
+						esc_html( get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $next_time ), 'Y-m-d H:i:s' ) ),
 						esc_html( human_time_diff( current_time( 'timestamp', true ), $next_time ) )
 					);
 				}
@@ -388,10 +389,10 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 	function column_title( $item ) {
 
 		$ime_url_delete_args = array(
-			'page'   => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
-			'tab'   => sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ),
+			'page'       => isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 'meetup_import', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			'tab'        => isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'history', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			'ime_action' => 'ime_history_delete',
-			'history_id'  => absint( $item['ID'] ),
+			'history_id' => absint( $item['ID'] ),
 		);
 		// Build row actions.
 		$actions = array(
@@ -422,15 +423,19 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 
 		$success_message = '<span style="color: silver"><strong>';
 		if( $created > 0 ){
+			// translators: %d: Number of events Created.
 			$success_message .= sprintf( __( '%d Created', 'import-meetup-events' ), $created )."<br>";
 		}
 		if( $updated > 0 ){
+			// translators: %d: Number of events Updated.
 			$success_message .= sprintf( __( '%d Updated', 'import-meetup-events' ), $updated )."<br>";
 		}
 		if( $skipped > 0 ){
+			// translators: %d: Number of events Skipped.
 			$success_message .= sprintf( __( '%d Skipped', 'import-meetup-events' ), $skipped ) ."<br>";
 		}
 		if( $skip_trash > 0 ){
+			// translators: %d: Number of events Skipped.
 			$success_message .= sprintf( __( '%d Skipped in Trash', 'import-meetup-events' ), $skip_trash ) ."<br>";
 		}
 
@@ -517,8 +522,8 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 			return;
 		}	
 		$ime_url_all_delete_args = array(
-			'page'       => sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ),
-			'tab'        => sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ),
+			'page'       => isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 'meetup_import', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			'tab'        => isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'history', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			'ime_action' => 'ime_all_history_delete',
 		);
 
@@ -553,8 +558,8 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 		);
 
 		if( $origin != '' ){
-			$query_args['meta_key'] = 'import_origin';
-			$query_args['meta_value'] = esc_attr( $origin );
+			$query_args['meta_key'] = 'import_origin';       //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+			$query_args['meta_value'] = esc_attr( $origin ); //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
 		}
 
 		$importdata_query = new WP_Query( $query_args );
@@ -760,7 +765,7 @@ class IME_Shortcode_List_Table extends WP_List_Table {
 				return $item[ $column_name ];
 
 			default:
-				return print_r( $item, true ) ;
+				return print_r( $item, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 	}
 }

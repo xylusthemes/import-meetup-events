@@ -241,25 +241,25 @@ class Import_Meetup_Events_Cpt {
 		// Use nonce for verification
 		wp_nonce_field( IME_PLUGIN_DIR, 'ime_event_metabox_nonce' );
 		
-		$start_hour = get_post_meta($post->ID, 'event_start_hour', true);
-		$start_minute = get_post_meta($post->ID, 'event_start_minute', true);
+		$start_hour     = get_post_meta($post->ID, 'event_start_hour', true);
+		$start_minute   = get_post_meta($post->ID, 'event_start_minute', true);
 		$start_meridian = get_post_meta($post->ID, 'event_start_meridian', true);
-		$end_hour = get_post_meta($post->ID, 'event_end_hour', true);
-		$end_minute = get_post_meta($post->ID, 'event_end_minute', true);
-		$end_meridian = get_post_meta($post->ID, 'event_end_meridian', true);
+		$end_hour       = get_post_meta($post->ID, 'event_end_hour', true);
+		$end_minute     = get_post_meta($post->ID, 'event_end_minute', true);
+		$end_meridian   = get_post_meta($post->ID, 'event_end_meridian', true);
 		?>
 		<table class="ime_form_table">
 			<thead>
 			<tr>
 				<th colspan="2">
-					<?php _e('Time & Date', 'import-meetup-events'); ?>
+					<?php esc_attr_e('Time & Date', 'import-meetup-events'); ?>
 					<hr>
 				</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr>
-				<td><?php _e('Start Date & Time', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Start Date & Time', 'import-meetup-events'); ?>:</td>
 				<td>
 				<input type="text" name="event_start_date" class="ime_datepicker" id="event_start_date" value="<?php echo esc_attr( get_post_meta($post->ID, 'event_start_date', true) ); ?>" /> @ 
 				<?php
@@ -270,7 +270,7 @@ class Import_Meetup_Events_Cpt {
 				</td>
 			</tr>
 			<tr>
-				<td><?php _e('End Date & Time', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('End Date & Time', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="event_end_date" class="ime_datepicker" id="event_end_date" value="<?php echo esc_attr( get_post_meta($post->ID, 'event_end_date', true) ); ?>" /> @ 
 					<?php
@@ -287,7 +287,7 @@ class Import_Meetup_Events_Cpt {
 			<thead>
 			<tr>
 				<th colspan="2">
-					<?php _e('Location Details', 'import-meetup-events'); ?>
+					<?php esc_attr_e('Location Details', 'import-meetup-events'); ?>
 					<hr>
 				</th>
 			</tr>
@@ -295,63 +295,63 @@ class Import_Meetup_Events_Cpt {
 
 			<tbody>
 			<tr>
-				<td><?php _e('Venue', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Venue', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_name" id="venue_name" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_name', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('Address', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Address', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_address" id="venue_address" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_address', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('City', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('City', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_city" id="venue_city" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_city', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('State', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('State', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_state" id="venue_state" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_state', true) ); ?>" />
 				</td>
 			</tr>
 			
 			<tr>
-				<td><?php _e('Country', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Country', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_country" id="venue_country" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_country', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('Zipcode', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Zipcode', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_zipcode" id="venue_zipcode" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_zipcode', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('Latitude', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Latitude', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_lat" id="venue_lat" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_lat', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('Longitude', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Longitude', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_lon" id="venue_lon" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_lon', true) ); ?>" />
 				</td>
 			</tr>
 
 			<tr>
-				<td><?php _e('Website', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Website', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="venue_url" id="venue_url" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_url', true) ); ?>" />
 				</td>
@@ -363,32 +363,32 @@ class Import_Meetup_Events_Cpt {
 			<thead>
 			<tr>
 				<th colspan="2">
-					<?php _e('Organizer Details', 'import-meetup-events'); ?>
+					<?php esc_attr_e('Organizer Details', 'import-meetup-events'); ?>
 					<hr>
 				</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr>
-				<td><?php _e('Organizer Name', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Organizer Name', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="organizer_name" id="organizer_name" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_name', true) ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td><?php _e('Email', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Email', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="email" name="organizer_email" id="organizer_email" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_email', true) ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td><?php _e('Phone', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Phone', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="organizer_phone" id="organizer_phone" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_phone', true) ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td><?php _e('Website', 'import-meetup-events'); ?>:</td>
+				<td><?php esc_attr_e('Website', 'import-meetup-events'); ?>:</td>
 				<td>
 					<input type="text" name="organizer_url" id="organizer_url" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_url', true) ); ?>" />
 				</td>
@@ -401,14 +401,14 @@ class Import_Meetup_Events_Cpt {
 			<thead>
 				<tr>
 					<th colspan="2">
-						<?php _e( 'Event Source Link', 'import-meetup-events' ); ?>
+						<?php esc_attr_e( 'Event Source Link', 'import-meetup-events' ); ?>
 						<hr>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><?php _e( 'Source Link', 'import-meetup-events' ); ?>:</td>
+					<td><?php esc_attr_e( 'Source Link', 'import-meetup-events' ); ?>:</td>
 				<td>
 					<input type="text" name="ime_event_link" id="ime_event_link" value="<?php echo esc_attr( get_post_meta( $post->ID, 'ime_event_link', true ) ); ?>" />
 				</td>
@@ -478,7 +478,7 @@ class Import_Meetup_Events_Cpt {
 	{
 
 		// Verify the nonce before proceeding.
-		if ( !isset( $_POST['ime_event_metabox_nonce'] ) || !wp_verify_nonce( $_POST['ime_event_metabox_nonce'], IME_PLUGIN_DIR ) ){
+		if ( !isset( $_POST['ime_event_metabox_nonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ime_event_metabox_nonce'] ) ) , IME_PLUGIN_DIR ) ){
 			return $post_id;
 		}
 
@@ -521,16 +521,16 @@ class Import_Meetup_Events_Cpt {
 		$venue_zipcode = isset( $_POST['venue_zipcode'] ) ? sanitize_text_field( wp_unslash( $_POST['venue_zipcode'] ) ) : '';
 		$venue_lat     = isset( $_POST['venue_lat'] ) ? sanitize_text_field( wp_unslash( $_POST['venue_lat'] ) ) : '';
 		$venue_lon     = isset( $_POST['venue_lon'] ) ? sanitize_text_field( wp_unslash( $_POST['venue_lon'] ) ) : '';
-		$venue_url     = isset( $_POST['venue_url'] ) ? esc_url( wp_unslash( $_POST['venue_url'] ) ) : '';
+		$venue_url     = isset( $_POST['venue_url'] ) ? esc_url( wp_unslash( $_POST['venue_url'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// Oraganizer Deatails
 		$organizer_name  = isset( $_POST['organizer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['organizer_name'] ) ) : '';
 		$organizer_email = isset( $_POST['organizer_email'] ) ? sanitize_text_field( wp_unslash( $_POST['organizer_email'] ) ) : '';
 		$organizer_phone = isset( $_POST['organizer_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['organizer_phone'] ) ) : '';
-		$organizer_url   = isset( $_POST['organizer_url'] ) ? esc_url( wp_unslash(  $_POST['organizer_url'] ) ) : '';
+		$organizer_url   = isset( $_POST['organizer_url'] ) ? esc_url( wp_unslash(  $_POST['organizer_url'] ) ) : '';  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// Event Source Link
-		$ime_event_link   = isset( $_POST['ime_event_link'] ) ? esc_url( wp_unslash( $_POST['ime_event_link'] ) ) : '';
+		$ime_event_link   = isset( $_POST['ime_event_link'] ) ? esc_url( wp_unslash( $_POST['ime_event_link'] ) ) : '';  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// Save Event Data
 		// Date & Time
@@ -583,7 +583,7 @@ class Import_Meetup_Events_Cpt {
 				$start_date = get_post_meta( $post_id, 'event_start_date', true);
 				if( $start_date != '' ){
 					$start_date = strtotime( $start_date );
-					echo esc_attr( date( 'F j, Y', $start_date ) );	
+					echo esc_attr( gmdate( 'F j, Y', $start_date ) );	
 				}else{
 					echo '-';
 				}
@@ -631,7 +631,7 @@ class Import_Meetup_Events_Cpt {
 		$eve_args = array(
 			'post_type' => 'meetup_events',
 			'post_status' => 'publish',
-			'meta_key' => 'start_ts',
+			'meta_key' => 'start_ts', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
 			'paged' => $paged,
 		);
 
@@ -659,7 +659,7 @@ class Import_Meetup_Events_Cpt {
 			}
 
 			if( $start_date_str != '' && $end_date_str != '' ){
-				$eve_args['meta_query'] = array(
+				$eve_args['meta_query'] = array(  // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 							'relation' => 'AND',
 							array(
 								'key' => 'end_ts',
@@ -673,7 +673,7 @@ class Import_Meetup_Events_Cpt {
 							),
 						);
 			}elseif( $start_date_str != '' ){
-				$eve_args['meta_query'] = array(
+				$eve_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 							array(
 								'key' => 'end_ts',
 								'compare' => '>=',
@@ -681,12 +681,12 @@ class Import_Meetup_Events_Cpt {
 							)
 						);
 			}elseif( $end_date_str != '' ){
-				$eve_args['meta_query'] = array(
+				$eve_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 							'relation' => 'AND',
 							array(
 								'key' => 'end_ts',
 								'compare' => '>=',
-								'value' => strtotime( date( 'Y-m-d' ) ),
+								'value' => strtotime( gmdate( 'Y-m-d' ) ),
 							),
 							array(
 								'key' => 'end_ts',
@@ -700,7 +700,7 @@ class Import_Meetup_Events_Cpt {
 				$atts['past_events'] = "yes";
 			}
 			if( isset( $atts['past_events'] ) && $atts['past_events'] == 'yes' ){
-				$eve_args['meta_query'] = array(
+				$eve_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 								array(
 									'key' => 'end_ts',
 									'compare' => '<=',
@@ -708,7 +708,7 @@ class Import_Meetup_Events_Cpt {
 								)
 							);
 			}else{
-				$eve_args['meta_query'] = array(
+				$eve_args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 								array(
 									'key' => 'end_ts',
 									'compare' => '>=',
@@ -726,7 +726,7 @@ class Import_Meetup_Events_Cpt {
 				$tax_field = 'term_id';
 			}
 			if( !empty( $categories ) ){
-				$eve_args['tax_query'] = array(
+				$eve_args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query, WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					array(
 						'taxonomy' => $this->event_category,
 						'field'    => $tax_field,
@@ -740,7 +740,7 @@ class Import_Meetup_Events_Cpt {
 		if( isset( $atts['orderby'] ) && $atts['orderby'] != '' ){
 			if( $atts['orderby'] == 'event_start_date' || $atts['orderby'] == 'event_end_date' ){
 				if( $atts['orderby'] == 'event_end_date' ){
-					$eve_args['meta_key'] = 'end_ts';
+					$eve_args['meta_key'] = 'end_ts';  //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
 				}
 				$eve_args['orderby'] = 'meta_value';
 			}else{
@@ -820,7 +820,7 @@ class Import_Meetup_Events_Cpt {
 			$template_args                = array();
 			$template_args['css_class']   = $css_class;
 			$template_args['direct_link'] = $direct_link;
-			if( $meetup_events->have_posts() ):
+			if( $meetup_events->have_posts() ){
 				while ( $meetup_events->have_posts() ) : $meetup_events->the_post();
 					if( isset( $atts['layout'] ) && $atts['layout'] == 'style2' && ime_is_pro() ){
 						get_ime_template( 'ime-archive-content2.php', $template_args );
@@ -833,15 +833,17 @@ class Import_Meetup_Events_Cpt {
 					<div class="col-ime-md-12">
 						<nav class="prev-next-posts">
 							<div class="prev-posts-link alignright">
-								<?php echo get_next_posts_link( 'Next Events &raquo;', $meetup_events->max_num_pages ); ?>
+								<?php echo wp_kses_post( get_next_posts_link( 'Next Events &raquo;', $meetup_events->max_num_pages ) ); ?>
 							</div>
 							<div class="next-posts-link alignleft">
-								<?php echo get_previous_posts_link( '&laquo; Previous Events' ); ?>
+								<?php echo wp_kses_post( get_previous_posts_link( '&laquo; Previous Events' ) ); ?>
 							</div>
 						</nav>
 					</div>
 				<?php endif;
-			endif;
+			}else{
+				echo esc_html( apply_filters( 'ime_no_events_found_message', __( 'There are no upcoming Events at this time.', 'import-meetup-events' ) ) );
+			}
 
 			?>
 		</div>

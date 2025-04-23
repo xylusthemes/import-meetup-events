@@ -37,7 +37,7 @@ if( is_object( $ime_authorized_user ) ){
                             if( !isset( $_SERVER['HTTPS'] ) && false === stripos( $site_url, 'https' ) && $meetup_oauth_key != '' && $meetup_oauth_secret != '' && empty($ime_authorized_user) ) {
                                 ?>
                                 <div class="widefat ime_settings_error">
-                                    <?php _e( "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required to authorize your meetup account.","import-meetup-events" ); ?>
+                                    <?php esc_attr_e( "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required to authorize your meetup account.","import-meetup-events" ); ?>
                                 </div>
                             <?php
                             } ?>
@@ -45,14 +45,14 @@ if( is_object( $ime_authorized_user ) ){
                             <div class="widefat ime_settings_notice">
                                 <?php printf( '<b>%1$s</b> %2$s <b><a href="https://www.meetup.com/api/oauth/list/" target="_blank">%3$s</a></b> %4$s', esc_html__( 'Note : ','import-meetup-events' ), esc_html__( 'You have to create a Meetup OAuth Consumer before filling the following details.','import-meetup-events' ), esc_html__( 'Click here','import-meetup-events' ), esc_html__( 'to create new OAuth Consumer','import-meetup-events' ) ); ?>
                                 <br/>
-                                <?php _e( 'For detailed step by step instructions ', 'import-meetup-events' ); ?>
-                                <strong><a href="http://docs.xylusthemes.com/docs/import-meetup-events/creating-oauth-consumer/" target="_blank"><?php _e( 'Click here', 'import-meetup-events' ); ?></a></strong>.
+                                <?php esc_attr_e( 'For detailed step by step instructions ', 'import-meetup-events' ); ?>
+                                <strong><a href="http://docs.xylusthemes.com/docs/import-meetup-events/creating-oauth-consumer/" target="_blank"><?php esc_attr_e( 'Click here', 'import-meetup-events' ); ?></a></strong>.
                                 <br/>
-                                <?php _e( '<strong>Set the Application Website as : </strong>', 'import-meetup-events' ); ?>
+                                <?php echo '<strong>' . esc_html__( 'Set the Application Website as:', 'import-meetup-events' ) . '</strong>'; ?>
                                 <span style="color: green;"><?php echo esc_url( get_site_url() ); ?></span>
                                 <span class="dashicons dashicons-admin-page ime-btn-copy-shortcode ime_link_cp" data-value='<?php echo esc_url( get_site_url() ); ?>' ></span>
                                 <br/>
-                                <?php _e( '<strong>Set Redirect URI : </strong>', 'import-meetup-events' ); ?>
+                                <?php echo '<strong>' . esc_html__( 'Set Redirect URI:', 'import-meetup-events' ) . '</strong>'; ?>
                                 <span style="color: green;"><?php echo esc_url( admin_url( 'admin-post.php?action=ime_authorize_callback' ) ); ?></span>
                                 <span class="dashicons dashicons-admin-page ime-btn-copy-shortcode ime_link_cp" data-value='<?php echo esc_url( admin_url( 'admin-post.php?action=ime_authorize_callback' ) ); ?>' ></span>
                             </div>
@@ -66,7 +66,7 @@ if( is_object( $ime_authorized_user ) ){
                                         <tbody>
                                             <tr>
                                                 <th scope="row">
-                                                    <?php _e( 'Meetup Authorization','import-meetup-events' ); ?> :
+                                                    <?php esc_attr_e( 'Meetup Authorization','import-meetup-events' ); ?> :
                                                 </th>
                                                 <td>
                                                     <?php
@@ -76,12 +76,15 @@ if( is_object( $ime_authorized_user ) ){
                                                         ?>
                                                         <div class="ime_connection_wrapper">
                                                             <div class="name_wrap">
-                                                                <?php printf( esc_html__('Connected as: %s', 'import-meetup-events'), '<strong>'. esc_attr( $name ) .'</strong>' ); ?>
+                                                                <?php
+                                                                    // translators: %s: The connected user's name in bold.
+                                                                    printf( esc_html__( 'Connected as: %s', 'import-meetup-events' ), '<strong>' . esc_attr( $name ) . '</strong>' );
+                                                                ?>
                                                                 <br/>
                                                                 <?php echo esc_attr( $email ); ?>
                                                                 <br/>
                                                                 <a href="<?php echo esc_url( admin_url('admin-post.php?action=ime_deauthorize_action') ); ?>">
-                                                                    <?php _e('Remove Connection', 'import-meetup-events'); ?>
+                                                                    <?php esc_attr_e('Remove Connection', 'import-meetup-events'); ?>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -97,7 +100,7 @@ if( is_object( $ime_authorized_user ) ){
                                                             <input type="submit" class="button" name="ime_authorize" value="<?php echo esc_attr( $button_value ); ?>" />
                                                         </form>
                                                         <span class="ime_small">
-                                                            <?php _e( 'Please connect your meetup account for import meetup events.','import-meetup-events' ); ?>
+                                                            <?php esc_attr_e( 'Please connect your meetup account for import meetup events.','import-meetup-events' ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </td>
@@ -119,7 +122,7 @@ if( is_object( $ime_authorized_user ) ){
 
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Meetup OAuth Key','import-meetup-events' ); ?> :
+                                                <?php esc_attr_e( 'Meetup OAuth Key','import-meetup-events' ); ?> :
                                             </th>
                                             <td>
                                                 <input class="meetup_api_key" name="meetup[meetup_oauth_key]" type="text" value="<?php echo esc_attr( $meetup_oauth_key ); ?>" />
@@ -131,7 +134,7 @@ if( is_object( $ime_authorized_user ) ){
 
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Meetup OAuth Secret','import-meetup-events' ); ?> :
+                                                <?php esc_attr_e( 'Meetup OAuth Secret','import-meetup-events' ); ?> :
                                             </th>
                                             <td>
                                                 <input class="meetup_api_key" name="meetup[meetup_oauth_secret]" type="text" value="<?php echo esc_attr( $meetup_oauth_secret ); ?>" />
@@ -143,13 +146,13 @@ if( is_object( $ime_authorized_user ) ){
 
                                         <tr>
                                             <th scope="row" style="text-align: center" colspan="2">
-                                                <?php _e( ' - OR -', 'import-meetup-events' ); ?>
+                                                <?php esc_attr_e( ' - OR -', 'import-meetup-events' ); ?>
                                             </th>
                                         </tr>
                                       
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Meetup API key','import-meetup-events' ); ?> :
+                                                <?php esc_attr_e( 'Meetup API key','import-meetup-events' ); ?> :
                                             </th>
                                             <td>
                                                 <input class="meetup_api_key" name="meetup[meetup_api_key]" type="text" value="<?php if ( isset( $meetup_options['meetup_api_key'] ) ) { echo esc_attr( $meetup_options['meetup_api_key'] ); } ?>" />
@@ -165,7 +168,7 @@ if( is_object( $ime_authorized_user ) ){
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Update existing events', 'import-meetup-events' ); ?> : 
+                                                <?php esc_attr_e( 'Update existing events', 'import-meetup-events' ); ?> : 
                                             </th>
                                             <td>
                                                 <?php
@@ -173,14 +176,14 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[update_events]" value="yes" <?php if( $update_meetup_events == 'yes' ) { echo 'checked="checked"'; } ?> />
                                                 <span class="xtei_small">
-                                                    <?php _e( 'Check to updates existing events.', 'import-meetup-events' ); ?>
+                                                    <?php esc_attr_e( 'Check to updates existing events.', 'import-meetup-events' ); ?>
                                                 </span>
                                             </td>
                                         </tr>
 
                                         <tr>
 											<th scope="row">
-												<?php _e( 'Move past events in trash', 'import-meetup-events' ); ?> : 
+												<?php esc_attr_e( 'Move past events in trash', 'import-meetup-events' ); ?> : 
 											</th>
 											<td>
 												<?php
@@ -188,14 +191,14 @@ if( is_object( $ime_authorized_user ) ){
 												?>
 												<input type="checkbox" name="meetup[move_peit]" value="yes" <?php if ( $move_peit_events == 'yes' ) { echo 'checked="checked"'; } ?> />
 												<span class="xtei_small">
-													<?php _e( 'Check to move past events in the trash, Automatically move events to the trash 24 hours after their end date using wp-cron. This runs once daily in the background.', 'import-meetup-events' ); ?>
+													<?php esc_attr_e( 'Check to move past events in the trash, Automatically move events to the trash 24 hours after their end date using wp-cron. This runs once daily in the background.', 'import-meetup-events' ); ?>
 												</span>
 											</td>
 										</tr>
 
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Skip Trashed Events', 'import-meetup-events' ); ?> :
+                                                <?php esc_attr_e( 'Skip Trashed Events', 'import-meetup-events' ); ?> :
                                             </th>
                                             <td>
                                                 <?php
@@ -203,7 +206,7 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[skip_trash]" value="yes" <?php if ( $skip_trash == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
                                                 <span>
-                                                    <?php _e('Check to enable skip-the-trash events during importing.', 'import-meetup-events'); ?>
+                                                    <?php esc_attr_e('Check to enable skip-the-trash events during importing.', 'import-meetup-events'); ?>
                                                 </span>
                                                 <?php do_action('ime_render_pro_notice'); ?>
                                             </td>
@@ -211,7 +214,7 @@ if( is_object( $ime_authorized_user ) ){
 
                                         <tr>
                                             <th scope="row">
-                                                <?php _e('Direct link to Meetup', 'import-meetup-events'); ?> :
+                                                <?php esc_attr_e('Direct link to Meetup', 'import-meetup-events'); ?> :
                                             </th>
                                             <td>
                                                 <?php
@@ -219,14 +222,14 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[direct_link]" value="yes" <?php if ($direct_link == 'yes') { echo 'checked="checked"'; }if (!ime_is_pro()) {echo 'disabled="disabled"'; } ?> />
                                                 <span>
-                                                    <?php _e('Check to enable direct event link to Meetup instead of event detail page.', 'import-meetup-events'); ?>
+                                                    <?php esc_attr_e('Check to enable direct event link to Meetup instead of event detail page.', 'import-meetup-events'); ?>
                                                 </span>
                                                 <?php do_action('ime_render_pro_notice'); ?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( 'Advanced Synchronization', 'import-meetup-events' ); ?> : 
+                                                <?php esc_attr_e( 'Advanced Synchronization', 'import-meetup-events' ); ?> : 
                                             </th>
                                             <td>
                                                 <?php
@@ -234,14 +237,14 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[advanced_sync]" value="yes" <?php if( $advanced_sync == 'yes' ) { echo 'checked="checked"'; } if( !ime_is_pro()){ echo 'disabled="disabled"'; } ?> />
                                                 <span>
-                                                    <?php _e( 'Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events.', 'import-meetup-events' ); ?>
+                                                    <?php esc_attr_e( 'Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events.', 'import-meetup-events' ); ?>
                                                 </span>
                                                 <?php do_action( 'ime_render_pro_notice' ); ?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <?php _e( "Don't Update these data", "import-meetup-events" ); ?> : 
+                                                <?php esc_attr_e( "Don't Update these data", "import-meetup-events" ); ?> : 
                                             </th>
                                             <td>
                                                 <?php
@@ -251,14 +254,14 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="checkbox" name="meetup[dont_update][status]" value="yes" <?php checked( $sdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
                                                 <span class="xtei_small">
-                                                    <?php _e( 'Status ( Publish, Pending, Draft etc.. )', 'import-meetup-events' ); ?>
+                                                    <?php esc_attr_e( 'Status ( Publish, Pending, Draft etc.. )', 'import-meetup-events' ); ?>
                                                 </span><br/>
                                                 <input type="checkbox" name="meetup[dont_update][category]" value="yes" <?php checked( $cdontupdate, 'yes' ); disabled( ime_is_pro(), false );?> />
                                                 <span class="xtei_small">
-                                                    <?php _e( 'Event category', 'import-meetup-events' ); ?>
+                                                    <?php esc_attr_e( 'Event category', 'import-meetup-events' ); ?>
                                                 </span><br/>
                                                 <span class="ime_small">
-                                                    <?php _e( "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')", 'import-meetup-events' ); ?>
+                                                    <?php esc_attr_e( "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')", 'import-meetup-events' ); ?>
                                                 </span>
                                                 <?php do_action('ime_render_pro_notice'); ?>
                                             </td>
@@ -281,7 +284,7 @@ if( is_object( $ime_authorized_user ) ){
 
                                         <tr>
                                             <th scope="row">
-                                                <?php _e('Event Slug', 'import-meetup-events'); ?> :
+                                                <?php esc_attr_e('Event Slug', 'import-meetup-events'); ?> :
                                             </th>
                                             <td>
                                                 <?php
@@ -289,7 +292,7 @@ if( is_object( $ime_authorized_user ) ){
                                                 ?>
                                                 <input type="text" name="meetup[event_slug]" value="<?php if ( $event_slug ) { echo esc_attr( $event_slug ); } ?>" <?php if (!ime_is_pro()) { echo 'disabled="disabled"'; } ?> />
                                                 <span class="ime_small">
-                                                    <?php _e('Slug for the event.', 'import-meetup-events'); ?>
+                                                    <?php esc_attr_e('Slug for the event.', 'import-meetup-events'); ?>
                                                 </span>
                                                 <?php do_action('ime_render_pro_notice'); ?>
                                             </td>
@@ -378,7 +381,7 @@ if( is_object( $ime_authorized_user ) ){
                                 esc_url( admin_url( 'plugins.php?s=import+meetup+events+pro' ) ),
                                 esc_html__( 'Here', 'import-meetup-events' )
                             );
-                            echo $license_section;
+                            echo wp_kses_post( $license_section );
                         }
                     ?>
                 </div>

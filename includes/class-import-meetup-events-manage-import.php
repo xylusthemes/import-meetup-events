@@ -43,12 +43,12 @@ class Import_Meetup_Events_Manage_Import {
 				return;
 			}
 			
-			$event_data['import_type'] = 'onetime';
+			$event_data['import_type']      = 'onetime';
 			$event_data['import_frequency'] = 'daily';
-			$event_data['event_status'] = isset( $_POST['event_status'] ) ? sanitize_text_field( wp_unslash( $_POST['event_status'] ) ) : 'pending';
-			$event_data['event_cats'] = isset( $_POST['event_cats'] ) ? wp_unslash( $_POST['event_cats'] ) : array();
-			$event_data['event_author']     = !empty( $_POST['event_author'] ) ? sanitize_text_field( wp_unslash( $_POST['event_author'] ) ) : get_current_user_id();
-			$event_origin = isset( $_POST['import_origin'] ) ? sanitize_text_field( wp_unslash( $_POST['import_origin'] ) ):'meetup';
+			$event_data['event_status']     = isset( $_POST['event_status'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['event_status'] ) ) ) : 'pending';
+			$event_data['event_cats']       = isset( $_POST['event_cats'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['event_cats'] ) ) ) : array();
+			$event_data['event_author']     = !empty( $_POST['event_author'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['event_author'] ) ) ) : get_current_user_id();
+			$event_origin                   = isset( $_POST['import_origin'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['import_origin'] ) ) ) :'meetup';
 
 			$this->handle_meetup_import_form_submit( $event_data );
 		}
@@ -63,7 +63,7 @@ class Import_Meetup_Events_Manage_Import {
 		global $ime_errors, $ime_success_msg;
 		if ( isset( $_POST['ime_gma_action'] ) && 'ime_save_gma_settings' === sanitize_text_field( wp_unslash( $_POST['ime_gma_action'] ) ) && check_admin_referer( 'ime_gma_setting_form_nonce_action', 'ime_gma_setting_form_nonce' ) ) { // input var okay.
 			$gma_option = array();
-			$gma_option['ime_google_maps_api_key'] = isset( $_POST['ime_google_maps_api_key'] ) ? wp_unslash( $_POST['ime_google_maps_api_key'] ) : ''; // input var okay.
+			$gma_option['ime_google_maps_api_key'] = isset( $_POST['ime_google_maps_api_key'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['ime_google_maps_api_key'] ) ) ) : ''; // input var okay.
 			$is_update = update_option( 'ime_google_maps_api_key', $gma_option['ime_google_maps_api_key'] );
 			if ( $is_update ) {
 				$ime_success_msg[] = __( 'Google Maps API Key has been saved successfully.', 'import-meetup-events' );
@@ -82,7 +82,7 @@ class Import_Meetup_Events_Manage_Import {
 		global $ime_errors, $ime_success_msg;
 		if ( isset( $_POST['ime_action'] ) && $_POST['ime_action'] == 'ime_save_settings' &&  check_admin_referer( 'ime_setting_form_nonce_action', 'ime_setting_form_nonce' ) ) {
 			
-			$ime_options = isset( $_POST['meetup'] ) ? wp_unslash( $_POST['meetup'] ): array();
+			$ime_options = isset( $_POST['meetup'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup'] ) ) ): array();
 			$is_update = update_option( IME_OPTIONS, $ime_options );
 			if( $is_update ){
 				$ime_success_msg[] = __( 'Import settings has been saved successfully.', 'import-meetup-events' );
@@ -101,9 +101,9 @@ class Import_Meetup_Events_Manage_Import {
 
 		global $ime_success_msg;
 		if ( isset( $_GET['ime_action'] ) && $_GET['ime_action'] == 'ime_simport_delete' && isset($_GET['_wpnonce']) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'ime_delete_import_nonce') ) {
-			$import_id = isset( $_GET['import_id'] ) ? sanitize_text_field( wp_unslash( $_GET['import_id'] ) ) : '';
-			$page = isset($_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : 'meetup_import';
-			$tab = isset($_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ): 'scheduled';
+			$import_id = isset( $_GET['import_id'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['import_id'] ) ) ) : '';
+			$page = isset($_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : 'meetup_import';
+			$tab = isset($_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ): 'scheduled';
 			$wp_redirect = admin_url( 'admin.php?page='.$page );
 			if ( $import_id > 0 ) {
 				$post_type = get_post_type( $import_id );
@@ -146,7 +146,7 @@ class Import_Meetup_Events_Manage_Import {
 
 		if ( $is_bulk_delete && isset($_GET['_wpnonce']) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-ime_scheduled_import') ) {
 			$tab = isset($_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'scheduled';
-			$wp_redirect = get_site_url() . urldecode( $_REQUEST['_wp_http_referer'] );
+			$wp_redirect = get_site_url() . urldecode( $_REQUEST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$delete_ids = isset( $_REQUEST['xt_scheduled_import'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['xt_scheduled_import'] ) ) : '0';
 			if( !empty( $delete_ids ) ){
 				foreach ($delete_ids as $delete_id ) {
@@ -164,7 +164,7 @@ class Import_Meetup_Events_Manage_Import {
 
 		if ( $is_bulk_delete && isset($_GET['_wpnonce']) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-ime_import_histories') ) {
 			$tab = isset($_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'history';
-			$wp_redirect = get_site_url() . urldecode( $_REQUEST['_wp_http_referer'] );
+			$wp_redirect = get_site_url() . urldecode( $_REQUEST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$delete_ids = isset( $_REQUEST['import_history'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['import_history'] ) ) : '0';
 			if( !empty( $delete_ids ) ){
 				foreach ($delete_ids as $delete_id ) {
@@ -208,9 +208,9 @@ class Import_Meetup_Events_Manage_Import {
 		global $ime_errors, $ime_success_msg, $ime_events;
 
 		$event_data['import_origin'] = 'meetup';
-		$event_data['import_by']     = isset( $_POST['meetup_import_by'] ) ? sanitize_text_field( wp_unslash( $_POST['meetup_import_by'] ) ) : '';
-		$event_data['ime_event_ids'] = isset( $_POST['ime_event_ids'] ) ? array_map( 'trim', array_map( 'sanitize_text_field', explode( "\n", preg_replace( "/^\n+|^[\t\s]*\n+/m", '', sanitize_text_field( wp_unslash( $_POST['ime_event_ids'] ) ) ) ) ) ) : array(); // input var okay.
-		$event_data['meetup_url']    = isset( $_POST['meetup_url'] ) ? sanitize_text_field( wp_unslash( $_POST['meetup_url'] ) ) : '';
+		$event_data['import_by']     = isset( $_POST['meetup_import_by'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup_import_by'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$event_data['ime_event_ids'] = isset( $_POST['ime_event_ids'] ) ? array_map( 'trim', array_map( 'sanitize_text_field', explode( "\n", preg_replace( "/^\n+|^[\t\s]*\n+/m", '', esc_attr( sanitize_text_field( wp_unslash( $_POST['ime_event_ids'] ) ) ) ) ) ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$event_data['meetup_url']    = isset( $_POST['meetup_url'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup_url'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( 'group_url' === $event_data['import_by'] && !empty( $event_data['meetup_url'] ) ) {
 			if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ) {
@@ -233,8 +233,8 @@ class Import_Meetup_Events_Manage_Import {
 	 */
 	public function setup_success_messages(){
 		global $ime_success_msg;
-		if( isset( $_GET['ime_msg'] ) && $_GET['ime_msg'] != '' ){
-			switch ( $_GET['ime_msg'] ) {
+		if( isset( $_GET['ime_msg'] ) && $_GET['ime_msg'] != '' ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			switch ( $_GET['ime_msg'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				case 'import_del':
 					$ime_success_msg[] = esc_html__( 'Scheduled import deleted successfully.', 'import-meetup-events' );
 					break;

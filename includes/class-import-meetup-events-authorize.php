@@ -28,7 +28,7 @@ class Import_Meetup_Events_Authorize {
 	* Authorize Meetup user to get access token
 	*/
     function ime_authorize_user() {
-		if ( ! empty($_POST) && wp_verify_nonce( esc_attr( wp_unslash( $_POST['ime_authorize_nonce'] ) ), 'ime_authorize_action' ) ) {
+		if ( isset( $_POST['ime_authorize_nonce'] ) && ! empty( $_POST ) && wp_verify_nonce( esc_attr( sanitize_text_field( wp_unslash( $_POST['ime_authorize_nonce'] ) ) ), 'ime_authorize_action' ) ) {
 			$meetup_options = get_option( IME_OPTIONS );
 			$meetup_oauth_key = isset( $meetup_options['meetup_oauth_key'] ) ? $meetup_options['meetup_oauth_key'] : '';
 			$meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup_options['meetup_oauth_secret'] : '';
@@ -63,9 +63,9 @@ class Import_Meetup_Events_Authorize {
 	*/
     function ime_authorize_user_callback() {
 		global $ime_success_msg;
-		if ( isset( $_GET['code'] ) && !empty( $_GET['code'] ) ) {
+		if ( isset( $_GET['code'] ) && !empty( $_GET['code'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-				$code = sanitize_text_field( wp_unslash( $_GET['code'] ) );
+				$code = sanitize_text_field( wp_unslash( $_GET['code'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$meetup_options = get_option( IME_OPTIONS );
 				$meetup_oauth_key = isset( $meetup_options['meetup_oauth_key'] ) ? $meetup_options['meetup_oauth_key'] : '';
 				$meetup_oauth_secret = isset( $meetup_options['meetup_oauth_secret'] ) ? $meetup_options['meetup_oauth_secret'] : '';

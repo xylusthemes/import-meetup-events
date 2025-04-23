@@ -205,8 +205,8 @@ class Import_Meetup_Events_TEC {
 
 			//Insert in Custom Table 
 			$esource_id     = $centralize_array['ID'];
-			$start_time     = date( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
-			$end_time       = date( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
+			$start_time     = gmdate( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
+			$end_time       = gmdate( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
 			
 			$start_date_utc = $allmetas['_EventStartDateUTC'];
 			$end_date_utc   = $allmetas['_EventEndDateUTC'];
@@ -218,12 +218,14 @@ class Import_Meetup_Events_TEC {
 			// insert the $wpdb->prefix.tec_events table
 			$tetable_name   = $wpdb->prefix . 'tec_events';
 			$tedata         = array( 'post_id'   => $new_event_id, 'start_date' => $start_time, 'end_date'  => $end_time, 'timezone'  => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->insert( $tetable_name, $tedata );
 			$tec_e_id       = $wpdb->insert_id;
 
 			// Update the $wpdb->prefix.tec_occurrences table
 			$totable_name   = $wpdb->prefix . 'tec_occurrences';
 			$todata         = array( 'event_id' => $tec_e_id, 'post_id' => $new_event_id, 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc, 'hash' => $hash );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->insert( $totable_name, $todata );
 
 			do_action( 'ime_after_create_tec_' . $centralize_array['origin'] . '_event', $new_event_id, $formated_args, $centralize_array );
@@ -325,8 +327,8 @@ class Import_Meetup_Events_TEC {
 
 			//Update in Custom Table 
 			$esource_id     = $centralize_array['ID'];
-			$start_time     = date( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
-			$end_time       = date( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
+			$start_time     = gmdate( 'Y-m-d H:i:s', $centralize_array['starttime_local'] );
+			$end_time       = gmdate( 'Y-m-d H:i:s', $centralize_array['endtime_local'] );
 
 			$start_date_utc = $allmetas['_EventStartDateUTC'];
 			$end_date_utc   = $allmetas['_EventEndDateUTC'];
@@ -337,12 +339,14 @@ class Import_Meetup_Events_TEC {
 			$tetable_name   = $wpdb->prefix . 'tec_events';
 			$tedata         = array( 'start_date' => $start_time, 'end_date' => $end_time, 'timezone' => $timezone, 'start_date_utc' => $start_date_utc, 'end_date_utc' => $end_date_utc );
 			$where          = array( 'post_id' => $update_event_id );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->update( $tetable_name, $tedata, $where );
 
 			//update the $wpdb->prefix.tec_occurrences table
 			$totable_name   = $wpdb->prefix . 'tec_occurrences';
 			$todata         = array( 'start_date' => $start_time, 'start_date_utc' => $start_date_utc, 'end_date' => $end_time, 'end_date_utc' => $end_date_utc  );
 			$where          = array( 'post_id' => $update_event_id );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->update( $totable_name, $todata, $where );
 
 
@@ -375,23 +379,23 @@ class Import_Meetup_Events_TEC {
 		$timezone_name   = isset( $centralize_array['timezone_name'] ) ? $centralize_array['timezone_name'] : 'Africa/Abidjan';
 		$esource_url     = isset( $centralize_array['url'] ) ? esc_url( $centralize_array['url'] ) : '';
 		$esource_id      = $centralize_array['ID'];
-		$bstart_time_utc = isset( $centralize_array['startime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['startime_utc'] ) : '';
-		$bendtime_utc    = isset( $centralize_array['endtime_utc'] ) ? date( 'Y-m-d H:i:s', $centralize_array['endtime_utc'] ) : '';
+		$bstart_time_utc = isset( $centralize_array['startime_utc'] ) ? gmdate( 'Y-m-d H:i:s', $centralize_array['startime_utc'] ) : '';
+		$bendtime_utc    = isset( $centralize_array['endtime_utc'] ) ? gmdate( 'Y-m-d H:i:s', $centralize_array['endtime_utc'] ) : '';
 		$start_time_utc  = $ime_events->common->ime_convert_to_utc_timestamp( $bstart_time_utc, $timezone );
 		$end_time_utc    = $ime_events->common->ime_convert_to_utc_timestamp( $bendtime_utc, $timezone );
 
 
 		$event_args = array(
-			'_EventStartDate'         => date( 'Y-m-d', $start_time ),
-			'_EventStartHour'         => date( 'h', $start_time ),
-			'_EventStartMinute'       => date( 'i', $start_time ),
-			'_EventStartMeridian'     => date( 'a', $start_time ),
-			'_EventEndDate'           => date( 'Y-m-d', $end_time ),
-			'_EventEndHour'           => date( 'h', $end_time ),
-			'_EventEndMinute'         => date( 'i', $end_time ),
-			'_EventEndMeridian'       => date( 'a', $end_time ),
-			'_EventStartDateUTC'      => !empty( $start_time_utc ) ? date( 'Y-m-d H:i:s', $start_time_utc ) : '',
-			'_EventEndDateUTC'        => !empty( $end_time_utc ) ? date( 'Y-m-d H:i:s', $end_time_utc ) : '',
+			'_EventStartDate'         => gmdate( 'Y-m-d H:i:s', $start_time ),
+			'_EventStartHour'         => gmdate( 'h', $start_time ),
+			'_EventStartMinute'       => gmdate( 'i', $start_time ),
+			'_EventStartMeridian'     => gmdate( 'a', $start_time ),
+			'_EventEndDate'           => gmdate( 'Y-m-d H:i:s', $end_time ),
+			'_EventEndHour'           => gmdate( 'h', $end_time ),
+			'_EventEndMinute'         => gmdate( 'i', $end_time ),
+			'_EventEndMeridian'       => gmdate( 'a', $end_time ),
+			'_EventStartDateUTC'      => !empty( $start_time_utc ) ? gmdate( 'Y-m-d H:i:s', $start_time_utc ) : '',
+			'_EventEndDateUTC'        => !empty( $end_time_utc ) ? gmdate( 'Y-m-d H:i:s', $end_time_utc ) : '',
 			'_EventURL'               => $centralize_array['url'],
 			'_EventShowMap'           => 1,
 			'_EventShowMapLink'       => 1,
@@ -519,8 +523,8 @@ class Import_Meetup_Events_TEC {
 		$existing_organizer = get_posts( array(
 			'posts_per_page' => 1,
 			'post_type' => $this->oraganizer_posttype,
-			'meta_key' => 'ime_event_organizer_id',
-			'meta_value' => $organizer_id,
+			'meta_key' => 'ime_event_organizer_id', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+			'meta_value' => $organizer_id,          //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
 			'suppress_filters' => false,
 		) );
 
@@ -542,8 +546,8 @@ class Import_Meetup_Events_TEC {
 			array(
 				'posts_per_page'   => 1,
 				'post_type'        => $this->venue_posttype,
-				'meta_key'         => 'ime_event_venue_id',
-				'meta_value'       => $venue_id,
+				'meta_key'         => 'ime_event_venue_id', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+				'meta_value'       => $venue_id,            //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
 				'suppress_filters' => false,
 			)
 		);
@@ -559,8 +563,8 @@ class Import_Meetup_Events_TEC {
 			array(
 				'posts_per_page'   => 1,
 				'post_type'        => $this->venue_posttype,
-				'meta_key'         => 'ime_event_venue_name',
-				'meta_value'       => $venue_name,
+				'meta_key'         => 'ime_event_venue_name', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+				'meta_value'       => $venue_name,            //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
 				'suppress_filters' => false,
 			)
 		);

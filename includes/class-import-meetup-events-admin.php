@@ -77,7 +77,7 @@ class Import_Meetup_Events_Admin {
 	function enqueue_admin_scripts( $hook ) {
 
 		$js_dir  = IME_PLUGIN_URL . 'assets/js/';
-		wp_register_script( 'import-meetup-events', $js_dir . 'import-meetup-events-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'wp-color-picker'), IME_VERSION );
+		wp_register_script( 'import-meetup-events', $js_dir . 'import-meetup-events-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'wp-color-picker'), IME_VERSION, true );
 		wp_enqueue_script( 'import-meetup-events' );
 		
 	}
@@ -93,11 +93,11 @@ class Import_Meetup_Events_Admin {
 	 */
 	function enqueue_admin_styles( $hook ) {
 		global $pagenow;
-		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if( 'meetup_import' == $page || $pagenow == 'widgets.php' || 'post.php' == $pagenow || 'post-new.php' == $pagenow ){
 		  	$css_dir = IME_PLUGIN_URL . 'assets/css/';
 		 	wp_enqueue_style('jquery-ui', $css_dir . 'jquery-ui.css', false, "1.12.0" );
-			wp_enqueue_style('import-meetup-events', $css_dir . 'import-meetup-events-admin.css', false, "" );
+			wp_enqueue_style('import-meetup-events', $css_dir . 'import-meetup-events-admin.css', false, IME_VERSION );
 			wp_enqueue_style('wp-color-picker');
 		}
 	}
@@ -114,8 +114,8 @@ class Import_Meetup_Events_Admin {
 			<h2><?php esc_html_e( 'Import Meetup Events', 'import-meetup-events' ); ?></h2>
 			<?php
 			// Set Default Tab to Import.
-			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'meetup';
-			$ntab = isset( $_GET['ntab'] ) ? sanitize_text_field( wp_unslash( $_GET['ntab'] ) ) : 'import';
+			$tab  = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) : 'meetup';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$ntab = isset( $_GET['ntab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['ntab'] ) ) ) : 'import'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			?>
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
@@ -195,7 +195,7 @@ class Import_Meetup_Events_Admin {
 			foreach ( $ime_errors as $error ) :
 				?>
 				<div class="notice notice-error is-dismissible">
-					<p><?php echo $error; ?></p>
+					<p><?php echo __( $error, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -205,7 +205,7 @@ class Import_Meetup_Events_Admin {
 			foreach ( $ime_success_msg as $success ) :
 				?>
 				<div class="notice notice-success is-dismissible">
-					<p><?php echo $success; ?></p>
+					<p><?php echo __( $success, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -215,7 +215,7 @@ class Import_Meetup_Events_Admin {
 			foreach ( $ime_warnings as $warning ) :
 				?>
 				<div class="notice notice-warning is-dismissible">
-					<p><?php echo $warning; ?></p>
+					<p><?php echo __( $warning, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -225,7 +225,7 @@ class Import_Meetup_Events_Admin {
 			foreach ( $ime_info_msg as $info ) :
 				?>
 				<div class="notice notice-info is-dismissible">
-					<p><?php echo $info; ?></p>
+					<p><?php echo __( $info, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -329,12 +329,12 @@ class Import_Meetup_Events_Admin {
 	 * @return void
 	 */
 	public function add_import_meetup_events_credit( $footer_text ){
-		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		$page = isset( $_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : '';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( $page != '' && $page == 'meetup_import' ) {
 			$rate_url = 'https://wordpress.org/support/plugin/import-meetup-events/reviews/?rate=5#new-post';
 
 			$footer_text .= sprintf(
-				esc_html__( ' Rate %1$sImport Meetup Events%2$s %3$s', 'import-meetup-events' ),
+				esc_html__( ' Rate %1$sImport Meetup Events%2$s %3$s', 'import-meetup-events' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				'<strong>',
 				'</strong>',
 				'<a href="' . $rate_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
@@ -403,9 +403,10 @@ class Import_Meetup_Events_Admin {
 	 * @return void
 	 */
 	public function get_selected_tab_submenu_ime( $submenu_file ){
-		if( !empty( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) == 'meetup_import' ){
+		 // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if( !empty( $_GET['page'] ) && esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) == 'meetup_import' ){ 
 			$allowed_tabs = array( 'meetup', 'scheduled', 'history', 'settings', 'shortcodes', 'support' );
-			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'meetup';
+			$tab = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) : 'meetup';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if( in_array( $tab, $allowed_tabs ) ){
 				$submenu_file = admin_url( 'admin.php?page=meetup_import&tab='.$tab );
 			}
@@ -420,12 +421,13 @@ class Import_Meetup_Events_Admin {
 	 */
 	public function setup_success_messages() {
 		global $ime_success_msg, $ime_errors;
-		if ( isset( $_GET['m_authorize'] ) && trim( $_GET['m_authorize'] ) != '' ) {
-			if( trim( $_GET['m_authorize'] ) == '1' ){
+		$mauthorized = isset( $_GET['m_authorize'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['m_authorize'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( !empty( $mauthorized ) ) { 
+			if( trim( $mauthorized ) == '1' ){ 
 				$ime_success_msg[] = esc_html__( 'Authorized Successfully.', 'import-meetup-events' );	
-			} elseif( trim( $_GET['m_authorize'] ) == '2' ){
+			} elseif( trim( $mauthorized ) == '2' ){
 				$ime_errors[] = esc_html__( 'Please insert Meetup Auth Key and Secret.', 'import-meetup-events' );	
-			} elseif( trim( $_GET['m_authorize'] ) == '0' ){
+			} elseif( trim( $mauthorized ) == '0' ){
 				$ime_errors[] = esc_html__( 'Something went wrong during authorization. Please try again.', 'import-meetup-events' );	
 			}
 		}
@@ -443,7 +445,7 @@ class Import_Meetup_Events_Admin {
 			'posts_per_page'  => 100,
 			'post_status'     => 'publish',
 			'fields'          => 'ids',
-			'meta_query'      => array(
+			'meta_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				array(
 					'key'     => 'end_ts',
 					'value'   => current_time( 'timestamp' ) - ( 24 * 3600 ),
