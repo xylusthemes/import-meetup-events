@@ -101,6 +101,7 @@ It can also be installed manually.
 * ADDED: Re-created missing schedule functionality (Pro version).
 * FIXED: date() function issue on the event details page.
 * FIXED: Resolved event import issue with The Events Calendar (TEC) plugin.
+* IMPROVEMENTS: New Meetup API Migration
 * IMPROVEMENTS: Improved security and compatibility with WordPress coding standards.
 * IMPROVEMENTS: Support for WP 6.8
 
