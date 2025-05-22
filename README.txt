@@ -5,7 +5,7 @@ Tags: calendar, meetup, meetup event, Events, Meetup API
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.8
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.6.7 =
+* FIXED: Date imezone issue.
 
 = 1.6.6 =
 * ADDED: Re-created missing schedule functionality (Pro version).
