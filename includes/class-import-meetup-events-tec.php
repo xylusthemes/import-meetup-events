@@ -139,7 +139,7 @@ class Import_Meetup_Events_TEC {
 	 * @param int   $post_id Post id.
 	 * @return void
 	 */
-	public function create_event( $centralize_array = array(), $formated_args = array(), $event_args = array(), $series_id ) {
+	public function create_event( $centralize_array = array(), $formated_args = array(), $event_args = array(), $series_id = '' ) {
 		// Create event using TEC advanced functions.
 		global $ime_events ,$wpdb;
 	
@@ -250,7 +250,7 @@ class Import_Meetup_Events_TEC {
 	 * @param int   $post_id Post id.
 	 * @return void
 	 */
-	public function update_event( $event_id, $centralize_array, $formated_args = array(), $event_args = array(), $series_id ) {
+	public function update_event( $event_id, $centralize_array, $formated_args = array(), $event_args = array(), $series_id = '' ) {
 		// Update event using TEC advanced functions.
 		global $ime_events, $wpdb;
 

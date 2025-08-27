@@ -33,7 +33,7 @@ if (!class_exists('Import_Meetup_Events')):
          * Import_Meetup_Events The one true Import_Meetup_Events.
          */
         private static $instance;
-        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize;
+        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize, $eventprime;
 
         /**
          * Main Import Meetup Events Instance.
@@ -76,6 +76,7 @@ if (!class_exists('Import_Meetup_Events')):
                 self::$instance->event_organizer = new Import_Meetup_Events_Event_Organizer();
                 self::$instance->aioec = new Import_Meetup_Events_Aioec();
                 self::$instance->my_calendar = new Import_Meetup_Events_My_Calendar();
+                self::$instance->eventprime = new Import_Meetup_Events_EventPrime();
 
             }
             return self::$instance;
@@ -184,6 +185,7 @@ if (!class_exists('Import_Meetup_Events')):
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-my-calendar.php';
             require_once IME_PLUGIN_DIR . 'includes/class-ime-plugin-deactivation.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-api.php';
+            require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-eventprime.php';
             require_once IME_PLUGIN_DIR . 'includes/libs/IMEParsedown.php';
             // Gutenberg Block
             require_once IME_PLUGIN_DIR . 'blocks/meetup-events/index.php';

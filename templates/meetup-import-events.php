@@ -33,12 +33,12 @@ global $ime_events;
 								<?php if ( ime_is_pro() ) { ?>
 								<textarea class="ime_meetup_ids" name="ime_event_ids" type="text" rows="5" cols="50"></textarea>
 								<span class="ime_small">
-									<?php esc_attr_e( 'One event ID per line. (E.g., Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class=\"borderall\">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
+									<?php echo wp_kses_post( 'One event ID per line. (E.g., Event ID for https://www.meetup.com/xxxx-xxx-xxxx/events/xxxxxxxxx is <span class=\"borderall\">xxxxxxxxx</span> ).<br> ', 'import-meetup-events' ); ?>
 								</span>
 								<?php } else { ?>
 								<input class="ime_text" name="ime_event_ids" type="text" />
 								<span class="ime_small">
-									<?php esc_attr_e( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
+									<?php echo wp_kses_post( 'Insert meetup event ID ( Eg. https://www.meetup.com/xxxx-xxx-xxxx/events/<span class="borderall">xxxxxxxxx</span>  ).', 'import-meetup-events' ); ?>
 								</span>
 								<?php } ?>
 							</td>
@@ -51,7 +51,7 @@ global $ime_events;
 							<td>
 								<input class="ime_text" name="meetup_url" type="text" <?php if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
 								<span class="ime_small">
-									<?php esc_attr_e( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
+									<?php echo wp_kses_post( 'Insert meetup group url ( Eg. -<span class="borderall">https://www.meetup.com/xxxx-xxx-xxxx/</span>  ).', 'import-meetup-events' ); ?>
 								</span>
 								<?php do_action( 'ime_render_pro_notice' ); ?>
 							</td>
