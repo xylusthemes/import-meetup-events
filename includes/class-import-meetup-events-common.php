@@ -141,6 +141,10 @@ class Import_Meetup_Events_Common {
 			case 'my_calendar':
 				$event_taxonomy = $ime_events->my_calendar->get_taxonomy();
 				break;
+
+			case 'eventprime':
+				$event_taxonomy = $ime_events->eventprime->get_taxonomy();
+				break;
 			
 			default:
 				break;
@@ -195,6 +199,11 @@ class Import_Meetup_Events_Common {
 		// check EventON.
 		if( class_exists( 'EventON' ) ){
 			$supported_plugins['eventon'] = __( 'EventON', 'import-meetup-events' );
+		}
+
+		// check EventPrime.
+		if ( class_exists( 'Eventprime_Event_Calendar_Management_Admin' ) ) {
+			$supported_plugins['eventprime'] = __( 'EventPrime', 'import-meetup-events' );
 		}
 
 		// check All in one Event Calendar
@@ -419,6 +428,10 @@ class Import_Meetup_Events_Common {
 
 			case 'my_calendar':
 				$import_result = $ime_events->my_calendar->import_event( $centralize_array, $event_args );
+				break;
+
+			case 'eventprime':
+				$import_result = $ime_events->eventprime->import_event( $centralize_array, $event_args );
 				break;
 				
 			default:
