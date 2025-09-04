@@ -240,182 +240,105 @@ class Import_Meetup_Events_Cpt {
 
 		// Use nonce for verification
 		wp_nonce_field( IME_PLUGIN_DIR, 'ime_event_metabox_nonce' );
-		
-		$start_hour     = get_post_meta($post->ID, 'event_start_hour', true);
-		$start_minute   = get_post_meta($post->ID, 'event_start_minute', true);
-		$start_meridian = get_post_meta($post->ID, 'event_start_meridian', true);
-		$end_hour       = get_post_meta($post->ID, 'event_end_hour', true);
-		$end_minute     = get_post_meta($post->ID, 'event_end_minute', true);
-		$end_meridian   = get_post_meta($post->ID, 'event_end_meridian', true);
+		$start_hour     = get_post_meta( $post->ID, 'event_start_hour', true );
+		$start_minute   = get_post_meta( $post->ID, 'event_start_minute', true );
+		$start_meridian = get_post_meta( $post->ID, 'event_start_meridian', true );
+		$end_hour       = get_post_meta( $post->ID, 'event_end_hour', true );
+		$end_minute     = get_post_meta( $post->ID, 'event_end_minute', true );
+		$end_meridian   = get_post_meta( $post->ID, 'event_end_meridian', true );
+
+		$fields = [
+			'venue_name'     => __( 'Venue', 'import-meetup-events' ),
+			'venue_address'  => __( 'Address', 'import-meetup-events' ),
+			'venue_city'     => __( 'City', 'import-meetup-events' ),
+			'venue_state'    => __( 'State', 'import-meetup-events' ),
+			'venue_country'  => __( 'Country', 'import-meetup-events' ),
+			'venue_zipcode'  => __( 'Zipcode', 'import-meetup-events' ),
+			'venue_lat'      => __( 'Latitude', 'import-meetup-events' ),
+			'venue_lon'      => __( 'Longitude', 'import-meetup-events' ),
+			'venue_url'      => __( 'Website', 'import-meetup-events' ),
+			'organizer_name' => __( 'Organizer Name', 'import-meetup-events' ),
+			'organizer_email'=> __( 'Email', 'import-meetup-events' ),
+			'organizer_phone'=> __( 'Phone', 'import-meetup-events' ),
+			'organizer_url'  => __( 'Website', 'import-meetup-events' ),
+			'ime_event_link' => __( 'Source Link', 'import-meetup-events' ),
+		];
+
 		?>
-		<table class="ime_form_table">
-			<thead>
-			<tr>
-				<th colspan="2">
-					<?php esc_attr_e('Time & Date', 'import-meetup-events'); ?>
-					<hr>
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td><?php esc_attr_e('Start Date & Time', 'import-meetup-events'); ?>:</td>
-				<td>
-				<input type="text" name="event_start_date" class="ime_datepicker" id="event_start_date" value="<?php echo esc_attr( get_post_meta($post->ID, 'event_start_date', true) ); ?>" /> @ 
-				<?php
-				$this->generate_dropdown( 'event_start', 'hour', $start_hour );
-				$this->generate_dropdown( 'event_start', 'minute', $start_minute );
-				$this->generate_dropdown( 'event_start', 'meridian', $start_meridian );
-				?>
-				</td>
-			</tr>
-			<tr>
-				<td><?php esc_attr_e('End Date & Time', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="event_end_date" class="ime_datepicker" id="event_end_date" value="<?php echo esc_attr( get_post_meta($post->ID, 'event_end_date', true) ); ?>" /> @ 
+
+		<div class="ime_form_section">
+			<h3><?php esc_attr_e( 'Time & Date', 'import-meetup-events' ); ?></h3>
+			<hr>
+			<div class="ime_form_row">
+				<label for="event_start_date"><?php esc_attr_e( 'Start Date & Time', 'import-meetup-events' ); ?>:</label>
+				<div class="ime_form_input_group">
+					<input type="text" name="event_start_date" class="xt_datepicker" id="event_start_date" value="<?php echo esc_attr( get_post_meta( $post->ID, 'event_start_date', true ) ); ?>" /> @ 
 					<?php
-					$this->generate_dropdown( 'event_end', 'hour', $end_hour );
-					$this->generate_dropdown( 'event_end', 'minute', $end_minute );
-					$this->generate_dropdown( 'event_end', 'meridian', $end_meridian );
+						$this->generate_dropdown( 'event_start', 'hour', $start_hour );
+						$this->generate_dropdown( 'event_start', 'minute', $start_minute );
+						$this->generate_dropdown( 'event_start', 'meridian', $start_meridian );
 					?>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-		<div style="clear: both;"></div>
-		<table class="ime_form_table">
-			<thead>
-			<tr>
-				<th colspan="2">
-					<?php esc_attr_e('Location Details', 'import-meetup-events'); ?>
-					<hr>
-				</th>
-			</tr>
-			</thead>
+				</div>
+			</div>
 
-			<tbody>
-			<tr>
-				<td><?php esc_attr_e('Venue', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_name" id="venue_name" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_name', true) ); ?>" />
-				</td>
-			</tr>
+			<div class="ime_form_row">
+				<label for="event_end_date"><?php esc_attr_e( 'End Date & Time', 'import-meetup-events' ); ?>:</label>
+				<div class="ime_form_input_group">
+					<input type="text" name="event_end_date" class="xt_datepicker" id="event_end_date" value="<?php echo esc_attr( get_post_meta( $post->ID, 'event_end_date', true ) ); ?>" /> @ 
+					<?php
+						$this->generate_dropdown( 'event_end', 'hour', $end_hour );
+						$this->generate_dropdown( 'event_end', 'minute', $end_minute );
+						$this->generate_dropdown( 'event_end', 'meridian', $end_meridian );
+					?>
+				</div>
+			</div>
+		</div>
 
-			<tr>
-				<td><?php esc_attr_e('Address', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_address" id="venue_address" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_address', true) ); ?>" />
-				</td>
-			</tr>
+		<div class="ime_form_section">
+			<h3><?php esc_attr_e( 'Location Details', 'import-meetup-events' ); ?></h3>
+			<hr>
+			<?php
+			foreach ( [ 'venue_name', 'venue_address', 'venue_city', 'venue_state', 'venue_country', 'venue_zipcode', 'venue_lat', 'venue_lon', 'venue_url' ] as $field ) {
+				?>
+				<div class="ime_form_row">
+					<label for="<?php echo esc_attr( $field ); ?>"><?php echo esc_html( $fields[ $field ] ); ?>:</label>
+					<div class="ime_form_input_group">
+						<input type="text" name="<?php echo esc_attr( $field ); ?>" id="<?php echo esc_attr( $field ); ?>" value="<?php echo esc_attr( get_post_meta( $post->ID, $field, true ) ); ?>" />
+					</div>
+				</div>
+				<?php
+			}
+			?>
+		</div>
 
-			<tr>
-				<td><?php esc_attr_e('City', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_city" id="venue_city" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_city', true) ); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><?php esc_attr_e('State', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_state" id="venue_state" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_state', true) ); ?>" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td><?php esc_attr_e('Country', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_country" id="venue_country" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_country', true) ); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><?php esc_attr_e('Zipcode', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_zipcode" id="venue_zipcode" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_zipcode', true) ); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><?php esc_attr_e('Latitude', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_lat" id="venue_lat" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_lat', true) ); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><?php esc_attr_e('Longitude', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_lon" id="venue_lon" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_lon', true) ); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><?php esc_attr_e('Website', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="venue_url" id="venue_url" value="<?php echo esc_attr( get_post_meta($post->ID, 'venue_url', true) ); ?>" />
-				</td>
-			</tr>
-			</tbody>
-		</table>
-		<div style="clear: both;"></div>
-		<table class="ime_form_table">
-			<thead>
-			<tr>
-				<th colspan="2">
-					<?php esc_attr_e('Organizer Details', 'import-meetup-events'); ?>
-					<hr>
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td><?php esc_attr_e('Organizer Name', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="organizer_name" id="organizer_name" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_name', true) ); ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td><?php esc_attr_e('Email', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="email" name="organizer_email" id="organizer_email" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_email', true) ); ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td><?php esc_attr_e('Phone', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="organizer_phone" id="organizer_phone" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_phone', true) ); ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td><?php esc_attr_e('Website', 'import-meetup-events'); ?>:</td>
-				<td>
-					<input type="text" name="organizer_url" id="organizer_url" value="<?php echo esc_attr( get_post_meta($post->ID, 'organizer_url', true) ); ?>" />
-				</td>
-			</tr>
-			</tbody>
-		</table>
-
-		<div style="clear: both;"></div>
-		<table class="ime_form_table">
-			<thead>
-				<tr>
-					<th colspan="2">
-						<?php esc_attr_e( 'Event Source Link', 'import-meetup-events' ); ?>
-						<hr>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><?php esc_attr_e( 'Source Link', 'import-meetup-events' ); ?>:</td>
-				<td>
-					<input type="text" name="ime_event_link" id="ime_event_link" value="<?php echo esc_attr( get_post_meta( $post->ID, 'ime_event_link', true ) ); ?>" />
-				</td>
-			</tr>
-			</tbody>
-		</table>
-
+		<div class="ime_form_section">
+			<h3><?php esc_attr_e( 'Organizer Details', 'import-meetup-events' ); ?></h3>
+			<hr>
+			<?php
+			foreach ( [ 'organizer_name', 'organizer_email', 'organizer_phone', 'organizer_url' ] as $field ) {
+				$type = $field === 'organizer_email' ? 'email' : 'text';
+				?>
+				<div class="ime_form_row">
+					<label for="<?php echo esc_attr( $field ); ?>"><?php echo esc_html( $fields[ $field ] ); ?>:</label>
+					<div class="ime_form_input_group">
+						<input type="<?php echo esc_attr( $type ); ?>" name="<?php echo esc_attr( $field ); ?>" id="<?php echo esc_attr( $field ); ?>" value="<?php echo esc_attr( get_post_meta( $post->ID, $field, true ) ); ?>" />
+					</div>
+				</div>
+				<?php
+			}
+			?>
+		</div>
+		
+		<div class="ime_form_section">
+			<h3><?php esc_attr_e( 'Event Source Link', 'import-meetup-events' ); ?></h3>
+			<hr>
+			<div class="ime_form_row">
+				<label for="ime_event_link"><?php echo esc_html( $fields['ime_event_link'] ); ?>:</label>
+				<div class="ime_form_input_group">
+					<input type="text" name="ime_event_link" id="ime_event_link" value="<?php echo esc_url( get_post_meta( $post->ID, 'ime_event_link', true ) ); ?>" />
+				</div>
+			</div>
+		</div>
 		<?php
 	}
 

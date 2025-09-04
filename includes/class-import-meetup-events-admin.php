@@ -40,7 +40,8 @@ class Import_Meetup_Events_Admin {
 		add_filter( 'submenu_file', array( $this, 'get_selected_tab_submenu_ime' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles') );
-		add_action( 'admin_notices', array( $this, 'display_notices') );
+		add_action( 'admin_notices', array( $this,'ime_remove_default_notices' ), 1 );
+		add_action( 'ime_display_all_notice', array( $this, 'ime_display_notices' ) );
 		add_filter( 'admin_footer_text', array( $this, 'add_import_meetup_events_credit' ) );
 	}
 
@@ -54,15 +55,26 @@ class Import_Meetup_Events_Admin {
 		global $submenu;	
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
+		$submenu['meetup_import'][] = array( __( 'Dashboard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=dashboard' ) );
 		$submenu['meetup_import'][] = array( __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=meetup' ) );
 		$submenu['meetup_import'][] = array( __( 'Schedule Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=scheduled' ) );
 		$submenu['meetup_import'][] = array( __( 'Import History', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=history' ) );
 		$submenu['meetup_import'][] = array( __( 'Settings', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=settings' ));
 		$submenu['meetup_import'][] = array( __( 'Shortcodes', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=shortcodes' ));
-		$submenu['meetup_import'][] = array( __( 'Support & help', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=support' ));
+		$submenu['meetup_import'][] = array( __( 'Support', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=support' ));
+		$submenu['meetup_import'][] = array( __( 'Wizard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=ime_setup_wizard' ));
 		if( !ime_is_pro() ){
 			$submenu['meetup_import'][] = array( '<li class="ime_upgrade_pro current">' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
 		}
+	}
+
+	/**
+	 * Remove All Notices
+	 */
+	public function ime_remove_default_notices() {
+		// Remove default notices display.
+		remove_action( 'admin_notices', 'wp_admin_notices' );
+		remove_action( 'all_admin_notices', 'wp_admin_notices' );
 	}
 
 	/**
@@ -79,6 +91,12 @@ class Import_Meetup_Events_Admin {
 		$js_dir  = IME_PLUGIN_URL . 'assets/js/';
 		wp_register_script( 'import-meetup-events', $js_dir . 'import-meetup-events-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'wp-color-picker'), IME_VERSION, true );
 		wp_enqueue_script( 'import-meetup-events' );
+
+		
+		if( isset( $_GET['tab'] ) && $_GET['tab'] == 'ime_setup_wizard' ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_register_script( 'import-meetup-events-wizard-js', $js_dir . 'import-meetup-events-wizard.js',  array( 'jquery', 'jquery-ui-core' ), IME_VERSION, false );
+			wp_enqueue_script( 'import-meetup-events-wizard-js' );
+		}
 		
 	}
 
@@ -93,13 +111,28 @@ class Import_Meetup_Events_Admin {
 	 */
 	function enqueue_admin_styles( $hook ) {
 		global $pagenow;
-		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if( 'meetup_import' == $page || $pagenow == 'widgets.php' || 'post.php' == $pagenow || 'post-new.php' == $pagenow ){
-		  	$css_dir = IME_PLUGIN_URL . 'assets/css/';
-		 	wp_enqueue_style('jquery-ui', $css_dir . 'jquery-ui.css', false, "1.12.0" );
+		$css_dir = IME_PLUGIN_URL . 'assets/css/';
+		$page    = isset( $_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		// Load styles on plugin admin page
+		if ( 'meetup_import' === $page ) {
+			wp_enqueue_style('jquery-ui', $css_dir . 'jquery-ui.css', false, "1.12.0" );
 			wp_enqueue_style('import-meetup-events', $css_dir . 'import-meetup-events-admin.css', false, IME_VERSION );
 			wp_enqueue_style('wp-color-picker');
+
+			$tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'ime_setup_wizard' === $tab ) {
+				wp_enqueue_style( 'import-meetup-events-wizard-css', $css_dir . 'import-meetup-events-wizard.css', false, IME_VERSION );
+			}
 		}
+
+		// Load styles on widgets/post screen
+		if ( in_array( $pagenow, [ 'widgets.php', 'post.php', 'post-new.php' ], true ) || ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && in_array( $_GET['page'], [ 'meetup_import' ], true ) ) ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_enqueue_style( 'jquery-ui', $css_dir . 'jquery-ui.css', false, '1.12.0' );
+			wp_enqueue_style( 'import-meetup-events-admin-global', $css_dir . 'import-meetup-events-admin-global.css', false, IME_VERSION );
+			wp_enqueue_style( 'wp-color-picker' );
+		}
+
 	}
 
 	/**
@@ -108,78 +141,103 @@ class Import_Meetup_Events_Admin {
 	 * @since 1.0
 	 * @return void
 	 */
-	function admin_page() {
-		?>
-		<div class="wrap">
-			<h2><?php esc_html_e( 'Import Meetup Events', 'import-meetup-events' ); ?></h2>
-			<?php
-			// Set Default Tab to Import.
-			$tab  = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) : 'meetup';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$ntab = isset( $_GET['ntab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['ntab'] ) ) ) : 'import'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	public function admin_page() {
+		global $ime_events;
+
+		$active_tab = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) )  : 'meetup'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$gettab     = str_replace( 'by_', '', $active_tab );
+		$gettab     = ucwords( str_replace( '_', ' & ', $gettab ) );
+		if( $active_tab == 'support' ){
+			$page_title = 'Support & Help';
+		}elseif( $active_tab == 'meetup' ){
+			$page_title = 'Meetup Import';
+		}elseif( $active_tab == 'scheduled' ){
+			$page_title = 'Scheduled Import';
+		}else{
+			$page_title = $gettab;
+		}
+
+		if( $active_tab == 'ime_setup_wizard' ){
+			require_once IME_PLUGIN_DIR . '/templates/admin/ime-setup-wizard.php';
+			exit();
+		}
+
+		$posts_header_result = $ime_events->common->ime_render_common_header( $page_title );
+
+		if( $active_tab != 'dashboard' ){
 			?>
-			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-2">
-					<div id="postbox-container-1" class="postbox-container">
-						<?php
-						if( !ime_is_pro() ){
-							require_once IME_PLUGIN_DIR . '/templates/admin-sidebar.php';
-						}
-						?>
-					</div>
-					<div id="postbox-container-2" class="postbox-container">
-						<h1 class="nav-tab-wrapper">
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'meetup', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'meetup' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Import', 'import-meetup-events' ); ?>
-							</a>
+				<div class="ime-container" style="margin-top: 60px;">
+					<div class="ime-wrap" >
+						<div id="poststuff">
+							<div id="post-body" class="metabox-holder columns-2">
+								<?php 
+									do_action( 'ime_display_all_notice' );
+								?>
+								<div class="delete_notice"></div>
+								<div id="postbox-container-2" class="postbox-container">
+									<div class="ime-app">
+										<div class="ime-tabs">
+											<div class="tabs-scroller">
+												<div class="var-tabs var-tabs--item-horizontal var-tabs--layout-horizontal-padding">
+													<div class="var-tabs__tab-wrap var-tabs--layout-horizontal">
+														<a href="?page=meetup_import&tab=meetup" class="var-tab <?php echo $active_tab == 'meetup' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'Import', 'import-meetup-events' ); ?></span>
+														</a>
+														<a href="?page=meetup_import&tab=scheduled" class="var-tab <?php echo ( $active_tab == 'scheduled' || $active_tab == 'scheduled' )  ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'Schedule Import', 'import-meetup-events' ); if( !ime_is_pro() ){ echo '<div class="ime-pro-badge"> PRO </div>'; } ?></span>
+														</a>
+														<a href="?page=meetup_import&tab=history" class="var-tab <?php echo $active_tab == 'history' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'History', 'import-meetup-events' ); ?></span>
+														</a>
+														<a href="?page=meetup_import&tab=settings" class="var-tab <?php echo $active_tab == 'settings' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'Setting', 'import-meetup-events' ); ?></span>
+														</a>
+														<a href="?page=meetup_import&tab=shortcodes" class="var-tab <?php echo $active_tab == 'shortcodes' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'Shortcodes', 'import-meetup-events' ); ?></span>
+														</a>
+														<a href="?page=meetup_import&tab=support" class="var-tab <?php echo $active_tab == 'support' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'Support & Help', 'import-meetup-events' ); ?></span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'scheduled', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'scheduled' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Scheduled Imports', 'import-meetup-events' ); ?>
-							</a>
-
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'history', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'history' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Import History', 'import-meetup-events' ); ?>
-							</a>
-
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'settings', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'settings' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Settings', 'import-meetup-events' ); ?>
-							</a>
-
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'shortcodes', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( 'shortcodes' == $tab) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Shortcodes', 'import-meetup-events' ); ?>
-							</a>
-
-							<a href="<?php echo esc_url( add_query_arg( 'tab', 'support', $this->adminpage_url ) ); ?>" class="nav-tab <?php if ( $tab == 'support' ) { echo 'nav-tab-active'; } ?>">
-								<?php esc_html_e( 'Support & Help', 'import-meetup-events' ); ?>
-							</a>
-						</h1>
-
-						<div class="wp-event-aggregator-page">
-
-							<?php
-							if ( $tab == 'meetup' ) {
-								require_once IME_PLUGIN_DIR . '/templates/meetup-import-events.php';
-							} elseif ( $tab == 'settings' ) {
-								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-settings.php';
-							} elseif ( $tab == 'scheduled' ) {
-								if( ime_is_pro() ){
-									require_once IMEPRO_PLUGIN_DIR . '/templates/scheduled-import-events.php';
-								}else{
-									do_action( 'ime_render_pro_notice' );
-								}
-							}elseif ( $tab == 'history' ) {
-								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-history.php';
-							} elseif ( $tab == 'support' ) {
-								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-support.php';
-							}elseif ( 'shortcodes' === $tab ) {
-								require_once IME_PLUGIN_DIR . '/templates/import-meetup-events-shortcode.php';
-							}
-							?>
-							<div style="clear: both"></div>
+									<?php
+										if ( $active_tab == 'meetup' ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/meetup-import-events.php';
+										} elseif ( $active_tab == 'settings' ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-settings.php';
+										} elseif ( $active_tab == 'scheduled' ) {
+											if( ime_is_pro() ){
+												require_once IMEPRO_PLUGIN_DIR . '/templates/scheduled-import-events.php';
+											}else{
+												?>
+													<div class="ime-blur-filter" >
+														<?php do_action( 'ime_render_pro_notice' ); ?>
+													</div>
+												<?php
+											}
+										}elseif ( $active_tab == 'history' ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-history.php';
+										} elseif ( $active_tab == 'support' ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-support.php';
+										}elseif ( 'shortcodes' === $active_tab ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-shortcode.php';
+										}
+									?>
+								</div>
+							</div>
+							<br class="clear">
 						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<?php
+			<?php
+		}else{
+			require_once IME_PLUGIN_DIR . '/templates/admin/ime-dashboard.php';
+		}
+		$posts_footer_result = $ime_events->common->ime_render_common_footer();
 	}
 
 
@@ -188,14 +246,14 @@ class Import_Meetup_Events_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function display_notices() {
+	public function ime_display_notices() {
 		global $ime_errors, $ime_success_msg, $ime_warnings, $ime_info_msg;
-		
+
 		if ( ! empty( $ime_errors ) ) {
 			foreach ( $ime_errors as $error ) :
 				?>
-				<div class="notice notice-error is-dismissible">
-					<p><?php echo __( $error, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
+				<div class="notice ime_notice notice-error is-dismissible">
+					<p><?php echo $error; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -204,8 +262,8 @@ class Import_Meetup_Events_Admin {
 		if ( ! empty( $ime_success_msg ) ) {
 			foreach ( $ime_success_msg as $success ) :
 				?>
-				<div class="notice notice-success is-dismissible">
-					<p><?php echo __( $success, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
+				<div class="notice ime_notice notice-success is-dismissible">
+					<p><?php echo $success; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -214,8 +272,8 @@ class Import_Meetup_Events_Admin {
 		if ( ! empty( $ime_warnings ) ) {
 			foreach ( $ime_warnings as $warning ) :
 				?>
-				<div class="notice notice-warning is-dismissible">
-					<p><?php echo __( $warning, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
+				<div class="notice ime_notice notice-warning is-dismissible">
+					<p><?php echo $warning; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -224,8 +282,8 @@ class Import_Meetup_Events_Admin {
 		if ( ! empty( $ime_info_msg ) ) {
 			foreach ( $ime_info_msg as $info ) :
 				?>
-				<div class="notice notice-info is-dismissible">
-					<p><?php echo __( $info, 'import-meetup-events' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NonSingularStringLiteralText ?></p>
+				<div class="notice ime_notice notice-info is-dismissible">
+					<p><?php echo $info; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 				</div>
 				<?php
 			endforeach;
@@ -405,7 +463,7 @@ class Import_Meetup_Events_Admin {
 	public function get_selected_tab_submenu_ime( $submenu_file ){
 		 // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if( !empty( $_GET['page'] ) && esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) == 'meetup_import' ){ 
-			$allowed_tabs = array( 'meetup', 'scheduled', 'history', 'settings', 'shortcodes', 'support' );
+			$allowed_tabs = array( 'dashboard', 'meetup', 'scheduled', 'history', 'settings', 'shortcodes', 'support' );
 			$tab = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) : 'meetup';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if( in_array( $tab, $allowed_tabs ) ){
 				$submenu_file = admin_url( 'admin.php?page=meetup_import&tab='.$tab );

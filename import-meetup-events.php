@@ -316,5 +316,6 @@ function ime_activate_import_meetup_events() {
     global $ime_events;
     $ime_events->cpt->register_event_post_type();
     flush_rewrite_rules();
+    add_option( 'ime_plugin_activated', true );
 }
 register_activation_hook(__FILE__, 'ime_activate_import_meetup_events');
