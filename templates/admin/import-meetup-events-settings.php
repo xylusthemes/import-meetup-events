@@ -154,7 +154,7 @@ if( is_object( $ime_authorized_user ) ){
 
                                     <div class="ime-inner-main-section" >
                                         <div class="meetup_or_keyandsecrate">
-                                            <span class="ime-title-text" ><?php esc_attr_e( '- OR -', 'wp-event-aggregator' ); ?></span>
+                                            <span class="ime-title-text" ><?php esc_attr_e( '- OR -', 'import-meetup-events' ); ?></span>
                                         </div>
                                     </div>
 
