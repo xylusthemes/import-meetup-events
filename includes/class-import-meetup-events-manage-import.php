@@ -82,7 +82,7 @@ class Import_Meetup_Events_Manage_Import {
 		global $ime_errors, $ime_success_msg;
 		if ( isset( $_POST['ime_action'] ) && $_POST['ime_action'] == 'ime_save_settings' &&  check_admin_referer( 'ime_setting_form_nonce_action', 'ime_setting_form_nonce' ) ) {
 			
-			$ime_options = isset( $_POST['meetup'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup'] ) ) ): array();
+			$ime_options = isset( $_POST['meetup'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['meetup'] ) ) : array(); // input var okay.
 			$is_update = update_option( IME_OPTIONS, $ime_options );
 			if( $is_update ){
 				$ime_success_msg[] = __( 'Import settings has been saved successfully.', 'import-meetup-events' );
