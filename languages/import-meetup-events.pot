@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-04T07:39:52+00:00\n"
+"POT-Creation-Date: 2025-11-29T07:12:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: import-meetup-events\n"
@@ -39,22 +39,22 @@ msgstr ""
 msgid "http://xylusthemes.com/"
 msgstr ""
 
-#: import-meetup-events.php:104
-#: import-meetup-events.php:113
+#: import-meetup-events.php:105
+#: import-meetup-events.php:114
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: import-meetup-events.php:220
+#: import-meetup-events.php:207
 #: includes/class-import-meetup-events-admin.php:193
 msgid "Setting"
 msgstr ""
 
-#: import-meetup-events.php:225
+#: import-meetup-events.php:212
 #: includes/class-import-meetup-events-common.php:1027
 msgid "Docs"
 msgstr ""
 
-#: import-meetup-events.php:234
+#: import-meetup-events.php:221
 #: includes/class-import-meetup-events-admin.php:67
 #: templates/admin-sidebar.php:16
 #: templates/admin-sidebar.php:19
@@ -818,7 +818,7 @@ msgstr ""
 msgid "Event Date"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:768
+#: includes/class-import-meetup-events-cpt.php:795
 msgid "There are no upcoming Events at this time."
 msgstr ""
 

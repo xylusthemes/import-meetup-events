@@ -546,9 +546,14 @@ class Import_Meetup_Events_Cpt {
 	public function meetup_events_archive( $atts = array() ){
 		//[meetup_events layout="style2" col='2' posts_per_page='12' category="cat1,cat2" past_events="yes" order="desc" orderby="" start_date="" end_date="" ]
 		$current_date = current_time( 'timestamp' );
-		$paged = ( get_query_var('paged') ? get_query_var('paged') : 1 );
-		if( is_front_page() ){
-			$paged = ( get_query_var('page') ? get_query_var('page') : 1 );
+		$ajaxpagi     = isset( $atts['ajaxpagi'] ) ? $atts['ajaxpagi'] : '';
+		if ( $ajaxpagi != 'yes' ) {
+			$paged        = ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 );
+			if ( is_front_page() ) {
+				$paged = ( get_query_var( 'page' ) ? get_query_var( 'page' ) : 1 );
+			}
+		}else{
+			$paged  = isset( $atts['paged'] ) ? $atts['paged'] : 1;
 		}
 
 		$eve_args = array(
@@ -738,7 +743,7 @@ class Import_Meetup_Events_Cpt {
 			$classes .= ' ' . $atts['className'];
 		}
 		?>
-		<div class="<?php echo esc_attr( $classes ); ?>">
+		<div class="<?php echo esc_attr( $classes ); ?>" data-paged="<?php echo esc_attr( $paged ); ?>" data-shortcode='<?php echo wp_json_encode( $atts ); ?>'>
 			<?php
 			$template_args                = array();
 			$template_args['css_class']   = $css_class;
@@ -752,18 +757,40 @@ class Import_Meetup_Events_Cpt {
 					}
 				endwhile; // End of the loop.
 
-				if ($meetup_events->max_num_pages > 1) : // custom pagination  ?>
-					<div class="col-ime-md-12">
-						<nav class="prev-next-posts">
-							<div class="prev-posts-link alignright">
-								<?php echo wp_kses_post( get_next_posts_link( 'Next Events &raquo;', $meetup_events->max_num_pages ) ); ?>
-							</div>
-							<div class="next-posts-link alignleft">
-								<?php echo wp_kses_post( get_previous_posts_link( '&laquo; Previous Events' ) ); ?>
-							</div>
-						</nav>
-					</div>
-				<?php endif;
+				if ( isset( $atts['ajaxpagi'] ) && $atts['ajaxpagi'] == 'yes' ) {
+					if ( $meetup_events->max_num_pages > 1 ) { ?>
+						<div class="col-ime-md-12">
+							<nav class="prev-next-posts">
+								<div class="prev-posts-link alignright">
+									<?php if( $paged < $meetup_events->max_num_pages ) : ?>
+										<a href="#" class="ime-next-page" data-page="<?php echo $paged + 1; ?>"><?php esc_attr_e( 'Next Events &raquo;' ); ?></a>
+									<?php endif; ?>
+								</div>
+								<div class="next-posts-link alignleft">
+									<?php if( $paged > 1 ) : ?>
+										<a href="#" class="ime-prev-page" data-page="<?php echo $paged - 1; ?>"><?php esc_attr_e( '&laquo; Previous Events' ); ?></a>
+									<?php endif; ?>
+								</div>
+							</nav>
+						</div>
+						<?php
+					}
+				}else{
+					if ( $meetup_events->max_num_pages > 1 ) : // custom pagination
+					?>
+						<div class="col-ime-md-12">
+							<nav class="prev-next-posts">
+								<div class="prev-posts-link alignright">
+									<?php echo get_next_posts_link( 'Next Events &raquo;', $meetup_events->max_num_pages ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								</div>
+								<div class="next-posts-link alignleft">
+									<?php echo get_previous_posts_link( '&laquo; Previous Events' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								</div>
+							</nav>
+						</div>
+					<?php
+					endif;
+				}
 			}else{
 				echo esc_html( apply_filters( 'ime_no_events_found_message', __( 'There are no upcoming Events at this time.', 'import-meetup-events' ) ) );
 			}

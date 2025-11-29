@@ -33,7 +33,7 @@ if (!class_exists('Import_Meetup_Events')):
          * Import_Meetup_Events The one true Import_Meetup_Events.
          */
         private static $instance;
-        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize, $eventprime;
+        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize, $eventprime, $ajax;
 
         /**
          * Main Import Meetup Events Instance.
@@ -54,13 +54,14 @@ if (!class_exists('Import_Meetup_Events')):
                 self::$instance = new Import_Meetup_Events;
                 self::$instance->setup_constants();
 
-                add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
                 add_action( 'plugins_loaded', array( self::$instance, 'load_authorize_class' ), 20 );
-                add_action('wp_enqueue_scripts', array(self::$instance, 'ime_enqueue_style'));
+                add_action( 'wp_enqueue_scripts', array( self::$instance, 'ime_enqueue_style' ) );
+                add_action( 'wp_enqueue_scripts', array( self::$instance, 'ime_enqueue_script' ) );
                 add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( self::$instance, 'ime_setting_doc_links' ) );
 
                 self::$instance->includes();
                 self::$instance->common = new Import_Meetup_Events_Common();
+                self::$instance->ajax     = new Import_Meetup_Events_Ajax();
                 self::$instance->cpt = new Import_Meetup_Events_Cpt();
                 self::$instance->meetup = new Import_Meetup_Events_Meetup();
                 self::$instance->admin = new Import_Meetup_Events_Admin();
@@ -167,6 +168,7 @@ if (!class_exists('Import_Meetup_Events')):
          */
         private function includes() {
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-common.php';
+            require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-ajax.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-list-table.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-admin.php';
             if (ime_is_pro()) {
@@ -189,21 +191,6 @@ if (!class_exists('Import_Meetup_Events')):
             require_once IME_PLUGIN_DIR . 'includes/libs/IMEParsedown.php';
             // Gutenberg Block
             require_once IME_PLUGIN_DIR . 'blocks/meetup-events/index.php';
-        }
-
-        /**
-         * Loads the plugin language files.
-         *
-         * @access public
-         * @since 1.0.0
-         * @return void
-         */
-        public function load_textdomain() {
-            load_plugin_textdomain(
-                'import-meetup-events',
-                false,
-                basename(dirname(__FILE__)) . '/languages'
-            );
         }
 
         /**
@@ -268,6 +255,22 @@ if (!class_exists('Import_Meetup_Events')):
             wp_enqueue_style('import-meetup-events-front', $css_dir . 'import-meetup-events.css', false, IME_VERSION );
             wp_enqueue_style('import-meetup-events-front-style2', $css_dir . 'grid-style2.css', false, IME_VERSION );
         }
+
+        /**
+		 * Enqueue script front-end
+		 *
+		 * @access public
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function ime_enqueue_script() {
+			// enqueue script here.
+			$js_dir = IME_PLUGIN_URL . 'assets/js/';
+			wp_enqueue_script( 'ime-ajax-pagi', $js_dir . 'ime-ajax-pagi.js', array( 'jquery' ), IME_VERSION, true );
+			wp_localize_script( 'ime-ajax-pagi', 'ime_ajax', array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			));
+		}
 
     }
 
