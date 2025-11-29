@@ -2090,4 +2090,8 @@ input#current-page-selector {
     display: block;
     margin-top: 5px;
 }
+
+.ime-new-feature .ime-inner-section-2 input[type="checkbox"] {
+    transform: scale(1.5);
+}
 /* public api option css end */

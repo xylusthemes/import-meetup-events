@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com/
 Tags: calendar, meetup, meetup event, Events, Meetup API
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 6.8
-Stable tag: 1.6.8
+Tested up to: 6.9
+Stable tag: 1.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,12 @@ It can also be installed manually.
 
 
 == Changelog ==
+
+= 1.6.9 =
+* ADDED: Revamped admin interface with new, user-friendly GUI
+* ADDED: AJAX-based pagination support for the shortcode. 
+* IMPROVEMENTS: Import events seamlessly using the new Public API integration
+* IMPROVEMENTS: Support for WP 6.9
 
 = 1.6.8 =
 * ADDED: Integrated support for the EventPrime plugin.
