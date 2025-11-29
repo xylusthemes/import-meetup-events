@@ -38,7 +38,7 @@ class Import_Meetup_Events_API {
             if ( ! empty( $access_token ) ) {
                 $api_key = $access_token->access_token;
             } else {
-                $api_key = $api_key['meetup_api_key'];
+                $api_key = isset( $api_key['meetup_api_key'] ) ? $api_key['meetup_api_key'] : '';
             }
         }
         $this->api_key = $api_key;
