@@ -141,7 +141,7 @@ class Import_Meetup_Events_Meetup {
 		$parsedown         = new IMEParsedown();
 		$start             = isset( $meetup_event['dateTime'] ) ? $meetup_event['dateTime'] : ''; 
 		$end               = isset( $meetup_event['endTime'] ) ? $meetup_event['endTime'] : '';
-		$timezone          = $this->iee_get_timezone_from_datetime( $start );
+		$timezone          = $this->ime_get_timezone_from_datetime( $start );
 		$start_time        = strtotime( $this->convert_datetime_to_timezone_wise_datetime( $start, $timezone ) );
 		$end_time          = strtotime( $this->convert_datetime_to_timezone_wise_datetime( $end, $timezone ) );
 		$event_name        = isset( $meetup_event['title']) ? sanitize_text_field( $meetup_event['title'] ) : '';
@@ -384,7 +384,7 @@ class Import_Meetup_Events_Meetup {
 	 *
 	 * @return string|bool
 	 */
-	public function iee_get_timezone_from_datetime( $dateTimeString ) {
+	public function ime_get_timezone_from_datetime( $dateTimeString ) {
 		if ( empty( $dateTimeString ) ) {
 			return 'Etc/UTC';
 		}

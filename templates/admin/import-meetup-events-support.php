@@ -75,60 +75,93 @@ $twitter_url = 'https://twitter.com/XylusThemes/';
         </div>
 
         <?php 
-        $plugins = array();
-        $plugin_list = $ime_events->admin->get_xyuls_themes_plugins();
-        if( !empty( $plugin_list ) ){
-            foreach ($plugin_list as $key => $value) {
-                $plugins[] = $ime_events->admin->get_wporg_plugin( $key );
-            }
-        }
-        ?>
-        <div class="" style="margin-top: 20px;">
-            <h3 class="setting_bar"><?php esc_attr_e( 'Plugins you should try','import-meetup-events' ); ?></h3>
-            <?php 
-            if( !empty( $plugins ) ){
-                foreach ($plugins as $plugin ) {
-                    ?>
-                    <div class="plugin_box">
-                        <?php if( $plugin->banners['low'] != '' ){ ?>
-                            <?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
-                            <img src="<?php echo esc_attr( $plugin->banners['low'] ); ?>" class="plugin_img" title="<?php echo esc_attr( $plugin->name ); ?>">
-                        <?php } ?>                    
-                        <div class="plugin_content">
-                            <h3><?php echo esc_attr( $plugin->name ); ?></h3>
+			$plugin_list = array();
+			$plugin_list = $ime_events->common->ime_get_xylus_themes_plugins();
+		?>
+		<div class="" style="margin-top: 20px;">
+			<h3 class="setting_bar"><?php esc_html_e( 'Plugins you should try','import-meetup-events' ); ?></h3>
+			<div class="ime-about-us-plugins">
+				<!-- <div class="ime-row"> -->
+				<div class="ime-support-features2">
+				
+					<?php 
+						if( !empty( $plugin_list ) ){
+							foreach ($plugin_list as $key => $plugin ) {
 
-                            <?php wp_star_rating( array(
-                            'rating' => $plugin->rating,
-                            'type'   => 'percent',
-                            'number' => $plugin->num_ratings,
-                            ) );?>
+								$plugin_slug = ucwords( str_replace( '-', ' ', $key ) );
+								$plugin_name =  $plugin['plugin_name'];
+								$plugin_description =  $plugin['description'];
+								if( $key == 'wp-event-aggregator' ){
+									$plugin_icon = 'https://ps.w.org/'.$key.'/assets/icon-256x256.jpg';
+								} elseif( $key == 'xt-feed-for-linkedin' ) {
+									$plugin_icon = 'https://ps.w.org/'.$key.'/assets/icon-256x256.gif';
+                                } else {
+                                    $plugin_icon = 'https://ps.w.org/'.$key.'/assets/icon-256x256.png';
+								}
 
-                            <?php if( $plugin->version != '' ){ ?>
-                                <p><strong><?php esc_attr_e( 'Version:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->version ); ?></p>
-                            <?php } ?>
+								// Check if the plugin is installed
+								$plugin_installed = false;
+								$plugin_active = false;
+								include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+								$all_plugins = get_plugins();
+								$plugin_path = $key . '/' . $key . '.php';
 
-                            <?php if( $plugin->requires != '' ){ ?>
-                                <p><strong><?php esc_attr_e( 'Requires:','import-meetup-events' ); ?> </strong> <?php esc_attr_e( 'WordPress ','import-meetup-events' ); echo esc_attr( $plugin->requires ); ?>+</p>
-                            <?php } ?>
+								if (isset($all_plugins[$plugin_path])) {
+									$plugin_installed = true;
+									$plugin_active = is_plugin_active($plugin_path);
+								}
 
-                            <?php if( $plugin->active_installs != '' ){ ?>
-                                <p><strong><?php esc_attr_e( 'Active Installs:','import-meetup-events' ); ?> </strong><?php echo esc_attr( $plugin->active_installs ); ?>+</p>
-                            <?php } ?>
-
-                            <?php //print_r( $plugin ); ?>
-                            <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin='. $plugin->slug.'&TB_iframe=1&width=772&height=600') ); ?>" target="_blank">
-                                <?php esc_attr_e( 'Install Now','import-meetup-events' ); ?>
-                            </a>
-                            <a class="button button-primary" href="<?php echo esc_url( $plugin->homepage . '?utm_source=crosssell&utm_medium=web&utm_content=supportpage&utm_campaign=freeplugin' ); ?>" target="_blank">
-                                <?php esc_attr_e( 'Buy Now','import-meetup-events' ); ?>
-                            </a>
-                        </div>
-                    </div>
-                    <?php
-                }
-            }
-            ?>
-            <div style="clear: both;">
-        </div>
+								// Determine the status text
+								$status_text = 'Not Installed';
+								if ($plugin_installed) {
+									$status_text = $plugin_active ? 'Active' : 'Installed (Inactive)';
+								}
+								
+								?>
+								<div class="ime-support-features-card2 ime-plugin">
+									<div class="ime-plugin-main">
+										<div>
+											<?php
+												// translators: %s: Plugin slug used in image alt text.
+												$alt_text = sprintf( esc_attr__( '%s Image', 'import-meetup-events' ), $plugin_slug ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+											?>
+											<?php // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage  ?>
+											<img alt="<?php echo $alt_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" src="<?php echo esc_url( $plugin_icon ); ?>">
+										</div>
+										<div>
+											<div class="ime-main-name"><?php echo esc_attr( $plugin_slug ); ?></div>
+											<div><?php echo esc_attr( $plugin_description ); ?></div>
+										</div>
+									</div>
+									<div class="ime-plugin-footer">
+										<div class="ime-footer-status">
+											<div class="ime-footer-status-label"><?php esc_attr_e( 'Status : ', 'import-meetup-events' ); ?></div>
+											<div class="ime-footer-status ime-footer-status-<?php echo esc_attr( strtolower(str_replace(' ', '-', $status_text) ) ); ?>">
+												<span <?php echo ( $status_text == 'Active' ) ? 'style="color:green;"' : ''; ?>>
+													<?php echo esc_attr( $status_text ); ?>
+												</span>
+											</div>
+										</div>
+										<div class="ime-footer-action">
+											<?php if (!$plugin_installed): ?>
+												<a href="<?php echo esc_url( admin_url( 'plugin-install.php?s=xylus&tab=search&type=term' ) ); ?>" type="button" class="button button-primary">Install Free Plugin</a>
+											<?php elseif (!$plugin_active): ?>
+												<?php 
+													$activate_nonce = wp_create_nonce('activate_plugin_' . $plugin_slug); 
+													$activation_url = add_query_arg(array( 'action' => 'activate_plugin', 'plugin_slug' => $plugin_slug, 'nonce' => $activate_nonce, ), admin_url('admin.php?page=eventbrite_event&tab=support'));
+												?>
+												<a href="<?php echo esc_url( admin_url( 'plugins.php?s='. $plugin_slug ) ); ?>" class="button button-primary">Activate Plugin</a>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div>
+								<?php
+							}
+						}
+					?>
+				</div>
+			</div>
+			<div style="clear: both;">
+		</div>
     </div>
 </div>

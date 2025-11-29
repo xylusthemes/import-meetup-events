@@ -22,6 +22,7 @@ class Import_Meetup_Events_Common {
 		add_action( 'wp_ajax_ime_render_terms_by_plugin', array( $this,'ime_render_terms_by_plugin' ) );
 		add_action( 'ime_render_pro_notice', array( $this, 'render_pro_notice') );
 		add_action( 'admin_init', array( $this, 'ime_check_for_minimum_pro_version' ) );
+		add_action( 'admin_init', array( $this, 'ime_redirect_after_activation' ) );
 	}	
 
 	/**
@@ -35,11 +36,13 @@ class Import_Meetup_Events_Common {
 
 		$active_plugins = $this->get_active_supported_event_plugins();
 		?>	
-		<tr class="event_plugis_wrapper">
-			<th scope="row">
-				<?php esc_attr_e( 'Import into','import-meetup-events' ); ?> :
-			</th>
-			<td>
+		<div class="ime-inner-main-section event_plugis_wrapper">
+			<div class="ime-inner-section-1" >
+				<span class="ime-title-text" >
+					<?php esc_attr_e( 'Import into','import-meetup-events' ); ?>
+				</span>
+			</div>
+			<div class="ime-inner-section-2" >
 				<select name="event_plugin" class="event_import_plugin">
 					<?php
 					if( !empty( $active_plugins ) ){
@@ -51,24 +54,44 @@ class Import_Meetup_Events_Common {
 					}
 					?>
 	            </select>
-			</td>
-		</tr>
+			</div>
+		</div>
 
-		<tr class="event_cats_wrapper">
-			<th scope="row">
-				<?php esc_attr_e( 'Event Categories for Event Import','import-meetup-events' ); ?> : 
-			</th>
-			<td>
-				<div class="event_taxo_terms_wraper">
+		<div class="ime-inner-main-section event_plugis_wrapper">
+			<div class="ime-inner-section-1" >
+				<span class="ime-title-text" >
+					<?php esc_attr_e( 'Event Categories for Event Import','import-meetup-events' ); ?>
+					<span class="ime-tooltip">
+						<div>
+							<svg viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg" class="ime-circle-question-mark">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M1.6665 10.0001C1.6665 5.40008 5.39984 1.66675 9.99984 1.66675C14.5998 1.66675 18.3332 5.40008 18.3332 10.0001C18.3332 14.6001 14.5998 18.3334 9.99984 18.3334C5.39984 18.3334 1.6665 14.6001 1.6665 10.0001ZM10.8332 13.3334V15.0001H9.1665V13.3334H10.8332ZM9.99984 16.6667C6.32484 16.6667 3.33317 13.6751 3.33317 10.0001C3.33317 6.32508 6.32484 3.33341 9.99984 3.33341C13.6748 3.33341 16.6665 6.32508 16.6665 10.0001C16.6665 13.6751 13.6748 16.6667 9.99984 16.6667ZM6.6665 8.33341C6.6665 6.49175 8.15817 5.00008 9.99984 5.00008C11.8415 5.00008 13.3332 6.49175 13.3332 8.33341C13.3332 9.40251 12.6748 9.97785 12.0338 10.538C11.4257 11.0695 10.8332 11.5873 10.8332 12.5001H9.1665C9.1665 10.9824 9.9516 10.3806 10.6419 9.85148C11.1834 9.43642 11.6665 9.06609 11.6665 8.33341C11.6665 7.41675 10.9165 6.66675 9.99984 6.66675C9.08317 6.66675 8.33317 7.41675 8.33317 8.33341H6.6665Z" fill="currentColor"></path>
+							</svg>
+							<span class="ime-popper">
+								<?php esc_attr_e( 'These categories are assign to imported event.', 'import-meetup-events' ); ?>
+								<div class="ime-popper__arrow"></div>
+							</span>
+						</div>
+					</span>
+				</span>
+			</div>
+			<div class="ime-inner-section-2" >
+				<div class="event_taxo_terms_wraper"></div>
+			</div>
+		</div>
 
-				</div>
-				<span class="ime_small">
-		            <?php esc_attr_e( 'These categories are assign to imported event.', 'import-meetup-events' ); ?>
-		        </span>
-			</td>
-		</tr>
 		<?php		
 
+	}
+
+	/**
+	 * Redirect after activate the plugin.
+	 */
+	public function ime_redirect_after_activation() {
+		if ( get_option( 'ime_plugin_activated' ) ) {
+			delete_option( 'ime_plugin_activated' );
+			wp_safe_redirect( admin_url( 'admin.php?page=meetup_import&tab=ime_setup_wizard' ) );
+			exit;
+		}
 	}
 
 	/**
@@ -530,11 +553,13 @@ class Import_Meetup_Events_Common {
 	 */
 	function render_eventstatus_input(){
 		?>
-		<tr class="event_status_wrapper">
-			<th scope="row">
-				<?php esc_attr_e( 'Status','import-meetup-events' ); ?> :
-			</th>
-			<td>
+		<div class="ime-inner-main-section event_status_wrapper">
+			<div class="ime-inner-section-1" >
+				<span class="ime-title-text" >
+					<?php esc_attr_e( 'Status','import-meetup-events' ); ?>
+				</span>
+			</div>
+			<div class="ime-inner-section-2" >
 				<select name="event_status" >
 	                <option value="publish">
 	                    <?php esc_html_e( 'Published','import-meetup-events' ); ?>
@@ -546,8 +571,8 @@ class Import_Meetup_Events_Common {
 	                    <?php esc_html_e( 'Draft','import-meetup-events' ); ?>
 	                </option>
 	            </select>
-			</td>
-		</tr>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -655,7 +680,7 @@ class Import_Meetup_Events_Common {
 	public function render_pro_notice(){
 		if( !ime_is_pro() ){
 			?>
-			<span class="ime_small">
+			<span class="ime-blur-filter-cta">
 		        <?php printf( '<span style="color: red">%s</span> <a href="' . esc_url( IME_PLUGIN_BUY_NOW_URL ) . '" target="_blank" >%s</a>', esc_html__( 'Available in Pro version.', 'import-meetup-events' ), esc_html__( 'Upgrade to PRO', 'import-meetup-events' ) ); ?>
 		    </span>
 			<?php
@@ -954,6 +979,141 @@ class Import_Meetup_Events_Common {
         if( $import_frequency !== 'not_repeat' ) {
             $scheduled = wp_schedule_event( $cron_time, $import_frequency, 'ime_run_scheduled_import', array( 'post_id' => $post_id ) );
         }
+    }
+	
+	/**
+	 * Render Page header Section
+	 *
+	 * @since 1.1
+	 * @return void
+	 */
+	function ime_render_common_header( $page_title  ){
+		?>
+		<div class="ime-header" >
+			<div class="ime-container" >
+				<div class="ime-header-content" >
+					<span style="font-size:18px;"><?php esc_attr_e('Dashboard','import-meetup-events'); ?></span>
+					<span class="spacer"></span>
+					<span class="page-name"><?php echo esc_attr( $page_title ); ?></span></span>
+					<div class="header-actions" >
+						<span class="round">
+							<a href="<?php echo esc_url( 'https://docs.xylusthemes.com/docs/import-meetup-events/' ); ?>" target="_blank">
+								<svg viewBox="0 0 20 20" fill="#000000" height="20px" xmlns="http://www.w3.org/2000/svg" class="ime-circle-question-mark">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M1.6665 10.0001C1.6665 5.40008 5.39984 1.66675 9.99984 1.66675C14.5998 1.66675 18.3332 5.40008 18.3332 10.0001C18.3332 14.6001 14.5998 18.3334 9.99984 18.3334C5.39984 18.3334 1.6665 14.6001 1.6665 10.0001ZM10.8332 13.3334V15.0001H9.1665V13.3334H10.8332ZM9.99984 16.6667C6.32484 16.6667 3.33317 13.6751 3.33317 10.0001C3.33317 6.32508 6.32484 3.33341 9.99984 3.33341C13.6748 3.33341 16.6665 6.32508 16.6665 10.0001C16.6665 13.6751 13.6748 16.6667 9.99984 16.6667ZM6.6665 8.33341C6.6665 6.49175 8.15817 5.00008 9.99984 5.00008C11.8415 5.00008 13.3332 6.49175 13.3332 8.33341C13.3332 9.40251 12.6748 9.97785 12.0338 10.538C11.4257 11.0695 10.8332 11.5873 10.8332 12.5001H9.1665C9.1665 10.9824 9.9516 10.3806 10.6419 9.85148C11.1834 9.43642 11.6665 9.06609 11.6665 8.33341C11.6665 7.41675 10.9165 6.66675 9.99984 6.66675C9.08317 6.66675 8.33317 7.41675 8.33317 8.33341H6.6665Z" fill="currentColor"></path>
+								</svg>
+							</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render Page Footer Section
+	 *
+	 * @since 1.1
+	 * @return void
+	 */
+	function ime_render_common_footer(){
+		?>
+			<div id="ime-footer-links" >
+				<div class="ime-footer">
+					<div><?php esc_attr_e( 'Made with ♥ by the Xylus Themes','import-meetup-events'); ?></div>
+					<div class="ime-links" >
+						<a href="<?php echo esc_url( 'https://xylusthemes.com/support/' ); ?>" target="_blank" ><?php esc_attr_e( 'Support','import-meetup-events'); ?></a>
+						<span>/</span>
+						<a href="<?php echo esc_url( 'https://docs.xylusthemes.com/docs/import-meetup-events' ); ?>" target="_blank" ><?php esc_attr_e( 'Docs','import-meetup-events'); ?></a>
+						<span>/</span>
+						<a href="<?php echo esc_url( admin_url( 'plugin-install.php?s=xylus&tab=search&type=term' ) ); ?>" ><?php esc_attr_e( 'Free Plugins','import-meetup-events'); ?></a>
+					</div>
+					<div class="ime-social-links">
+						<a href="<?php echo esc_url( 'https://www.facebook.com/xylusinfo/' ); ?>" target="_blank" >
+							<svg class="ime-facebook">
+								<path fill="currentColor" d="M16 8.05A8.02 8.02 0 0 0 8 0C3.58 0 0 3.6 0 8.05A8 8 0 0 0 6.74 16v-5.61H4.71V8.05h2.03V6.3c0-2.02 1.2-3.15 3-3.15.9 0 1.8.16 1.8.16v1.98h-1c-1 0-1.31.62-1.31 1.27v1.49h2.22l-.35 2.34H9.23V16A8.02 8.02 0 0 0 16 8.05Z"></path>
+							</svg>
+						</a>
+						<a href="<?php echo esc_url( 'https://www.linkedin.com/company/xylus-consultancy-service-xcs-/' ); ?>" target="_blank" >
+							<svg class="ime-linkedin">
+								<path fill="currentColor" d="M14 1H1.97C1.44 1 1 1.47 1 2.03V14c0 .56.44 1 .97 1H14a1 1 0 0 0 1-1V2.03C15 1.47 14.53 1 14 1ZM5.22 13H3.16V6.34h2.06V13ZM4.19 5.4a1.2 1.2 0 0 1-1.22-1.18C2.97 3.56 3.5 3 4.19 3c.65 0 1.18.56 1.18 1.22 0 .66-.53 1.19-1.18 1.19ZM13 13h-2.1V9.75C10.9 9 10.9 8 9.85 8c-1.1 0-1.25.84-1.25 1.72V13H6.53V6.34H8.5v.91h.03a2.2 2.2 0 0 1 1.97-1.1c2.1 0 2.5 1.41 2.5 3.2V13Z"></path>
+							</svg>
+						</a>
+						<a href="<?php echo esc_url( 'https://x.com/XylusThemes" target="_blank' ); ?>" target="_blank" >
+							<svg class="ime-twitter" width="24" height="24" viewBox="0 0 24 24">
+								<circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+								<g>
+									<path d="M13.129 11.076L17.588 6H16.5315L12.658 10.4065L9.5665 6H6L10.676 12.664L6 17.9865H7.0565L11.1445 13.332L14.41 17.9865H17.9765L13.129 11.076ZM11.6815 12.7225L11.207 12.0585L7.4375 6.78H9.0605L12.1035 11.0415L12.576 11.7055L16.531 17.2445H14.908L11.6815 12.7225Z" fill="white"></path>
+								</g>
+							</svg>
+						</a>
+						<a href="<?php echo esc_url( 'https://www.youtube.com/@xylussupport7784' ); ?>" target="_blank" >
+							<svg class="ime-youtube">
+								<path fill="currentColor" d="M16.63 3.9a2.12 2.12 0 0 0-1.5-1.52C13.8 2 8.53 2 8.53 2s-5.32 0-6.66.38c-.71.18-1.3.78-1.49 1.53C0 5.2 0 8.03 0 8.03s0 2.78.37 4.13c.19.75.78 1.3 1.5 1.5C3.2 14 8.51 14 8.51 14s5.28 0 6.62-.34c.71-.2 1.3-.75 1.49-1.5.37-1.35.37-4.13.37-4.13s0-2.81-.37-4.12Zm-9.85 6.66V5.5l4.4 2.53-4.4 2.53Z"></path>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		<?php   
+	}
+
+	/**
+	 * Get Eventbrite Events Counts
+	 *
+	 * @since 1.5.0
+	 * @return array
+	 */
+	function ime_get_meetup_events_counts() {
+		global $wpdb;
+	
+		// Table names with WordPress prefix
+		$posts_table    = $wpdb->prefix . 'posts';
+		$postmeta_table = $wpdb->prefix . 'postmeta';
+		
+		// Current Unix timestamp
+		$current_time = current_time( 'timestamp' );
+	
+		// Single query to get all counts
+		$sql = "SELECT 
+				COUNT( p.ID ) AS all_posts_count,
+				SUM( CASE WHEN pm.meta_value > %d THEN 1 ELSE 0 END ) AS upcoming_events_count,
+				SUM( CASE WHEN pm.meta_value <= %d THEN 1 ELSE 0 END ) AS past_events_count
+			FROM {$posts_table} AS p
+			INNER JOIN {$postmeta_table} AS pm ON p.ID = pm.post_id
+			WHERE p.post_type = %s
+			AND p.post_status = %s
+			AND pm.meta_key = %s";
+
+		$prepared_sql = $wpdb->prepare( $sql, $current_time, $current_time, 'meetup_events', 'publish', 'end_ts' ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$counts       = $wpdb->get_row( $prepared_sql );
+	
+		// Return the counts as an array
+		return [
+			'all'      => intval( $counts->all_posts_count ),
+			'upcoming' => intval( $counts->upcoming_events_count ),
+			'past'     => intval( $counts->past_events_count ),
+		];
+	}
+
+	/**
+     * Get Plugin array
+     *
+     * @since 1.1.0
+     * @return array
+     */
+    public function ime_get_xylus_themes_plugins(){
+        return array(
+            'wp-bulk-delete' => array( 'plugin_name' => esc_html__( 'WP Bulk Delete', 'import-meetup-events' ), 'description' => 'Delete posts, pages, comments, users, taxonomy terms and meta fields in bulk with different powerful filters and conditions.' ),
+            'wp-event-aggregator' => array( 'plugin_name' => esc_html__( 'WP Event Aggregator', 'import-meetup-events' ), 'description' => 'WP Event Aggregator: Easy way to import Facebook Events, Eventbrite events, MeetUp events into your WordPress Event Calendar.' ),
+            'import-facebook-events' => array( 'plugin_name' => esc_html__( 'Import Social Events', 'import-meetup-events' ), 'description' => 'Import Facebook events into your WordPress website and/or Event Calendar. Nice Display with shortcode & Event widget.' ),
+            'import-eventbrite-events' => array( 'plugin_name' => esc_html__( 'Import Eventbrite Events', 'import-meetup-events' ), 'description' => 'Import Eventbrite Events into WordPress website and/or Event Calendar. Nice Display with shortcode & Event widget.' ),
+            'event-schema' => array( 'plugin_name' => esc_html__( 'Event Schema / Structured Data', 'import-meetup-events' ), 'description' => 'Automatically Google Event Rich Snippet Schema Generator. This plug-in generates complete JSON-LD based schema (structured data for Rich Snippet) for events.' ),
+            'wp-smart-import' => array( 'plugin_name' => esc_html__( 'WP Smart Import : Import any XML File to WordPress', 'import-meetup-events' ), 'description' => 'The most powerful solution for importing any CSV files to WordPress. Create Posts and Pages any Custom Posttype with content from any CSV file.' ),
+            'xylus-events-calendar' => array( 'plugin_name' => esc_html__( 'Easy Events Calendar', 'import-meetup-events' ), 'description' => 'Display upcoming events from multiple sources in a responsive calendar with customizable layouts like grid, row, calendar, masonry, and slider.' ),
+            'xt-feed-for-linkedin' => array( 'plugin_name' => esc_html__( 'XT Feed for LinkedIn', 'import-meetup-events' ), 'description' => 'XT Feed for LinkedIn auto-shares WordPress posts to LinkedIn with one click, making content distribution easy and boosting your reach effortlessly.' ),
+        );
     }
 }
 

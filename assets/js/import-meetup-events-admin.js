@@ -104,24 +104,33 @@
 jQuery(document).ready(function($){
 
     const ime_tab_link = document.querySelectorAll('.ime_tab_link');
-    const ime_tabcontents = document.querySelectorAll('.ime_tab_content');
+	const ime_tabcontents = document.querySelectorAll('.ime_tab_content');
 
-    ime_tab_link.forEach(function(link) {
-        link.addEventListener('click', function() {
-        const ime_tabId = this.dataset.tab;
+	ime_tab_link.forEach(function(link) {
+		link.addEventListener('click', function() {
+		const ime_tabId = this.dataset.tab;
 
-        ime_tab_link.forEach(function(link) {
-            link.classList.remove('active');
-        });
+			// Loop through all links to update classes
+			ime_tab_link.forEach(function (link) {
+				if (link === this) {
+					link.classList.add('var-tab--active');
+					link.classList.remove('var-tab--inactive');
+				} else {
+					link.classList.remove('var-tab--active');
+					link.classList.add('var-tab--inactive');
+				}
+			}, this);
 
-        ime_tabcontents.forEach(function(content) {
-            content.classList.remove('active');
-        });
-
-        this.classList.add('active');
-        document.getElementById(ime_tabId).classList.add('active');
-        });
-    });
+			// Loop through all tab contents to show/hide
+			ime_tabcontents.forEach(function (content) {
+				if (content.id === ime_tabId) {
+					content.classList.add('var-tab--active');
+				} else {
+					content.classList.remove('var-tab--active');
+				}
+			});
+		});
+	});
 
     const ime_gm_apikey_input = document.querySelector('.ime_google_maps_api_key');
 	if ( ime_gm_apikey_input ) { 
@@ -170,4 +179,15 @@ jQuery(document).ready(function($){
         ime_xhr.send();
     }
 
+});
+
+jQuery(document).ready(function($) {
+    var $slides = $('.ime-screenshot-slide');
+    var index = 0;
+
+    setInterval(function() {
+        $slides.removeClass('active');
+        index = (index + 1) % $slides.length;
+        $slides.eq(index).addClass('active');
+    }, 3000);
 });
