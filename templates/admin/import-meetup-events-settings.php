@@ -128,6 +128,31 @@ if( is_object( $ime_authorized_user ) ){
                                 </div>
                                 <form method="post" id="ime_setting_form" style="margin-top: 20px;">
                                                                                                             
+                                    <div class="ime-inner-main-section ime-new-feature" >
+                                        <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" >
+                                                <?php esc_attr_e( 'Import Event With Public API ', 'import-meetup-events' ); ?>
+                                                <br/>
+                                                <?php esc_attr_e( '(No Auth Required) ', 'import-meetup-events' ); ?>
+                                            </span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php
+                                                $using_public_api = isset( $meetup_options['using_public_api'] ) ? $meetup_options['using_public_api'] : 'no';
+                                            ?>
+                                            <input type="checkbox" name="meetup[using_public_api]" value="yes" <?php if( $using_public_api == 'yes' ) { echo 'checked="checked"'; } ?> />
+                                            <span class="ime_small">
+                                                <strong><?php esc_attr_e( 'Using "Import Event With Public API (No Auth Required)" lets you fetch events directly. No Key or authorization needed.', 'import-meetup-events' ); ?></strong>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="meetup_or_keyandsecrate">
+                                            <span class="ime-title-text" ><?php esc_attr_e( '- OR -', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                    </div>                                    
+
                                     <div class="ime-inner-main-section"  >
                                         <div class="ime-inner-section-1" >
                                             <span class="ime-title-text" ><?php esc_attr_e( 'Meetup OAuth Key','import-meetup-events' ); ?></span>

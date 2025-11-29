@@ -2072,3 +2072,22 @@ input#current-page-selector {
     margin-right: 10px;
 }
 /* end new calendar section css */
+/* public api option css start */
+.ime-new-feature {
+    border: 2px solid #4CAF50;
+    padding: 15px 20px;
+    background: #f9fff9;
+    border-radius: 8px;
+}
+.ime-new-feature .ime-title-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d7a2d;
+}
+.ime-new-feature .ime_small {
+    font-size: 13px;
+    color: #555;
+    display: block;
+    margin-top: 5px;
+}
+/* public api option css end */

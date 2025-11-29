@@ -10,11 +10,11 @@
     </div>
 
     <div class="ime-wizard-open-popup-box" >
-        <button class="ime-wizard-open-popup add-event ime-wizard-button-style" onclick="window.open('<?php echo esc_url( 'https://www.meetup.com/api/oauth/list/' ); ?>', '_blank', 'noopener,noreferrer');">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="26" viewBox="0 0 32 26">
-                <path d="M0,29H32V3H0Zm1-1V8H31V28ZM31,4V7H1V4ZM3,5H5V6H3ZM7,5H9V6H7Zm4,0h2V6H11ZM3,12H16.5v1H3Zm0,4H16.5v1H3Zm0,4H16.5v1H3Zm15.5,1H29V12H18.5Zm1-8H28v7H19.5Z" transform="translate(0 -3)" fill="#959da4"></path>
+        <button class="ime-wizard-open-popup add-event ime-wizard-button-style" onclick="window.open('<?php echo esc_url( admin_url('post-new.php?post_type=meetup_events') ); ?>', '_blank', 'noopener,noreferrer');">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="27" viewBox="0 0 32 27">
+                <path d="M26.5,2.5h-4v2H9.5v-2h-4v2H0v25H32V4.5H26.5Zm-3,1h2v3h-2Zm-17,0h2v3h-2ZM1,28.5V9.5H31v19Zm30-23v3H1v-3H5.5v2h4v-2h13v2h4v-2ZM4.5,17.5h6v-6h-6Zm1-5h4v4h-4Zm-1,14h6v-6h-6Zm1-5h4v4h-4Zm16-4h6v-6h-6Zm1-5h4v4h-4Zm-1,14h6v-6h-6Zm1-5h4v4h-4Zm-9.5-4h6v-6H13Zm1-5h4v4H14Zm-1,14h6v-6H13Zm1-5h4v4H14Z" transform="translate(0 -2.5)" fill="#959da4"></path>
             </svg>
-            <span><?php esc_attr_e( 'Create Meetup App', 'import-meetup-events' ); ?></span>
+            <span><?php esc_attr_e( 'Add Event', 'import-meetup-events' ); ?></span>
         </button>
         <button class="ime-wizard-open-popup ime-settings ime-wizard-button-style" id="ime_wizard_setting_button" onclick="window.location.href='<?php echo esc_url( admin_url( 'admin.php?page=meetup_import&tab=settings' ) ); ?>';" >
             <svg xmlns="http://www.w3.org/2000/svg" width="32.002" height="32.002" viewBox="0 0 32.002 32.002">
