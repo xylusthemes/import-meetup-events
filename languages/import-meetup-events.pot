@@ -16,7 +16,6 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: import-meetup-events.php
-#: includes/class-import-meetup-events-admin.php:114
 msgid "Import Meetup Events"
 msgstr ""
 
@@ -141,202 +140,215 @@ msgstr ""
 msgid "* By submitting this form, you will also be sending us your email address &amp; website URL."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:56
 #: includes/class-import-meetup-events-admin.php:57
-#: templates/meetup-import-events.php:9
+#: includes/class-import-meetup-events-admin.php:59
 msgid "Meetup Import"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:58
-msgid "Schedule Import"
-msgstr ""
-
-#: includes/class-import-meetup-events-admin.php:59
-#: includes/class-import-meetup-events-admin.php:140
-#: includes/class-import-meetup-events-admin.php:305
-msgid "Import History"
+#: includes/class-import-meetup-events-common.php:995
+msgid "Dashboard"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:60
-#: includes/class-import-meetup-events-admin.php:144
-msgid "Settings"
+#: includes/class-import-meetup-events-admin.php:187
+msgid "Schedule Import"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:61
-#: includes/class-import-meetup-events-admin.php:148
-msgid "Shortcodes"
+#: includes/class-import-meetup-events-admin.php:363
+msgid "Import History"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:62
-msgid "Support & help"
+#: templates/admin/ime-dashboard.php:41
+#: templates/admin/ime-setup-wizard.php:23
+msgid "Settings"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:132
+#: includes/class-import-meetup-events-admin.php:63
+#: includes/class-import-meetup-events-admin.php:196
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:64
+#: includes/class-import-meetup-events-common.php:1025
+msgid "Support"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:65
+msgid "Wizard"
+msgstr ""
+
+#: includes/class-import-meetup-events-admin.php:184
 #: includes/class-import-meetup-events-list-table.php:468
 msgid "Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:136
-msgid "Scheduled Imports"
+#: includes/class-import-meetup-events-admin.php:190
+msgid "History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:152
+#: includes/class-import-meetup-events-admin.php:199
 msgid "Support & Help"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:243
+#: includes/class-import-meetup-events-admin.php:301
 msgctxt "post type general name"
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:244
+#: includes/class-import-meetup-events-admin.php:302
 msgctxt "post type singular name"
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:245
+#: includes/class-import-meetup-events-admin.php:303
 msgctxt "admin menu"
 msgid "Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:246
+#: includes/class-import-meetup-events-admin.php:304
 msgctxt "add new on admin bar"
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:247
-#: includes/class-import-meetup-events-admin.php:291
+#: includes/class-import-meetup-events-admin.php:305
+#: includes/class-import-meetup-events-admin.php:349
 msgctxt "book"
 msgid "Add New"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:248
+#: includes/class-import-meetup-events-admin.php:306
 msgid "Add New Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:249
+#: includes/class-import-meetup-events-admin.php:307
 msgid "New Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:250
+#: includes/class-import-meetup-events-admin.php:308
 msgid "Edit Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:251
+#: includes/class-import-meetup-events-admin.php:309
 msgid "View Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:252
+#: includes/class-import-meetup-events-admin.php:310
 msgid "All Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:253
+#: includes/class-import-meetup-events-admin.php:311
 msgid "Search Scheduled Imports"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:254
+#: includes/class-import-meetup-events-admin.php:312
 msgid "Parent Imports:"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:255
+#: includes/class-import-meetup-events-admin.php:313
 msgid "No Imports found."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:256
+#: includes/class-import-meetup-events-admin.php:314
 msgid "No Imports found in Trash."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:261
+#: includes/class-import-meetup-events-admin.php:319
 msgid "Scheduled Imports."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:287
+#: includes/class-import-meetup-events-admin.php:345
 msgctxt "post type general name"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:288
+#: includes/class-import-meetup-events-admin.php:346
 msgctxt "post type singular name"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:289
+#: includes/class-import-meetup-events-admin.php:347
 msgctxt "admin menu"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:290
+#: includes/class-import-meetup-events-admin.php:348
 msgctxt "add new on admin bar"
 msgid "Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:292
+#: includes/class-import-meetup-events-admin.php:350
 #: includes/class-import-meetup-events-cpt.php:103
 msgid "Add New"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:293
+#: includes/class-import-meetup-events-admin.php:351
 msgid "New History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:294
+#: includes/class-import-meetup-events-admin.php:352
 msgid "Edit History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:295
+#: includes/class-import-meetup-events-admin.php:353
 msgid "View History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:296
+#: includes/class-import-meetup-events-admin.php:354
 msgid "All Import History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:297
+#: includes/class-import-meetup-events-admin.php:355
 msgid "Search History"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:298
+#: includes/class-import-meetup-events-admin.php:356
 msgid "Parent History:"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:299
+#: includes/class-import-meetup-events-admin.php:357
 msgid "No History found."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:300
+#: includes/class-import-meetup-events-admin.php:358
 msgid "No History found in Trash."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:337
+#: includes/class-import-meetup-events-admin.php:395
 #, php-format
 msgid " Rate %1$sImport Meetup Events%2$s %3$s"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:354
+#: includes/class-import-meetup-events-admin.php:412
+#: includes/class-import-meetup-events-common.php:1109
 msgid "WP Event Aggregator"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:355
+#: includes/class-import-meetup-events-admin.php:413
 msgid "Import Facebook Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:356
+#: includes/class-import-meetup-events-admin.php:414
+#: includes/class-import-meetup-events-common.php:1111
 msgid "Import Eventbrite Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:357
+#: includes/class-import-meetup-events-admin.php:415
+#: includes/class-import-meetup-events-common.php:1108
 msgid "WP Bulk Delete"
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:427
+#: includes/class-import-meetup-events-admin.php:485
 msgid "Authorized Successfully."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:429
+#: includes/class-import-meetup-events-admin.php:487
 msgid "Please insert Meetup Auth Key and Secret."
 msgstr ""
 
-#: includes/class-import-meetup-events-admin.php:431
+#: includes/class-import-meetup-events-admin.php:489
 msgid "Something went wrong during authorization. Please try again."
 msgstr ""
 
@@ -349,141 +361,169 @@ msgstr ""
 msgid "You have not access to doing this operations."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:40
+#: includes/class-import-meetup-events-common.php:42
 msgid "Import into"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:59
+#: includes/class-import-meetup-events-common.php:63
 msgid "Event Categories for Event Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:66
+#: includes/class-import-meetup-events-common.php:70
 msgid "These categories are assign to imported event."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:84
+#: includes/class-import-meetup-events-common.php:107
 msgid "Your current \"Import Meetup Event Pro\" add-on is not compatible with Free plugin. Please upgrade Pro to the latest version to work on event importing flawlessly."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:186
+#: includes/class-import-meetup-events-common.php:209
 msgid "The Events Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:191
+#: includes/class-import-meetup-events-common.php:214
 msgid "Events Manager"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:196
+#: includes/class-import-meetup-events-common.php:219
 msgid "Event Organiser"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:201
+#: includes/class-import-meetup-events-common.php:224
 msgid "EventON"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:206
+#: includes/class-import-meetup-events-common.php:229
 msgid "EventPrime"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:211
+#: includes/class-import-meetup-events-common.php:234
 msgid "All in one Event Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:216
+#: includes/class-import-meetup-events-common.php:239
 msgid "My Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:218
+#: includes/class-import-meetup-events-common.php:241
 #: includes/class-import-meetup-events-cpt.php:97
 #: includes/class-import-meetup-events-cpt.php:101
 msgid "Meetup Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:251
+#: includes/class-import-meetup-events-common.php:274
 msgid "Invalid image URL"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:349
+#: includes/class-import-meetup-events-common.php:372
 msgid "Event(s) are imported successfully."
 msgstr ""
 
 #. translators: %d: Number of events created.
 #. translators: %d: Number of events Created.
-#: includes/class-import-meetup-events-common.php:352
+#: includes/class-import-meetup-events-common.php:375
 #: includes/class-import-meetup-events-list-table.php:427
 #, php-format
 msgid "%d Created"
 msgstr ""
 
 #. translators: %d: Number of events Updated.
-#: includes/class-import-meetup-events-common.php:356
+#: includes/class-import-meetup-events-common.php:379
 #: includes/class-import-meetup-events-list-table.php:431
 #, php-format
 msgid "%d Updated"
 msgstr ""
 
 #. translators: %d: Number of events Skipped.
-#: includes/class-import-meetup-events-common.php:360
+#: includes/class-import-meetup-events-common.php:383
 #, php-format
 msgid "%d Skipped (Already exists)"
 msgstr ""
 
 #. translators: %d: Number of events creaSkippedted.
-#: includes/class-import-meetup-events-common.php:364
+#: includes/class-import-meetup-events-common.php:387
 #, php-format
 msgid "%d Skipped (Already exists in Trash )"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:453
+#: includes/class-import-meetup-events-common.php:476
 msgid "Once Hourly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:456
+#: includes/class-import-meetup-events-common.php:479
 msgid "Twice Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:459
+#: includes/class-import-meetup-events-common.php:482
 msgid "Once Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:462
+#: includes/class-import-meetup-events-common.php:485
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:465
+#: includes/class-import-meetup-events-common.php:488
 msgid "Once a Month"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:480
+#: includes/class-import-meetup-events-common.php:503
 msgid "One-time Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:481
+#: includes/class-import-meetup-events-common.php:504
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:535
+#: includes/class-import-meetup-events-common.php:559
 msgid "Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:540
+#: includes/class-import-meetup-events-common.php:565
 msgid "Published"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:543
+#: includes/class-import-meetup-events-common.php:568
 msgid "Pending"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:546
+#: includes/class-import-meetup-events-common.php:571
 msgid "Draft"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:659
+#: includes/class-import-meetup-events-common.php:684
 msgid "Available in Pro version."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:659
+#: includes/class-import-meetup-events-common.php:684
 msgid "Upgrade to PRO"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1023
+msgid "Made with ♥ by the Xylus Themes"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1029
+msgid "Free Plugins"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1110
+msgid "Import Social Events"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1112
+msgid "Event Schema / Structured Data"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1113
+msgid "WP Smart Import : Import any XML File to WordPress"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1114
+msgid "Easy Events Calendar"
+msgstr ""
+
+#: includes/class-import-meetup-events-common.php:1115
+msgid "XT Feed for LinkedIn"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:95
@@ -509,6 +549,7 @@ msgid "Parent Event:"
 msgstr ""
 
 #: includes/class-import-meetup-events-cpt.php:102
+#: templates/admin/ime-dashboard.php:40
 msgid "Add New Event"
 msgstr ""
 
@@ -690,88 +731,88 @@ msgstr ""
 msgid "Events Details"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:255
-msgid "Time & Date"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:262
-msgid "Start Date & Time"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:273
-msgid "End Date & Time"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:290
-msgid "Location Details"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:298
+#: includes/class-import-meetup-events-cpt.php:251
 #: templates/event-meta.php:155
 msgid "Venue"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:305
+#: includes/class-import-meetup-events-cpt.php:252
 msgid "Address"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:312
+#: includes/class-import-meetup-events-cpt.php:253
 msgid "City"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:319
+#: includes/class-import-meetup-events-cpt.php:254
 msgid "State"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:326
+#: includes/class-import-meetup-events-cpt.php:255
 msgid "Country"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:333
+#: includes/class-import-meetup-events-cpt.php:256
 msgid "Zipcode"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:340
+#: includes/class-import-meetup-events-cpt.php:257
 msgid "Latitude"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:347
+#: includes/class-import-meetup-events-cpt.php:258
 msgid "Longitude"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:354
-#: includes/class-import-meetup-events-cpt.php:391
+#: includes/class-import-meetup-events-cpt.php:259
+#: includes/class-import-meetup-events-cpt.php:263
 #: templates/event-meta.php:122
 msgid "Website"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:366
-msgid "Organizer Details"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:373
+#: includes/class-import-meetup-events-cpt.php:260
 msgid "Organizer Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:379
+#: includes/class-import-meetup-events-cpt.php:261
 #: templates/event-meta.php:113
 msgid "Email"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:385
+#: includes/class-import-meetup-events-cpt.php:262
 #: templates/event-meta.php:117
 msgid "Phone"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:404
-msgid "Event Source Link"
-msgstr ""
-
-#: includes/class-import-meetup-events-cpt.php:411
+#: includes/class-import-meetup-events-cpt.php:264
 msgid "Source Link"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:573
+#: includes/class-import-meetup-events-cpt.php:270
+msgid "Time & Date"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:273
+msgid "Start Date & Time"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:285
+msgid "End Date & Time"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:298
+msgid "Location Details"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:315
+msgid "Organizer Details"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:333
+msgid "Event Source Link"
+msgstr ""
+
+#: includes/class-import-meetup-events-cpt.php:496
 msgid "Event Date"
 msgstr ""
 
@@ -951,6 +992,446 @@ msgstr ""
 msgid "Get Premium"
 msgstr ""
 
+#: templates/admin/ime-dashboard.php:33
+msgid "Getting started with Import Meetup Events"
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:34
+msgid "In this video, you can learn how to Import Meetup event into your website. Please watch this 2 minutes video to the end."
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:42
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:50
+msgid "Total Events"
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:56
+msgid "Upcoming Events"
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:62
+msgid "Past Events"
+msgstr ""
+
+#: templates/admin/ime-dashboard.php:68
+msgid "Version"
+msgstr ""
+
+#: templates/admin/ime-setup-wizard.php:2
+msgid "Import Meetup Event"
+msgstr ""
+
+#: templates/admin/ime-setup-wizard.php:8
+msgid "Getting Started Video"
+msgstr ""
+
+#: templates/admin/ime-setup-wizard.php:17
+msgid "Create Meetup App"
+msgstr ""
+
+#: templates/admin/ime-setup-wizard.php:33
+msgid "Back to WordPress Dashboard"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:29
+msgid "General Settings"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:32
+#: templates/admin/import-meetup-events-settings.php:347
+msgid "Google Maps API"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:36
+msgid "License"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:55
+msgid "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required to authorize your meetup account."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:62
+msgid "Note : "
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:62
+msgid "You have to create a Meetup OAuth Consumer before filling the following details."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:62
+#: templates/admin/import-meetup-events-settings.php:65
+msgid "Click here"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:62
+msgid "to create new OAuth Consumer"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:64
+msgid "For detailed step by step instructions "
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:67
+msgid "Set the Application Website as:"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:71
+msgid "Set Redirect URI:"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:79
+msgid "Connect your Meetup Account"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:83
+msgid "Meetup Authorization"
+msgstr ""
+
+#. translators: %s: The connected user's name in bold.
+#: templates/admin/import-meetup-events-settings.php:95
+#, php-format
+msgid "Connected as: %s"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:101
+msgid "Remove Connection"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:112
+msgid "Connect"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:117
+msgid "Please connect your meetup account for import meetup events."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:133
+msgid "Meetup OAuth Key"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:138
+msgid "Insert your meetup.com OAuth Key you can get it from"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:138
+#: templates/admin/import-meetup-events-settings.php:150
+#: templates/admin/import-meetup-events-settings.php:168
+msgid "here"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:145
+msgid "Meetup OAuth Secret"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:150
+msgid "Insert your meetup.com OAuth Secret you can get it from"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:157
+msgid "- OR -"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:163
+msgid "Meetup API key"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:168
+msgid "Insert your meetup.com API key you can get it from"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:175
+msgid "Update existing events"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:183
+msgid "Check to updates existing events."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:190
+msgid "Move past events in trash"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:198
+msgid "Check to move past events in the trash, Automatically move events to the trash 24 hours after their end date using wp-cron. This runs once daily in the background."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:205
+msgid "Skip Trashed Events"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:213
+msgid "Check to enable skip-the-trash events during importing."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:221
+msgid "Direct link to Meetup"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:229
+msgid "Check to enable direct event link to Meetup instead of event detail page."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:237
+msgid "Advanced Synchronization"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:245
+msgid "Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:253
+msgid "Don't Update these data"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:263
+msgid "Status ( Publish, Pending, Draft etc.. )"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:267
+msgid "Event category"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:270
+msgid "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:278
+msgid "Accent Color"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:286
+msgid "Choose accent color for front-end event grid and event widget."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:293
+msgid "Event Slug"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:301
+msgid "Slug for the event."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:309
+msgid "Event Display Time Format"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:316
+msgid "12 Hours"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:317
+msgid "24 Hours"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:318
+msgid "WordPress Default"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:321
+msgid "Choose event display time format for front-end."
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:329
+#: templates/admin/import-meetup-events-settings.php:372
+msgid "Save Settings"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:351
+msgid "Check Google Maps Key"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:359
+msgid "Google maps API Key (Required)"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:360
+msgid "How to get an API Key"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:361
+msgid "Find out more about API Key restrictions"
+msgstr ""
+
+#: templates/admin/import-meetup-events-settings.php:391
+msgid "Here"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:13
+msgid "🎉 Try Our New Plugin – Easy Events Calendar"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:14
+msgid "A modern, clean and powerful way to display events. Includes calendar view, search, filters, pagination, and tons of settings. And it’s 100% FREE!"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:19
+msgid "✅ Full Calendar Monthly View"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:20
+msgid "🔍 Event Search & Filter Support"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:21
+msgid "📅 Pagination & Multiple Layouts"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:22
+msgid "⚙️ Tons of Settings for Customization"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:23
+msgid "🎨 Frontend Styling Options"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:24
+msgid "💯 100% Free Plugin"
+msgstr ""
+
+#: templates/admin/import-meetup-events-shortcode.php:69
+msgid "Meetup Shortcodes"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:17
+msgid "Getting Support"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:22
+#: templates/admin/import-meetup-events-support.php:25
+msgid "Looking for Something?"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:26
+msgid "We have documentation of how to import meetup events."
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:27
+msgid "Plugin Documentation"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:33
+#: templates/admin/import-meetup-events-support.php:36
+msgid "Need Any Assistance?"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:37
+msgid "Our EXPERT Support Team is always ready to Help you out."
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:38
+msgid "Contact Support"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:44
+#: templates/admin/import-meetup-events-support.php:47
+msgid "Found Any Bugs?"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:48
+msgid "Report any Bug that you Discovered, Get Instant Solutions."
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:49
+msgid "Report to GitHub"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:55
+#: templates/admin/import-meetup-events-support.php:58
+msgid "Require Customization?"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:59
+msgid "We would Love to hear your Integration and Customization Ideas."
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:60
+msgid "Connect Our Service"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:66
+#: templates/admin/import-meetup-events-support.php:69
+msgid "Like The Plugin?"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:70
+msgid "Your Review is very important to us as it helps us to grow more."
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:71
+msgid "Review Us on WP.org"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:82
+msgid "Plugins you should try"
+msgstr ""
+
+#. translators: %s: Plugin slug used in image alt text.
+#: templates/admin/import-meetup-events-support.php:126
+#, php-format
+msgid "%s Image"
+msgstr ""
+
+#: templates/admin/import-meetup-events-support.php:138
+msgid "Status : "
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:12
+msgid "Import by"
+msgstr ""
+
+#. translators: 1: First option (by Facebook Event ID), 2: Second option (Facebook Page)
+#: templates/admin/meetup-import-events.php:22
+#, php-format
+msgid "Select Event source. %1$s, %2$s."
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:23
+msgid "1. Meetup Event ID"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:24
+msgid "2. Meetup Group URL"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:43
+msgid "Event ID"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:44
+msgid "Group URL"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:52
+msgid "Meetup Event ID"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:77
+msgid "Meetup Group URL"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:94
+msgid "Import type"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:110
+msgid "Author"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:117
+msgid "Select event author for imported events. Default event auther is current loggedin user."
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:125
+msgid "Select Author"
+msgstr ""
+
+#: templates/admin/meetup-import-events.php:134
+msgid "Import Event"
+msgstr ""
+
 #: templates/event-meta.php:36
 msgid "Details"
 msgstr ""
@@ -977,367 +1458,4 @@ msgstr ""
 
 #: templates/event-meta.php:109
 msgid "Organizer"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:33
-msgid "Meetup Settings"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:40
-msgid "It looks like you don't have HTTPS enabled on your website. Please enable it. HTTPS is required to authorize your meetup account."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:46
-msgid "Note : "
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:46
-msgid "You have to create a Meetup OAuth Consumer before filling the following details."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:46
-#: templates/import-meetup-events-settings.php:49
-msgid "Click here"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:46
-msgid "to create new OAuth Consumer"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:48
-msgid "For detailed step by step instructions "
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:51
-msgid "Set the Application Website as:"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:55
-msgid "Set Redirect URI:"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:63
-msgid "Connect your Meetup Account"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:69
-msgid "Meetup Authorization"
-msgstr ""
-
-#. translators: %s: The connected user's name in bold.
-#: templates/import-meetup-events-settings.php:81
-#, php-format
-msgid "Connected as: %s"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:87
-msgid "Remove Connection"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:98
-msgid "Connect"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:103
-msgid "Please connect your meetup account for import meetup events."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:125
-msgid "Meetup OAuth Key"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:130
-msgid "Insert your meetup.com OAuth Key you can get it from"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:130
-#: templates/import-meetup-events-settings.php:142
-#: templates/import-meetup-events-settings.php:160
-msgid "here"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:137
-msgid "Meetup OAuth Secret"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:142
-msgid "Insert your meetup.com OAuth Secret you can get it from"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:149
-msgid " - OR -"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:155
-msgid "Meetup API key"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:160
-msgid "Insert your meetup.com API key you can get it from"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:171
-msgid "Update existing events"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:179
-msgid "Check to updates existing events."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:186
-msgid "Move past events in trash"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:194
-msgid "Check to move past events in the trash, Automatically move events to the trash 24 hours after their end date using wp-cron. This runs once daily in the background."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:201
-msgid "Skip Trashed Events"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:209
-msgid "Check to enable skip-the-trash events during importing."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:217
-msgid "Direct link to Meetup"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:225
-msgid "Check to enable direct event link to Meetup instead of event detail page."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:232
-msgid "Advanced Synchronization"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:240
-msgid "Check to enable advanced synchronization; this will delete events that are removed from Meetup. Also, it deletes past events."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:247
-msgid "Don't Update these data"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:257
-msgid "Status ( Publish, Pending, Draft etc.. )"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:261
-msgid "Event category"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:264
-msgid "Select data that you don't want to update during existing events updates. (This is applicable only if you have checked 'update existing events.')"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:272
-msgid "Accent Color"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:280
-msgid "Choose accent color for front-end event grid and event widget."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:287
-msgid "Event Slug"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:295
-msgid "Slug for the event."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:301
-msgid "Event Display Time Format"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:308
-msgid "12 Hours"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:309
-msgid "24 Hours"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:310
-msgid "WordPress Default"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:313
-msgid "Choose event display time format for front-end."
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:325
-#: templates/import-meetup-events-settings.php:367
-msgid "Save Settings"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:334
-msgid "Google Maps API Settings"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:341
-msgid "Google Maps API"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:352
-msgid "Google maps API Key (Required)"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:353
-msgid "How to get an API Key"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:354
-msgid "Find out more about API Key restrictions"
-msgstr ""
-
-#: templates/import-meetup-events-settings.php:382
-msgid "Here"
-msgstr ""
-
-#: templates/import-meetup-events-shortcode.php:12
-msgid "Meetup Shortcodes"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:17
-msgid "Getting Support"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:22
-#: templates/import-meetup-events-support.php:25
-msgid "Looking for Something?"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:26
-msgid "We have documentation of how to import meetup events."
-msgstr ""
-
-#: templates/import-meetup-events-support.php:27
-msgid "Plugin Documentation"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:33
-#: templates/import-meetup-events-support.php:36
-msgid "Need Any Assistance?"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:37
-msgid "Our EXPERT Support Team is always ready to Help you out."
-msgstr ""
-
-#: templates/import-meetup-events-support.php:38
-msgid "Contact Support"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:44
-#: templates/import-meetup-events-support.php:47
-msgid "Found Any Bugs?"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:48
-msgid "Report any Bug that you Discovered, Get Instant Solutions."
-msgstr ""
-
-#: templates/import-meetup-events-support.php:49
-msgid "Report to GitHub"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:55
-#: templates/import-meetup-events-support.php:58
-msgid "Require Customization?"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:59
-msgid "We would Love to hear your Integration and Customization Ideas."
-msgstr ""
-
-#: templates/import-meetup-events-support.php:60
-msgid "Connect Our Service"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:66
-#: templates/import-meetup-events-support.php:69
-msgid "Like The Plugin?"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:70
-msgid "Your Review is very important to us as it helps us to grow more."
-msgstr ""
-
-#: templates/import-meetup-events-support.php:71
-msgid "Review Us on WP.org"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:87
-msgid "Plugins you should try"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:107
-msgid "Version:"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:111
-msgid "Requires:"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:111
-msgid "WordPress "
-msgstr ""
-
-#: templates/import-meetup-events-support.php:115
-msgid "Active Installs:"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:120
-msgid "Install Now"
-msgstr ""
-
-#: templates/import-meetup-events-support.php:123
-msgid "Buy Now"
-msgstr ""
-
-#: templates/meetup-import-events.php:15
-msgid "Import by"
-msgstr ""
-
-#: templates/meetup-import-events.php:19
-msgid "Event ID"
-msgstr ""
-
-#: templates/meetup-import-events.php:20
-msgid "Group URL"
-msgstr ""
-
-#: templates/meetup-import-events.php:23
-msgid "Select Event source. 1. by Event ID, 2. by Group URL"
-msgstr ""
-
-#: templates/meetup-import-events.php:30
-msgid "Meetup Event ID"
-msgstr ""
-
-#: templates/meetup-import-events.php:49
-msgid "Meetup Group URL"
-msgstr ""
-
-#: templates/meetup-import-events.php:62
-msgid "Import type"
-msgstr ""
-
-#: templates/meetup-import-events.php:76
-msgid "Author"
-msgstr ""
-
-#: templates/meetup-import-events.php:79
-msgid "Select Author"
-msgstr ""
-
-#: templates/meetup-import-events.php:81
-msgid "Select event author for imported events. Default event auther is current loggedin user."
-msgstr ""
-
-#: templates/meetup-import-events.php:92
-msgid "Import Event"
 msgstr ""
