@@ -100,11 +100,49 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 			'import_id'  => $item['ID'],
 		);
 
+		$current_import = '';
+		if(isset($item['current_import'])){
+			$cimport = '<span style="color:green;font-weight:bold;"><strong>'.esc_html__( 'Import is running in Background', 'import-meetup-events' ).'</strong></span>';
+			if(!empty($item['current_import'])){
+				$stats = array();
+				if( $item['current_import']['created'] > 0 ){
+					// translators: %d: Number of events created.
+					$stats[] = sprintf( __( '%d Created', 'import-meetup-events' ), $item['current_import']['created']);
+				}
+				if( $item['current_import']['updated'] > 0 ){
+					// translators: %d: Number of events Updated.
+					$stats[] = sprintf( __( '%d Updated', 'import-meetup-events' ), $item['current_import']['updated'] );
+				}
+				if( $item['current_import']['skipped'] > 0 ){
+					// translators: %d: Number of events Skipped.
+					$stats[] = sprintf( __( '%d Skipped', 'import-meetup-events' ), $item['current_import']['skipped'] );
+				}
+				if( $item['current_import']['skip_trash'] > 0 ){
+					// translators: %d: Number of events Skipped.
+					$stats[] = sprintf( __( '%d Skipped in Trash', 'import-meetup-events' ), $item['current_import']['skip_trash'] );
+				}
+				if( !empty( $stats ) ){
+					$stats = esc_html__( 'Stats: ', 'import-meetup-events' ).'<span style="color: silver">'.implode(', ', $stats).'</span>';
+					$cimport .= '<br/>'.$stats;
+				}
+			}
+			$current_import = '<div class="inprogress_import">'.$cimport.'</div>';
+		}
+		
+		$total_imported = get_post_meta( $item['ID'], 'ime_all_import_count', true );
+		$total_imported = ! empty( $total_imported ) ? (int) $total_imported : 0;
+
+		$total_imported = '<span><strong>' . esc_html__( 'Total Imported Events: ', 'import-meetup-events' ) . $total_imported . '</strong></span>';
+
 		// Return the title contents.
-		return sprintf( '<a class="button-primary" href="%1$s">%2$s</a><br/>%3$s',
+		return sprintf(
+			'<a class="button-primary" href="%1$s">%2$s</a><br/>%3$s<br/>%4$s<br/>%5$s<br/><br/>%6$s',
 			esc_url( wp_nonce_url( add_query_arg( $xtmi_run_import_args ), 'ime_run_import_nonce' ) ),
 			esc_html__( 'Import Now', 'import-meetup-events' ),
-			$item['last_import']
+			$item['last_import'],
+			$item['stats'],
+			$total_imported,
+			$current_import,
 		);
 	}
 
@@ -184,7 +222,10 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	function get_scheduled_import_data( $origin = '' ) {
 		global $ime_events;
 
-		$scheduled_import_data = array( 'total_records' => 0, 'import_data' => array() );
+		$scheduled_import_data = array(
+			'total_records' => 0,
+			'import_data'   => array(),
+		);
 		$per_page = 10;
 		$current_page = $this->get_pagenum();
 
@@ -200,17 +241,23 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 		}
 		$importdata_query = new WP_Query( $query_args );
 		$scheduled_import_data['total_records'] = ( $importdata_query->found_posts ) ? (int) $importdata_query->found_posts : 0;
-		$next_run_times = $this->get_ime_next_run_times();
+		
 		// The Loop.
 		if ( $importdata_query->have_posts() ) {
 			while ( $importdata_query->have_posts() ) {
 				$importdata_query->the_post();
 
 				$import_id = get_the_ID();
+				$import_title  = get_the_title();
+				$next_run_times = $this->get_ime_next_run_times( $import_id );
 				$import_data = get_post_meta( $import_id, 'import_eventdata', true );
 				$import_origin = get_post_meta( $import_id, 'import_origin', true );
 				$import_plugin = isset( $import_data['import_into'] ) ? $import_data['import_into'] : '';
 				$import_status = isset( $import_data['event_status'] ) ? $import_data['event_status'] : '';
+				$import_into = isset( $import_plugins[$import_plugin]) ? $import_plugins[$import_plugin] : $import_plugin;
+
+				// Check Running Imports.
+				$current_imports = $ime_events->common->ime_get_inprogress_import_stats( $import_id );
 				
 				$term_names = array();
 				$import_terms = isset( $import_data['event_cats'] ) ? $import_data['event_cats'] : array(); 
@@ -255,25 +302,58 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 					}
 				}	
 
-				$last_import_history_date = '';
-				$history_args = array(
-					'post_type'   => 'ime_import_history',
-					'post_status' => 'publish',
-					'posts_per_page' => 1,
-					'meta_key'   => 'schedule_import_id', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
-					'meta_value' => $import_id,           //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value 
-
+				$stats = $last_import_history_date = '';
+				$history_args             = array(
+					'post_type'      => 'ime_import_history',
+					'post_status'    => 'publish',
+					'numberposts'    => 1,
+					'meta_key'       => 'schedule_import_id', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value'     => $import_id,           //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+					'fields'         => 'ids'
 				);
 
-				$history = new WP_Query( $history_args );
-				if ( $history->have_posts() ) {
-					while ( $history->have_posts() ) {
-						$history->the_post();
-						// translators: %s: Human-readable time difference like "2 hours ago", "3 days ago", etc.
-						$last_import_history_date = sprintf( esc_attr__( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U' ), current_time( 'timestamp' ) ) );
+				$history = get_posts( $history_args );
+
+				if( !empty( $history ) ){
+					// translators: %d: Number of Last import.
+					$last_import_history_date = sprintf( __( 'Last Import: %s ago', 'import-meetup-events' ), human_time_diff( get_the_date( 'U', $history[0] ), current_time( 'timestamp' ) ) );
+					$created = get_post_meta( $history[0], 'created', true );
+					$updated = get_post_meta( $history[0], 'updated', true );
+					$skipped = get_post_meta( $history[0], 'skipped', true );
+					$skip_trash = get_post_meta( $history[0], 'skip_trash', true );
+					$stats = array();
+					if( $created > 0 ){
+						// translators: %d: Number of events created.
+						$stats[] = sprintf( __( '%d Created', 'import-meetup-events' ), $created );
+					}
+					if( $updated > 0 ){
+						// translators: %d: Number of events Updated.
+						$stats[] = sprintf( __( '%d Updated', 'import-meetup-events' ), $updated );
+					}
+					if( $skipped > 0 ){
+						// translators: %d: Number of events Skipped.
+						$stats[] = sprintf( __( '%d Skipped', 'import-meetup-events' ), $skipped );
+					}
+					if( $skip_trash > 0 ){
+						// translators: %d: Number of events Skipped in Trash.
+						$stats[] = sprintf( __( '%d Skipped in Trash', 'import-meetup-events' ), $skip_trash );
+					}
+					if( !empty( $stats ) ){
+						$stats = esc_html__( 'Last Import Stats: ', 'import-meetup-events' ).'<span style="color: silver">'.implode(', ', $stats).'</span>';
+					}else{
+						$error_reason      = get_post_meta( $history[0], 'error_reason', true );
+						$nothing_to_import = get_post_meta( $history[0], 'nothing_to_import', true );
+						if( !empty( $error_reason ) ){
+							$stats = '<span style="color: red"><strong>'.esc_attr( 'The Private token you provided was invalid.', 'import-meetup-events' ).'</strong></span><br>';	
+						}else{
+							if( $nothing_to_import ){
+								$stats = '<span style="color: silver">'.__( 'No events are imported.', 'import-meetup-events' ).'</span>';	
+							}else{
+								$stats = '';
+							}
+						}
 					}
 				}
-				wp_reset_postdata();
 
 				$next_run = '-';
 				if(isset($next_run_times[$import_id]) && !empty($next_run_times[$import_id])){
@@ -288,16 +368,23 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 						$ime_events->common->ime_recreate_missing_schedule_import( $import_id );
 				}
 
-				$scheduled_import_data['import_data'][] = array(
-					'ID' => $import_id,
-					'title' => get_the_title(),
-					'import_status'   => ucfirst( $import_status ),
-					'import_category' => implode( ', ', $term_names ),
-					'import_frequency'=> isset( $import_data['import_frequency'] ) ? ucfirst( $import_data['import_frequency'] ) : '',
-					'next_run'        => $next_run,
-					'import_origin'   => $import_origin,
-					'last_import'     => $last_import_history_date,
+				$scheduled_import = array(
+					'ID'               => $import_id,
+					'title'            => $import_title,
+					'import_status'    => ucfirst( $import_status ),
+					'import_category'  => implode( ', ', $term_names ),
+					'import_frequency' => isset( $import_data['import_frequency'] ) ? ucfirst( $import_data['import_frequency'] ) : '',
+					'next_run'         => $next_run,
+					'import_origin'    => $import_origin,
+					'import_into'	   => $import_into,
+					'import_by'		   => $import_data['import_by'] === 'organizer_id' ? $import_data['organizer_id'] : ( $import_data['import_by'] === 'collection_id' ? $import_data['collection_id'] : __( 'Your Events', 'import-eventbrite-events' ) ),
+					'last_import'      => $last_import_history_date,
+					'stats'			   => $stats
 				);
+				if( isset( $current_imports[$import_id] ) ){
+					$scheduled_import['current_import'] = $current_imports[$import_id];
+				}
+				$scheduled_import_data['import_data'][] = $scheduled_import;
 			}
 		}
 		// Restore original Post Data.
@@ -331,19 +418,34 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 	 *
 	 * @return Array
 	 */
-	function get_ime_next_run_times(){
-		$next_runs = array();
-		$crons  = $this->get_ime_crons();
-		foreach($crons as $time => $cron){
-			foreach($cron as $cron_name){
-				foreach($cron_name as $cron_post_id){
-					if( isset($cron_post_id['args']) && isset($cron_post_id['args']['post_id']) ){
-						$next_runs[$cron_post_id['args']['post_id']] = $time;
-					}
-				}
-			}
+	function get_ime_next_run_times( $post_id ){
+		$next_timestamp   = 0;
+		$next_actions     = as_get_scheduled_actions( array(
+			'hook'        => 'ime_run_scheduled_import',
+			'args'        => array( 'post_id' => (int) $post_id ),
+			'status'      => ActionScheduler_Store::STATUS_PENDING,
+			'orderby'     => 'scheduled_date',
+			'order'       => 'ASC',
+			'date'        => time(),
+			'date_compare'=> '>=',
+			'per_page'    => 1,
+		) );
+
+		$next_action_id = '';
+		if ( ! empty( $next_actions ) ) {
+			$keys = array_keys( $next_actions );
+			$next_action_id = isset( $keys[0] ) ? $keys[0] : '';
 		}
-		return $next_runs;
+
+		if ( $next_action_id ) {
+			$store  = ActionScheduler::store();
+			$action = $store->fetch_action( $next_action_id );
+			$next_timestamp = $action->get_schedule()->get_date()->getTimestamp();
+		}
+		if( $next_timestamp > 0 ){
+			$next_timestamp = array( $post_id => $next_timestamp );
+		}
+		return $next_timestamp;
 	}
 }
 

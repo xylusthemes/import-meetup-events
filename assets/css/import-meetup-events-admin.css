@@ -2078,6 +2078,7 @@ input#current-page-selector {
     padding: 15px 20px;
     background: #f9fff9;
     border-radius: 8px;
+    gap: 20px;
 }
 .ime-new-feature .ime-title-text {
     font-size: 16px;
@@ -2093,5 +2094,13 @@ input#current-page-selector {
 
 .ime-new-feature .ime-inner-section-2 input[type="checkbox"] {
     transform: scale(1.5);
+    margin: 5px;
 }
+
+.ime-new-feature .ime-inner-section-1{
+  width : unset;
+}
+.ime-new-feature .ime-inner-section-2{
+  width : unset;
+} 
 /* public api option css end */

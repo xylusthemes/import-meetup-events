@@ -99,7 +99,7 @@ class Import_Meetup_Events_Manage_Import {
 	 */
 	public function handle_listtable_oprations() {
 
-		global $ime_success_msg;
+		global $ime_success_msg, $ime_events;
 		if ( isset( $_GET['ime_action'] ) && $_GET['ime_action'] == 'ime_simport_delete' && isset($_GET['_wpnonce']) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'ime_delete_import_nonce') ) {
 			$import_id = isset( $_GET['import_id'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['import_id'] ) ) ) : '';
 			$page = isset($_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : 'meetup_import';
@@ -148,12 +148,18 @@ class Import_Meetup_Events_Manage_Import {
 			$tab = isset($_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'scheduled';
 			$wp_redirect = get_site_url() . urldecode( $_REQUEST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$delete_ids = isset( $_REQUEST['xt_scheduled_import'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['xt_scheduled_import'] ) ) : '0';
-			if( !empty( $delete_ids ) ){
-				foreach ($delete_ids as $delete_id ) {
-					$timestamp = wp_next_scheduled( 'ime_run_scheduled_import', array( 'post_id' => (int)$delete_id ) );
-					if ( $timestamp ) {
-						wp_unschedule_event( $timestamp, 'ime_run_scheduled_import', array( 'post_id' => (int)$delete_id ) );
+			$delete_ids = isset( $_REQUEST['xt_scheduled_import'] ) ? array_map( 'absint', (array) $_REQUEST['xt_scheduled_import'] ) : array();
+
+			if ( ! empty( $delete_ids ) && class_exists( 'ActionScheduler' ) ) {
+				$store = ActionScheduler::store();
+
+				foreach ( $delete_ids as $delete_id ) {
+					if ( get_post_type( $delete_id ) !== 'ime_scheduled_import' ) {
+						continue;
 					}
+
+					$ime_events->common->ime_delete_main_schedule_action( $delete_id );
+					$ime_events->common->ime_delete_batch_import_actions( $delete_id );
 					wp_delete_post( $delete_id, true );
 				}
 			}

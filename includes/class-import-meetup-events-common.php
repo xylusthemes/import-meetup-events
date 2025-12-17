@@ -972,14 +972,40 @@ class Import_Meetup_Events_Common {
      */
     public function ime_recreate_missing_schedule_import( $post_id ){
 
-        $si_data           = get_post_meta( $post_id, 'import_eventdata', true );
-        $import_frequency  = ( $si_data['import_frequency'] ) ? $si_data['import_frequency'] : 'not_repeat';
-        $cron_time         = time() - (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+		if ( ! class_exists( 'ActionScheduler' ) ) {
+			return;
+		}
 
-        if( $import_frequency !== 'not_repeat' ) {
-            $scheduled = wp_schedule_event( $cron_time, $import_frequency, 'ime_run_scheduled_import', array( 'post_id' => $post_id ) );
-        }
-    }
+		$si_data          = get_post_meta( $post_id, 'import_eventdata', true );
+		$import_frequency = ! empty( $si_data['import_frequency'] ) ? $si_data['import_frequency'] : 'not_repeat';
+
+		if ( 'not_repeat' === $import_frequency ) {
+			return;
+		}
+
+		$start_time        = time() - (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+		$already_scheduled = as_next_scheduled_action( 'ime_run_scheduled_import', array( 'post_id' => $post_id ), 'ime-import' );
+
+		if ( ! $already_scheduled ) {
+			as_schedule_recurring_action( $start_time, $this->get_frequency_in_seconds( $import_frequency ), 'ime_run_scheduled_import', array( 'post_id' => $post_id, 'cursor' => null, 'stopLoop' => false, ), 'ime-import' );
+		}
+	}
+
+	private function get_frequency_in_seconds( $frequency ) {
+		switch ( $frequency ) {
+			case 'hourly':
+				return HOUR_IN_SECONDS;
+			case 'twicedaily':
+				return 12 * HOUR_IN_SECONDS;
+			case 'daily':
+				return DAY_IN_SECONDS;
+			case 'weekly':
+				return WEEK_IN_SECONDS;
+			default:
+				return DAY_IN_SECONDS;
+		}
+	}
+
 	
 	/**
 	 * Render Page header Section
@@ -1115,6 +1141,127 @@ class Import_Meetup_Events_Common {
             'xt-feed-for-linkedin' => array( 'plugin_name' => esc_html__( 'XT Feed for LinkedIn', 'import-meetup-events' ), 'description' => 'XT Feed for LinkedIn auto-shares WordPress posts to LinkedIn with one click, making content distribution easy and boosting your reach effortlessly.' ),
         );
     }
+
+	/**
+	 * Render Event Feature Image Action
+	 *
+	 * @since 1.1
+	 * @return void
+	 */
+	public function ime_set_feature_image_logic( $event_id, $image_url, $event_args ){
+		global $ime_events;
+		if ( $event_args['import_type'] === 'onetime' && $event_args['import_by'] === 'event_id' ) {
+			$ime_events->common->setup_featured_image_to_event( $event_id, $image_url );
+		} else {
+			if ( class_exists( 'IME_Event_Image_Scheduler' ) ) {
+				IME_Event_Image_Scheduler::schedule_image_download( $event_id, $image_url, $event_args );
+			}
+		}
+	}
+
+	public function ime_get_inprogress_import_stats( $post_id ) {
+
+		$stats = array(
+			'created'    => 0,
+			'updated'    => 0,
+			'skipped'    => 0,
+			'skip_trash' => 0,
+			'running'    => false,
+		);
+
+		$stats_running = get_post_meta( $post_id, '_ime_batch_running', true );
+		if( !$stats_running ) {
+			return array();
+		}
+		$events = get_post_meta( $post_id, 'ime_all_import_events', true );
+		$events = is_array( $events ) ? $events : array();
+
+		foreach ( $events as $event ) {
+
+			if ( empty( $event['status'] ) ) {
+				continue;
+			}
+
+			switch ( $event['status'] ) {
+				case 'created':
+					$stats['created']++;
+					break;
+
+				case 'updated':
+					$stats['updated']++;
+					break;
+
+				case 'skipped':
+					$stats['skipped']++;
+					break;
+
+				case 'skip_trash':
+					$stats['skip_trash']++;
+					break;
+			}
+		}
+
+		$stats['running'] = (bool) get_post_meta( $post_id, '_ime_batch_running', true );
+
+		return array(
+			$post_id => $stats,
+		);
+	}
+
+
+	/**
+	 * Delete the main scheduled import action for a given post ID.
+	 *
+	 * @param int $import_id The post ID for which to delete the scheduled import action.
+	 */
+	function ime_delete_main_schedule_action( $import_id ) {
+
+		if ( ! class_exists( 'ActionScheduler' ) || $import_id <= 0 ) {
+			return;
+		}
+
+		$store = ActionScheduler::store();
+
+		$actions = $store->query_actions( array(
+			'hook'     => 'ime_run_scheduled_import',
+			'args'     => array( 'post_id' => (int) $import_id ),
+			'per_page' => -1,
+		) );
+
+		foreach ( $actions as $action_id ) {
+			$store->delete_action( $action_id );
+		}
+	}
+
+
+	/**
+	 * Delete ALL batch import actions for a post_id
+	 *
+	 * @param int $post_id
+	 */
+	function ime_delete_batch_import_actions( $post_id ) {
+
+		if ( ! class_exists( 'ActionScheduler' ) || ! $post_id ) {
+			return;
+		}
+
+		$store   = ActionScheduler::store();
+		$actions = $store->query_actions( array( 'hook' => 'ime_run_batch_import', 'per_page' => -1, ) );
+
+		foreach ( $actions as $action_id ) {
+			$action = $store->fetch_action( $action_id );
+			if ( ! $action ) {
+				continue;
+			}
+
+			$args = $action->get_args();
+
+			if ( isset( $args['post_id'] ) && (int) $args['post_id'] === (int) $post_id ) {
+				$store->delete_action( $action_id );
+			}
+		}
+	}
+
 }
 
 /**
