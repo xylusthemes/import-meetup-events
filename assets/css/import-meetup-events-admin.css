@@ -2062,7 +2062,7 @@ input#current-page-selector {
 }
 
 
-.ime-xylus-plugin-box .iee_short_code {
+.ime-xylus-plugin-box .ime_short_code {
     display: inline-block;
     background: #fff;
     border: 1px dashed #ccc;
