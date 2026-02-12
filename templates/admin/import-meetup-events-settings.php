@@ -131,7 +131,7 @@ if( is_object( $ime_authorized_user ) ){
                                     <div class="ime-inner-main-section ime-new-feature" >
                                         <div class="ime-inner-section-1" >
                                             <span class="ime-title-text" >
-                                                <?php esc_attr_e( 'Import Event With Public API ', 'import-meetup-events' ); ?>
+                                                <?php esc_attr_e( 'Import Event With MeetUp API Key ', 'import-meetup-events' ); ?>
                                                 <br/>
                                                 <?php esc_attr_e( '(No Auth Required) ', 'import-meetup-events' ); ?>
                                             </span>
@@ -142,7 +142,7 @@ if( is_object( $ime_authorized_user ) ){
                                             ?>
                                             <input type="checkbox" name="meetup[using_public_api]" value="yes" <?php if( $using_public_api == 'yes' ) { echo 'checked="checked"'; } ?> />
                                             <span class="ime_small">
-                                                <strong><?php esc_attr_e( 'Using "Import Event With Public API (No Auth Required)" lets you fetch events directly. No Key or authorization needed.', 'import-meetup-events' ); ?></strong>
+                                                <strong><?php esc_attr_e( 'Using "Import Event With MeetUp API Key (No Auth Required)" lets you fetch events directly. No Key or authorization needed.', 'import-meetup-events' ); ?></strong>
                                             </span>
                                         </div>
                                     </div>

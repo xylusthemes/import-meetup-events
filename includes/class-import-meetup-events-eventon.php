@@ -147,9 +147,9 @@ class Import_Meetup_Events_EventON {
 			}
 
 			// Assign Featured images
-			$event_image = $centralize_array['image_url'];
-			if( $event_image != '' ){
-				$ime_events->common->setup_featured_image_to_event( $inserted_event_id, $event_image );
+			$event_image = isset( $centralize_array['image_url'] ) ? $centralize_array['image_url'] : '';
+			if ( $event_image != '' ) {
+				$ime_events->common->ime_set_feature_image_logic( $inserted_event_id, $event_image, $event_args );
 			}
 			$address = $centralize_array['location']['name'];
 			if( $centralize_array['location']['full_address'] != '' ){

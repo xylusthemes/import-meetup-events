@@ -192,6 +192,7 @@ if (!class_exists('Import_Meetup_Events')):
             require_once IME_PLUGIN_DIR . 'includes/libs/IMEParsedown.php';
             // Gutenberg Block
             require_once IME_PLUGIN_DIR . 'blocks/meetup-events/index.php';
+            require_once IME_PLUGIN_DIR . 'includes/ime-action-scheduler/ime-image-init.php';
         }
 
         /**

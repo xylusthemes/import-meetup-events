@@ -158,6 +158,11 @@ class Import_Meetup_Events_Meetup {
 		$event_id          = isset( $meetup_event['id'] ) ? str_replace( '!chp', '', $meetup_event['id']  ) : '';
 		$is_series         = !empty( $meetup_event['series'] ) ? $meetup_event['series'] : '';
 		$is_series         = !empty( $is_series ) ? true : false;
+		$alternative_iurl  = isset( $meetup_event['group']['keyGroupPhoto']['standardUrl'] ) ? $meetup_event['group']['keyGroupPhoto']['standardUrl'] : '';
+
+		if( empty( $image_url ) ){
+			$image_url = $alternative_iurl;
+		}
 
 		$xt_event = array(
 			'origin'          => 'meetup',

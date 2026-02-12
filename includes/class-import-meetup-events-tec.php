@@ -198,9 +198,9 @@ class Import_Meetup_Events_TEC {
 				wp_set_object_terms( $new_event_id, $ime_tags, $this->tag_taxonomy );
 			}
 
-			$event_featured_image = $centralize_array['image_url'];
-			if ( ! empty( $event_featured_image ) ) {
-				$ime_events->common->setup_featured_image_to_event( $new_event_id, $event_featured_image );
+			$event_image = isset( $centralize_array['image_url'] ) ? $centralize_array['image_url'] : '';
+			if ( $event_image != '' ) {
+				$ime_events->common->ime_set_feature_image_logic( $new_event_id, $event_image, $event_args );
 			}
 
 			//Insert in Custom Table 
@@ -316,9 +316,9 @@ class Import_Meetup_Events_TEC {
 				}
 			}
 
-			$event_featured_image = $centralize_array['image_url'];
-			if ( ! empty( $event_featured_image ) ) {
-				$ime_events->common->setup_featured_image_to_event( $update_event_id, $event_featured_image );
+			$event_image = isset( $centralize_array['image_url'] ) ? $centralize_array['image_url'] : '';
+			if ( $event_image != '' ) {
+				$ime_events->common->ime_set_feature_image_logic( $update_event_id, $event_image, $event_args );
 			} else {
 				delete_post_thumbnail( $update_event_id );
 			}

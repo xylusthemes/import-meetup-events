@@ -153,11 +153,11 @@ class Import_Meetup_Events_Event_Organizer {
 			}
 
 			// Assign Featured images
-			$event_image = $centralize_array['image_url'];
-			if( $event_image != '' ){
-				$ime_events->common->setup_featured_image_to_event( $inserted_event_id, $event_image );
-			}else{
-				if( $is_exitsing_event ){
+			$event_image = isset( $centralize_array['image_url'] ) ? $centralize_array['image_url'] : '';
+			if ( $event_image != '' ) {
+				$ime_events->common->ime_set_feature_image_logic( $inserted_event_id, $event_image, $event_args );
+			} else {
+				if ( $is_exitsing_event ) {
 					delete_post_thumbnail( $inserted_event_id );
 				}
 			}

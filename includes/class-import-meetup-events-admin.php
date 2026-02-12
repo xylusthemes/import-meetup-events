@@ -33,8 +33,8 @@ class Import_Meetup_Events_Admin {
 
 		add_action( 'init', array( $this, 'register_scheduled_import_cpt' ) );
 		add_action( 'init', array( $this, 'register_history_cpt' ) );
-		add_action( 'admin_init', array( $this, 'ime_check_delete_pst_event_cron_status' ) );
-		add_action( 'ime_delete_past_events_cron', array( $this, 'ime_delete_past_events' ) );
+		add_action( 'admin_init', array( $this, 'ime_check_delete_pst_event_as_status' ) );
+		add_action( 'ime_delete_past_events_as', array( $this, 'ime_delete_past_events' ) );
 		add_action( 'admin_init', array( $this, 'setup_success_messages' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages') );
 		add_filter( 'submenu_file', array( $this, 'get_selected_tab_submenu_ime' ) );
@@ -90,6 +90,7 @@ class Import_Meetup_Events_Admin {
 
 		$js_dir  = IME_PLUGIN_URL . 'assets/js/';
 		wp_register_script( 'import-meetup-events', $js_dir . 'import-meetup-events-admin.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'wp-color-picker'), IME_VERSION, true );
+		// wp_localize_script( 'import-meetup-events', 'imeImport', array( 'ajax_url' => admin_url('admin-ajax.php'), 'nonce'    => $nonce, ) );
 		wp_enqueue_script( 'import-meetup-events' );
 
 		
@@ -526,19 +527,27 @@ class Import_Meetup_Events_Admin {
 	/**
 	 * re-create if the past event cron is delete
 	 */
-	public function ime_check_delete_pst_event_cron_status(){
+	public function ime_check_delete_pst_event_as_status() {
+
+	if ( ! class_exists( 'ActionScheduler' ) ) {
+			return;
+		}
 
 		$ime_options        = get_option( IME_OPTIONS );
 		$move_peit_ifevents = isset( $ime_options['move_peit'] ) ? $ime_options['move_peit'] : 'no';
-		if ( $move_peit_ifevents == 'yes' ) {
-			if ( !wp_next_scheduled( 'ime_delete_past_events_cron' ) ) {
-				wp_schedule_event( time(), 'daily', 'ime_delete_past_events_cron' );
-			}
-		}else{
-			if ( wp_next_scheduled( 'ime_delete_past_events_cron' ) ) {
-				wp_clear_scheduled_hook( 'ime_delete_past_events_cron' );
-			}
-		}
 
+		if ( 'yes' === $move_peit_ifevents ) {
+			if ( ! as_next_scheduled_action( 'ime_delete_past_events_as' ) ) {
+				as_schedule_recurring_action(
+					time(),
+					DAY_IN_SECONDS,
+					'ime_delete_past_events_as',
+					array(),
+					'ime-import'
+				);
+			}
+		} else {
+			as_unschedule_all_actions( 'ime_delete_past_events_as', array(), 'ime-import' );
+		}
 	}
 }
