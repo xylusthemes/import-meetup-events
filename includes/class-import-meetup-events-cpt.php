@@ -752,6 +752,10 @@ class Import_Meetup_Events_Cpt {
 				while ( $meetup_events->have_posts() ) : $meetup_events->the_post();
 					if( isset( $atts['layout'] ) && $atts['layout'] == 'style2' && ime_is_pro() ){
 						get_ime_template( 'ime-archive-content2.php', $template_args );
+					}elseif( isset( $atts['layout'] ) && $atts['layout'] == 'style3' ){
+						get_ime_template( 'ime-archive-content3.php', $template_args );
+					}elseif( isset( $atts['layout'] ) && $atts['layout'] == 'style4' ){
+						get_ime_template( 'ime-archive-content4.php', $template_args );	
 					}else{
 						get_ime_template( 'archive-content.php', $template_args );
 					}
@@ -804,6 +808,15 @@ class Import_Meetup_Events_Cpt {
 			}
 			.ime_archive .ime_event .event_desc .event_title{
 				color: <?php echo esc_attr( $accent_color ); ?>;
+			}
+			.ime-event-count, .ime-event-meta > div, .ime-event-meta > div i, .ime-event-info h4 a:hover {
+				color: <?php echo esc_attr( $accent_color ); ?>;
+			}
+			.ime-theme-btn{
+				background: <?php echo esc_attr( $accent_color ); ?>;
+			}
+			.ime-style4-main-div > div::before {
+				background-color: <?php echo esc_attr( $accent_color ); ?>;
 			}
 		</style>
 
