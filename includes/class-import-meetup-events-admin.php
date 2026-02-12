@@ -43,6 +43,7 @@ class Import_Meetup_Events_Admin {
 		add_action( 'admin_notices', array( $this,'ime_remove_default_notices' ), 1 );
 		add_action( 'ime_display_all_notice', array( $this, 'ime_display_notices' ) );
 		add_filter( 'admin_footer_text', array( $this, 'add_import_meetup_events_credit' ) );
+		add_action( 'admin_init', array( $this, 'ime_wp_cron_check' ) );
 	}
 
 	/**
@@ -65,6 +66,34 @@ class Import_Meetup_Events_Admin {
 		$submenu['meetup_import'][] = array( __( 'Wizard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=ime_setup_wizard' ));
 		if( !ime_is_pro() ){
 			$submenu['meetup_import'][] = array( '<li class="ime_upgrade_pro current">' . __( 'Upgrade to Pro', 'import-meetup-events' ) . '</li>', 'manage_options', esc_url( "https://xylusthemes.com/plugins/import-meetup-events/") );
+		}
+	}
+
+	/**
+	 * Check if WP-Cron is enabled
+	 *
+	 * Checks if WP-Cron is enabled and if the current page is the scheduled imports page.
+	 * If WP-Cron is disabled, it will display an error message.
+	 *
+	 * @since 1.0
+	 * @return void
+	 */
+	public function ime_wp_cron_check() {
+		global $ime_errors;
+		
+		$page = isset($_GET['page']) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : '';
+		$tab  = isset($_GET['tab'])  ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) )  : '';
+
+		if ( ! is_admin() || empty($page) || empty($tab) || $page !== 'meetup_import' || $tab !== 'scheduled' ) {
+			return;
+		}
+
+		if ( defined('DISABLE_WP_CRON') && DISABLE_WP_CRON ) {
+			$ime_errors[] = __(
+				'<strong>Scheduled imports are paused.</strong> WP-Cron is currently disabled on your site, so Meetup scheduled imports will not run automatically. Please enable WP-Cron or set up a server cron job to keep imports running smoothly.',
+				'import-meetup-events'
+			);
+
 		}
 	}
 
