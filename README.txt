@@ -1,101 +1,204 @@
-=== Import Meetup Events ===
-Contributors: xylus,dharm1025,rajat1192
+=== Import Meetup Events – Meetup Sync & Event Aggregator for WordPress ===
+Contributors: xylus, dharm1025, rajat1192
 Donate link: http://xylusthemes.com/
-Tags: calendar, meetup, meetup event, Events, Meetup API
+Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.9
-Stable tag: 1.6.9
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Import Meetup Events allows you to import Meetup (meetup.com) events into your WordPress site effortlessly.
+Automatically import and sync Meetup.com events into WordPress without a Meetup Pro account. Works with The Events Calendar, Events Manager, EventON, EventPrime & more.
 
 == Description ==
 
-This plugin allows you to import events from [meetup.com](https://www.meetup.com/) into your wordpress. You can schedule event import so it will be imported automatacally [Pro]
+Import Meetup Events lets you easily bring events from Meetup.com into your WordPress website, **no API key, no authentication, and no Meetup Pro account required.** 
 
-This Plugin is works as a stand alone as well as add-on plugin for below listed Events plugins, which allows you to run imports from meetup.com right from your dashboard. As a stand alone plugin this plugin work independently for event import and Event Management.
+Whether you run a community site, business portal, or local meetup directory, you can start importing events instantly with just a few clicks. Focus on showcasing your events, while this plugin handles all the syncing and display effortlessly.
 
-Import, meetup import, the events calendar, manager, events manager, import meetup, events, calendar, event, import event, my calendar, eventon, all in one event calendar, timely, event organiser, event management, event calendar, event manager
+📄 [Documentation](https://docs.xylusthemes.com/docs/import-meetup-events) | ⭐ [Upgrade to Pro](https://xylusthemes.com/plugins/import-meetup-events) | 🛟 [Get Support](https://xylusthemes.com/support/) | 👁️ [Try Admin Demo](http://testdrive.xylusthemes.com/)
 
-You can use `[meetup_events]` for display in-built Meetup events list.
+---
 
-**Import Events into**
+**Stop manually copying events from Meetup.com to your WordPress site.** Import Meetup Events connects your Meetup groups directly to your WordPress event calendar, saving you hours every week and keeping your website always up to date.
 
-* [The Events Calendar](https://wordpress.org/plugins/the-events-calendar/) - supported with the latest version 6.0. 
-* [Events manager](https://wordpress.org/plugins/events-manager/)
-* [Event Organiser](https://wordpress.org/plugins/event-organiser/)
-* [EventON](https://codecanyon.net/item/eventon-wordpress-event-calendar-plugin/1211017)
-* [My Calendar](https://wordpress.org/plugins/my-calendar/)
-* In-built Event Management System.
+Whether you run a local tech meetup, a nonprofit community calendar, or a multi-city event network, this plugin eliminates the double-posting problem. Import once, display everywhere.
 
-You can configure settings for this plugin at **Meetup Import** Menu in your WordPress dashboard. You can insert your [meetup.com API key](http://secure.meetup.com/meetup_api/key/) in settings section. After configure settings you can import meetup event from there.
+= Why 8,000+ WordPress Sites Trust Our Plugin =
 
-Here are some features of this plugins.
+**⏱ Save 2+ Hours Per Week**  
+Stop the copy-paste routine. Import all your Meetup.com events with a single click, including titles, descriptions, dates, venues, and organizer details.
 
-*   "Manual" event import.
-*   Upcoming Events Widget On Elementor Editor.[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-*   New Event listing Grid view Layout.[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-*   Element for Visual Composer ( WPBackery Page Builder).[PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-*   Scheduled event import - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-*   Setup time interval for "Automatic" event import.
-*   Assign events to particular categories.
-*   Set status(publish, pending, draft) for imported events.
-*   Shortcode for display events on anywhere you want
-*   Upcoming Events widget - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-*   Advanced Synchronization with Meetups - [PRO Version](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
+**⚙️ Works With Your Existing Calendar**  
+No migration required. Works as a standalone event system AND as a powerful add-on for your existing calendar plugins:
 
-><strong>New All in one Event Import Tool!</strong><br>
->We’ve developed bulk event imports tool. This add-on service for The Events Calendar allows you import events from your favorite sources like Facebook, Meetup, Eventbrite, iCalendar, and ICS.
->
->[Check out WP Event Aggregator now](https://wordpress.org/plugins/wp-event-aggregator/).
->
+* **[Easy Events Calendar](https://wordpress.org/plugins/xylus-events-calendar/)** — Display imported Facebook, Eventbrite, Meetup, iCal & more events in a clean calendar view on your WordPress site.
+* **[The Events Calendar](https://wordpress.org/plugins/the-events-calendar/)** — Supported up to the latest version 6.x. Imported events appear natively in TEC calendar views, categories, and search.
+* **[Events Manager](https://wordpress.org/plugins/events-manager/)** — Full integration with Events Manager plugin.
+* **[All-in-One Event Calendar](https://wordpress.org/plugins/all-in-one-event-calendar/)** — Import and display events seamlessly.
+* **[EventON](https://codecanyon.net/item/eventon-wordpress-event-calendar-plugin/1211017)** — Sync Meetup events into EventON.
+* **[Event Organiser](https://wordpress.org/plugins/event-organiser/)** — Compatible for imported event management.
+* **[My Calendar](https://wordpress.org/plugins/my-calendar/)** — Display imported events using My Calendar plugin.
 
- 
-><strong>Our Plugins for importing events!</strong>
-> 
-* [WP Event Aggregator](https://wordpress.org/plugins/wp-event-aggregator/)
-* [Import Facebook Events](https://wordpress.org/plugins/import-facebook-events/)
-* [Import Eventbrite Events](https://wordpress.org/plugins/import-eventbrite-events/)
-* [WP Bulk Delete](https://wordpress.org/plugins/wp-bulk-delete/)
->
+**🧱 Built-in Event Management**  
+Don't use a calendar plugin? No problem. Import Meetup Events includes its own lightweight event management system with shortcodes and a Gutenberg block. [See Admin Demo](http://testdrive.xylusthemes.com/)
+
+---
+
+🚀 WHAT YOU CAN DO
+
+✔ Import events by Meetup Event ID  
+✔ Import events by Meetup Group URL — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)    
+✔ Manually import events in one click  
+✔ Schedule automatic imports — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+✔ Run background imports for large datasets — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+✔ Display events using shortcode, blocks, widgets, or page builders  
+
+---
+
+🎯 FLEXIBLE DISPLAY OPTIONS
+
+Display events anywhere on your website:
+
+• 4 Modern Grid Layout Styles — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Shortcode support: `[meetup_events]`  
+• Filter events by Group ID — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Gutenberg block support — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Elementor widget — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• WPBakery Page Builder element — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Classic WordPress widget  
+
+Example usage:
+
+`[meetup_events layout="style2"]`
+
+---
+
+⚙ IMPORT FEATURES
+
+• Manual one-click event import  
+• Import events by ID  
+• Import events by Group URL   — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Assign categories during import  
+• Set event status (Publish, Draft, Pending)  
+• Import history logs  
+• Automatic scheduled imports — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Custom time intervals — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Advanced synchronization — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+
+---
+
+💡 WHY CHOOSE IMPORT MEETUP EVENTS?
+
+✔ Beginner friendly interface  
+✔ Developer friendly flexibility  
+✔ Lightweight & optimized  
+✔ Clean admin dashboard  
+✔ Multiple layout styles — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+✔ Page builder compatibility — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+✔ Works as standalone or add-on  
+
+Perfect for:
+
+• Meetup organizers  
+• Community websites  
+• Event bloggers  
+• Business websites  
+• Directory portals  
+
+---
+
+Importing from more than just Meetup? Check out our full event import suite:
+
+* **[Easy Events Calendar](https://wordpress.org/plugins/xylus-events-calendar/)** — Display imported Facebook, Eventbrite, Meetup, iCal & more events in a clean calendar view on your WordPress site.
+* **[WP Event Aggregator](https://wordpress.org/plugins/wp-event-aggregator/)** — Import from Facebook, Eventbrite, Meetup, iCal, CSV, XML and more into one calendar.
+* **[Import Eventbrite Events](https://wordpress.org/plugins/import-eventbrite-events/)** — Dedicated Eventbrite-to-WordPress sync.
+* **[Import Social Events](https://wordpress.org/plugins/import-facebook-events/)** — Facebook Events importer for WordPress.
+
+---
+
+== Screenshots ==
+
+1. **Display events with Shortcode Layout Style 1** — Elegant grid layout to showcase your events neatly using the first style shortcode.  
+2. **Display events with Shortcode Layout Style 2 (Pro)** — Modern alternative layout for event lists, perfect for professional websites.  
+3. **Display events with Shortcode Layout Style 3** — Clean and compact grid layout for events (Pro version).  
+4. **Display events with Shortcode Layout Style 4** — Full-width event display with detailed info (Pro version).  
+5. **Display events using the Gutenberg Block for WP Events** — Drag and drop your events directly into posts and pages using Gutenberg (Pro version).  
+6. **Upcoming WP Events Widget in backend (Pro)** — Manage and preview upcoming events in your WordPress widget panel.  
+7. **Preview events directly in the widget area** — Quick live preview of events before placing them on your site.  
+8. **Import event by ID** — Easily import a specific Meetup event by its unique ID in one click.  
+9. **Import events by Group URL** — Import all events from a Meetup group quickly using the group’s URL.  
+10. **Import history logs** — Keep track of all past imports, including successes, failures, and scheduled imports.  
+11. **Plugin Settings Dashboard** — Central control panel to configure your Meetup API key, import settings, and display options.  
+12. **All Shortcodes** — Use all available shortcode options to display events anywhere on your website.  
+
+---
 
 == Installation ==
 
-This plugin can be installed directly from your site.
+Automatic Installation:
 
-1. Log in and navigate to Plugins & Add New.
-2. Type "Import Meetup Events" into the Search input and click the "Search" button.
-3. Locate the "Import Meetup Events" in the list of search results and click "Install Now".
-4. Click the "Activate Plugin" link at the bottom of the install screen.
+1. Go to Plugins → Add New.  
+2. Search for "Import Meetup Events".  
+3. Click Install Now.  
+4. Activate the plugin.  
 
-It can also be installed manually.
+Manual Installation:
 
-1. Download the "Import Meetup Events" plugin from WordPress.org.
-2. Unzip the package and move to your plugins directory.
-3. Log into WordPress and navigate to the "Plugins" screen.
-4. Locate "Import Meetup Events" in the list and click the "Activate" link.
+1. Download the plugin from WordPress.org.  
+2. Upload it to `/wp-content/plugins/`.  
+3. Activate from the Plugins menu.  
 
-== Screenshots ==
+After activation:
 
-1. Meetup Import Settings
-2. Meetup Import Screen for The Events Calendar
-3. Meetup Import Screen for Events Manager
+• Go to Meetup Import menu  
+• Enter your Meetup API key  
+• Start importing events  
 
+---
 
-== Screenshots ==
+== Frequently Asked Questions ==
 
-1. Events page using '[meetup_events posts_per_page="12"]' shortcode
-2. Single Event page (Twenty Sixteen Theme).
-3. Import Meetup events (one-time import)
-4. Import Meetup events (scheduled import) - [PRO](https://xylusthemes.com/plugins/import-meetup-events/?utm_source=wprepo&utm_campaign=MeetupEvents&utm_medium=readme&utm_content=wprepo-readme)
-5. Scheduled Meetup Imports (Pro).
-6. Import History
-7. Settings
+= Can I import events without a Meetup API key? =  
+Yes! You can import Meetup events directly without needing an API key or any authorization. There’s no requirement for a Meetup Pro account, just choose your import method and start importing instantly.
+
+= Does this plugin work with my event calendar plugin? =  
+Yes! Import Meetup Events supports popular event plugins including The Events Calendar, Events Manager, Event Organiser, EventON, My Calendar, or you can use the built-in event system.
+
+= Does this plugin work with The Events Calendar? =  
+Yes! It integrates seamlessly with The Events Calendar (by StellarWP), including support for the latest version 6.x. Imported events appear natively in TEC calendar views, categories, and search.
+
+= Can I import events automatically on a schedule? =  
+Automatic scheduled imports are available in the **[Pro version](https://xylusthemes.com/plugins/import-meetup-events/)**. You can configure hourly, twice-daily, daily, or weekly sync intervals. The free version supports one-click manual imports.
+
+= What happened to the old Meetup API key method? =  
+Meetup.com deprecated their legacy API keys in 2019 and migrated to OAuth 2.0. This plugin fully supports the new OAuth 2.0 authorization flow. See our [setup guide](https://xylusthemes.com/how-to-create-meetup-oauth-client-for-importing-meetup-events-using-import-meetup-event-wordpress-plugin/) for step-by-step instructions.
+
+= Can I display imported events anywhere on my site? =  
+Absolutely. You can use the shortcode `[meetup_events]`, Gutenberg block, Elementor widget, WPBakery Page Builder element, or the classic WordPress widget to display events anywhere.
+
+= Can I filter events by Group ID or layout style? =  
+Yes! You can filter imported events by Group ID using the shortcode and display them in 4 different grid styles for a clean, modern look (Pro version).
+
+= Does this plugin import event images, venues, and organizer details? =  
+Yes. Each import pulls the event title, description, featured image, start/end dates, venue (with address), and organizer information directly from the Meetup.com API.
+
+= Will importing events create duplicate entries? =  
+No. The plugin checks for existing events before importing. If an event has already been imported, it will be updated instead of duplicated. This is especially powerful with the Pro version's scheduled sync.
+
+= Is this plugin compatible with WordPress multisite? =  
+Yes. The plugin works on both single-site and multisite WordPress installations. The Pro version includes multisite-friendly licensing for agencies.
 
 
 == Changelog ==
+
+= 1.7.0 =
+* ADDED: New Events Grid View (Style 3).
+* ADDED: New Events Grid View (Style 4).
+* ADDED: Background import process for scheduled imports (Pro version).
+* ADDED: Shortcode option to display events by group ID.
+* IMPROVEMENTS: Improved security validations and input sanitization.
 
 = 1.6.9 =
 * ADDED: Revamped admin interface with new, user-friendly GUI
@@ -272,4 +375,3 @@ It can also be installed manually.
 
 = 1.0.0 =
 * Initial Version.
-
