@@ -808,7 +808,7 @@ class Import_Meetup_Events_Cpt {
 			$classes .= ' ' . $atts['className'];
 		}
 		?>
-		<div class="<?php echo esc_attr( $classes ); ?>" data-paged="<?php echo esc_attr( $paged ); ?>" data-shortcode='<?php echo wp_json_encode( $atts ); ?>'>
+		<div class="<?php echo esc_attr( $classes ); ?>" data-paged="<?php echo esc_attr( $paged ); ?>" data-shortcode="<?php echo esc_attr( wp_json_encode($atts, JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ); ?>">
 			<?php
 			$template_args                = array();
 			$template_args['css_class']   = $css_class;
