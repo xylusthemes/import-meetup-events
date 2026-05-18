@@ -129,6 +129,7 @@ class Import_Meetup_Events_Cpt {
 				'label'                 => __( 'Events', 'import-meetup-events' ),
 				'description'           => __( 'Post type for Events', 'import-meetup-events' ),
 				'labels'                => $event_labels,
+				'show_in_rest'          => true,
 				'supports'              => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions' ),
 				'taxonomies'            => array( $this->event_category, $this->event_tag ),
 				'hierarchical'          => false,
