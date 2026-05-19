@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com/
 Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 6.9
-Stable tag: 1.7.0
+Tested up to: 7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,10 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 
 == Changelog ==
+
+= 1.7.1 =
+* IMPROVEMENTS: Support for WP 7.0
+* IMPROVEMENTS: Enabled Gutenberg Block Editor support for Custom Post Types.
 
 = 1.7.0 =
 * ADDED: New Events Grid View (Style 3).
