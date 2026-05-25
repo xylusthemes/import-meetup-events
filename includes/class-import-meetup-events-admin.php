@@ -38,12 +38,183 @@ class Import_Meetup_Events_Admin {
 		add_action( 'admin_init', array( $this, 'setup_success_messages' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages') );
 		add_filter( 'submenu_file', array( $this, 'get_selected_tab_submenu_ime' ) );
+		add_filter( 'parent_file', array( $this, 'get_selected_tab_parent_ime' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles') );
 		add_action( 'admin_notices', array( $this,'ime_remove_default_notices' ), 1 );
 		add_action( 'ime_display_all_notice', array( $this, 'ime_display_notices' ) );
 		add_filter( 'admin_footer_text', array( $this, 'add_import_meetup_events_credit' ) );
 		add_action( 'admin_init', array( $this, 'ime_wp_cron_check' ) );
+		add_action( 'admin_menu', array( $this, 'ime_widget_free_page' ) ); 
+	}
+
+	function ime_widget_free_page() {
+		if ( ! post_type_exists( 'imepro_live_feed' ) && ! defined( 'IMEPRO_VERSION' ) ) {
+			add_submenu_page(
+				'meetup_event',
+				__( 'Meetup Widget', 'import-meetup-events' ),
+				__( 'Meetup Widget', 'import-meetup-events' ),
+				'manage_options',
+				'ime_meetup_feed_upgrade',
+				array( $this, 'ime_render_feed_upgrade_page' )
+			);
+		}
+	}
+
+	function ime_render_feed_upgrade_page() {
+		$pro_url = 'https://xylusthemes.com/plugins/import-meetup-events';
+		?>
+		<style>
+			.ime-upgrade-wrap { max-width: 900px; margin: 40px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+			.ime-upgrade-hero { background: linear-gradient(135deg, #f06342 0%, #e84f2a 50%, #3d64f4 100%); border-radius: 12px; padding: 48px 40px; color: #fff; text-align: center; position: relative; overflow: hidden; margin-bottom: 32px; }
+			.ime-upgrade-hero::before { content:''; position:absolute; top:-60px; right:-60px; width:220px; height:220px; background:rgba(255,255,255,0.07); border-radius:50%; }
+			.ime-upgrade-hero::after { content:''; position:absolute; bottom:-40px; left:-40px; width:160px; height:160px; background:rgba(255,255,255,0.05); border-radius:50%; }
+			.ime-upgrade-hero h1 { font-size: 32px; font-weight: 800; margin: 0 0 12px; position:relative; z-index:1; }
+			.ime-upgrade-hero p { font-size: 16px; opacity: 0.92; margin: 0 0 28px; position:relative; z-index:1; max-width: 560px; margin-left:auto; margin-right:auto; margin-bottom:28px;}
+			.ime-upgrade-hero-btn { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #f06342; font-size: 15px; font-weight: 700; padding: 14px 32px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,0.2); position:relative; z-index:1; transition: transform 0.2s; }
+			.ime-upgrade-hero-btn:hover { transform: translateY(-2px); color: #e8411a; }
+			.ime-pro-badge-large { display:inline-block; background:#4CAF50; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:1px; text-transform:uppercase; margin-bottom:16px; }
+
+			.ime-features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+			.ime-feature-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 24px 20px; text-align: center; transition: box-shadow 0.2s; }
+			.ime-feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+			.ime-feature-icon { font-size: 32px; margin-bottom: 12px; display:block; }
+			.ime-feature-card h3 { font-size: 14px; font-weight: 700; color: #1d2327; margin: 0 0 8px; }
+			.ime-feature-card p { font-size: 12px; color: #666; margin: 0; line-height: 1.6; }
+
+			.ime-compare-table { background:#fff; border:1px solid #e8e8e8; border-radius:10px; overflow:hidden; margin-bottom:32px; }
+			.ime-compare-table table { width:100%; border-collapse:collapse; }
+			.ime-compare-table th { padding:14px 20px; font-size:13px; font-weight:700; text-align:center; }
+			.ime-compare-table th:first-child { text-align:left; background:#f8f9fa; }
+			.ime-compare-table th.free-col { background:#f8f9fa; color:#888; }
+			.ime-compare-table th.pro-col { background: linear-gradient(135deg, #f06342, #3d64f4); color:#fff; }
+			.ime-compare-table td { padding:11px 20px; font-size:13px; border-top:1px solid #f0f0f0; text-align:center; }
+			.ime-compare-table td:first-child { text-align:left; color:#444; font-weight:500; }
+			.ime-compare-table tr:hover td { background:#fafafa; }
+			.ime-check { color:#4CAF50; font-size:16px; font-weight:700; }
+			.ime-cross { color:#ccc; font-size:16px; }
+
+			.ime-bottom-cta { background:#f8f9fa; border:1px solid #e8e8e8; border-radius:10px; padding:32px; text-align:center; }
+			.ime-bottom-cta h3 { font-size:20px; font-weight:700; color:#1d2327; margin:0 0 8px; }
+			.ime-bottom-cta p { font-size:13px; color:#666; margin:0 0 20px; }
+
+			@media (max-width: 782px) { .ime-features-grid { grid-template-columns: 1fr 1fr; } }
+		</style>
+
+		<div class="ime-upgrade-wrap">
+
+			<div class="ime-upgrade-hero">
+				<span class="ime-pro-badge-large"><?php esc_html_e( 'PRO Feature', 'import-meetup-events' ); ?></span>
+				<h1 style="color:#fff;"><?php esc_html_e( 'Meetup Widget', 'import-meetup-events' ); ?></h1>
+				<p style="color:#ddd;"><?php esc_html_e( 'Display Meetup events directly on your website no import, no authorization, no API Key needed. Just paste a shortcode and go live!', 'import-meetup-events' ); ?></p>
+				<a href="<?php echo esc_url( $pro_url ); ?>" target="_blank" class="ime-upgrade-hero-btn">
+					✦ <?php esc_html_e( 'Upgrade to PRO', 'import-meetup-events' ); ?>
+				</a>
+			</div>
+
+			<div class="ime-features-grid">
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">🚀</span>
+					<h3><?php esc_html_e( 'No Import Needed', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'Show live events directly from Meetup, no manual importing, no syncing required.', 'import-meetup-events' ); ?></p>
+				</div>
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">🔑</span>
+					<h3><?php esc_html_e( 'No Auth & No key', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'No API key, no OAuth setup. Just enter your Organizer ID or Collection ID and done.', 'import-meetup-events' ); ?></p>
+				</div>
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">🔄</span>
+					<h3><?php esc_html_e( 'Always Up-to-Date', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'Events auto-refresh via smart caching. Your visitors always see fresh event data.', 'import-meetup-events' ); ?></p>
+				</div>
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">🎨</span>
+					<h3><?php esc_html_e( '7 Layout Styles', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'Card Grid, List, Masonry, Timeline, Ticket, Minimal Grid, Compact List — pick what fits your site.', 'import-meetup-events' ); ?></p>
+				</div>
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">🎟️</span>
+					<h3><?php esc_html_e( 'Ticket Button Built-in', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'Show Get Tickets button with popup modal or direct Meetup link. Fully customizable labels.', 'import-meetup-events' ); ?></p>
+				</div>
+				<div class="ime-feature-card">
+					<span class="ime-feature-icon">⚡</span>
+					<h3><?php esc_html_e( 'Shortcode Builder', 'import-meetup-events' ); ?></h3>
+					<p><?php esc_html_e( 'Visual builder generates your shortcode instantly. Paste it anywhere — pages, posts, widgets.', 'import-meetup-events' ); ?></p>
+				</div>
+			</div>
+
+			<div class="ime-compare-table">
+				<table>
+					<thead>
+						<tr>
+							<th><?php esc_html_e( 'Feature', 'import-meetup-events' ); ?></th>
+							<th class="free-col"><?php esc_html_e( 'Free', 'import-meetup-events' ); ?></th>
+							<th class="pro-col"><?php esc_html_e( 'PRO', 'import-meetup-events' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><?php esc_html_e( 'Display events via Live Feed (no import)', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Feed by Group Url', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Feed by Specific Event IDs', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( '7 Display Layouts (Grid, List, Masonry & more)', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Shortcode Builder', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Filter by Date & Time', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Smart Cache + Auto Refresh', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Pagination (Load More / Infinite Scroll)', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+						<tr>
+							<td><?php esc_html_e( 'Custom CSS per Feed', 'import-meetup-events' ); ?></td>
+							<td><span class="ime-cross">✕</span></td>
+							<td><span class="ime-check">✔</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="ime-bottom-cta">
+				<h3><?php esc_html_e( 'Ready to go live with Meetup Widget?', 'import-meetup-events' ); ?></h3>
+				<p><?php esc_html_e( 'Upgrade to PRO and start displaying events on your website in minutes, no technical setup needed.', 'import-meetup-events' ); ?></p>
+				<a href="<?php echo esc_url( $pro_url ); ?>" target="_blank" 
+				style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#f06342,#3d64f4); color:#fff; font-size:14px; font-weight:700; padding:13px 30px; border-radius:8px; text-decoration:none; box-shadow:0 4px 16px rgba(240,99,66,0.35);">
+					✦ <?php esc_html_e( 'Get PRO Now', 'import-meetup-events' ); ?>
+				</a>
+			</div>
+
+		</div>
+		<?php
 	}
 
 	/**
@@ -57,6 +228,25 @@ class Import_Meetup_Events_Admin {
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
 		$submenu['meetup_import'][] = array( __( 'Dashboard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=dashboard' ) );
+		if ( post_type_exists( 'imepro_live_feed' ) || defined( 'IMEPRO_VERSION' ) ) {
+			$submenu['meetup_import'][] = array(
+				'<span style="display:flex; justify-content:space-between; align-items:center; width:100%;">' 
+					. __( 'Meetup Widget', 'import-meetup-events' ) 
+					. '<span style="background:#4CAF50; margin-left:6px; flex-shrink:0;height: 22px;border-radius: 3px;color: #FFF;font-size: 12px;line-height: 18px;font-weight: 600;display: inline-flex;padding: 0 4px;align-items: center;">NEW</span>'
+				. '</span>',
+				'manage_options',
+				'edit.php?post_type=imepro_live_feed'
+			);
+		} else {
+			$submenu['meetup_import'][] = array(
+				'<span style="display:flex; justify-content:space-between; align-items:center; width:100%;">' 
+					. __( 'Meetup Widget', 'import-meetup-events' ) 
+					. '<span style="background:#4CAF50; margin-left:6px; flex-shrink:0;height:22px;border-radius:3px;color:#FFF;font-size:12px;line-height:18px;font-weight:600;display:inline-flex;padding:0 4px;align-items:center;">NEW</span>'
+				. '</span>',
+				'manage_options',
+				'admin.php?page=ime_meetup_feed_upgrade'
+			);
+		}
 		$submenu['meetup_import'][] = array( __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=meetup' ) );
 		$submenu['meetup_import'][] = array( __( 'Schedule Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=scheduled' ) );
 		$submenu['meetup_import'][] = array( __( 'Import History', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=history' ) );
@@ -499,7 +689,26 @@ class Import_Meetup_Events_Admin {
 				$submenu_file = admin_url( 'admin.php?page=meetup_import&tab='.$tab );
 			}
 		}
+
+		global $post_type;
+		if ( 'imepro_live_feed' === $post_type ) {
+			$submenu_file = 'edit.php?post_type=imepro_live_feed';
+		}
+
 		return $submenu_file;
+	}
+
+	/**
+	 * Set parent file for CPTs to keep menu open.
+	 *
+	 * @since 1.8.0
+	 */
+	public function get_selected_tab_parent_ime( $parent_file ){
+		global $post_type;
+		if ( 'imepro_live_feed' === $post_type ) {
+			$parent_file = 'meetup_events';
+		}
+		return $parent_file;
 	}
 
 	/**

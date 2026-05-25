@@ -52,6 +52,10 @@ class Import_Meetup_Events_Public_API {
                         postalCode
                         venueType
                     }
+                    feeSettings {
+                        amount
+                        currency
+                    }
                     series{
                         endDate
                         description
@@ -112,6 +116,10 @@ class Import_Meetup_Events_Public_API {
                                 description
                                 eventUrl
                                 status
+                                feeSettings {
+                                    amount
+                                    currency
+                                }
                                 venues{
                                     id
                                     name
