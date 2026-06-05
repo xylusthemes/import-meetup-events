@@ -40,7 +40,7 @@ if ( 'yes' === $direct_link ){
 }
 
 ?>
-<div <?php post_class( array( $css_class, 'archive-event' ) ); ?> >
+<div <?php post_class( array( $css_class, 'ime-archive-event' ) ); ?> >
     <div class="ime-card" >
         <div class="ime-card-body" >
             <div class="ime-d-flex ime-border-bottom ime-pb-3 ime-align-items" >

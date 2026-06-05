@@ -930,10 +930,10 @@ class Import_Meetup_Events_Cpt {
 		</div>
 		
 		<style type="text/css">
-			.ime_archive .ime_event .event_date{
+			.ime_archive .ime_event .ime_event_date{
 				background-color: <?php echo esc_attr( $accent_color ); ?>;
 			}
-			.ime_archive .ime_event .event_desc .event_title{
+			.ime_archive .ime_event .ime_event_desc .ime_event_title{
 				color: <?php echo esc_attr( $accent_color ); ?>;
 			}
 			.ime-event-count, .ime-event-meta > div, .ime-event-meta > div i, .ime-event-info h4 a:hover {
