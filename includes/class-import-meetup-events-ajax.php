@@ -33,7 +33,17 @@ class Import_Meetup_Events_Ajax {
 
 		$atts          = json_decode( stripslashes( $_POST['atts'] ), true );
 		$atts['paged'] = intval( $_POST['page'] );
-		$html          = do_shortcode( '[meetup_events ' . http_build_query( $atts, '', ' ' ) . ']' );
+		
+		$shortcode_atts = '';
+		if ( is_array( $atts ) ) {
+			foreach ( $atts as $key => $value ) {
+				if ( is_scalar( $value ) && ! is_numeric( $key ) ) {
+					$shortcode_atts .= ' ' . sanitize_key( $key ) . '="' . esc_attr( $value ) . '"';
+				}
+			}
+		}
+
+		$html = do_shortcode( '[meetup_events' . $shortcode_atts . ']' );
 
 		wp_send_json_success( $html );
 	}
