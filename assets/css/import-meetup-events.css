@@ -758,33 +758,33 @@
   margin-right: auto;
 }
 
-.organizermain {
+.ime_organizermain {
   padding: 40px;
   width: 100%;
   background: #fafafa;
   border: 1px solid #eeeeee;
   margin: 30px 0;
 }
-.organizermain:after {
+.ime_organizermain:after {
   clear: both;
 }
-.details {
+.ime_details {
   float: left;
   width: 50%;
 }
-.details > a {
+.ime_details > a {
   display: block;
   line-height: 18px;
 }
-.details > p {
+.ime_details > p {
   margin-bottom: 10px;
   margin-top: 0;
 }
-.venue {
+.ime_venue {
   float: left;
   width: 35%;
 }
-.map {
+.ime_map {
   border: 2px solid #ddd;
   float: left;
   width: 64%;
@@ -806,7 +806,7 @@
   text-decoration: underline;
   font-weight: normal;
 }
-.titlemain {
+.ime_titlemain {
   font-size: 18px;
   font-weight: bold;
   color: #444444;
@@ -820,7 +820,7 @@
   line-height: 12px;
   margin: 25px 0 0;
 }
-.organizermain.library {
+.ime_organizermain.ime_library {
   margin-top: 0;
 }
 
@@ -966,10 +966,10 @@
 }
 
 @media (max-width: 768px) {
-  .ime_event_meta .details,
-  .ime_event_meta .organizer,
-  .organizermain .venue,
-  .organizermain .map {
+  .ime_event_meta .ime_details,
+  .ime_event_meta .ime_organizer,
+  .ime_organizermain .ime_venue,
+  .ime_organizermain .ime_map {
     float: none !important;
     width: 100% !important;
   }
