@@ -5,7 +5,7 @@ Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 7.0
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,13 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 
 == Changelog ==
+
+= 1.7.2 =
+* ADDED: Meetup widget to display events directly on your site. ( PRO )
+* ADDED: Import events into Easy Event Calendar plugin.
+* ADDED: Sorting functionality for Event Name and Event Category columns.
+* FIXED: Advanced Synchronization issue during event imports.
+* IMPROVEMENTS: Full compatibility with PHP 8.5.
 
 = 1.7.1 =
 * IMPROVEMENTS: Support for WP 7.0
