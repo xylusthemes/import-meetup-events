@@ -285,6 +285,10 @@ class Import_Meetup_Events_List_Table extends WP_List_Table {
 
 							$get_term = get_term( $term, $ime_events->aioec->get_taxonomy() );	
 
+						}elseif( $import_plugin == 'xec' ){
+
+							$get_term = get_term( $term, $ime_events->xec->get_taxonomy() );	
+
 						}elseif( $import_plugin == 'my_calendar' ){
 
 							$get_term = get_term( $term, $ime_events->my_calendar->get_taxonomy() );
@@ -701,6 +705,10 @@ class Import_Meetup_Events_History_List_Table extends WP_List_Table {
 						}elseif( $import_plugin == 'aioec' ){
 
 							$get_term = get_term( $term, $ime_events->aioec->get_taxonomy() );	
+						
+						}elseif( $import_plugin == 'xec' ){
+
+							$get_term = get_term( $term, $ime_events->xec->get_taxonomy() );	
 
 						}elseif( $import_plugin == 'my_calendar' ){
 
