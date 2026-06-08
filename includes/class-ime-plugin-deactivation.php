@@ -161,7 +161,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                             width: 600,
                             'buttons'       : [
                                 {
-                                    text: "<?php esc_attr_e('Submit & Deactivate', 'import-meetup-events' ); ?>",
+                                    text: "Submit & Deactivate",
                                     class: 'button button-primary <?php echo esc_attr( $this->prefix ). "deactivate_button"; ?>',
                                     click: function() {
 										var that = this;
@@ -189,7 +189,7 @@ if ( ! class_exists( 'IME_Plugin_Deactivation' ) ) {
                                     }
                                 },
                                 {
-                                    text: "<?php esc_attr_e('Skip & Deactivate', 'import-meetup-events' ); ?>",
+                                    text: "Skip & Deactivate",
                                     class: 'button',
                                     click: function() {
                                         jQuery( this ).dialog( "close" );

@@ -347,20 +347,22 @@ class Import_Meetup_Events_Common {
 		global $ime_success_msg, $ime_errors;
 
 		$import_status = $import_ids = array();
-		foreach ($import_data as $key => $value) {
-			if( $value['status'] == 'created'){
-				$import_status['created'][] = $value;
-			}elseif( $value['status'] == 'updated'){
-				$import_status['updated'][] = $value;
-			}elseif( $value['status'] == 'skipped'){
-				$import_status['skipped'][] = $value;
-			}elseif( $value['status'] == 'skip_trash'){
-				$import_status['skip_trash'][] = $value;
-			}else{
+		if ( ! empty( $import_data ) && is_array( $import_data ) ) {
+			foreach ($import_data as $key => $value) {
+				if( $value['status'] == 'created'){
+					$import_status['created'][] = $value;
+				}elseif( $value['status'] == 'updated'){
+					$import_status['updated'][] = $value;
+				}elseif( $value['status'] == 'skipped'){
+					$import_status['skipped'][] = $value;
+				}elseif( $value['status'] == 'skip_trash'){
+					$import_status['skip_trash'][] = $value;
+				}else{
 
-			}
-			if( isset( $value['id'] ) ){
-				$import_ids[] = $value['id'];
+				}
+				if( isset( $value['id'] ) ){
+					$import_ids[] = $value['id'];
+				}
 			}
 		}
 		$created = $updated = $skipped = $skipped = 0;

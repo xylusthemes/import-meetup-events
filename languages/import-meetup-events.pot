@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-19T06:46:49+00:00\n"
+"POT-Creation-Date: 2026-06-05T07:20:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: import-meetup-events\n"
@@ -50,7 +50,7 @@ msgid "Setting"
 msgstr ""
 
 #: import-meetup-events.php:216
-#: includes/class-import-meetup-events-common.php:1053
+#: includes/class-import-meetup-events-common.php:1055
 msgid "Docs"
 msgstr ""
 
@@ -91,14 +91,6 @@ msgstr ""
 
 #: includes/class-ime-plugin-deactivation.php:54
 msgid "Other reasons"
-msgstr ""
-
-#: includes/class-ime-plugin-deactivation.php:164
-msgid "Submit & Deactivate"
-msgstr ""
-
-#: includes/class-ime-plugin-deactivation.php:192
-msgid "Skip & Deactivate"
 msgstr ""
 
 #: includes/class-ime-plugin-deactivation.php:209
@@ -148,7 +140,7 @@ msgid "Meetup Import"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:59
-#: includes/class-import-meetup-events-common.php:1021
+#: includes/class-import-meetup-events-common.php:1023
 msgid "Dashboard"
 msgstr ""
 
@@ -174,7 +166,7 @@ msgid "Shortcodes"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:65
-#: includes/class-import-meetup-events-common.php:1051
+#: includes/class-import-meetup-events-common.php:1053
 msgid "Support"
 msgstr ""
 
@@ -286,7 +278,7 @@ msgid "Import History"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:380
-#: includes/class-import-meetup-events-cpt.php:103
+#: includes/class-import-meetup-events-cpt.php:107
 msgid "Add New"
 msgstr ""
 
@@ -328,7 +320,7 @@ msgid " Rate %1$sImport Meetup Events%2$s %3$s"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:442
-#: includes/class-import-meetup-events-common.php:1135
+#: includes/class-import-meetup-events-common.php:1137
 msgid "WP Event Aggregator"
 msgstr ""
 
@@ -337,12 +329,12 @@ msgid "Import Facebook Events"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:444
-#: includes/class-import-meetup-events-common.php:1137
+#: includes/class-import-meetup-events-common.php:1139
 msgid "Import Eventbrite Events"
 msgstr ""
 
 #: includes/class-import-meetup-events-admin.php:445
-#: includes/class-import-meetup-events-common.php:1134
+#: includes/class-import-meetup-events-common.php:1136
 msgid "WP Bulk Delete"
 msgstr ""
 
@@ -412,8 +404,8 @@ msgid "My Calendar"
 msgstr ""
 
 #: includes/class-import-meetup-events-common.php:241
-#: includes/class-import-meetup-events-cpt.php:97
 #: includes/class-import-meetup-events-cpt.php:101
+#: includes/class-import-meetup-events-cpt.php:105
 msgid "Meetup Events"
 msgstr ""
 
@@ -421,13 +413,13 @@ msgstr ""
 msgid "Invalid image URL"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:372
+#: includes/class-import-meetup-events-common.php:374
 msgid "Event(s) are imported successfully."
 msgstr ""
 
 #. translators: %d: Number of events created.
 #. translators: %d: Number of events Created.
-#: includes/class-import-meetup-events-common.php:375
+#: includes/class-import-meetup-events-common.php:377
 #: includes/class-import-meetup-events-list-table.php:110
 #: includes/class-import-meetup-events-list-table.php:327
 #: includes/class-import-meetup-events-list-table.php:529
@@ -436,7 +428,7 @@ msgid "%d Created"
 msgstr ""
 
 #. translators: %d: Number of events Updated.
-#: includes/class-import-meetup-events-common.php:379
+#: includes/class-import-meetup-events-common.php:381
 #: includes/class-import-meetup-events-list-table.php:114
 #: includes/class-import-meetup-events-list-table.php:331
 #: includes/class-import-meetup-events-list-table.php:533
@@ -445,388 +437,388 @@ msgid "%d Updated"
 msgstr ""
 
 #. translators: %d: Number of events Skipped.
-#: includes/class-import-meetup-events-common.php:383
+#: includes/class-import-meetup-events-common.php:385
 #, php-format
 msgid "%d Skipped (Already exists)"
 msgstr ""
 
 #. translators: %d: Number of events creaSkippedted.
-#: includes/class-import-meetup-events-common.php:387
+#: includes/class-import-meetup-events-common.php:389
 #, php-format
 msgid "%d Skipped (Already exists in Trash )"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:476
+#: includes/class-import-meetup-events-common.php:478
 msgid "Once Hourly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:479
+#: includes/class-import-meetup-events-common.php:481
 msgid "Twice Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:482
+#: includes/class-import-meetup-events-common.php:484
 msgid "Once Daily"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:485
+#: includes/class-import-meetup-events-common.php:487
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:488
+#: includes/class-import-meetup-events-common.php:490
 msgid "Once a Month"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:503
+#: includes/class-import-meetup-events-common.php:505
 msgid "One-time Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:504
+#: includes/class-import-meetup-events-common.php:506
 msgid "Scheduled Import"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:559
+#: includes/class-import-meetup-events-common.php:561
 msgid "Status"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:565
+#: includes/class-import-meetup-events-common.php:567
 msgid "Published"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:568
+#: includes/class-import-meetup-events-common.php:570
 msgid "Pending"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:571
+#: includes/class-import-meetup-events-common.php:573
 msgid "Draft"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:684
+#: includes/class-import-meetup-events-common.php:686
 msgid "Available in Pro version."
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:684
+#: includes/class-import-meetup-events-common.php:686
 msgid "Upgrade to PRO"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1049
+#: includes/class-import-meetup-events-common.php:1051
 msgid "Made with ♥ by the Xylus Themes"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1055
+#: includes/class-import-meetup-events-common.php:1057
 msgid "Free Plugins"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1136
+#: includes/class-import-meetup-events-common.php:1138
 msgid "Import Social Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1138
+#: includes/class-import-meetup-events-common.php:1140
 msgid "Event Schema / Structured Data"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1139
+#: includes/class-import-meetup-events-common.php:1141
 msgid "WP Smart Import : Import any XML File to WordPress"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1140
+#: includes/class-import-meetup-events-common.php:1142
 msgid "Easy Events Calendar"
 msgstr ""
 
-#: includes/class-import-meetup-events-common.php:1141
+#: includes/class-import-meetup-events-common.php:1143
 msgid "XT Feed for LinkedIn"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:95
+#: includes/class-import-meetup-events-cpt.php:99
 msgctxt "Post Type General Name"
 msgid "Meetup Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:96
+#: includes/class-import-meetup-events-cpt.php:100
 msgctxt "Post Type Singular Name"
 msgid "Meetup Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:98
+#: includes/class-import-meetup-events-cpt.php:102
 msgid "Meetup Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:99
+#: includes/class-import-meetup-events-cpt.php:103
 msgid "Event Archives"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:100
+#: includes/class-import-meetup-events-cpt.php:104
 msgid "Parent Event:"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:102
+#: includes/class-import-meetup-events-cpt.php:106
 #: templates/admin/ime-dashboard.php:40
 msgid "Add New Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:104
+#: includes/class-import-meetup-events-cpt.php:108
 msgid "New Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:105
+#: includes/class-import-meetup-events-cpt.php:109
 msgid "Edit Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:106
+#: includes/class-import-meetup-events-cpt.php:110
 msgid "Update Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:107
+#: includes/class-import-meetup-events-cpt.php:111
 msgid "View Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:108
+#: includes/class-import-meetup-events-cpt.php:112
 msgid "Search Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:109
+#: includes/class-import-meetup-events-cpt.php:113
 msgid "Not found"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:110
+#: includes/class-import-meetup-events-cpt.php:114
 msgid "Not found in Trash"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:111
+#: includes/class-import-meetup-events-cpt.php:115
 msgid "Featured Image"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:112
+#: includes/class-import-meetup-events-cpt.php:116
 msgid "Set featured image"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:113
+#: includes/class-import-meetup-events-cpt.php:117
 msgid "Remove featured image"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:114
+#: includes/class-import-meetup-events-cpt.php:118
 msgid "Use as featured image"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:115
+#: includes/class-import-meetup-events-cpt.php:119
 msgid "Insert into Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:116
+#: includes/class-import-meetup-events-cpt.php:120
 msgid "Uploaded to this Event"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:117
+#: includes/class-import-meetup-events-cpt.php:121
 msgid "Event Items list"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:118
+#: includes/class-import-meetup-events-cpt.php:122
 msgid "Event Items list navigation"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:119
+#: includes/class-import-meetup-events-cpt.php:123
 msgid "Filter Event items list"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:129
+#: includes/class-import-meetup-events-cpt.php:133
 msgid "Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:130
+#: includes/class-import-meetup-events-cpt.php:134
 msgid "Post type for Events"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:163
-#: includes/class-import-meetup-events-cpt.php:165
+#: includes/class-import-meetup-events-cpt.php:167
+#: includes/class-import-meetup-events-cpt.php:169
 msgid "Event Categories"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:164
-#: includes/class-import-meetup-events-cpt.php:166
+#: includes/class-import-meetup-events-cpt.php:168
+#: includes/class-import-meetup-events-cpt.php:170
 #: templates/event-meta.php:79
 msgid "Event Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:167
+#: includes/class-import-meetup-events-cpt.php:171
 msgid "Search Categories"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:168
+#: includes/class-import-meetup-events-cpt.php:172
 msgid "Popular Categories"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:169
+#: includes/class-import-meetup-events-cpt.php:173
 msgid "All Categories"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:170
+#: includes/class-import-meetup-events-cpt.php:174
 msgid "Edit Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:171
+#: includes/class-import-meetup-events-cpt.php:175
 msgid "View Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:172
+#: includes/class-import-meetup-events-cpt.php:176
 msgid "Update Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:173
+#: includes/class-import-meetup-events-cpt.php:177
 msgid "Add New Category"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:174
+#: includes/class-import-meetup-events-cpt.php:178
 msgid "New Category Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:199
-#: includes/class-import-meetup-events-cpt.php:201
+#: includes/class-import-meetup-events-cpt.php:203
+#: includes/class-import-meetup-events-cpt.php:205
 #: templates/event-meta.php:86
 msgid "Event Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:200
-#: includes/class-import-meetup-events-cpt.php:202
+#: includes/class-import-meetup-events-cpt.php:204
+#: includes/class-import-meetup-events-cpt.php:206
 msgid "Event Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:203
+#: includes/class-import-meetup-events-cpt.php:207
 msgid "Search Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:204
+#: includes/class-import-meetup-events-cpt.php:208
 msgid "Popular Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:205
+#: includes/class-import-meetup-events-cpt.php:209
 msgid "All Tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:206
+#: includes/class-import-meetup-events-cpt.php:210
 msgid "Edit Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:207
+#: includes/class-import-meetup-events-cpt.php:211
 msgid "View Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:208
+#: includes/class-import-meetup-events-cpt.php:212
 msgid "Update Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:209
+#: includes/class-import-meetup-events-cpt.php:213
 msgid "Add New Tag"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:210
+#: includes/class-import-meetup-events-cpt.php:214
 msgid "New Tag Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:211
+#: includes/class-import-meetup-events-cpt.php:215
 msgid "Separate tags with commas"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:212
+#: includes/class-import-meetup-events-cpt.php:216
 msgid "Add or remove tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:213
+#: includes/class-import-meetup-events-cpt.php:217
 msgid "Choose from the most used tags"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:214
+#: includes/class-import-meetup-events-cpt.php:218
 msgid "No tags found"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:229
+#: includes/class-import-meetup-events-cpt.php:233
 msgid "Events Details"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:252
+#: includes/class-import-meetup-events-cpt.php:256
 #: templates/event-meta.php:155
 msgid "Venue"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:253
+#: includes/class-import-meetup-events-cpt.php:257
 msgid "Address"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:254
+#: includes/class-import-meetup-events-cpt.php:258
 msgid "City"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:255
+#: includes/class-import-meetup-events-cpt.php:259
 msgid "State"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:256
+#: includes/class-import-meetup-events-cpt.php:260
 msgid "Country"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:257
+#: includes/class-import-meetup-events-cpt.php:261
 msgid "Zipcode"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:258
+#: includes/class-import-meetup-events-cpt.php:262
 msgid "Latitude"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:259
+#: includes/class-import-meetup-events-cpt.php:263
 msgid "Longitude"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:260
 #: includes/class-import-meetup-events-cpt.php:264
+#: includes/class-import-meetup-events-cpt.php:268
 #: templates/event-meta.php:122
 msgid "Website"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:261
+#: includes/class-import-meetup-events-cpt.php:265
 msgid "Organizer Name"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:262
+#: includes/class-import-meetup-events-cpt.php:266
 #: templates/event-meta.php:113
 msgid "Email"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:263
+#: includes/class-import-meetup-events-cpt.php:267
 #: templates/event-meta.php:117
 msgid "Phone"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:265
+#: includes/class-import-meetup-events-cpt.php:269
 msgid "Source Link"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:271
+#: includes/class-import-meetup-events-cpt.php:275
 msgid "Time & Date"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:274
+#: includes/class-import-meetup-events-cpt.php:278
 msgid "Start Date & Time"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:286
+#: includes/class-import-meetup-events-cpt.php:290
 msgid "End Date & Time"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:299
+#: includes/class-import-meetup-events-cpt.php:303
 msgid "Location Details"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:316
+#: includes/class-import-meetup-events-cpt.php:320
 msgid "Organizer Details"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:334
+#: includes/class-import-meetup-events-cpt.php:338
 msgid "Event Source Link"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:497
+#: includes/class-import-meetup-events-cpt.php:501
 msgid "Event Date"
 msgstr ""
 
-#: includes/class-import-meetup-events-cpt.php:865
+#: includes/class-import-meetup-events-cpt.php:926
 msgid "There are no upcoming Events at this time."
 msgstr ""
 

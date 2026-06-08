@@ -50,6 +50,10 @@ class Import_Meetup_Events_Cpt {
 		add_filter( 'manage_meetup_events_posts_columns', array( $this, 'meetup_events_columns' ), 10, 1 );
 
 		add_action( 'manage_posts_custom_column', array( $this, 'meetup_events_columns_data' ), 10, 2 ); 
+		add_filter( 'manage_edit-meetup_events_sortable_columns', array( $this, 'meetup_events_sortable_columns' ) );
+		add_action( 'pre_get_posts', array( $this, 'meetup_events_sort_columns' ), PHP_INT_MAX );
+		add_filter( 'posts_clauses', array( $this, 'meetup_events_tax_sort_clauses' ), PHP_INT_MAX, 2 );
+
 		add_filter( 'the_content', array( $this, 'meetup_events_meta_before_content' ) ); 
 		add_shortcode('meetup_events', array( $this, 'meetup_events_archive' ) );
 	}
@@ -494,7 +498,7 @@ class Import_Meetup_Events_Cpt {
 	 * Add column to event listing in admin
 	 */ 
 	function meetup_events_columns( $cols ) {
-		$cols['event_start_date'] = __('Event Date', 'import-meetup-events');
+		$cols['ime_event_start_date'] = __('Event Date', 'import-meetup-events');
 		return $cols;
 	}
 
@@ -503,7 +507,7 @@ class Import_Meetup_Events_Cpt {
 	 */ 
 	function meetup_events_columns_data( $column, $post_id ) {
 		switch ( $column ) {
-			case "event_start_date":
+			case "ime_event_start_date":
 				$start_date = get_post_meta( $post_id, 'event_start_date', true);
 				if( $start_date != '' ){
 					$start_date = strtotime( $start_date );
@@ -514,6 +518,59 @@ class Import_Meetup_Events_Cpt {
 
 			break;
 		}
+	}
+
+	/**
+	 * Register sortable columns
+	 */
+	function meetup_events_sortable_columns( $columns ) {
+		$columns['ime_event_start_date'] = 'ime_event_start_date';
+		$columns['taxonomy-meetup_category'] = 'taxonomy-meetup_category';
+		return $columns;
+	}
+
+	/**
+	 * Sort event_start_date column
+	 */
+	function meetup_events_sort_columns( $query ) {
+		if( ! is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
+
+		if ( 'meetup_events' !== $query->get('post_type') ) {
+			return;
+		}
+
+		if ( 'ime_event_start_date' === $query->get( 'orderby' ) ) {
+			$query->set( 'meta_key', 'start_ts' );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'meta_type', 'NUMERIC' );
+		}
+	}
+
+	/**
+	 * Sort taxonomy column
+	 */
+	function meetup_events_tax_sort_clauses( $clauses, $wp_query ) {
+		if ( ! is_admin() || ! $wp_query->is_main_query() || 'meetup_events' !== $wp_query->get('post_type') ) {
+			return $clauses;
+		}
+
+		global $wpdb;
+
+		if ( isset( $wp_query->query['orderby'] ) && 'taxonomy-meetup_category' == $wp_query->query['orderby'] ) {
+			$clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id) LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+			$clauses['where'] .= " AND (term_taxonomy_id IS NULL OR taxonomy = 'meetup_category')";
+			$clauses['groupby'] = "{$wpdb->posts}.ID";
+			$clauses['orderby']  = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC) ";
+			$clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query->get('order') ) ) ? 'ASC' : 'DESC';
+		} elseif ( 'ime_event_start_date' === $wp_query->get('orderby') ) {
+			// Forcefully overwrite the orderby clause to ignore other plugins
+			$order = ( 'ASC' == strtoupper( $wp_query->get('order') ) ) ? 'ASC' : 'DESC';
+			$clauses['orderby'] = "CAST({$wpdb->postmeta}.meta_value AS SIGNED) $order";
+		}
+
+		return $clauses;
 	}
 
 	/**
@@ -564,7 +621,7 @@ class Import_Meetup_Events_Cpt {
 		$atts['order'] = (isset($atts['order']) && strtoupper($atts['order']) === 'DESC') ? 'DESC' : 'ASC';
 
 		/* orderby whitelist */
-		$allowed_orderby = array( 'post_title', 'meta_value', 'event_start_date' );
+		$allowed_orderby = array( 'post_title', 'meta_value', 'meta_value_num', 'event_start_date', 'event_end_date' );
 		$atts['orderby'] = (isset($atts['orderby']) && in_array($atts['orderby'], $allowed_orderby, true)) ? $atts['orderby'] : '';
 		
 		/* organizer (group) */
@@ -735,13 +792,17 @@ class Import_Meetup_Events_Cpt {
 			if( $atts['orderby'] == 'event_start_date' || $atts['orderby'] == 'event_end_date' ){
 				if( $atts['orderby'] == 'event_end_date' ){
 					$eve_args['meta_key'] = 'end_ts';  //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key 
+				} else {
+					$eve_args['meta_key'] = 'start_ts'; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				}
-				$eve_args['orderby'] = 'meta_value';
+				$eve_args['orderby'] = 'meta_value_num';
+				$eve_args['meta_type'] = 'NUMERIC';
 			}else{
 				$eve_args['orderby'] = sanitize_text_field( $atts['orderby'] );
 			}
 		}else{
-			$eve_args['orderby'] = 'meta_value';
+			$eve_args['orderby'] = 'meta_value_num';
+			$eve_args['meta_type'] = 'NUMERIC';
 		}
 		// Order
 		if( isset( $atts['order'] ) && $atts['order'] != '' ){
@@ -752,7 +813,7 @@ class Import_Meetup_Events_Cpt {
 			if( isset( $atts['past_events'] ) && $atts['past_events'] === true ){
 				$atts['past_events'] = "yes";
 			}
-			if( isset( $atts['past_events'] ) && $atts['past_events'] == 'yes' && $eve_args['orderby'] == 'meta_value' ){
+			if( isset( $atts['past_events'] ) && $atts['past_events'] == 'yes' && ( $eve_args['orderby'] == 'meta_value' || $eve_args['orderby'] == 'meta_value_num' ) ){
 				$eve_args['order'] = 'DESC';
 			}else{
 				$eve_args['order'] = 'ASC';
@@ -869,10 +930,10 @@ class Import_Meetup_Events_Cpt {
 		</div>
 		
 		<style type="text/css">
-			.ime_archive .ime_event .event_date{
+			.ime_archive .ime_event .ime_event_date{
 				background-color: <?php echo esc_attr( $accent_color ); ?>;
 			}
-			.ime_archive .ime_event .event_desc .event_title{
+			.ime_archive .ime_event .ime_event_desc .ime_event_title{
 				color: <?php echo esc_attr( $accent_color ); ?>;
 			}
 			.ime-event-count, .ime-event-meta > div, .ime-event-meta > div i, .ime-event-info h4 a:hover {

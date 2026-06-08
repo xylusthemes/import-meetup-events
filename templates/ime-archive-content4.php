@@ -36,25 +36,25 @@ if ( 'yes' === $direct_link ){
 }
 
 ?>
-<div <?php post_class( array( $css_class, 'archive-event' ) ); ?> >
+<div <?php post_class( array( $css_class, 'ime-archive-event' ) ); ?> >
     <div class="ime_widget_style1 ime_widget ime_event" >
-        <div class="event_details" style="height: auto;">
-            <div class="event_date event_date_style4" >
+        <div class="ime_event_details" style="height: auto;">
+            <div class="ime_event_date ime_event_date_style4" >
                 <div>
-                    <span class="month"><?php echo esc_attr( date_i18n( 'M', $start_date_str ) ); ?></span>
-                    <span class="date"> <?php echo esc_attr( date_i18n( 'd', $start_date_str ) ); ?> </span>
+                    <span class="ime_month"><?php echo esc_attr( date_i18n( 'M', $start_date_str ) ); ?></span>
+                    <span class="ime_date"> <?php echo esc_attr( date_i18n( 'd', $start_date_str ) ); ?> </span>
                 </div>
             </div>				
             
-            <div class="event_desc">
+            <div class="ime_event_desc">
                 <a class="ime-text-deco" style="color:<?php echo esc_attr( $accent_color ); ?>;" href="<?php echo esc_url( $event_url ); ?>" <?php echo esc_attr( $target ); ?> >
-                    <?php the_title( '<div class="event_title">', '</div>' ); ?>
+                    <?php the_title( '<div class="ime_event_title">', '</div>' ); ?>
                 </a>
 
                 <?php 
                 if( $start_date != '' ){
                     ?>
-                    <div><p class="ime-mb-0 widget_event_sdate"><i class="fa fa-calendar"></i> <?php echo esc_attr( $start_date ); ?></p></div>
+                    <div><p class="ime-mb-0 ime_widget_event_sdate"><i class="fa fa-calendar"></i> <?php echo esc_attr( $start_date ); ?></p></div>
                     <?php
                 }
 

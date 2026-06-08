@@ -56,7 +56,7 @@ if ( ! empty( $event_categories ) ) {
 }
 
 ?>
-<div <?php post_class( array( $css_class, 'archive-event' ) ); ?> >
+<div <?php post_class( array( $css_class, 'ime-archive-event' ) ); ?> >
 	<div class="ime-style2">
 		<div class="ime_event_style2">
 			<div class="ime_event_thumbnail">

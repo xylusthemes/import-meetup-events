@@ -31,9 +31,9 @@ if($time_format == '12hours' ){
 
 ?>
 <div class="ime_event_meta">
-<div class="organizermain">
-	<div class="details">
-		<div class="titlemain" > <?php esc_html_e( 'Details','import-meetup-events' ); ?> </div>
+<div class="ime_organizermain">
+	<div class="ime_details">
+		<div class="ime_titlemain" > <?php esc_html_e( 'Details','import-meetup-events' ); ?> </div>
 
 		<?php 
 		if( gmdate( 'Y-m-d', strtotime( $start_date_str ) ) == gmdate( 'Y-m-d', strtotime( $end_date_str ) ) ){
@@ -105,8 +105,8 @@ if($time_format == '12hours' ){
 
 		if( $org_name != '' ){
 			?>
-			<div class="organizer">
-				<div class="titlemain"><?php esc_html_e( 'Organizer','import-meetup-events' ); ?></div>
+			<div class="ime_organizer">
+				<div class="ime_titlemain"><?php esc_html_e( 'Organizer','import-meetup-events' ); ?></div>
 				<p><?php echo esc_attr( $org_name ); ?></p>
 			</div>
 			<?php if( $org_email != '' ){ ?>
@@ -150,9 +150,9 @@ if ( ime_is_pro() && empty( $get_gmap_key ) ) {
 
 if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue['lon'] ) ) ) {
 	?>
-	<div class="organizermain library">
-		<div class="venue">
-			<div class="titlemain"> <?php esc_html_e( 'Venue','import-meetup-events' ); ?> </div>
+	<div class="ime_organizermain ime_library">
+		<div class="ime_venue">
+			<div class="ime_titlemain"> <?php esc_html_e( 'Venue','import-meetup-events' ); ?> </div>
 			<p><?php echo esc_attr( $venue_name ); ?></p>
 			<?php
 			if( $venue_address != '' ){
@@ -195,13 +195,13 @@ if ( ! empty( $venue_address ) || ( ! empty( $venue['lat'] ) && ! empty( $venue[
 			if( empty( $map_api_key ) ){
 				$full_address = str_replace( ' ', '%20', $venue_address ) .','. $venue['city'] .','. $venue['state'] .','. $venue['country'].'+(' . str_replace( ' ', '%20', $venue_name ) . ')';	
 				?>
-				<div class="map">
+				<div class="ime_map">
 					<iframe src="https://maps.google.com/maps?q=<?php echo esc_attr( $full_address ); ?>&hl=es;z=14&output=embed" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
 				</div>
 				<?php
 			}else{ 
 				?>
-				<div class="map">
+				<div class="ime_map">
 					<iframe src="https://www.google.com/maps/embed/v1/place?key=<?php echo esc_attr( $map_api_key ); ?>&<?php echo esc_attr( $query ); ?>" width="100%" height="350" frameborder="0" style="border:0; margin:0;" allowfullscreen></iframe>
 				</div>
 				<?php
