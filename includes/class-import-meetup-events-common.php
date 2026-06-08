@@ -161,6 +161,10 @@ class Import_Meetup_Events_Common {
 				$event_taxonomy = $ime_events->aioec->get_taxonomy();
 				break;
 
+			case 'xec':
+				$event_taxonomy = $ime_events->xec->get_taxonomy();
+				break;
+
 			case 'my_calendar':
 				$event_taxonomy = $ime_events->my_calendar->get_taxonomy();
 				break;
