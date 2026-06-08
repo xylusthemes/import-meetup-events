@@ -33,7 +33,7 @@ if (!class_exists('Import_Meetup_Events')):
          * Import_Meetup_Events The one true Import_Meetup_Events.
          */
         private static $instance;
-        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize, $eventprime, $ajax, $htmltblock;
+        public $common, $cpt, $meetup, $admin, $manage_import, $ime, $tec, $em, $eventon, $event_organizer, $aioec, $my_calendar, $cron, $common_pro, $authorize, $eventprime, $ajax, $htmltblock, $xec;
 
         /**
          * Main Import Meetup Events Instance.
@@ -66,6 +66,7 @@ if (!class_exists('Import_Meetup_Events')):
                 self::$instance->meetup = new Import_Meetup_Events_Meetup();
                 self::$instance->admin = new Import_Meetup_Events_Admin();
                 self::$instance->htmltblock = new Import_Meetup_Events_Html_To_Blocks();
+                self::$instance->xec = new Import_Meetup_Events_XEC();
                 if (ime_is_pro()) {
                     self::$instance->manage_import = new Import_Meetup_Events_Pro_Manage_Import();
                 } else {
@@ -173,6 +174,8 @@ if (!class_exists('Import_Meetup_Events')):
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-list-table.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-admin.php';
             require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-html-to-blocks.php';
+            require_once IME_PLUGIN_DIR . 'includes/class-import-meetup-events-xec.php';
+
             if (ime_is_pro()) {
                 require_once IMEPRO_PLUGIN_DIR . 'includes/class-import-meetup-events-manage-import.php';
             } else {
