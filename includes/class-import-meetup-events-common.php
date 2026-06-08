@@ -234,6 +234,11 @@ class Import_Meetup_Events_Common {
 			$supported_plugins['aioec'] = __( 'All in one Event Calendar', 'import-meetup-events' );
 		}
 
+		// Check Xylus Events Calendar
+		if ( class_exists( 'Xylus_Events_Calendar' ) ) {
+			$supported_plugins['xec'] = __( 'Easy Events Calendar', 'import-meetup-events' );
+		}
+
 		// check My Calendar
 		if ( is_plugin_active( 'my-calendar/my-calendar.php' ) ) {
 			$supported_plugins['my_calendar'] = __( 'My Calendar', 'import-meetup-events' );
@@ -357,8 +362,6 @@ class Import_Meetup_Events_Common {
 					$import_status['skipped'][] = $value;
 				}elseif( $value['status'] == 'skip_trash'){
 					$import_status['skip_trash'][] = $value;
-				}else{
-
 				}
 				if( isset( $value['id'] ) ){
 					$import_ids[] = $value['id'];
@@ -453,6 +456,10 @@ class Import_Meetup_Events_Common {
 
 			case 'my_calendar':
 				$import_result = $ime_events->my_calendar->import_event( $centralize_array, $event_args );
+				break;
+
+			case 'xec':
+				$import_result = $ime_events->xec->import_event( $centralize_array, $event_args );
 				break;
 
 			case 'eventprime':
