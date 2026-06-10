@@ -49,7 +49,7 @@ class Import_Meetup_Events_Admin {
 	}
 
 	function ime_widget_free_page() {
-		if ( ! post_type_exists( 'imepro_live_feed' ) && ! defined( 'IMEPRO_VERSION' ) ) {
+		if ( ! post_type_exists( 'imepro_live_feed' ) ) {
 			add_submenu_page(
 				null,
 				__( 'Meetup Widget', 'import-meetup-events' ),
@@ -228,7 +228,7 @@ class Import_Meetup_Events_Admin {
 
 		add_menu_page( __( 'Meetup Import', 'import-meetup-events' ), __( 'Meetup Import', 'import-meetup-events' ), 'manage_options', 'meetup_import', array( $this, 'admin_page' ), 'dashicons-calendar-alt', '30' );
 		$submenu['meetup_import'][] = array( __( 'Dashboard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=dashboard' ) );
-		if ( post_type_exists( 'imepro_live_feed' ) || defined( 'IMEPRO_VERSION' ) ) {
+		if ( post_type_exists( 'imepro_live_feed' ) && defined( 'IMEPRO_VERSION' ) ) {
 			$submenu['meetup_import'][] = array(
 				'<span style="display:flex; justify-content:space-between; align-items:center; width:100%;">' 
 					. __( 'Meetup Widget', 'import-meetup-events' ) 
