@@ -5,7 +5,7 @@ Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 7.0
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,9 @@ Automatically import and sync Meetup.com events into WordPress without a Meetup 
 Import Meetup Events lets you easily bring events from Meetup.com into your WordPress website, **no API key, no authentication, and no Meetup Pro account required.** 
 
 Whether you run a community site, business portal, or local meetup directory, you can start importing events instantly with just a few clicks. Focus on showcasing your events, while this plugin handles all the syncing and display effortlessly.
+
+🆕 **NEW: Meetup Live Feed Widget — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)**  
+Display Meetup events live on your site, no permanent importing required! The new **Meetup Live Feed Widget** fetches events directly from Meetup.com and renders them instantly using a simple shortcode, events are cached for performance but never saved as WordPress posts. Choose from 7 layout styles (Card Grid, List, Masonry, Minimal Grid, Compact List, Timeline, Ticket), control columns, pagination (AJAX, Load More, Infinite Scroll), and configure cache duration, all without cluttering your WordPress content.
 
 📄 [Documentation](https://docs.xylusthemes.com/docs/import-meetup-events) | ⭐ [Upgrade to Pro](https://xylusthemes.com/plugins/import-meetup-events) | 🛟 [Get Support](https://xylusthemes.com/support/) | 👁️ [Try Admin Demo](http://testdrive.xylusthemes.com/)
 
@@ -193,11 +196,15 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 == Changelog ==
 
+= 1.7.3 =
+* FIXED: Invalid Post Type Error.
+* FIXED: Events were hidden after the start time. Events now stay visible until the event actually ends.( PRO )
+
 = 1.7.2 =
 * ADDED: Meetup widget to display events directly on your site. ( PRO )
 * ADDED: Import events into Easy Event Calendar plugin.
 * ADDED: Sorting functionality for Event Name and Event Category columns.
-* FIXED: Advanced Synchronization issue during event imports.
+* FIXED: Advanced Synchronization issue during event imports. ( PRO )
 * IMPROVEMENTS: Full compatibility with PHP 8.5.
 
 = 1.7.1 =
