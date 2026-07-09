@@ -9,7 +9,7 @@ Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically import and sync Meetup.com events into WordPress without a Meetup Pro account. Works with The Events Calendar, Events Manager, EventON, EventPrime & more.
+No auth, no API key, no Meetup Pro account needed. Import & sync Meetup events, or show them live with new Live Feed Widget - no import required.
 
 == Description ==
 
