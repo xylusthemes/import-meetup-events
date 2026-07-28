@@ -88,13 +88,13 @@
     font-size: 15px;
     line-height: 26px;
 }
-.ime_img_placeholder{
+.ime_event_style2 .ime_img_placeholder{
     height: 275px;
     width: 100%;
     border-radius: 5px 5px 0 0;
     display: block;
 }
-.ime_event_cat{
+.ime_event_style2 .ime_event_cat{
     margin: 1px;
 }
 .col-ime-md-12 .ime-style2 .ime_event_style2 .ime_event_thumbnail .ime_img_placeholder{
@@ -127,12 +127,12 @@
 .col-ime-md-6 .ime-style2 .ime_event_style2 .ime_event_detail_style2 .ime_event_title_style2{
     font-size: 20px;
 }
-.ime_img_placeholder{
+.ime_event_style2 .ime_img_placeholder{
     background-size: cover !important;
     min-height: 120px;
 }
 @media (min-width: 320px) and (max-width: 576px) { 
-    .ime_img_placeholder {
+    .ime_event_style2 .ime_img_placeholder {
         background-size: cover !important;
         min-height: 140px !important;
     }
