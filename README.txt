@@ -5,7 +5,7 @@ Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 7.0
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ Stop the copy-paste routine. Import all your Meetup.com events with a single cli
 **⚙️ Works With Your Existing Calendar**  
 No migration required. Works as a standalone event system AND as a powerful add-on for your existing calendar plugins:
 
+* **[GatherPress](https://wordpress.org/plugins/gatherpress/)** — Import and manage events seamlessly with GatherPress, including support for event details, venues, and RSVP functionality.
 * **[Easy Events Calendar](https://wordpress.org/plugins/xylus-events-calendar/)** — Display imported Facebook, Eventbrite, Meetup, iCal & more events in a clean calendar view on your WordPress site.
 * **[The Events Calendar](https://wordpress.org/plugins/the-events-calendar/)** — Supported up to the latest version 6.x. Imported events appear natively in TEC calendar views, categories, and search.
 * **[Events Manager](https://wordpress.org/plugins/events-manager/)** — Full integration with Events Manager plugin.
@@ -54,6 +55,7 @@ Don't use a calendar plugin? No problem. Import Meetup Events includes its own l
 ✔ Import events by Meetup Event ID  
 ✔ Import events by Meetup Group URL — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)    
 ✔ Manually import events in one click  
+✔ Import past events (historical events) from Meetup groups [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
 ✔ Schedule automatic imports — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
 ✔ Run background imports for large datasets — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
 ✔ Display events using shortcode, blocks, widgets, or page builders  
@@ -83,6 +85,7 @@ Example usage:
 • Manual one-click event import  
 • Import events by ID  
 • Import events by Group URL   — [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
+• Import past events from Meetup groups [Pro Version](https://xylusthemes.com/plugins/import-meetup-events/)  
 • Assign categories during import  
 • Set event status (Publish, Draft, Pending)  
 • Import history logs  
@@ -195,6 +198,12 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 
 == Changelog ==
+
+= 1.7.4 =
+* ADDED: Support for importing events into GatherPress.
+* ADDED: Support for importing past events ( PRO ).
+* FIXED: Resolved the height issue in Style 1 layout.
+
 
 = 1.7.3 =
 * FIXED: Invalid Post Type Error.
