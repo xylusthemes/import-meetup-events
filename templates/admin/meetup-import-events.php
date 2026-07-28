@@ -91,6 +91,20 @@ global $ime_events;
 			<div class="ime-inner-main-section meetup_group_url">
 				<div class="ime-inner-section-1" >
 					<span class="ime-title-text" >
+						<?php esc_attr_e( 'Import Past Events','import-meetup-events' ); ?>
+					</span>
+				</div>
+				<div class="ime-inner-section-2" >
+					<label>
+						<input type="checkbox" name="import_past_events" value="1" />
+						<?php esc_attr_e( 'Check to also import past events for this group.', 'import-meetup-events' ); ?>
+					</label>
+				</div>
+			</div>
+
+			<div class="ime-inner-main-section meetup_group_url">
+				<div class="ime-inner-section-1" >
+					<span class="ime-title-text" >
 						<?php esc_attr_e( 'Import type','import-meetup-events' ); ?>
 					</span>
 				</div>

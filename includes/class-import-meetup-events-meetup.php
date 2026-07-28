@@ -90,6 +90,38 @@ class Import_Meetup_Events_Meetup {
 					$endcursor      = $get_upcoming_events['pageInfo']['endCursor'];
 					$have_next_page = $get_upcoming_events['pageInfo']['hasNextPage'];
 				}
+				if ( !empty( $event_data['import_past_events'] ) ) {
+					$endcursor      = null;
+					$have_next_page = true;
+					$stopLoop       = false;
+					$pageCount      = 0;
+
+					while ( true === $have_next_page && ! $stopLoop ) {
+						// Hard limit of 5 pages (up to 250 past events) to prevent extreme timeouts on huge groups
+						if ( $pageCount >= 5 ) {
+							break;
+						}
+						
+						$meetup_past_event_data = $api->getGroupPastEvents( $meetup_group_id, $itemsnum, $endcursor );
+						
+						if ( isset( $meetup_past_event_data['data']['groupByUrlname']['pastEvents'] ) ) {
+							$get_past_events = $meetup_past_event_data['data']['groupByUrlname']['pastEvents'];
+							$meetup_events   = $get_past_events['edges'];
+
+							if ( ! empty( $meetup_events ) ) {
+								foreach ( $meetup_events as $meetup_event ) {
+									$imported_events[] = $this->save_meetup_event( $meetup_event['node'], $event_data );
+								}
+							}
+							
+							$endcursor      = $get_past_events['pageInfo']['endCursor'];
+							$have_next_page = $get_past_events['pageInfo']['hasNextPage'];
+						} else {
+							$have_next_page = false;
+						}
+						$pageCount++;
+					}
+				}
 
 			return $imported_events;
 
@@ -164,6 +196,16 @@ class Import_Meetup_Events_Meetup {
 			$image_url = $alternative_iurl;
 		}
 
+		$guest_limit = '';
+		if ( isset( $meetup_event['guestLimit'] ) ) {
+			$guest_limit = $meetup_event['guestLimit'];
+		} elseif ( isset( $meetup_event['numberOfAllowedGuests'] ) ) {
+			$guest_limit = $meetup_event['numberOfAllowedGuests'];
+		}
+		if ( isset( $meetup_event['guestsAllowed'] ) && false === $meetup_event['guestsAllowed'] ) {
+			$guest_limit = 0;
+		}
+
 		$xt_event = array(
 			'origin'          => 'meetup',
 			'ID'              => $event_id,
@@ -184,6 +226,8 @@ class Import_Meetup_Events_Meetup {
 			'status'          => $status,
 			'isOnline'        => $isOnline,
 			'is_series'       => $is_series,
+			'maxTickets'      => isset( $meetup_event['maxTickets'] ) ? $meetup_event['maxTickets'] : '',
+			'guestLimit'      => $guest_limit,
 		);
 
 		if ( array_key_exists( 'group', $meetup_event ) ) {

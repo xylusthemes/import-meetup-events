@@ -40,6 +40,10 @@ class Import_Meetup_Events_Public_API {
                     description
                     eventUrl
                     status
+                    maxTickets
+                    guestLimit
+                    numberOfAllowedGuests
+                    guestsAllowed
                     venues{
                         id
                         name
@@ -90,7 +94,7 @@ class Import_Meetup_Events_Public_API {
     }
 
     /**
-     * Get Meetup Group Event Query
+     * Get Meetup Group Upcoming Events Query
      * @access private
      */
     private function getGroupEventsQuery(){
@@ -112,6 +116,89 @@ class Import_Meetup_Events_Public_API {
                                 description
                                 eventUrl
                                 status
+                                maxTickets
+                                guestLimit
+                                numberOfAllowedGuests
+                                guestsAllowed
+                                venues{
+                                    id
+                                    name
+                                    address
+                                    city
+                                    state
+                                    country
+                                    lat
+                                    lon
+                                    postalCode
+                                    venueType
+                                }
+                                series{
+                                    endDate
+                                    description
+                                }
+                                featuredEventPhoto{
+                                    id
+                                    baseUrl
+                                    thumbUrl
+                                    standardUrl
+                                    highResUrl
+                                }
+                                eventType
+                                eventHosts{
+                                    memberId
+                                    name
+                                    memberPhoto{
+                                        id
+                                        standardUrl
+                                        highResUrl
+                                    }
+                                }
+                                group{
+                                    id
+                                    name
+                                    description
+                                    emailAnnounceAddress
+                                    urlname
+                                    keyGroupPhoto {
+                                        id
+                                        standardUrl
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        GRAPHQL;
+    }
+
+    /**
+     * Get Meetup Group Past Events Query
+     * @access private
+     */
+    private function getGroupPastEventsQuery(){
+        return <<<'GRAPHQL'
+            query getPastGroupEvents($urlname: String!, $itemsNum: Int!, $cursor: String) {
+                groupByUrlname(urlname: $urlname) {
+                    pastEvents: events(first: $itemsNum, after: $cursor, filter: { status: PAST }, sort: DESC) {
+                        pageInfo{
+                            hasNextPage
+                            endCursor
+                        }
+                        totalCount
+                        edges {
+                            node {
+                                id
+                                title
+                                dateTime
+                                endTime
+                                description
+                                eventUrl
+                                status
+                                maxTickets
+                                guestLimit
+                                numberOfAllowedGuests
+                                guestsAllowed
                                 venues{
                                     id
                                     name
@@ -179,9 +266,9 @@ class Import_Meetup_Events_Public_API {
 
         return $this->graphql_query( $this->api_url, $payload );
     }
-    
+
     /**
-     * Get Meetup Events By Group ID With pagination
+     * Get Meetup Upcoming Events By Group ID With pagination
      *
      * @return array Group ID
      */
@@ -189,6 +276,26 @@ class Import_Meetup_Events_Public_API {
         $query   = $this->getGroupEventsQuery();
         $payload = [
             "operationName" => "getUpcomingGroupEvents",
+            "variables" => [
+                "urlname"  => $meetup_group_id,
+                "itemsNum" => $itemsNum,
+                "cursor"   => $cursor
+            ],
+            "query" => $query,
+        ];
+
+        return $this->graphql_query( $this->api_url, $payload );
+    }
+
+    /**
+     * Get Meetup Past Events By Group ID With pagination
+     *
+     * @return array Group ID
+     */
+    public function getGroupPastEvents( $meetup_group_id = '', $itemsNum = 0, $cursor = '' ){
+        $query   = $this->getGroupPastEventsQuery();
+        $payload = [
+            "operationName" => "getPastGroupEvents",
             "variables" => [
                 "urlname"  => $meetup_group_id,
                 "itemsNum" => $itemsNum,
