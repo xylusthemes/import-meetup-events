@@ -172,7 +172,11 @@ class Import_Meetup_Events_Common {
 			case 'eventprime':
 				$event_taxonomy = $ime_events->eventprime->get_taxonomy();
 				break;
-			
+
+			case 'gatherpress':
+				$event_taxonomy = $ime_events->gatherpress->get_taxonomy();
+				break;
+
 			default:
 				break;
 		}
@@ -246,7 +250,13 @@ class Import_Meetup_Events_Common {
 		// check My Calendar
 		if ( is_plugin_active( 'my-calendar/my-calendar.php' ) ) {
 			$supported_plugins['my_calendar'] = __( 'My Calendar', 'import-meetup-events' );
-		}		
+		}
+
+		// check GatherPress
+		if ( class_exists( '\GatherPress\Core\Event\Event' ) || post_type_exists( 'gatherpress_event' ) ) {
+			$supported_plugins['gatherpress'] = __( 'GatherPress', 'import-meetup-events' );
+		}
+
 		$supported_plugins['ime'] = __( 'Meetup Events', 'import-meetup-events' );
 		$supported_plugins        = apply_filters( 'ime_supported_plugins', $supported_plugins );
 		return $supported_plugins;
@@ -469,7 +479,11 @@ class Import_Meetup_Events_Common {
 			case 'eventprime':
 				$import_result = $ime_events->eventprime->import_event( $centralize_array, $event_args );
 				break;
-				
+
+			case 'gatherpress':
+				$import_result = $ime_events->gatherpress->import_event( $centralize_array, $event_args );
+				break;
+
 			default:
 				break;
 		}
