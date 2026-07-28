@@ -217,6 +217,7 @@ class Import_Meetup_Events_Manage_Import {
 		$event_data['import_by']     = isset( $_POST['meetup_import_by'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup_import_by'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$event_data['ime_event_ids'] = isset( $_POST['ime_event_ids'] ) ? array_map( 'trim', array_map( 'sanitize_text_field', explode( "\n", preg_replace( "/^\n+|^[\t\s]*\n+/m", '', esc_attr( sanitize_text_field( wp_unslash( $_POST['ime_event_ids'] ) ) ) ) ) ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$event_data['meetup_url']    = isset( $_POST['meetup_url'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['meetup_url'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$event_data['import_past_events'] = isset( $_POST['import_past_events'] ) ? true : false; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( 'group_url' === $event_data['import_by'] && !empty( $event_data['meetup_url'] ) ) {
 			if ( filter_var( $event_data['meetup_url'], FILTER_VALIDATE_URL) === false ) {
