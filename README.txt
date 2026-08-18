@@ -4,8 +4,8 @@ Donate link: http://xylusthemes.com/
 Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 7.0
-Stable tag: 1.7.4
+Tested up to: 7.1
+Stable tag: 1.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,11 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 
 == Changelog ==
+
+= 1.7.5 =
+* ADDED: New setting to configure the number of past events displayed.
+* FIXED: Incorrect post ID issue for scheduled posts ( PRO ).
+* IMPROVEMENTS: Support for WP 7.1.
 
 = 1.7.4 =
 * ADDED: Support for importing events into GatherPress.
