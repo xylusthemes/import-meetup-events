@@ -227,6 +227,21 @@ if( is_object( $ime_authorized_user ) ){
 
                                     <div class="ime-inner-main-section" >
                                         <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" ><?php esc_attr_e( 'Import Past Events Limit', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php
+                                                $past_events_limit = isset( $meetup_options['import_past_events_limit'] ) ? $meetup_options['import_past_events_limit'] : '500';
+                                            ?>
+                                            <input type="number" name="meetup[import_past_events_limit]" value="<?php echo esc_attr( $past_events_limit ); ?>" min="50" step="50" />
+                                            <span class="ime_small">
+                                                <?php esc_attr_e( 'Enter the maximum number of past events to import.', 'import-meetup-events' ); ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="ime-inner-section-1" >
                                             <span class="ime-title-text" ><?php esc_attr_e( 'Skip Trashed Events', 'import-meetup-events' ); ?></span>
                                         </div>
                                         <div class="ime-inner-section-2" >

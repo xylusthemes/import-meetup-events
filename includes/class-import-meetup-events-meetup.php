@@ -96,9 +96,13 @@ class Import_Meetup_Events_Meetup {
 					$stopLoop       = false;
 					$pageCount      = 0;
 
+					$meetup_options = get_option( IME_OPTIONS );
+					$past_events_limit = isset( $meetup_options['import_past_events_limit'] ) ? (int)$meetup_options['import_past_events_limit'] : 500;
+					$max_pages = max( 1, (int)( $past_events_limit / 50 ) );
+
 					while ( true === $have_next_page && ! $stopLoop ) {
-						// Hard limit of 5 pages (up to 250 past events) to prevent extreme timeouts on huge groups
-						if ( $pageCount >= 5 ) {
+						// Limit past events to prevent extreme timeouts on huge groups
+						if ( $pageCount >= $max_pages ) {
 							break;
 						}
 						
