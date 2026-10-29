@@ -97,7 +97,7 @@ if( is_object( $ime_authorized_user ) ){
                                                                         <br/>
                                                                         <?php echo esc_attr( $email ); ?>
                                                                         <br/>
-                                                                        <a href="<?php echo esc_url( admin_url('admin-post.php?action=ime_deauthorize_action') ); ?>">
+                                                                        <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=ime_deauthorize_action' ), 'ime_deauthorize_nonce' ) ); ?>">
                                                                             <?php esc_attr_e('Remove Connection', 'import-meetup-events'); ?>
                                                                         </a>
                                                                     </div>

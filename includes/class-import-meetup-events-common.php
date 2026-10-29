@@ -23,7 +23,28 @@ class Import_Meetup_Events_Common {
 		add_action( 'ime_render_pro_notice', array( $this, 'render_pro_notice') );
 		add_action( 'admin_init', array( $this, 'ime_check_for_minimum_pro_version' ) );
 		add_action( 'admin_init', array( $this, 'ime_redirect_after_activation' ) );
-	}	
+	}
+
+	/**
+	 * Convert description conditionally.
+	 *
+	 * @param string $post_description The post description.
+	 * @return string
+	 */
+	public function convert_description( $post_description ) {
+		global $ime_events;
+
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) ) {
+			return $post_description;
+		}
+
+		return $ime_events->htmltblock->convert( $post_description );
+	}
+	
 
 	/**
 	 * Format events arguments as per TEC
