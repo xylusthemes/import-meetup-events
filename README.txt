@@ -201,7 +201,7 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 = 1.7.6 =
 * FIXED: Classic Editor support and bug fix for event description formatting.
-* IMPROVEMENT: Enhanced security and permission checks in Facebook OAuth authorization flow.
+* IMPROVEMENT: Enhanced security and permission checks in Meetup OAuth authorization flow.
 
 = 1.7.5 =
 * ADDED: New setting to configure the number of past events displayed.
