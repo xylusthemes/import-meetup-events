@@ -5,7 +5,7 @@ Tags: import, meetup, event sync, events calendar, event aggregator
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 7.1
-Stable tag: 1.7.5
+Stable tag: 1.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,10 @@ Yes. The plugin works on both single-site and multisite WordPress installations.
 
 
 == Changelog ==
+
+= 1.7.6 =
+* FIXED: Classic Editor support and bug fix for event description formatting.
+* IMPROVEMENT: Enhanced security and permission checks in Facebook OAuth authorization flow.
 
 = 1.7.5 =
 * ADDED: New setting to configure the number of past events displayed.
