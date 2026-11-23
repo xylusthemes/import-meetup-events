@@ -1310,6 +1310,105 @@ class Import_Meetup_Events_Common {
 		}
 	}
 
+	/**
+	 * Checks if a category exists, creates it if not, and returns term ID.
+	 *
+	 * @param string $cat_name The name of the category to check.
+	 * @param string $taxonomy The taxonomy to check in.
+	 * @return int The ID of the category if it exists or was created, 0 otherwise.
+	 */
+	public function ime_check_category_exists( $cat_name, $taxonomy = 'meetup_category' ) {
+		$cat_id = 0;
+
+		if ( ! empty( $cat_name ) && taxonomy_exists( $taxonomy ) ) {
+			$cat_name = trim( sanitize_text_field( $cat_name ) );
+			$cat_slug = sanitize_title( $cat_name );
+			$term     = term_exists( $cat_slug, $taxonomy );
+
+			if ( 0 === $term || null === $term || empty( $term ) ) {
+				$term = term_exists( $cat_name, $taxonomy );
+
+				if ( 0 === $term || null === $term || empty( $term ) ) {
+					$new_term = wp_insert_term(
+						$cat_name,
+						$taxonomy,
+						array(
+							'slug' => $cat_slug,
+						)
+					);
+
+					if ( ! is_wp_error( $new_term ) && isset( $new_term['term_id'] ) ) {
+						$cat_id = (int) $new_term['term_id'];
+					}
+				} else {
+					if ( is_array( $term ) && isset( $term['term_id'] ) ) {
+						$cat_id = (int) $term['term_id'];
+					} elseif ( is_numeric( $term ) ) {
+						$cat_id = (int) $term;
+					} elseif ( is_object( $term ) && isset( $term->term_id ) ) {
+						$cat_id = (int) $term->term_id;
+					}
+				}
+			} else {
+				if ( is_array( $term ) && isset( $term['term_id'] ) ) {
+					$cat_id = (int) $term['term_id'];
+				} elseif ( is_numeric( $term ) ) {
+					$cat_id = (int) $term;
+				} elseif ( is_object( $term ) && isset( $term->term_id ) ) {
+					$cat_id = (int) $term->term_id;
+				}
+			}
+		}
+
+		return $cat_id;
+	}
+
+	/**
+	 * Insert topics as tags and assign to event.
+	 *
+	 * @param int    $event_id Imported event post ID.
+	 * @param array  $topics   Array of topic / tag names.
+	 * @param string $taxonomy Tag taxonomy.
+	 * @param bool   $append   Whether to append or replace.
+	 * @return array Array of term IDs.
+	 */
+	public function ime_assign_topics_as_tags( $event_id, $topics = array(), $taxonomy = 'meetup_tag', $append = true ) {
+		if ( empty( $event_id ) || empty( $topics ) || ! is_array( $topics ) || ! taxonomy_exists( $taxonomy ) ) {
+			return array();
+		}
+
+		$term_ids = array();
+		foreach ( $topics as $topic_name ) {
+			$topic_name = trim( sanitize_text_field( $topic_name ) );
+			if ( empty( $topic_name ) ) {
+				continue;
+			}
+
+			$slug = sanitize_title( $topic_name );
+			$term = get_term_by( 'slug', $slug, $taxonomy );
+			if ( ! $term ) {
+				$term = term_exists( $topic_name, $taxonomy );
+			}
+
+			if ( $term ) {
+				$term_id = is_array( $term ) ? (int) $term['term_id'] : (int) $term->term_id;
+			} else {
+				$new_term = wp_insert_term( $topic_name, $taxonomy, array( 'slug' => $slug ) );
+				if ( is_wp_error( $new_term ) || empty( $new_term['term_id'] ) ) {
+					continue;
+				}
+				$term_id = (int) $new_term['term_id'];
+			}
+
+			$term_ids[] = $term_id;
+		}
+
+		if ( ! empty( $term_ids ) ) {
+			wp_set_object_terms( $event_id, array_values( array_unique( $term_ids ) ), $taxonomy, $append );
+		}
+
+		return $term_ids;
+	}
 }
 
 /**

@@ -210,6 +210,20 @@ class Import_Meetup_Events_Meetup {
 			$guest_limit = 0;
 		}
 
+		$topics = array();
+		if ( isset( $meetup_event['topics']['edges'] ) && is_array( $meetup_event['topics']['edges'] ) ) {
+			foreach ( $meetup_event['topics']['edges'] as $topic_edge ) {
+				if ( ! empty( $topic_edge['node']['name'] ) ) {
+					$topics[] = sanitize_text_field( $topic_edge['node']['name'] );
+				}
+			}
+		}
+
+		$category = '';
+		if ( ! empty( $meetup_event['group']['topicCategory']['name'] ) ) {
+			$category = sanitize_text_field( $meetup_event['group']['topicCategory']['name'] );
+		}
+
 		$xt_event = array(
 			'origin'          => 'meetup',
 			'ID'              => $event_id,
@@ -232,6 +246,8 @@ class Import_Meetup_Events_Meetup {
 			'is_series'       => $is_series,
 			'maxTickets'      => isset( $meetup_event['maxTickets'] ) ? $meetup_event['maxTickets'] : '',
 			'guestLimit'      => $guest_limit,
+			'category'        => $category,
+			'topics'          => $topics,
 		);
 
 		if ( array_key_exists( 'group', $meetup_event ) ) {

@@ -16,6 +16,9 @@ class Import_Meetup_Events_IME {
 	// Event Taxonomy
 	protected $taxonomy;
 
+	// Event Tag Taxonomy
+	protected $tag_taxonomy;
+
 	// Event Posttype
 	protected $event_posttype;
 
@@ -27,7 +30,8 @@ class Import_Meetup_Events_IME {
 	public function __construct() {
 		global $ime_events;
 		$this->event_posttype = 'meetup_events';
-		$this->taxonomy = 'meetup_category';
+		$this->taxonomy       = 'meetup_category';
+		$this->tag_taxonomy   = 'meetup_tag';
 	}
 
 
@@ -41,6 +45,9 @@ class Import_Meetup_Events_IME {
 	}	
 	public function get_taxonomy(){
 		return $this->taxonomy;
+	}
+	public function get_tag_taxonomy(){
+		return $this->tag_taxonomy;
 	}
 
 	/**
@@ -123,17 +130,50 @@ class Import_Meetup_Events_IME {
 			//Event ID
 			update_post_meta( $inserted_event_id, 'ime_event_id', $centralize_array['ID'] );
 
-			// Asign event category.
+			$meetup_options  = get_option( IME_OPTIONS, array() );
+			$import_category = isset( $meetup_options['import_category'] ) ? $meetup_options['import_category'] : 'no';
+			$import_tags     = isset( $meetup_options['import_tags'] ) ? $meetup_options['import_tags'] : 'no';
+
+			// Assign event category.
 			$ime_cats = isset( $event_args['event_cats'] ) ? $event_args['event_cats'] : array();
+
+			// Automatically import and assign Meetup group category if enabled.
+			if ( 'yes' === $import_category && ! empty( $centralize_array['category'] ) ) {
+				$auto_cat_id = $ime_events->common->ime_check_category_exists( $centralize_array['category'], $this->taxonomy );
+				if ( ! empty( $auto_cat_id ) ) {
+					$ime_cats[] = (int) $auto_cat_id;
+				}
+			}
+
 			if ( ! empty( $ime_cats ) ) {
 				foreach ( $ime_cats as $ime_catk => $ime_catv ) {
 					$ime_cats[ $ime_catk ] = (int) $ime_catv;
 				}
+				$ime_cats = array_values( array_unique( $ime_cats ) );
 			}
 			if ( ! empty( $ime_cats ) ) {
 				if (!($is_exitsing_event && ! $ime_events->common->ime_is_updatable('category') )) {
 					wp_set_object_terms( $inserted_event_id, $ime_cats, $this->taxonomy );
 				}
+			}
+
+			// Assign event tags / topics.
+			$ime_tags = isset( $event_args['event_tags'] ) ? $event_args['event_tags'] : array();
+			if ( ! empty( $ime_tags ) ) {
+				foreach ( $ime_tags as $ime_tagk => $ime_tagv ) {
+					$ime_tags[ $ime_tagk ] = (int) $ime_tagv;
+				}
+			}
+
+			// Automatically import Meetup event topics as tags if enabled.
+			if ( 'yes' === $import_tags && ! empty( $centralize_array['topics'] ) ) {
+				if ( ! ( $is_exitsing_event && ! $ime_events->common->ime_is_updatable( 'category' ) ) ) {
+					$ime_events->common->ime_assign_topics_as_tags( $inserted_event_id, $centralize_array['topics'], $this->tag_taxonomy, true );
+				}
+			}
+
+			if ( ! empty( $ime_tags ) ) {
+				wp_set_object_terms( $inserted_event_id, $ime_tags, $this->tag_taxonomy, true );
 			}
 
 			// Assign Featured images

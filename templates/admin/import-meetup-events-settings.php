@@ -242,6 +242,36 @@ if( is_object( $ime_authorized_user ) ){
 
                                     <div class="ime-inner-main-section" >
                                         <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" ><?php esc_attr_e( 'Import and assign event category', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php
+                                                $import_category = isset( $meetup_options['import_category'] ) ? $meetup_options['import_category'] : 'no';
+                                            ?>
+                                            <input type="checkbox" name="meetup[import_category]" value="yes" <?php if ( $import_category == 'yes' ) { echo 'checked="checked"'; } ?> />
+                                            <span class="ime_small">
+                                                <?php esc_attr_e( 'Check to automatically import Meetup group category and assign it to events.', 'import-meetup-events' ); ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" ><?php esc_attr_e( 'Import and assign event tags', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php
+                                                $import_tags = isset( $meetup_options['import_tags'] ) ? $meetup_options['import_tags'] : 'no';
+                                            ?>
+                                            <input type="checkbox" name="meetup[import_tags]" value="yes" <?php if ( $import_tags == 'yes' ) { echo 'checked="checked"'; } ?> />
+                                            <span class="ime_small">
+                                                <?php esc_attr_e( 'Check to automatically import Meetup event keywords (topics) as tags and assign them to events.', 'import-meetup-events' ); ?>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="ime-inner-section-1" >
                                             <span class="ime-title-text" ><?php esc_attr_e( 'Skip Trashed Events', 'import-meetup-events' ); ?></span>
                                         </div>
                                         <div class="ime-inner-section-2" >
