@@ -345,6 +345,34 @@ if( is_object( $ime_authorized_user ) ){
 
                                     <div class="ime-inner-main-section" >
                                         <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" ><?php esc_attr_e( 'Import Event Reviews', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php $import_reviews = isset( $meetup_options['import_event_reviews'] ) ? $meetup_options['import_event_reviews'] : 'no'; ?>
+                                            <input type="checkbox" name="meetup[import_event_reviews]" value="yes" <?php checked( $import_reviews, 'yes' ); if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
+                                            <span class="ime_small">
+                                                <?php esc_attr_e( 'Check to import all Meetup group reviews into a custom table. After the first full import, new reviews are checked every 12 hours.', 'import-meetup-events' ); ?>
+                                            </span>
+                                            <?php do_action( 'ime_render_pro_notice' ); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="ime-inner-section-1" >
+                                            <span class="ime-title-text" ><?php esc_attr_e( 'Display Event Reviews', 'import-meetup-events' ); ?></span>
+                                        </div>
+                                        <div class="ime-inner-section-2" >
+                                            <?php $display_reviews = isset( $meetup_options['display_event_reviews'] ) ? $meetup_options['display_event_reviews'] : 'no'; ?>
+                                            <input type="checkbox" name="meetup[display_event_reviews]" value="yes" <?php checked( $display_reviews, 'yes' ); if ( ! ime_is_pro() ) { echo 'disabled="disabled"'; } ?> />
+                                            <span class="ime_small">
+                                                <?php esc_attr_e( 'Check to display group rating, stars and the review list on the event details page.', 'import-meetup-events' ); ?>
+                                            </span>
+                                            <?php do_action( 'ime_render_pro_notice' ); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="ime-inner-main-section" >
+                                        <div class="ime-inner-section-1" >
                                             <span class="ime-title-text" ><?php esc_attr_e( 'Accent Color', 'import-meetup-events' ); ?></span>
                                         </div>
                                         <div class="ime-inner-section-2" >

@@ -191,3 +191,13 @@ jQuery(document).ready(function($) {
         $slides.eq(index).addClass('active');
     }, 3000);
 });
+
+jQuery(document).ready(function($) {
+    jQuery(document).on('change', '#ime_ical_date_filter', function(){
+        if( jQuery(this).val() == 'range' ){
+            jQuery('.date-range-section').show();
+        } else {
+            jQuery('.date-range-section').hide();
+        }
+    });
+});

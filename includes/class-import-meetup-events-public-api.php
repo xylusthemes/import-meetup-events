@@ -356,6 +356,113 @@ class Import_Meetup_Events_Public_API {
     }
 
     /**
+     * Get Meetup Group feedback (reviews) - persisted query used by meetup.com
+     * (Operation: getGroupFeedbackInfo). Sent with sha256Hash, no query text.
+     *
+     * @param string $group_urlname Group slug.
+     * @param int    $first         Items per page.
+     * @param string $cursor        Pagination cursor (endCursor).
+     * @return array|null
+     */
+    public function getGroupFeedbackInfo( $group_urlname = '', $first = 50, $cursor = null ){
+        $variables = [
+            "groupUrlname" => $group_urlname,
+            "first"        => (int) $first,
+        ];
+        if ( ! empty( $cursor ) ) {
+            $variables["after"] = $cursor;
+        }
+        $payload = [
+            "operationName" => "getGroupFeedbackInfo",
+            "variables"     => $variables,
+            "extensions"    => [
+                "persistedQuery" => [
+                    "version"    => 1,
+                    "sha256Hash" => "ddc5bfb38fcec6927425fdebf0b64c4be00eccf8c39a1356867048323fcd7bce",
+                ],
+            ],
+        ];
+        return $this->graphql_query( $this->api_url, $payload );
+    }
+
+    /**
+     * Get Meetup Group reviews (eventReviews) - fetches actual reviewer details,
+     * ratings, createDate, comments, and event mapping.
+     *
+     * @param string $group_urlname Group slug.
+     * @param int    $first         Items per page (max 20).
+     * @param string $cursor        Pagination cursor (endCursor).
+     * @return array|null
+     */
+    public function getGroupReviews( $group_urlname = '', $first = 20, $cursor = null ){
+        $query = '
+        query getGroupReviews($groupUrlname: String!, $first: Int!, $after: String) {
+            groupByUrlname(urlname: $groupUrlname) {
+              id
+              urlname
+              stats {
+                eventRatings {
+                  average
+                  totalReviews
+                  totalRatings
+                }
+              }
+              eventReviews(first: $first, after: $after) {
+                totalCount
+                pageInfo {
+                  hasNextPage
+                  endCursor
+                }
+                edges {
+                  node {
+                    responseId
+                    member {
+                      id
+                      name
+                      memberPhoto {
+                        id
+                        baseUrl
+                        highResUrl
+                        thumbUrl
+                        standardUrl
+                      }
+                    }
+                    event {
+                      id
+                      title
+                      eventUrl
+                    }
+                    rating
+                    createDate
+                    comment
+                    freeTextFeedback
+                    details {
+                      membersLiked {
+                        topic
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        }';
+
+        $variables = [
+            "groupUrlname" => $group_urlname,
+            "first"        => (int) $first,
+        ];
+        if ( ! empty( $cursor ) ) {
+            $variables["after"] = $cursor;
+        }
+        $payload = [
+            "operationName" => "getGroupReviews",
+            "query"         => $query,
+            "variables"     => $variables,
+        ];
+        return $this->graphql_query( $this->api_url, $payload );
+    }
+
+    /**
      * Get Meetup Authorized User Data
      * 
      * @return array User data
