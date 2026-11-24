@@ -97,6 +97,15 @@ class Import_Meetup_Events_API {
                                 highResUrl
                             }
                         }
+                        topics {
+                            edges {
+                                node {
+                                    id
+                                    name
+                                    urlkey
+                                }
+                            }
+                        }
                         group{
                             id
                             name
@@ -106,6 +115,13 @@ class Import_Meetup_Events_API {
                             keyGroupPhoto {
                                 id
                                 standardUrl
+                            }
+                            topicCategory {
+                                id
+                                name
+                                urlkey
+                                color
+                                imageUrl
                             }
                         }
                     }
@@ -174,6 +190,15 @@ class Import_Meetup_Events_API {
                                         highResUrl
                                     }
                                 }
+                                topics {
+                                    edges {
+                                        node {
+                                            id
+                                            name
+                                            urlkey
+                                        }
+                                    }
+                                }
                                 group{
                                     id
                                     name
@@ -183,6 +208,13 @@ class Import_Meetup_Events_API {
                                     keyGroupPhoto {
                                         id
                                         standardUrl
+                                    }
+                                    topicCategory {
+                                        id
+                                        name
+                                        urlkey
+                                        color
+                                        imageUrl
                                     }
                                 }
                             }
@@ -254,6 +286,15 @@ class Import_Meetup_Events_API {
                                         highResUrl
                                     }
                                 }
+                                topics {
+                                    edges {
+                                        node {
+                                            id
+                                            name
+                                            urlkey
+                                        }
+                                    }
+                                }
                                 group{
                                     id
                                     name
@@ -263,6 +304,13 @@ class Import_Meetup_Events_API {
                                     keyGroupPhoto {
                                         id
                                         standardUrl
+                                    }
+                                    topicCategory {
+                                        id
+                                        name
+                                        urlkey
+                                        color
+                                        imageUrl
                                     }
                                 }
                             }
