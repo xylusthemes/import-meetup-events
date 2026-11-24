@@ -580,6 +580,9 @@ class Import_Meetup_Events_Cpt {
 		if ( is_singular( $this->event_posttype ) ) {
 			$event_details = $this->meetup_events_get_event_meta( get_the_ID() );
 			$content = $content . $event_details;
+			if ( ! empty( $GLOBALS['ime_events']->reviews ) && method_exists( $GLOBALS['ime_events']->reviews, 'render_event_reviews' ) ) {
+				$content = $content . $GLOBALS['ime_events']->reviews->render_event_reviews( get_the_ID() );
+			}
 		}
 		return $content;
 	}

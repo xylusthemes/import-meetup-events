@@ -127,6 +127,11 @@ class Import_Meetup_Events_Meetup {
 					}
 				}
 
+			// Meetup group reviews sync (12h transient controlled, Pro feature).
+			if ( ! empty( $ime_events->reviews ) && method_exists( $ime_events->reviews, 'sync_group_reviews' ) ) {
+				$ime_events->reviews->sync_group_reviews( $meetup_group_id );
+			}
+
 			return $imported_events;
 
 		}elseif( $import_by === 'event_id' ) {
@@ -137,6 +142,9 @@ class Import_Meetup_Events_Meetup {
 						$meetup_event      = $meetup_event_data['data']['event'];				
 						if( !empty( $meetup_event ) ){
 							$imported_events[] = $this->save_meetup_event( $meetup_event, $event_data );	
+							if ( ! empty( $meetup_event['group']['urlname'] ) && ! empty( $ime_events->reviews ) && method_exists( $ime_events->reviews, 'sync_group_reviews' ) ) {
+								$ime_events->reviews->sync_group_reviews( $meetup_event['group']['urlname'] );
+							}
 						}else{
 							$ime_errors[] = __( 'Please insert valid Meetup Event ID.', 'import-meetup-events');
 							return;
