@@ -251,6 +251,7 @@ class Import_Meetup_Events_Admin {
 		$submenu['meetup_import'][] = array( __( 'Schedule Import', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=scheduled' ) );
 		$submenu['meetup_import'][] = array( __( 'Import History', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=history' ) );
 		$submenu['meetup_import'][] = array( __( 'Settings', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=settings' ));
+		$submenu['meetup_import'][] = array( __( 'iCal Export', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=ical_export' ));
 		$submenu['meetup_import'][] = array( __( 'Shortcodes', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=shortcodes' ));
 		$submenu['meetup_import'][] = array( __( 'Support', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=support' ));
 		$submenu['meetup_import'][] = array( __( 'Wizard', 'import-meetup-events' ), 'manage_options', admin_url( 'admin.php?page=meetup_import&tab=ime_setup_wizard' ));
@@ -373,6 +374,8 @@ class Import_Meetup_Events_Admin {
 			$page_title = 'Meetup Import';
 		}elseif( $active_tab == 'scheduled' ){
 			$page_title = 'Scheduled Import';
+		}elseif( $active_tab == 'ical_export' ){
+			$page_title = 'iCal Export';
 		}else{
 			$page_title = $gettab;
 		}
@@ -412,6 +415,9 @@ class Import_Meetup_Events_Admin {
 														<a href="?page=meetup_import&tab=settings" class="var-tab <?php echo $active_tab == 'settings' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
 															<span class="tab-label"><?php esc_attr_e( 'Setting', 'import-meetup-events' ); ?></span>
 														</a>
+														<a href="?page=meetup_import&tab=ical_export" class="var-tab <?php echo $active_tab == 'ical_export' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
+															<span class="tab-label"><?php esc_attr_e( 'iCal Export', 'import-meetup-events' ); ?></span>
+														</a>
 														<a href="?page=meetup_import&tab=shortcodes" class="var-tab <?php echo $active_tab == 'shortcodes' ? 'var-tab--active' : 'var-tab--inactive'; ?>">
 															<span class="tab-label"><?php esc_attr_e( 'Shortcodes', 'import-meetup-events' ); ?></span>
 														</a>
@@ -429,6 +435,8 @@ class Import_Meetup_Events_Admin {
 											require_once IME_PLUGIN_DIR . '/templates/admin/meetup-import-events.php';
 										} elseif ( $active_tab == 'settings' ) {
 											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-settings.php';
+										} elseif ( 'ical_export' === $active_tab ) {
+											require_once IME_PLUGIN_DIR . '/templates/admin/import-meetup-events-ical-export.php';
 										} elseif ( $active_tab == 'scheduled' ) {
 											if( ime_is_pro() ){
 												require_once IMEPRO_PLUGIN_DIR . '/templates/scheduled-import-events.php';
@@ -688,7 +696,7 @@ class Import_Meetup_Events_Admin {
 
 		 // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if( !empty( $_GET['page'] ) && esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) == 'meetup_import' ){ 
-			$allowed_tabs = array( 'dashboard', 'meetup', 'scheduled', 'history', 'settings', 'shortcodes', 'support' );
+			$allowed_tabs = array( 'dashboard', 'meetup', 'scheduled', 'history', 'settings', 'ical_export', 'shortcodes', 'support' );
 			$tab = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) : 'meetup';  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if( in_array( $tab, $allowed_tabs ) ){
 				$submenu_file = admin_url( 'admin.php?page=meetup_import&tab='.$tab );
